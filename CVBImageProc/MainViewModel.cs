@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.MVVM;
+using CVBImageProc.Processing;
 using Microsoft.Win32;
 using Stemmer.Cvb;
 using Stemmer.Cvb.Utilities;
@@ -69,6 +70,8 @@ namespace CVBImageProc
     }
     private Image _outputImage;
 
+    public ProcessingViewModel ProcessingVM { get; }
+
     #endregion Properties
 
     #region Construction
@@ -81,6 +84,7 @@ namespace CVBImageProc
       OpenImageCommand = new DelegateCommand((o) => OpenImage());
       SaveImageCommand = new DelegateCommand((o) => SaveImage());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
+      ProcessingVM = new ProcessingViewModel();
     }
 
     #endregion Construction

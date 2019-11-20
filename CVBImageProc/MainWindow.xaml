@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CVBImageProc"
+        xmlns:proc="clr-namespace:CVBImageProc.Processing"
         xmlns:cvb="http://www.commonvisionblox.com/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -45,9 +46,13 @@
       <Button Grid.Row="2" Content="Open Image" Command="{Binding OpenImageCommand}" HorizontalAlignment="Center"/>
     </Grid>
 
-    <Grid Grid.Column="2">
-      
-    </Grid>
+    <ContentControl Grid.Column="2" Content="{Binding ProcessingVM}">
+      <ContentControl.Resources>
+        <DataTemplate DataType="{x:Type proc:ProcessingViewModel}">
+          <proc:ProcessingView/>
+        </DataTemplate>
+      </ContentControl.Resources>
+    </ContentControl>
 
     <Grid Grid.Column="4">
       <Grid.RowDefinitions>

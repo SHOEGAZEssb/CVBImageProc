@@ -65,6 +65,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,8 +80,21 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Processing\ProcessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Processing\Binarise.cs" />
+    <Compile Include="Processing\BinariseViewModel.cs" />
+    <Compile Include="Processing\IProcessorViewModel.cs" />
+    <Compile Include="Processing\IProcessor.cs" />
+    <Compile Include="Processing\ProcessingView.xaml.cs">
+      <DependentUpon>ProcessingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\ProcessingViewModel.cs" />
+    <Compile Include="Processing\ProcessorChain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,8 +120,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Processing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

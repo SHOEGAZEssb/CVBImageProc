@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="CVBImageProc.Processing.ProcessingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CVBImageProc.Processing"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="5"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="5"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0" Text="Available Processors:"/>
+
+    <Grid Grid.Row="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="5"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      
+      <ComboBox Grid.Column="0" ItemsSource="{Binding AvailableProcessors}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProcessorType}"/>
+      <Button Grid.Column="2" MinWidth="20" Content="+" Command="{Binding AddProcessorCommand}"/>
+    </Grid>
+
+    <Separator Grid.Row="3"/>
+
+    <Grid Grid.Row="4">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="5"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+
+      <ListBox Grid.Column="0" ItemsSource="{Binding Processors}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProcessor}"/>
+      <Button Grid.Column="2" MinWidth="20" Content="X" VerticalAlignment="Top" Command="{Binding RemoveProcessorCommand}"/>
+    </Grid>
+  </Grid>
+</UserControl>
