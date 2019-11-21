@@ -27,6 +27,11 @@ namespace CVBImageProc
     public ICommand SaveImageCommand { get; }
 
     /// <summary>
+    /// Command for processing the image.
+    /// </summary>
+    public ICommand ProcessCommand { get; }
+
+    /// <summary>
     /// Command for using the output image as input
     /// image.
     /// </summary>
@@ -83,6 +88,7 @@ namespace CVBImageProc
     {
       OpenImageCommand = new DelegateCommand((o) => OpenImage());
       SaveImageCommand = new DelegateCommand((o) => SaveImage());
+      ProcessCommand = new DelegateCommand((o) => Process());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
       ProcessingVM = new ProcessingViewModel();
     }
@@ -135,6 +141,25 @@ namespace CVBImageProc
         {
           MessageBox.Show($"Error saving image: {ex.Message}");
         }
+      }
+    }
+
+    /// <summary>
+    /// Runs the <see cref="InputImage"/> through
+    /// the processors.
+    /// </summary>
+    private void Process()
+    {
+      if (InputImage == null)
+        return;
+
+      try
+      {
+        OutputImage = ProcessingVM.Process(InputImage);
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show($"Error processing image: {ex.Message}");
       }
     }
 

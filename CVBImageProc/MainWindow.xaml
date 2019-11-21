@@ -22,7 +22,7 @@
   <Window.DataContext>
     <local:MainViewModel />
   </Window.DataContext>
-  
+
   <Grid Margin="5">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="2*"/>
@@ -42,17 +42,37 @@
       <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
         <cvb:Display Image="{Binding InputImage}"/>
       </Border>
-      
+
       <Button Grid.Row="2" Content="Open Image" Command="{Binding OpenImageCommand}" HorizontalAlignment="Center"/>
     </Grid>
 
-    <ContentControl Grid.Column="2" Content="{Binding ProcessingVM}">
-      <ContentControl.Resources>
-        <DataTemplate DataType="{x:Type proc:ProcessingViewModel}">
-          <proc:ProcessingView/>
-        </DataTemplate>
-      </ContentControl.Resources>
-    </ContentControl>
+    <Grid Grid.Column="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="5"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      
+      <ContentControl Grid.Row="0" Content="{Binding ProcessingVM}">
+        <ContentControl.Resources>
+          <DataTemplate DataType="{x:Type proc:ProcessingViewModel}">
+            <proc:ProcessingView/>
+          </DataTemplate>
+        </ContentControl.Resources>
+      </ContentControl>
+
+      <Button Grid.Row="4" Content="Process" Command="{Binding ProcessCommand}">
+        <Button.Style>
+          <Style TargetType="Button">
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding InputImage}" Value="{x:Null}">
+                <Setter Property="IsEnabled" Value="False"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Button.Style>
+      </Button>
+    </Grid>
 
     <Grid Grid.Column="4">
       <Grid.RowDefinitions>

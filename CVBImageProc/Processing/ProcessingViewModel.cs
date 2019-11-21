@@ -97,7 +97,7 @@ namespace CVBImageProc.Processing
       _processorChain = new ProcessorChain();
       Processors = new ObservableCollection<IProcessorViewModel>();
       AvailableProcessors = System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
-                 .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor))).Select(i => new TypeViewModel(i));
+                 .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor))).Select(i => new TypeViewModel(i)).ToArray();
       SelectedProcessorType = AvailableProcessors.FirstOrDefault();
     }
 

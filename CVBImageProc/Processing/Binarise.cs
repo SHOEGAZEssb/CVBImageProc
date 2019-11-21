@@ -20,7 +20,18 @@ namespace CVBImageProc.Processing
     /// <returns>Processed image.</returns>
     public Image Process(Image inputImage)
     {
-      throw new NotImplementedException();
+      if (inputImage == null)
+        throw new ArgumentNullException(nameof(inputImage));
+
+      if (inputImage.Planes.Count == 1)
+        return BinariseMono(inputImage);
+      else
+        return inputImage;
+    }
+
+    private Image BinariseMono(Image inputImage)
+    {
+      return inputImage;
     }
   }
 }
