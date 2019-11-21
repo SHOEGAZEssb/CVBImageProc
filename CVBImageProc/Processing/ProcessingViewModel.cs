@@ -85,6 +85,8 @@ namespace CVBImageProc.Processing
         {
           _selectedProcessor = value;
           NotifyOfPropertyChange();
+          (MoveProcessorUpCommand as DelegateCommand).RaiseCanExecuteChanged();
+          (MoveProcessorDownCommand as DelegateCommand).RaiseCanExecuteChanged();
         }
       }
     }
@@ -110,8 +112,11 @@ namespace CVBImageProc.Processing
     {
       AddProcessorCommand = new DelegateCommand((o) => AddSelectedProcessorType());
       RemoveProcessorCommand = new DelegateCommand((o) => RemoveSelectedProcessor());
-      MoveProcessorUpCommand = new DelegateCommand((o) => MoveSelectedProcessorUp());
-      MoveProcessorDownCommand = new DelegateCommand((o) => MoveSelectedProcessorDown());
+      MoveProcessorUpCommand = new DelegateCommand((o) => MoveSelectedProcessorUp(), (o) => SelectedProcessor != null && Processors.Count > 1
+                                                                                            && Processors.IndexOf(SelectedProcessor) > 0);
+      MoveProcessorDownCommand = new DelegateCommand((o) => MoveSelectedProcessorDown(), (o) => SelectedProcessor != null && Processors.Count > 1
+                                                                                                && Processors.IndexOf(SelectedProcessor) >= 0 
+                                                                                                && Processors.IndexOf(SelectedProcessor) != Processors.Count - 1);
 
       _processorChain = new ProcessorChain();
       Processors = new ObservableCollection<IProcessorViewModel>();
@@ -185,7 +190,7 @@ namespace CVBImageProc.Processing
 
     private void MoveSelectedProcessorUp()
     {
-      if (SelectedProcessor == null || Processors.Count == 1 || Processors.IndexOf(SelectedProcessor) <= 0)
+      if (!MoveProcessorUpCommand.CanExecute(null))
         return;
 
       int index = Processors.IndexOf(SelectedProcessor);
@@ -199,7 +204,7 @@ namespace CVBImageProc.Processing
 
     private void MoveSelectedProcessorDown()
     {
-      if (SelectedProcessor == null || Processors.Count == 1 || Processors.IndexOf(SelectedProcessor) < 0 || Processors.IndexOf(SelectedProcessor) == Processors.Count - 1)
+      if (!MoveProcessorDownCommand.CanExecute(null))
         return;
 
       int index = Processors.IndexOf(SelectedProcessor);
@@ -224,6 +229,8 @@ namespace CVBImageProc.Processing
       }
 
       ProcessingRequested?.Invoke(this, EventArgs.Empty);
+      (MoveProcessorUpCommand as DelegateCommand).RaiseCanExecuteChanged();
+      (MoveProcessorDownCommand as DelegateCommand).RaiseCanExecuteChanged();
     }
 
     private void SettingsProc_SettingsChanged(object sender, EventArgs e)
