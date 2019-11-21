@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Binarise"/> processor.
   /// </summary>
-  class BinariseViewModel : ViewModelBase, IProcessorViewModel
+  class BinariseViewModel : ViewModelBase, IProcessorViewModel, IHasSettings
   {
     #region IProcessorViewModel Implementation
 
@@ -16,6 +16,34 @@ namespace CVBImageProc.Processing
     public string Name => _processor.Name;
 
     #endregion IProcessorViewModel Implementation
+
+    #region IHasSettings Implementation
+
+    public event EventHandler SettingsChanged;
+
+    #endregion IHasSettings Implementation
+
+    #region Properties
+
+    public int Threshold
+    {
+      get => _processor.Threshold;
+      set
+      {
+        if(Threshold != value)
+        {
+          _processor.Threshold = value;
+          NotifyOfPropertyChange();
+          SettingsChanged?.Invoke(this, EventArgs.Empty);
+        }
+      }
+    }
+
+    public int MaxThreshold => Binarise.MAXTHRESHOLD;
+
+    public int MinThreshold => Binarise.MINTHRESHOLD;
+
+    #endregion Properties
 
     #region Member
 

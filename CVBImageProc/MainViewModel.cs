@@ -53,6 +53,7 @@ namespace CVBImageProc
         {
           _inputImage = value;
           NotifyOfPropertyChange();
+          Process();
         }
       }
     }
@@ -91,6 +92,7 @@ namespace CVBImageProc
       ProcessCommand = new DelegateCommand((o) => Process());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
       ProcessingVM = new ProcessingViewModel();
+      ProcessingVM.ProcessingRequested += ProcessingVM_ProcessingRequested;
     }
 
     #endregion Construction
@@ -169,6 +171,11 @@ namespace CVBImageProc
         return;
 
       InputImage = OutputImage;
+    }
+
+    private void ProcessingVM_ProcessingRequested(object sender, EventArgs e)
+    {
+      Process();
     }
   }
 }

@@ -3,6 +3,7 @@ using Stemmer.Cvb;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 
@@ -28,6 +29,12 @@ namespace CVBImageProc.Processing
     #endregion Commands
 
     #region Properties
+
+    /// <summary>
+    /// Event that is fired when processing should
+    /// be executed.
+    /// </summary>
+    public event EventHandler ProcessingRequested;
 
     /// <summary>
     /// List of available processors.
@@ -96,6 +103,8 @@ namespace CVBImageProc.Processing
 
       _processorChain = new ProcessorChain();
       Processors = new ObservableCollection<IProcessorViewModel>();
+      Processors.CollectionChanged += Processors_CollectionChanged;
+
       AvailableProcessors = System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
                  .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor))).Select(i => new TypeViewModel(i)).ToArray();
       SelectedProcessorType = AvailableProcessors.FirstOrDefault();
@@ -128,6 +137,7 @@ namespace CVBImageProc.Processing
 
       // add to vm
       Processors.Add(CreateProcessorViewModel(_processorChain.Processors.Last()));
+      SelectedProcessor = Processors.LastOrDefault();
     }
 
     /// <summary>
@@ -159,6 +169,27 @@ namespace CVBImageProc.Processing
         default:
           throw new ArgumentException($"Unknown processor type: {processor.GetType()}", nameof(processor));
       }
+    }
+
+    private void Processors_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+      if(e.Action == NotifyCollectionChangedAction.Add)
+      {
+        foreach(var settingsProc in e.NewItems.OfType<IHasSettings>())
+          settingsProc.SettingsChanged += SettingsProc_SettingsChanged;
+      }
+      else if(e.Action == NotifyCollectionChangedAction.Remove)
+      {
+        foreach (var settingsProc in e.OldItems.OfType<IHasSettings>())
+          settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
+      }
+
+      ProcessingRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void SettingsProc_SettingsChanged(object sender, EventArgs e)
+    {
+      ProcessingRequested?.Invoke(this, EventArgs.Empty);
     }
   }
 }
