@@ -95,6 +95,9 @@ namespace CVBImageProc.Processing
       var dataG = inputImage.Planes[1].GetLinearAccess();
       var dataB = inputImage.Planes[2].GetLinearAccess();
 
+      var newImage = new Image(inputImage.Size, 1, inputImage.Planes[0].DataType);
+      var newImageData = newImage.Planes[0].GetLinearAccess();
+
       unsafe
       {
         for (int y = 0; y < inputImage.Height; y++)
@@ -102,25 +105,25 @@ namespace CVBImageProc.Processing
           byte* pLineR = (byte*)(dataR.BasePtr + (int)dataR.YInc * y);
           byte* pLineG = (byte*)(dataG.BasePtr + (int)dataG.YInc * y);
           byte* pLineB = (byte*)(dataB.BasePtr + (int)dataB.YInc * y);
+          byte* pLineNew = (byte*)(newImageData.BasePtr + (int)newImageData.YInc * y);
 
           for (int x = 0; x < inputImage.Width; x++)
           {
             byte* pPixelR = pLineR + (int)dataR.XInc * x;
             byte* pPixelG = pLineR + (int)dataG.XInc * x;
             byte* pPixelB = pLineR + (int)dataB.XInc * x;
+            byte* pPixelNew = pLineNew + (int)newImageData.XInc * x;
 
             byte value = 0;
             if (*pPixelR * FACTORRED + *pPixelG * FACTORGREEN + *pPixelB * FACTORBLUE >= Threshold)
               value = 255;
 
-            *pPixelR = value;
-            *pPixelG = value;
-            *pPixelB = value;
+            *pPixelNew = value;
           }
         }
       }
 
-      return inputImage;
+      return newImage;
     }
   }
 }

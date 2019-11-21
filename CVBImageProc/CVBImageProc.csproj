@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="Processing\Binarise.cs" />
     <Compile Include="Processing\BinariseViewModel.cs" />
+    <Compile Include="Processing\IHasSettings.cs" />
     <Compile Include="Processing\IProcessorViewModel.cs" />
     <Compile Include="Processing\IProcessor.cs" />
     <Compile Include="Processing\ProcessingView.xaml.cs">
