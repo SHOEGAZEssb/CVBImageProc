@@ -6,17 +6,8 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Binarise"/> processor.
   /// </summary>
-  class BinariseViewModel : ViewModelBase, IProcessorViewModel, IHasSettings
+  class BinariseViewModel : ProcessorViewModel, IHasSettings
   {
-    #region IProcessorViewModel Implementation
-
-    /// <summary>
-    /// Name of the processor.
-    /// </summary>
-    public string Name => _processor.Name;
-
-    #endregion IProcessorViewModel Implementation
-
     #region IHasSettings Implementation
 
     public event EventHandler SettingsChanged;
@@ -62,8 +53,9 @@ namespace CVBImageProc.Processing
     /// <param name="processor">The binarise processor.</param>
     /// <exception cref="ArgumentNullException">When <paramref name="processor"/> is null.</exception>
     public BinariseViewModel(Binarise processor)
+      : base(processor)
     {
-      _processor = processor ?? throw new ArgumentNullException(nameof(processor));
+      _processor = processor;
     }
 
     #endregion Construction

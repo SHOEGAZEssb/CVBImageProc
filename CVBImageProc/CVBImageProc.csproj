@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Processing\BinariseViewModel.cs" />
     <Compile Include="Processing\IHasSettings.cs" />
+    <Compile Include="Processing\Invert.cs" />
     <Compile Include="Processing\IProcessorViewModel.cs" />
     <Compile Include="Processing\IProcessor.cs" />
     <Compile Include="Processing\ProcessingView.xaml.cs">
@@ -105,6 +106,7 @@
     </Compile>
     <Compile Include="Processing\ProcessingViewModel.cs" />
     <Compile Include="Processing\ProcessorChain.cs" />
+    <Compile Include="Processing\ProcessorViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

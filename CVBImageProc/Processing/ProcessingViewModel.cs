@@ -167,7 +167,7 @@ namespace CVBImageProc.Processing
         case Binarise b:
           return new BinariseViewModel(b);
         default:
-          throw new ArgumentException($"Unknown processor type: {processor.GetType()}", nameof(processor));
+          return new ProcessorViewModel(processor);
       }
     }
 
