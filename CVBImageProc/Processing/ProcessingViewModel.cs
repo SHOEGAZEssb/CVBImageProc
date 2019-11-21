@@ -26,6 +26,16 @@ namespace CVBImageProc.Processing
     /// </summary>
     public ICommand RemoveProcessorCommand { get; }
 
+    /// <summary>
+    /// Command for moving a processor up in the chain.
+    /// </summary>
+    public ICommand MoveProcessorUpCommand { get; }
+
+    /// <summary>
+    /// Command for moving a processor down in the chain.
+    /// </summary>
+    public ICommand MoveProcessorDownCommand { get; }
+
     #endregion Commands
 
     #region Properties
@@ -100,6 +110,8 @@ namespace CVBImageProc.Processing
     {
       AddProcessorCommand = new DelegateCommand((o) => AddSelectedProcessorType());
       RemoveProcessorCommand = new DelegateCommand((o) => RemoveSelectedProcessor());
+      MoveProcessorUpCommand = new DelegateCommand((o) => MoveSelectedProcessorUp());
+      MoveProcessorDownCommand = new DelegateCommand((o) => MoveSelectedProcessorDown());
 
       _processorChain = new ProcessorChain();
       Processors = new ObservableCollection<IProcessorViewModel>();
@@ -169,6 +181,33 @@ namespace CVBImageProc.Processing
         default:
           return new ProcessorViewModel(processor);
       }
+    }
+
+    private void MoveSelectedProcessorUp()
+    {
+      if (SelectedProcessor == null || Processors.Count == 1 || Processors.IndexOf(SelectedProcessor) <= 0)
+        return;
+
+      int index = Processors.IndexOf(SelectedProcessor);
+      _processorChain.Processors.Reverse(index - 1, 1);
+
+      var tmp = Processors[index];
+      Processors[index] = Processors[index - 1];
+      Processors[index - 1] = tmp;
+      SelectedProcessor = tmp;
+    }
+
+    private void MoveSelectedProcessorDown()
+    {
+      if (SelectedProcessor == null || Processors.Count == 1 || Processors.IndexOf(SelectedProcessor) < 0 || Processors.IndexOf(SelectedProcessor) == Processors.Count - 1)
+        return;
+
+      int index = Processors.IndexOf(SelectedProcessor);
+      _processorChain.Processors.Reverse(index, 1);
+      var tmp = Processors[index];
+      Processors[index] = Processors[index + 1];
+      Processors[index + 1] = tmp;
+      SelectedProcessor = tmp;
     }
 
     private void Processors_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -11,7 +11,7 @@
   <UserControl.Resources>
     <conv:ImplementsTypeConverter x:Key="implementsTypeConv"/>
   </UserControl.Resources>
-  
+
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -31,7 +31,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
-      
+
       <ComboBox Grid.Column="0" ItemsSource="{Binding AvailableProcessors}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProcessorType}"/>
       <Button Grid.Column="2" MinWidth="20" Content="+" Command="{Binding AddProcessorCommand}"/>
     </Grid>
@@ -46,17 +46,36 @@
       </Grid.ColumnDefinitions>
 
       <ListBox Grid.Column="0" ItemsSource="{Binding Processors}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProcessor}"/>
-      <Button Grid.Column="2" MinWidth="20" Content="X" VerticalAlignment="Top" Command="{Binding RemoveProcessorCommand}">
-        <Button.Style>
-          <Style TargetType="Button">
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding SelectedProcessor}" Value="{x:Null}">
-                <Setter Property="IsEnabled" Value="False"/>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </Button.Style>
-      </Button>
+
+      <Grid Grid.Column="2">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Button Grid.Row="0" MinWidth="20" Content="X" Command="{Binding RemoveProcessorCommand}">
+          <Button.Style>
+            <Style TargetType="Button">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedProcessor}" Value="{x:Null}">
+                  <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Button.Style>
+        </Button>
+
+        <Button Grid.Row="2" MinWidth="20" Content="^" Command="{Binding MoveProcessorUpCommand}">
+          
+        </Button>
+
+        <Button Grid.Row="4" MinWidth="20" Content="v" Command="{Binding MoveProcessorDownCommand}">
+          
+        </Button>
+      </Grid>
     </Grid>
 
     <GroupBox Grid.Row="6" Header="Processor Settings">
@@ -68,11 +87,11 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding SelectedProcessor, Converter={StaticResource implementsTypeConv}, ConverterParameter={x:Type local:IHasSettings}}" Value="False">
               <Setter Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>             
+            </DataTrigger>
           </Style.Triggers>
         </Style>
       </GroupBox.Style>
-      
+
       <ContentControl Content="{Binding SelectedProcessor}">
         <ContentControl.Resources>
           <DataTemplate DataType="{x:Type local:BinariseViewModel}">
