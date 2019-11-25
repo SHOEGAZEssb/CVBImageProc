@@ -53,6 +53,7 @@ namespace CVBImageProc
         {
           _inputImage = value;
           NotifyOfPropertyChange();
+          ProcessingVM.UpdateImageInfo(InputImage);
           Process();
         }
       }
@@ -92,6 +93,7 @@ namespace CVBImageProc
       ProcessCommand = new DelegateCommand((o) => Process());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
       ProcessingVM = new ProcessingViewModel();
+      ProcessingVM.UpdateImageInfoRequested += ProcessingVM_UpdateImageInfoRequested;
       ProcessingVM.ProcessingRequested += ProcessingVM_ProcessingRequested;
     }
 
@@ -171,6 +173,18 @@ namespace CVBImageProc
         return;
 
       InputImage = OutputImage;
+    }
+
+    /// <summary>
+    /// Updates the image info of the <see cref="ProcessingVM"/>
+    /// when it requests it.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Ignored.</param>
+    private void ProcessingVM_UpdateImageInfoRequested(object sender, EventArgs e)
+    {
+      if (InputImage != null)
+        ProcessingVM.UpdateImageInfo(InputImage);
     }
 
     private void ProcessingVM_ProcessingRequested(object sender, EventArgs e)

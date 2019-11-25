@@ -86,6 +86,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Processing\GainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\PlaneGainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Processing\ProcessingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,10 +105,20 @@
       <DependentUpon>BinariseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\BinariseViewModel.cs" />
+    <Compile Include="Processing\Gain.cs" />
+    <Compile Include="Processing\GainView.xaml.cs">
+      <DependentUpon>GainView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Processing\IHasSettings.cs" />
+    <Compile Include="Processing\INeedImageInfo.cs" />
     <Compile Include="Processing\Invert.cs" />
+    <Compile Include="Processing\GainViewModel.cs" />
     <Compile Include="Processing\IProcessorViewModel.cs" />
     <Compile Include="Processing\IProcessor.cs" />
+    <Compile Include="Processing\PlaneGainView.xaml.cs">
+      <DependentUpon>PlaneGainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\PlaneGainViewModel.cs" />
     <Compile Include="Processing\ProcessingView.xaml.cs">
       <DependentUpon>ProcessingView.xaml</DependentUpon>
     </Compile>

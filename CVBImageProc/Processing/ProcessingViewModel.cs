@@ -12,8 +12,22 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the image processing.
   /// </summary>
-  class ProcessingViewModel : ViewModelBase
+  class ProcessingViewModel : ViewModelBase, INeedImageInfo
   {
+    #region INeedImageInfo Implementation
+
+    /// <summary>
+    /// Updates the image information.
+    /// </summary>
+    /// <param name="img">Image to pull info from.</param>
+    public void UpdateImageInfo(Image img)
+    {
+      foreach (var proc in Processors.OfType<INeedImageInfo>())
+        proc.UpdateImageInfo(img);
+    }
+
+    #endregion INeedImageInfo Implementation
+
     #region Commands
 
     /// <summary>
@@ -39,6 +53,12 @@ namespace CVBImageProc.Processing
     #endregion Commands
 
     #region Properties
+
+    /// <summary>
+    /// Event that is fired when image info
+    /// should be updated.
+    /// </summary>
+    public event EventHandler UpdateImageInfoRequested;
 
     /// <summary>
     /// Event that is fired when processing should
@@ -183,6 +203,8 @@ namespace CVBImageProc.Processing
       {
         case Binarise b:
           return new BinariseViewModel(b);
+        case Gain g:
+          return new GainViewModel(g);
         default:
           return new ProcessorViewModel(processor);
       }
@@ -221,6 +243,9 @@ namespace CVBImageProc.Processing
       {
         foreach(var settingsProc in e.NewItems.OfType<IHasSettings>())
           settingsProc.SettingsChanged += SettingsProc_SettingsChanged;
+
+        if (e.NewItems.OfType<INeedImageInfo>().Count() != 0)
+          UpdateImageInfoRequested?.Invoke(this, EventArgs.Empty);
       }
       else if(e.Action == NotifyCollectionChangedAction.Remove)
       {

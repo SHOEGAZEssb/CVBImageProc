@@ -68,13 +68,8 @@
           </Button.Style>
         </Button>
 
-        <Button Grid.Row="2" MinWidth="20" Content="^" Command="{Binding MoveProcessorUpCommand}">
-          
-        </Button>
-
-        <Button Grid.Row="4" MinWidth="20" Content="v" Command="{Binding MoveProcessorDownCommand}">
-          
-        </Button>
+        <Button Grid.Row="2" MinWidth="20" Content="^" Command="{Binding MoveProcessorUpCommand}"/>
+        <Button Grid.Row="4" MinWidth="20" Content="v" Command="{Binding MoveProcessorDownCommand}"/>
       </Grid>
     </Grid>
 
@@ -96,6 +91,9 @@
         <ContentControl.Resources>
           <DataTemplate DataType="{x:Type local:BinariseViewModel}">
             <local:BinariseView/>
+          </DataTemplate>
+          <DataTemplate DataType="{x:Type local:GainViewModel}">
+            <local:GainView/>
           </DataTemplate>
         </ContentControl.Resources>
       </ContentControl>
