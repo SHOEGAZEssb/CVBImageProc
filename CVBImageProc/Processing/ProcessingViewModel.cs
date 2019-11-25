@@ -216,7 +216,7 @@ namespace CVBImageProc.Processing
         return;
 
       int index = Processors.IndexOf(SelectedProcessor);
-      _processorChain.Processors.Reverse(index - 1, 1);
+      _processorChain.Processors.Reverse(index - 1, 2);
 
       var tmp = Processors[index];
       Processors[index] = Processors[index - 1];
@@ -230,7 +230,7 @@ namespace CVBImageProc.Processing
         return;
 
       int index = Processors.IndexOf(SelectedProcessor);
-      _processorChain.Processors.Reverse(index, 1);
+      _processorChain.Processors.Reverse(index, 2);
       var tmp = Processors[index];
       Processors[index] = Processors[index + 1];
       Processors[index + 1] = tmp;
@@ -252,7 +252,7 @@ namespace CVBImageProc.Processing
         foreach (var settingsProc in e.OldItems.OfType<IHasSettings>())
           settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
       }
-
+      
       ProcessingRequested?.Invoke(this, EventArgs.Empty);
       (MoveProcessorUpCommand as DelegateCommand).RaiseCanExecuteChanged();
       (MoveProcessorDownCommand as DelegateCommand).RaiseCanExecuteChanged();
