@@ -1,5 +1,4 @@
-﻿using CVBImageProc.Helper;
-using CVBImageProc.MVVM;
+﻿using CVBImageProc.MVVM;
 using CVBImageProc.Processing;
 using Microsoft.Win32;
 using Stemmer.Cvb;
@@ -14,45 +13,8 @@ namespace CVBImageProc
   /// <summary>
   /// ViewModel for MainView.
   /// </summary>
-  class MainViewModel : ViewModelBase, IHaveBusyStatus
+  class MainViewModel : ViewModelBase
   {
-    #region IHaveBusyStatus Implementation
-
-    /// <summary>
-    /// Gets if the object is currently busy.
-    /// </summary>
-    public bool IsBusy
-    {
-      get => _isBusy;
-      private set
-      {
-        if(IsBusy != value)
-        {
-          _isBusy = value;
-          NotifyOfPropertyChange();
-        }
-      }
-    }
-    private bool _isBusy;
-
-    /// <summary>
-    /// Gets the current busy message.
-    /// </summary>
-    public string BusyMessage
-    {
-      get => _busyMessage;
-      private set
-      {
-        if(BusyMessage != value)
-        {
-          _busyMessage = value;
-          NotifyOfPropertyChange();
-        }
-      }
-    }
-    private string _busyMessage;
-
-    #endregion IHaveBusyStatus Implementation
 
     #region Commands
 
@@ -127,7 +89,7 @@ namespace CVBImageProc
       get => _autoProcess;
       set
       {
-        if(AutoProcess != value)
+        if (AutoProcess != value)
         {
           _autoProcess = value;
           NotifyOfPropertyChange();
@@ -141,7 +103,21 @@ namespace CVBImageProc
     /// </summary>
     public ProcessingViewModel ProcessingVM { get; }
 
+    /// <summary>
+    /// ViewModel for the status bar.
+    /// </summary>
+    public StatusBarViewModel StatusBarVM { get; }
+
     #endregion Properties
+
+    #region Member
+
+    /// <summary>
+    /// Task to do the processing.
+    /// </summary>
+    private Task<Image> _processingTask;
+
+    #endregion Member
 
     #region Construction
 
@@ -159,6 +135,7 @@ namespace CVBImageProc
       ProcessingVM = new ProcessingViewModel();
       ProcessingVM.UpdateImageInfoRequested += ProcessingVM_UpdateImageInfoRequested;
       ProcessingVM.ProcessingRequested += ProcessingVM_ProcessingRequested;
+      StatusBarVM = new StatusBarViewModel();
     }
 
     #endregion Construction
@@ -218,27 +195,26 @@ namespace CVBImageProc
     /// </summary>
     private async Task Process()
     {
+      if (_processingTask != null && !_processingTask.IsCompleted)
+        return;
+
+      if (InputImage == null)
+        return;
+
       try
       {
-        IsBusy = true;
-        BusyMessage = "Processing...";
+        StatusBarVM.StatusMessage = "Processing...";
 
-        if (InputImage == null)
-          return;
+        DateTime start = DateTime.Now;
+        _processingTask = ProcessingVM.ProcessAsync(InputImage);
+        OutputImage = await _processingTask;
+        DateTime end = DateTime.Now;
 
-        try
-        {
-          OutputImage = await ProcessingVM.ProcessAsync(InputImage);
-        }
-        catch (Exception ex)
-        {
-          MessageBox.Show($"Error processing image: {ex.Message}");
-        }
+        StatusBarVM.StatusMessage = $"Processing took {(end - start).TotalMilliseconds} ms";
       }
-      finally
+      catch (Exception ex)
       {
-        IsBusy = false;
-        BusyMessage = null;
+        MessageBox.Show($"Error processing image: {ex.Message}");
       }
     }
 
@@ -275,7 +251,7 @@ namespace CVBImageProc
     /// <param name="e">Ignored.</param>
     private async void ProcessingVM_ProcessingRequested(object sender, EventArgs e)
     {
-      if(AutoProcess)
+      if (AutoProcess)
         await Process();
     }
   }

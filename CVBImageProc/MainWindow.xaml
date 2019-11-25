@@ -24,7 +24,12 @@
     <local:MainViewModel />
   </Window.DataContext>
 
-  <xceed:BusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyMessage}">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    
     <Grid Margin="5">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="2*"/>
@@ -101,5 +106,13 @@
               Command="{Binding UseOutputImageAsInputImageCommand}" HorizontalAlignment="Center"/>
       </Grid>
     </Grid>
-  </xceed:BusyIndicator>
+
+    <ContentControl Grid.Row="1" Content="{Binding StatusBarVM}">
+      <ContentControl.Resources>
+        <DataTemplate DataType="{x:Type local:StatusBarViewModel}">
+          <local:StatusBarView/>
+        </DataTemplate>
+      </ContentControl.Resources>
+    </ContentControl>
+  </Grid>
 </Window>
