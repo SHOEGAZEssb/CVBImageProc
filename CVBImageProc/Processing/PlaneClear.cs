@@ -1,12 +1,14 @@
 ﻿using Stemmer.Cvb;
 using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
   /// Processor for clearing planes.
   /// </summary>
+  [DataContract]
   class PlaneClear : IProcessor
   {
     #region IProcessor Implementation
@@ -47,6 +49,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Clear state per plane.
     /// </summary>
+    [DataMember]
     public bool[] Clears { get; set; }
 
     #endregion Properties

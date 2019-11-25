@@ -1,11 +1,13 @@
 ﻿using Stemmer.Cvb;
 using System;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
   /// Inverts an image.
   /// </summary>
+  [DataContract]
   class Invert : IProcessor
   {
     #region IProcessor Implementation

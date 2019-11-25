@@ -1,12 +1,17 @@
 ﻿using CVBImageProc.MVVM;
+using Microsoft.Win32;
 using Stemmer.Cvb;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Xml;
 
 namespace CVBImageProc.Processing
 {
@@ -50,6 +55,16 @@ namespace CVBImageProc.Processing
     /// Command for moving a processor down in the chain.
     /// </summary>
     public ICommand MoveProcessorDownCommand { get; }
+
+    /// <summary>
+    /// Command for saving the processor chain to file.
+    /// </summary>
+    public ICommand SaveProcessorChainCommand { get; }
+
+    /// <summary>
+    /// Command for opening a processor chain from file.
+    /// </summary>
+    public ICommand LoadProcessorChainCommand { get; }
 
     #endregion Commands
 
@@ -120,7 +135,12 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// The processor chain to run through.
     /// </summary>
-    private readonly ProcessorChain _processorChain;
+    private ProcessorChain _processorChain;
+
+    /// <summary>
+    /// Gets the processor types for serialization.
+    /// </summary>
+    private Type[] GetSerializerTypes => AvailableProcessors.Select(p => p.Type).ToArray();
 
     #endregion Member
 
@@ -138,6 +158,8 @@ namespace CVBImageProc.Processing
       MoveProcessorDownCommand = new DelegateCommand((o) => MoveSelectedProcessorDown(), (o) => SelectedProcessor != null && Processors.Count > 1
                                                                                                 && Processors.IndexOf(SelectedProcessor) >= 0 
                                                                                                 && Processors.IndexOf(SelectedProcessor) != Processors.Count - 1);
+      SaveProcessorChainCommand = new DelegateCommand((o) => SaveProcessorChain());
+      LoadProcessorChainCommand = new DelegateCommand((o) => LoadProcessorChain());
 
       _processorChain = new ProcessorChain();
       Processors = new ObservableCollection<IProcessorViewModel>();
@@ -252,6 +274,88 @@ namespace CVBImageProc.Processing
       Processors[index + 1] = tmp;
       SelectedProcessor = tmp;
       ProcessingRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    #region Serialization
+
+    /// <summary>
+    /// Saves a <see cref="ProcessorChain"/> to file.
+    /// </summary>
+    private void SaveProcessorChain()
+    {
+      try
+      {
+        var sfd = new SaveFileDialog
+        {
+          Filter = "XML Files (*.xml) |*.xml"
+        };
+
+        if(sfd.ShowDialog() ?? false)
+        {
+          var settings = new DataContractSerializerSettings()
+          {
+            KnownTypes = GetSerializerTypes
+          };
+          var serializer = new DataContractSerializer(typeof(ProcessorChain), settings);
+
+          var xmlSettings = new XmlWriterSettings { Indent = true };
+          using (var w = XmlWriter.Create(sfd.FileName, xmlSettings))
+            serializer.WriteObject(w, _processorChain);
+        }
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show($"Error saving processor chain: {ex.Message}");
+      }
+    }
+
+    /// <summary>
+    /// Loads a <see cref="ProcessorChain"/> from file.
+    /// </summary>
+    private void LoadProcessorChain()
+    {
+      try
+      {
+        var ofd = new OpenFileDialog()
+        {
+          Filter = "XML Files (*.xml) |*.xml"
+        };
+
+        if(ofd.ShowDialog() ?? false)
+        {
+          var settings = new DataContractSerializerSettings()
+          {
+            KnownTypes = GetSerializerTypes
+          };
+          var serializer = new DataContractSerializer(typeof(ProcessorChain), settings);
+
+          using (var fs = new FileStream(ofd.FileName, FileMode.Open))
+            _processorChain = (ProcessorChain)serializer.ReadObject(fs);
+
+          InitializeViewModels();
+        }
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show($"Error loading processor chain: {ex.Message}");
+      }
+    }
+
+    #endregion Serialization
+
+    /// <summary>
+    /// Initializes the <see cref="Processors"/>
+    /// for the current <see cref="_processorChain"/>.
+    /// </summary>
+    private void InitializeViewModels()
+    {
+      // clear old processors
+      foreach (var proc in Processors.ToArray())
+        Processors.Remove(proc);
+
+      // add new processors
+      foreach (var proc in _processorChain.Processors)
+        Processors.Add(CreateProcessorViewModel(proc));
     }
 
     /// <summary>

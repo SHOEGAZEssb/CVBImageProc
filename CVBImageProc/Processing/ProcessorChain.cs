@@ -1,11 +1,13 @@
 ﻿using Stemmer.Cvb;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
   /// Chain of processors.
   /// </summary>
+  [DataContract]
   class ProcessorChain
   {
     #region Properties
@@ -13,7 +15,8 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// List of processors to use.
     /// </summary>
-    public List<IProcessor> Processors { get; }
+    [DataMember]
+    public List<IProcessor> Processors { get; private set; }
 
     #endregion Properties
 

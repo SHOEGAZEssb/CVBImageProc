@@ -1,14 +1,21 @@
 ﻿using Stemmer.Cvb;
 using System;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
   /// Processor for binarising an image.
   /// </summary>
+  [DataContract]
   class Binarise : IProcessor
   {
     #region IProcessor Implementation
+
+    /// <summary>
+    /// Name of the processor.
+    /// </summary>
+    public string Name => "Binarise";
 
     /// <summary>
     /// Binarises the <paramref name="inputImage"/>.
@@ -102,14 +109,10 @@ namespace CVBImageProc.Processing
     #region Properties
 
     /// <summary>
-    /// Name of the processor.
-    /// </summary>
-    public string Name => "Binarise";
-
-    /// <summary>
     /// Threshold to use in the binarising process.
     /// Values &gt;= threshold = 255, values &lt; threshold = 0.
     /// </summary>
+    [DataMember]
     public int Threshold
     {
       get => _threshold;

@@ -12,18 +12,14 @@ namespace CVBImageProc.MVVM
     /// <summary>
     /// Name of the type.
     /// </summary>
-    public string Name => _type.Name;
-
-    #endregion Properties
-
-    #region Member
+    public string Name => Type.Name;
 
     /// <summary>
-    /// Wrapped type.k
+    /// The wrapped type.
     /// </summary>
-    private readonly Type _type;
+    public Type Type { get; }
 
-    #endregion Member
+    #endregion Properties
 
     #region Construction
 
@@ -33,7 +29,7 @@ namespace CVBImageProc.MVVM
     /// <param name="type">Type to wrap.</param>
     public TypeViewModel(Type type)
     {
-      _type = type ?? throw new ArgumentNullException(nameof(type));
+      Type = type ?? throw new ArgumentNullException(nameof(type));
     }
 
     #endregion Construction
@@ -44,7 +40,7 @@ namespace CVBImageProc.MVVM
     /// <returns></returns>
     public object Instanciate()
     {
-      return Activator.CreateInstance(_type);
+      return Activator.CreateInstance(Type);
     }
   }
 }

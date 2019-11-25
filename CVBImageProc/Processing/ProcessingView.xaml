@@ -54,6 +54,10 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <Button Grid.Row="0" MinWidth="20" Content="X" Command="{Binding RemoveProcessorCommand}">
@@ -70,6 +74,8 @@
 
         <Button Grid.Row="2" MinWidth="20" Content="^" Command="{Binding MoveProcessorUpCommand}"/>
         <Button Grid.Row="4" MinWidth="20" Content="v" Command="{Binding MoveProcessorDownCommand}"/>
+        <Button Grid.Row="6" MinWidth="20" Content="S" Command="{Binding SaveProcessorChainCommand}"/>
+        <Button Grid.Row="8" MinWidth="20" Content="L" Command="{Binding LoadProcessorChainCommand}"/>
       </Grid>
     </Grid>
 

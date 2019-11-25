@@ -1,12 +1,14 @@
 ﻿using Stemmer.Cvb;
 using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
   /// Applies gain to an image.
   /// </summary>
+  [DataContract]
   class Gain : IProcessor
   {
     #region IProcessor Implementation
@@ -72,11 +74,13 @@ namespace CVBImageProc.Processing
     /// If true, pixel values wrap
     /// around at &lt; 0 and &gt; 255.
     /// </summary>
+    [DataMember]
     public bool WrapAround { get; set; }
 
     /// <summary>
     /// The gain per image plane.
     /// </summary>
+    [DataMember]
     public double[] Gains
     {
       get => _gains;
