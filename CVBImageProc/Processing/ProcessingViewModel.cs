@@ -212,6 +212,8 @@ namespace CVBImageProc.Processing
           return new BinariseViewModel(b);
         case Gain g:
           return new GainViewModel(g);
+        case PlaneClear p:
+          return new PlaneClearViewModel(p);
         default:
           return new ProcessorViewModel(processor);
       }
