@@ -273,10 +273,10 @@ namespace CVBImageProc
     /// </summary>
     /// <param name="sender">Ignored.</param>
     /// <param name="e">Ignored.</param>
-    private void ProcessingVM_ProcessingRequested(object sender, EventArgs e)
+    private async void ProcessingVM_ProcessingRequested(object sender, EventArgs e)
     {
       if(AutoProcess)
-        Process();
+        await Process();
     }
   }
 }

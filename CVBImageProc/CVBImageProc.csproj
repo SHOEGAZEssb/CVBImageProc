@@ -69,6 +69,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Helper\IHaveBusyStatus.cs" />
     <Compile Include="MVVM\Converter\ImplementsTypeConverter.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
