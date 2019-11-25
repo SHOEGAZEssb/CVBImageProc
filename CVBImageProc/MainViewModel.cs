@@ -77,6 +77,25 @@ namespace CVBImageProc
     }
     private Image _outputImage;
 
+    /// <summary>
+    /// If true, automatically processes the
+    /// <see cref="InputImage"/> when processing
+    /// is requested by the <see cref="ProcessingVM"/>.
+    /// </summary>
+    public bool AutoProcess
+    {
+      get => _autoProcess;
+      set
+      {
+        if(AutoProcess != value)
+        {
+          _autoProcess = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private bool _autoProcess;
+
     public ProcessingViewModel ProcessingVM { get; }
 
     #endregion Properties
@@ -92,6 +111,8 @@ namespace CVBImageProc
       SaveImageCommand = new DelegateCommand((o) => SaveImage());
       ProcessCommand = new DelegateCommand((o) => Process());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
+
+      AutoProcess = true;
       ProcessingVM = new ProcessingViewModel();
       ProcessingVM.UpdateImageInfoRequested += ProcessingVM_UpdateImageInfoRequested;
       ProcessingVM.ProcessingRequested += ProcessingVM_ProcessingRequested;
@@ -189,7 +210,8 @@ namespace CVBImageProc
 
     private void ProcessingVM_ProcessingRequested(object sender, EventArgs e)
     {
-      Process();
+      if(AutoProcess)
+        Process();
     }
   }
 }

@@ -51,6 +51,8 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="5"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="5"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
       
       <ContentControl Grid.Row="0" Content="{Binding ProcessingVM}">
@@ -60,6 +62,10 @@
           </DataTemplate>
         </ContentControl.Resources>
       </ContentControl>
+
+      <Separator Grid.Row="1"/>
+
+      <CheckBox Grid.Row="2" Content="Autoprocess" IsChecked="{Binding AutoProcess}" HorizontalAlignment="Center"/>
 
       <Button Grid.Row="4" Content="Process" Command="{Binding ProcessCommand}">
         <Button.Style>
