@@ -96,6 +96,9 @@ namespace CVBImageProc
     }
     private bool _autoProcess;
 
+    /// <summary>
+    /// ViewModel for the processing.
+    /// </summary>
     public ProcessingViewModel ProcessingVM { get; }
 
     #endregion Properties
@@ -188,6 +191,10 @@ namespace CVBImageProc
       }
     }
 
+    /// <summary>
+    /// Sets the <see cref="InputImage"/>
+    /// to the <see cref="OutputImage"/>.
+    /// </summary>
     private void UseOutputImageAsInputImage()
     {
       if (OutputImage == null)
@@ -208,6 +215,13 @@ namespace CVBImageProc
         ProcessingVM.UpdateImageInfo(InputImage);
     }
 
+    /// <summary>
+    /// Processes the <see cref="InputImage"/>
+    /// when the <see cref="ProcessingVM"/> requests it
+    /// and <see cref="AutoProcess"/> is enabled.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Ignored.</param>
     private void ProcessingVM_ProcessingRequested(object sender, EventArgs e)
     {
       if(AutoProcess)

@@ -1,24 +1,33 @@
 ﻿using CVBImageProc.MVVM;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// ViewModel for a single plane of the <see cref="GainViewModel"/>.
+  /// </summary>
   class PlaneGainViewModel : ViewModelBase, IHasSettings
   {
     #region IHasSettings Implementation
 
+    /// <summary>
+    /// Event that is fired when one of
+    /// the settings changed.
+    /// </summary>
     public event EventHandler SettingsChanged;
 
     #endregion IHasSettings Implementation
 
     #region Properties
 
+    /// <summary>
+    /// Index of the plane in the image.
+    /// </summary>
     public int PlaneIndex { get; }
 
+    /// <summary>
+    /// Value to add.
+    /// </summary>
     public int Value
     {
       get => _value;
@@ -39,13 +48,24 @@ namespace CVBImageProc.Processing
     }
     private int _value;
 
+    /// <summary>
+    /// Max value of the <see cref="Value"/>.
+    /// </summary>
     public int MaxValue => 255;
+
+    /// <summary>
+    /// Min value of the <see cref="Value"/>.
+    /// </summary>
     public int MinValue => -255;
 
     #endregion Properties
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="planeIndex">Index of the plane.</param>
     public PlaneGainViewModel(int planeIndex)
     {
       PlaneIndex = planeIndex;

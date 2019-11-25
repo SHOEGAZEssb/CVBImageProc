@@ -70,7 +70,7 @@ namespace CVBImageProc.Processing
 
     /// <summary>
     /// If true, pixel values wrap
-    /// around at < 0 and > 255.
+    /// around at &lt; 0 and &gt; 255.
     /// </summary>
     public bool WrapAround { get; set; }
 

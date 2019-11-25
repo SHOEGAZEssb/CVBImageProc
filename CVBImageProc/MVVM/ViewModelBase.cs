@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVBImageProc.MVVM
 {
+  /// <summary>
+  /// Base class for all ViewModels.
+  /// </summary>
   abstract class ViewModelBase : INotifyPropertyChanged
   {
+    #region INotifyPropertyChanged Implementation
+
+    /// <summary>
+    /// Event that is fired when a property changed.
+    /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
+    #endregion INotifyPropertyChanged Implementation
+
+    /// <summary>
+    /// Fires the <see cref="PropertyChanged"/> event.
+    /// </summary>
+    /// <param name="propertyName">Name of the property that changed.</param>
     protected void NotifyOfPropertyChange([CallerMemberName] string propertyName = "")
     {
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// Chain of processors.
+  /// </summary>
   class ProcessorChain
   {
     #region Properties

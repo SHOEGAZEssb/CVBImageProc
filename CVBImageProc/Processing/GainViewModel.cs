@@ -1,24 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Stemmer.Cvb;
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// ViewModel for the <see cref="Gain"/> processor.
+  /// </summary>
   class GainViewModel : ProcessorViewModel, IHasSettings, INeedImageInfo
   {
     #region IHasSettings Implementation
 
+    /// <summary>
+    /// Event that is fired when one of
+    /// the settings changed.
+    /// </summary>
     public event EventHandler SettingsChanged;
 
     #endregion IHasSettings Implementation
 
     #region INeedImageInfo Implementation
 
+    /// <summary>
+    /// Updates the image information.
+    /// </summary>
+    /// <param name="img">Image to pull info from.</param>
     public void UpdateImageInfo(Image img)
     {
       // remove old info
@@ -47,6 +55,10 @@ namespace CVBImageProc.Processing
 
     #region Properties
 
+    /// <summary>
+    /// If true, pixel values wrap
+    /// around at &lt; 0 and &gt; 255.
+    /// </summary>
     public bool WrapAround
     {
       get => _processor.WrapAround;
@@ -61,18 +73,28 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// List containing the gain per plane.
+    /// </summary>
     public ObservableCollection<PlaneGainViewModel> Gains { get; }
 
     #endregion Properties
 
     #region Member
 
+    /// <summary>
+    /// The gain processor.
+    /// </summary>
     private readonly Gain _processor;
 
     #endregion Member
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="processor">The gain processor.</param>
     public GainViewModel(Gain processor)
       : base(processor)
     {
@@ -83,6 +105,11 @@ namespace CVBImageProc.Processing
 
     #endregion Construction
 
+    /// <summary>
+    /// Links / unlinks events when the <see cref="Gains"/> changed.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Contains the event data.</param>
     private void Gains_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
       if (e.Action == NotifyCollectionChangedAction.Add)
@@ -97,6 +124,12 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// Fires the <see cref="SettingsChanged"/> event when the
+    /// setting of a <see cref="Gains"/> entry changed.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Ignored.</param>
     private void PlaneGainViewModel_SettingsChanged(object sender, EventArgs e)
     {
       var pgvm = sender as PlaneGainViewModel;

@@ -3,12 +3,23 @@ using System;
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// Inverts an image.
+  /// </summary>
   class Invert : IProcessor
   {
     #region IProcessor Implementation
 
+    /// <summary>
+    /// Name of the processor.
+    /// </summary>
     public string Name => "Invert";
 
+    /// <summary>
+    /// Inverts the given <paramref name="inputImage"/>.
+    /// </summary>
+    /// <param name="inputImage"></param>
+    /// <returns></returns>
     public Image Process(Image inputImage)
     {
       if (inputImage == null)
@@ -20,6 +31,12 @@ namespace CVBImageProc.Processing
       return inputImage;
     }
 
+    /// <summary>
+    /// Inverts the pixel values of the
+    /// given <paramref name="plane"/>.
+    /// </summary>
+    /// <param name="plane">Plane to invert.</param>
+    /// <param name="imageSize">Size of the plane.</param>
     private void InvertPlane(ImagePlane plane, Size2D imageSize)
     {
       var data = plane.GetLinearAccess();

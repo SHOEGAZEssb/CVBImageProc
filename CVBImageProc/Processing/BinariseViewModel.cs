@@ -1,5 +1,4 @@
-﻿using CVBImageProc.MVVM;
-using System;
+﻿using System;
 
 namespace CVBImageProc.Processing
 {
@@ -10,12 +9,21 @@ namespace CVBImageProc.Processing
   {
     #region IHasSettings Implementation
 
+    /// <summary>
+    /// Event that is fired when one of
+    /// the settings changed.
+    /// </summary>
     public event EventHandler SettingsChanged;
 
     #endregion IHasSettings Implementation
 
     #region Properties
 
+    /// <summary>
+    /// Threshold of the binarization.
+    /// Values &lt; will be set to 0. 
+    /// Values &gt;= will be set to 255.
+    /// </summary>
     public int Threshold
     {
       get => _processor.Threshold;
@@ -30,8 +38,14 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// Max value of the <see cref="Threshold"/>.
+    /// </summary>
     public int MaxThreshold => Binarise.MAXTHRESHOLD;
 
+    /// <summary>
+    /// Min value of the <see cref="Threshold"/>.
+    /// </summary>
     public int MinThreshold => Binarise.MINTHRESHOLD;
 
     #endregion Properties

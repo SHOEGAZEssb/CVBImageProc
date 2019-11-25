@@ -194,6 +194,12 @@ namespace CVBImageProc.Processing
       Processors.RemoveAt(index);
     }
 
+    /// <summary>
+    /// Creates a <see cref="IProcessorViewModel"/> based on
+    /// the given <paramref name="processor"/>s type.
+    /// </summary>
+    /// <param name="processor">Processor to create ViewModel for.</param>
+    /// <returns>ViewModel for the given <paramref name="processor"/>.</returns>
     private static IProcessorViewModel CreateProcessorViewModel(IProcessor processor)
     {
       if (processor == null)
@@ -210,6 +216,9 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// Moves the <see cref="SelectedProcessor"/> up in the chain.
+    /// </summary>
     private void MoveSelectedProcessorUp()
     {
       if (!MoveProcessorUpCommand.CanExecute(null))
@@ -222,8 +231,12 @@ namespace CVBImageProc.Processing
       Processors[index] = Processors[index - 1];
       Processors[index - 1] = tmp;
       SelectedProcessor = tmp;
+      ProcessingRequested?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    /// Moves the <see cref="SelectedProcessor"/> down in the chain.
+    /// </summary>
     private void MoveSelectedProcessorDown()
     {
       if (!MoveProcessorDownCommand.CanExecute(null))
@@ -235,8 +248,14 @@ namespace CVBImageProc.Processing
       Processors[index] = Processors[index + 1];
       Processors[index + 1] = tmp;
       SelectedProcessor = tmp;
+      ProcessingRequested?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    /// Links / unlinks events when the processor collection changed.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Contains the event data.</param>
     private void Processors_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
       if(e.Action == NotifyCollectionChangedAction.Add)
@@ -253,11 +272,19 @@ namespace CVBImageProc.Processing
           settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
       }
       
-      ProcessingRequested?.Invoke(this, EventArgs.Empty);
+      // don't fire when "replacing" (moveup, down)
+      if(e.Action != NotifyCollectionChangedAction.Replace)
+        ProcessingRequested?.Invoke(this, EventArgs.Empty);
+
       (MoveProcessorUpCommand as DelegateCommand).RaiseCanExecuteChanged();
       (MoveProcessorDownCommand as DelegateCommand).RaiseCanExecuteChanged();
     }
 
+    /// <summary>
+    /// Requests processing when a setting of a processor changed.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Ignored.</param>
     private void SettingsProc_SettingsChanged(object sender, EventArgs e)
     {
       ProcessingRequested?.Invoke(this, EventArgs.Empty);
