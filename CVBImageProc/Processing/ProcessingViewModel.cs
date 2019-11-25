@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CVBImageProc.Processing
@@ -155,9 +156,9 @@ namespace CVBImageProc.Processing
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public async Task<Image> ProcessAsync(Image inputImage)
     {
-      return _processorChain.Process(inputImage);
+      return await Task.Run(() => _processorChain.Process(inputImage));
     }
 
     /// <summary>

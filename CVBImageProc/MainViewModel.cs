@@ -1,9 +1,11 @@
-﻿using CVBImageProc.MVVM;
+﻿using CVBImageProc.Helper;
+using CVBImageProc.MVVM;
 using CVBImageProc.Processing;
 using Microsoft.Win32;
 using Stemmer.Cvb;
 using Stemmer.Cvb.Utilities;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,8 +14,46 @@ namespace CVBImageProc
   /// <summary>
   /// ViewModel for MainView.
   /// </summary>
-  class MainViewModel : ViewModelBase
+  class MainViewModel : ViewModelBase, IHaveBusyStatus
   {
+    #region IHaveBusyStatus Implementation
+
+    /// <summary>
+    /// Gets if the object is currently busy.
+    /// </summary>
+    public bool IsBusy
+    {
+      get => _isBusy;
+      private set
+      {
+        if(IsBusy != value)
+        {
+          _isBusy = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private bool _isBusy;
+
+    /// <summary>
+    /// Gets the current busy message.
+    /// </summary>
+    public string BusyMessage
+    {
+      get => _busyMessage;
+      private set
+      {
+        if(BusyMessage != value)
+        {
+          _busyMessage = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private string _busyMessage;
+
+    #endregion IHaveBusyStatus Implementation
+
     #region Commands
 
     /// <summary>
@@ -54,7 +94,7 @@ namespace CVBImageProc
           _inputImage = value;
           NotifyOfPropertyChange();
           ProcessingVM.UpdateImageInfo(InputImage);
-          Process();
+          Process().Forget();
         }
       }
     }
@@ -112,7 +152,7 @@ namespace CVBImageProc
     {
       OpenImageCommand = new DelegateCommand((o) => OpenImage());
       SaveImageCommand = new DelegateCommand((o) => SaveImage());
-      ProcessCommand = new DelegateCommand((o) => Process());
+      ProcessCommand = new DelegateCommand((o) => Process().Forget());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
 
       AutoProcess = true;
@@ -176,18 +216,29 @@ namespace CVBImageProc
     /// Runs the <see cref="InputImage"/> through
     /// the processors.
     /// </summary>
-    private void Process()
+    private async Task Process()
     {
-      if (InputImage == null)
-        return;
-
       try
       {
-        OutputImage = ProcessingVM.Process(InputImage);
+        IsBusy = true;
+        BusyMessage = "Processing...";
+
+        if (InputImage == null)
+          return;
+
+        try
+        {
+          OutputImage = await ProcessingVM.ProcessAsync(InputImage);
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show($"Error processing image: {ex.Message}");
+        }
       }
-      catch(Exception ex)
+      finally
       {
-        MessageBox.Show($"Error processing image: {ex.Message}");
+        IsBusy = false;
+        BusyMessage = null;
       }
     }
 
