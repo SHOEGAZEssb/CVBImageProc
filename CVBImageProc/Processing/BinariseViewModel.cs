@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVBImageProc.Processing.PixelFilter;
+using System;
 
 namespace CVBImageProc.Processing
 {
@@ -48,6 +49,8 @@ namespace CVBImageProc.Processing
     /// </summary>
     public int MinThreshold => Binarise.MINTHRESHOLD;
 
+    public PixelFilterChainViewModel PixelFilterChainVM { get; }
+
     #endregion Properties
 
     #region Member
@@ -70,8 +73,15 @@ namespace CVBImageProc.Processing
       : base(processor)
     {
       _processor = processor;
+      PixelFilterChainVM = new PixelFilterChainViewModel(_processor.PixelFilter);
+      PixelFilterChainVM.SettingsChanged += PixelFilterChainVM_SettingsChanged;
     }
 
     #endregion Construction
+
+    private void PixelFilterChainVM_SettingsChanged(object sender, EventArgs e)
+    {
+      SettingsChanged?.Invoke(this, EventArgs.Empty);
+    }
   }
 }

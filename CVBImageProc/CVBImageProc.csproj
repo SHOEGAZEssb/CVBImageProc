@@ -77,6 +77,19 @@
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="Processing\PixelFilter\Equals.cs" />
+    <Compile Include="Processing\PixelFilter\EqualsView.xaml.cs">
+      <DependentUpon>EqualsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\PixelFilter\EqualsViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\ICanProcessIndividualPixel.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelFilter.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelFilterViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\PixelFilterChain.cs" />
+    <Compile Include="Processing\PixelFilter\PixelFilterChainView.xaml.cs">
+      <DependentUpon>PixelFilterChainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
@@ -99,6 +112,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\GainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\PixelFilter\EqualsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\PixelFilter\PixelFilterChainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProc.Processing.PixelFilter;
+using Stemmer.Cvb;
 using System;
 using System.Runtime.Serialization;
 
@@ -8,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Processor for binarising an image.
   /// </summary>
   [DataContract]
-  class Binarise : IProcessor
+  class Binarise : IProcessor, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
@@ -53,7 +54,9 @@ namespace CVBImageProc.Processing
           for (int x = 0; x < inputImage.Width; x++)
           {
             byte* pPixel = pLine + (int)data.XInc * x;
-            *pPixel = (byte)(*pPixel >= Threshold ? 255 : 0);
+            byte pixelValue = *pPixel;
+            if(PixelFilter.Check(pixelValue))
+              *pPixel = (byte)(pixelValue >= Threshold ? 255 : 0);
           }
         }
       }
@@ -93,10 +96,14 @@ namespace CVBImageProc.Processing
             byte* pPixelNew = pLineNew + (int)newImageData.XInc * x;
 
             byte value = 0;
-            if (*pPixelR * FACTORRED + *pPixelG * FACTORGREEN + *pPixelB * FACTORBLUE >= Threshold)
-              value = 255;
+            byte pixelValue = (byte)(*pPixelR * FACTORRED + *pPixelG * FACTORGREEN + *pPixelB * FACTORBLUE);
+            if (PixelFilter.Check(pixelValue))
+            {
+              if (pixelValue >= Threshold)
+                value = 255;
 
-            *pPixelNew = value;
+              *pPixelNew = value;
+            }
           }
         }
       }
@@ -105,6 +112,12 @@ namespace CVBImageProc.Processing
     }
 
     #endregion IProcessor Implementation
+
+    #region ICanProcessIndividualPixel Implementation
+
+    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
+
+    #endregion ICanProcessIndividualPixel Implementation
 
     #region Properties
 

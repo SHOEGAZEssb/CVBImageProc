@@ -4,29 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CVBImageProc.Processing"
+             xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="5"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
 
-    <TextBlock Grid.Row="0" Text="Threshold:"/>
+  <TabControl>
+    <TabItem Header="Settings">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-    <Grid Grid.Row="2">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="2"/>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="2"/>
-        <ColumnDefinition Width="Auto"/>
-      </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Text="Threshold:"/>
 
-      <TextBlock Grid.Column="0" Text="{Binding MinThreshold}"/>
-      <Slider Grid.Column="2" Value="{Binding Threshold}" Minimum="{Binding MinThreshold}" Maximum="{Binding MaxThreshold}"/>
-      <TextBlock Grid.Column="4" Text="{Binding MaxThreshold}"/>
-    </Grid>
-  </Grid>
+        <Grid Grid.Row="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+
+          <TextBlock Grid.Column="0" Text="{Binding MinThreshold}"/>
+          <Slider Grid.Column="2" Value="{Binding Threshold}" Minimum="{Binding MinThreshold}" Maximum="{Binding MaxThreshold}"/>
+          <TextBlock Grid.Column="4" Text="{Binding MaxThreshold}"/>
+        </Grid>
+      </Grid>
+    </TabItem>
+    <TabItem Header="Filter">
+      <pf:PixelFilterChainView DataContext="{Binding PixelFilterChainVM}"/>
+    </TabItem>
+  </TabControl>
 </UserControl>
