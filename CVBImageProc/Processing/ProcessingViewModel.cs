@@ -201,6 +201,30 @@ namespace CVBImageProc.Processing
     }
 
     /// <summary>
+    /// Creates a <see cref="IProcessorViewModel"/> based on
+    /// the given <paramref name="processor"/>s type.
+    /// </summary>
+    /// <param name="processor">Processor to create ViewModel for.</param>
+    /// <returns>ViewModel for the given <paramref name="processor"/>.</returns>
+    private static IProcessorViewModel CreateProcessorViewModel(IProcessor processor)
+    {
+      if (processor == null)
+        throw new ArgumentNullException(nameof(processor));
+
+      switch (processor)
+      {
+        case Binarise b:
+          return new BinariseViewModel(b);
+        case Gain g:
+          return new GainViewModel(g);
+        case PlaneClear p:
+          return new PlaneClearViewModel(p);
+        default:
+          return new ProcessorViewModel(processor);
+      }
+    }
+
+    /// <summary>
     /// Removes the <see cref="SelectedProcessor"/>
     /// from the <see cref="Processors"/>.
     /// </summary>
@@ -215,30 +239,11 @@ namespace CVBImageProc.Processing
 
       // remove from VM
       Processors.RemoveAt(index);
-    }
 
-    /// <summary>
-    /// Creates a <see cref="IProcessorViewModel"/> based on
-    /// the given <paramref name="processor"/>s type.
-    /// </summary>
-    /// <param name="processor">Processor to create ViewModel for.</param>
-    /// <returns>ViewModel for the given <paramref name="processor"/>.</returns>
-    private static IProcessorViewModel CreateProcessorViewModel(IProcessor processor)
-    {
-      if (processor == null)
-        throw new ArgumentNullException(nameof(processor));
-
-      switch(processor)
-      {
-        case Binarise b:
-          return new BinariseViewModel(b);
-        case Gain g:
-          return new GainViewModel(g);
-        case PlaneClear p:
-          return new PlaneClearViewModel(p);
-        default:
-          return new ProcessorViewModel(processor);
-      }
+      if (Processors.ElementAtOrDefault(index) != null)
+        SelectedProcessor = Processors.ElementAt(index);
+      else if (Processors.ElementAtOrDefault(index - 1) != null)
+        SelectedProcessor = Processors.ElementAt(index - 1);
     }
 
     /// <summary>
