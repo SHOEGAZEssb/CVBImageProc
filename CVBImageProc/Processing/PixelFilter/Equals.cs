@@ -1,9 +1,12 @@
-﻿namespace CVBImageProc.Processing.PixelFilter
+﻿using System.Runtime.Serialization;
+
+namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
   /// Pixel filter that checks if a given
   /// pixel value is equal the configured value.
   /// </summary>
+  [DataContract]
   class Equals : PixelFilterBase
   {
     #region IPixelFilter Implementation

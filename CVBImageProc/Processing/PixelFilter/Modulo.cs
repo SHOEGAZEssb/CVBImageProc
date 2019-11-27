@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.PixelFilter
 {
@@ -7,6 +8,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// pixel value is dividable by the
   /// configured value.
   /// </summary>
+  [DataContract]
   class Modulo : PixelFilterBase
   {
     #region IPixelFilter Implementation

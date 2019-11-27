@@ -140,7 +140,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Gets the processor types for serialization.
     /// </summary>
-    private Type[] GetSerializerTypes => AvailableProcessors.Select(p => p.Type).ToArray();
+    private Type[] GetSerializerTypes => (AvailableProcessors.Select(p => p.Type).Concat(PixelFilter.PixelFilterChainViewModel.AvailableFilter.Select(p => p.Type))).ToArray();
 
     #endregion Member
 

@@ -1,10 +1,13 @@
-﻿namespace CVBImageProc.Processing.PixelFilter
+﻿using System.Runtime.Serialization;
+
+namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
   /// Pixel filter that checks if a given
   /// pixel value is larger than the
   /// configured value.
   /// </summary>
+  [DataContract]
   class LargerThan : PixelFilterBase
   {
     #region IPixelFilter Implementation

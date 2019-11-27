@@ -115,6 +115,7 @@ namespace CVBImageProc.Processing
 
     #region ICanProcessIndividualPixel Implementation
 
+    [DataMember]
     public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation

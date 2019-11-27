@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
   /// Filter chain for processors.
   /// </summary>
+  [DataContract]
   class PixelFilterChain
   {
     #region Properties
@@ -12,6 +14,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// The configured filters.
     /// </summary>
+    [DataMember]
     public List<IPixelFilter> Filters { get; private set; }
 
     #endregion Properties

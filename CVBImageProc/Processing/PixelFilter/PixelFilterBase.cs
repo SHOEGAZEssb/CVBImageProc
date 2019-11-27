@@ -1,8 +1,11 @@
-﻿namespace CVBImageProc.Processing.PixelFilter
+﻿using System.Runtime.Serialization;
+
+namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
   /// Base class for pixel filters.
   /// </summary>
+  [DataContract]
   abstract class PixelFilterBase : IPixelFilter
   {
     #region IPixelFilter Implementation
@@ -15,12 +18,14 @@
     /// <summary>
     /// Byte to compare to.
     /// </summary>
+    [DataMember]
     public byte CompareByte { get; set; }
 
     /// <summary>
     /// If true, inverts the logic of the
     /// <see cref="Check(byte)"/>.
     /// </summary>
+    [DataMember]
     public bool Not { get; set; }
 
     /// <summary>

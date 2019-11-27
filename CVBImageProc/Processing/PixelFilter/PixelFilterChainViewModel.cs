@@ -65,7 +65,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// List of available filter types.
     /// </summary>
-    public IEnumerable<TypeViewModel> AvailableFilter { get; }
+    public static IEnumerable<TypeViewModel> AvailableFilter { get; }
 
     /// <summary>
     /// Currently selected filter type.
@@ -97,6 +97,12 @@ namespace CVBImageProc.Processing.PixelFilter
 
     #region Construction
 
+    static PixelFilterChainViewModel()
+    {
+      AvailableFilter = Assembly.GetExecutingAssembly().GetTypes()
+        .Where(mytype => mytype.GetInterfaces().Contains(typeof(IPixelFilter)) && !mytype.IsAbstract).Select(i => new TypeViewModel(i)).ToArray();
+    }
+
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -107,10 +113,7 @@ namespace CVBImageProc.Processing.PixelFilter
       AddPixelFilterCommand = new DelegateCommand((o) => AddPixelFilter());
       RemoveSelectedPixelFilterCommand = new DelegateCommand((o) => RemoveSelectedPixelFilter());
 
-      AvailableFilter = Assembly.GetExecutingAssembly().GetTypes()
-           .Where(mytype => mytype.GetInterfaces().Contains(typeof(IPixelFilter)) && !mytype.IsAbstract).Select(i => new TypeViewModel(i)).ToArray();
       SelectedFilterType = AvailableFilter.FirstOrDefault();
-
       Filters = new ObservableCollection<IPixelFilterViewModel>();
       Filters.CollectionChanged += Filters_CollectionChanged;
 
