@@ -2,16 +2,17 @@
 {
   /// <summary>
   /// Pixel filter that checks if a given
-  /// pixel value is equal the configured value.
+  /// pixel value is larger than the
+  /// configured value.
   /// </summary>
-  class Equals : PixelFilterBase
+  class LargerThan : PixelFilterBase
   {
     #region IPixelFilter Implementation
 
     /// <summary>
     /// Name of the filter.
     /// </summary>
-    public override string Name => "Equals";
+    public override string Name => "Larger Than";
 
     /// <summary>
     /// Checks if the given <paramref name="pixel"/>
@@ -22,7 +23,7 @@
     /// the filter, otherwise false.</returns>
     public override bool Check(byte pixel)
     {
-      return Not ? pixel != CompareByte : pixel == CompareByte;
+      return Not ? CompareByte > pixel : CompareByte < pixel;
     }
 
     #endregion IPixelFilter Implementation

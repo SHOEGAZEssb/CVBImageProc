@@ -1,17 +1,27 @@
 ﻿namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Pixel filter that checks if a given
-  /// pixel value is equal the configured value.
+  /// Base class for pixel filters.
   /// </summary>
-  class Equals : PixelFilterBase
+  abstract class PixelFilterBase : IPixelFilter
   {
     #region IPixelFilter Implementation
 
     /// <summary>
     /// Name of the filter.
     /// </summary>
-    public override string Name => "Equals";
+    public abstract string Name { get; }
+
+    /// <summary>
+    /// Byte to compare to.
+    /// </summary>
+    public byte CompareByte { get; set; }
+
+    /// <summary>
+    /// If true, inverts the logic of the
+    /// <see cref="Check(byte)"/>.
+    /// </summary>
+    public bool Not { get; set; }
 
     /// <summary>
     /// Checks if the given <paramref name="pixel"/>
@@ -20,10 +30,7 @@
     /// <param name="pixel">Pixel to check.</param>
     /// <returns>True if the <paramref name="pixel"/> passes
     /// the filter, otherwise false.</returns>
-    public override bool Check(byte pixel)
-    {
-      return Not ? pixel != CompareByte : pixel == CompareByte;
-    }
+    public abstract bool Check(byte pixel);
 
     #endregion IPixelFilter Implementation
   }

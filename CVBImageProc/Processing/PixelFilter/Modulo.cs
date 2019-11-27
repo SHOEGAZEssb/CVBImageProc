@@ -1,17 +1,20 @@
-﻿namespace CVBImageProc.Processing.PixelFilter
+﻿using System;
+
+namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
   /// Pixel filter that checks if a given
-  /// pixel value is equal the configured value.
+  /// pixel value is dividable by the
+  /// configured value.
   /// </summary>
-  class Equals : PixelFilterBase
+  class Modulo : PixelFilterBase
   {
     #region IPixelFilter Implementation
 
     /// <summary>
     /// Name of the filter.
     /// </summary>
-    public override string Name => "Equals";
+    public override string Name => "Modulo";
 
     /// <summary>
     /// Checks if the given <paramref name="pixel"/>
@@ -22,7 +25,14 @@
     /// the filter, otherwise false.</returns>
     public override bool Check(byte pixel)
     {
-      return Not ? pixel != CompareByte : pixel == CompareByte;
+      try
+      {
+        return Not ? pixel % CompareByte != 0 : pixel % CompareByte == 0;
+      }
+      catch (DivideByZeroException)
+      {
+        return false;
+      }
     }
 
     #endregion IPixelFilter Implementation

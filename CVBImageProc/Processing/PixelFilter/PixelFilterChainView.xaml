@@ -66,8 +66,8 @@
       
       <ContentControl Content="{Binding SelectedFilter}">
         <ContentControl.Resources>
-          <DataTemplate DataType="{x:Type local:EqualsViewModel}">
-            <local:EqualsView/>
+          <DataTemplate DataType="{x:Type local:PixelFilterViewModel}">
+            <local:PixelFilterView/>
           </DataTemplate>
         </ContentControl.Resources>
       </ContentControl>
