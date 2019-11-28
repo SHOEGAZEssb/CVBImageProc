@@ -166,7 +166,8 @@ namespace CVBImageProc.Processing
       Processors.CollectionChanged += Processors_CollectionChanged;
 
       AvailableProcessors = System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
-                 .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor))).Select(i => new TypeViewModel(i)).ToArray();
+                 .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor)) && !mytype.IsInterface && !mytype.IsAbstract)
+                 .Select(i => new TypeViewModel(i)).ToArray();
       SelectedProcessorType = AvailableProcessors.FirstOrDefault();
     }
 
