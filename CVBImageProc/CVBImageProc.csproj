@@ -98,9 +98,14 @@
     </Compile>
     <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterViewModel.cs" />
+    <Compile Include="Processing\ReplaceViewModel.cs" />
     <Compile Include="Processing\PlaneProcessorViewModelBase.cs" />
     <Compile Include="Processing\PlaneSelectorControl.xaml.cs">
       <DependentUpon>PlaneSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Replace.cs" />
+    <Compile Include="Processing\ReplaceView.xaml.cs">
+      <DependentUpon>ReplaceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\Shuffle.cs" />
     <Compile Include="Processing\ShuffleView.xaml.cs">
@@ -162,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\ProcessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\ReplaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

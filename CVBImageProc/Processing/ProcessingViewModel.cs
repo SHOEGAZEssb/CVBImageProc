@@ -222,6 +222,8 @@ namespace CVBImageProc.Processing
           return new InvertViewModel(i);
         case PlaneClear p:
           return new PlaneClearViewModel(p);
+        case Replace r:
+          return new ReplaceViewModel(r);
         case Shuffle s:
           return new ShuffleViewModel(s);
         case Sort s:
