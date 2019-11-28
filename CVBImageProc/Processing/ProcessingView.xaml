@@ -101,6 +101,9 @@
           <DataTemplate DataType="{x:Type local:GainViewModel}">
             <local:GainView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:InvertViewModel}">
+            <local:InvertView/>
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:PlaneClearViewModel}">
             <local:PlaneClearView/>
           </DataTemplate>

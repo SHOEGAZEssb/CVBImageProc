@@ -77,6 +77,11 @@
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="Processing\InvertView.xaml.cs">
+      <DependentUpon>InvertView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\IProcessIndividualPlanes.cs" />
+    <Compile Include="Processing\InvertViewModel.cs" />
     <Compile Include="Processing\PixelFilter\Equals.cs" />
     <Compile Include="Processing\PixelFilter\LargerThan.cs" />
     <Compile Include="Processing\PixelFilter\Modulo.cs" />
@@ -93,6 +98,7 @@
     </Compile>
     <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterViewModel.cs" />
+    <Compile Include="Processing\PlaneProcessorViewModelBase.cs" />
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
@@ -115,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\GainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\InvertView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

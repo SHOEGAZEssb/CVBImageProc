@@ -49,6 +49,9 @@ namespace CVBImageProc.Processing
     /// </summary>
     public int MinThreshold => Binarise.MINTHRESHOLD;
 
+    /// <summary>
+    /// ViewModel for the processors pixel filter chain.
+    /// </summary>
     public PixelFilterChainViewModel PixelFilterChainVM { get; }
 
     #endregion Properties

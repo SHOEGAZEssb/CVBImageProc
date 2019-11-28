@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProc.Processing.PixelFilter;
+using Stemmer.Cvb;
 using System;
 using System.Runtime.Serialization;
 
@@ -8,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Inverts an image.
   /// </summary>
   [DataContract]
-  class Invert : IProcessor
+  class Invert : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes
   {
     #region IProcessor Implementation
 
@@ -27,8 +28,7 @@ namespace CVBImageProc.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      foreach (var plane in inputImage.Planes)
-        InvertPlane(plane, inputImage.Size);
+      InvertPlane(inputImage.Planes[PlaneIndex], inputImage.Size);
 
       return inputImage;
     }
@@ -53,12 +53,29 @@ namespace CVBImageProc.Processing
           {
             byte* pPixel = pLine + (int)data.XInc * x;
 
-            *pPixel = (byte)(255 - *pPixel);
+            byte pixelValue = *pPixel;
+            if(PixelFilter.Check(pixelValue))
+              *pPixel = (byte)(255 - pixelValue);
           }
         }
       }
     }
 
     #endregion IProcessor Implementation
+
+    #region ICanProcessIndividualPixel Implementation
+
+    public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
+
+    #endregion ICanProcessIndividualPixel Implementation
+
+    #region Properties
+
+    /// <summary>
+    /// Index of the plane to invert.
+    /// </summary>
+    public int PlaneIndex { get; set; }
+
+    #endregion Properties
   }
 }

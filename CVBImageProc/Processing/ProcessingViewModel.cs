@@ -217,6 +217,8 @@ namespace CVBImageProc.Processing
           return new BinariseViewModel(b);
         case Gain g:
           return new GainViewModel(g);
+        case Invert i:
+          return new InvertViewModel(i);
         case PlaneClear p:
           return new PlaneClearViewModel(p);
         default:
