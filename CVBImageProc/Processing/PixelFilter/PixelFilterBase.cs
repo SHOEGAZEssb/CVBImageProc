@@ -19,7 +19,30 @@ namespace CVBImageProc.Processing.PixelFilter
     /// Byte to compare to.
     /// </summary>
     [DataMember]
-    public byte CompareByte { get; set; }
+    public byte CompareByte
+    {
+      get => _compareByte;
+      set
+      {
+        if (value > MaxCompareByte)
+          value = MaxCompareByte;
+        else if (value < MinCompareByte)
+          value = MinCompareByte;
+
+        _compareByte = value;
+      }
+    }
+    private byte _compareByte;
+
+    /// <summary>
+    /// Max value of the <see cref="CompareByte"/>.
+    /// </summary>
+    public virtual byte MaxCompareByte => 255;
+
+    /// <summary>
+    /// Min value of the <see cref="CompareByte"/>.
+    /// </summary>
+    public virtual byte MinCompareByte => 0;
 
     /// <summary>
     /// If true, inverts the logic of the

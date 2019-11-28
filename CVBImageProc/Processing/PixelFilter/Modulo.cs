@@ -19,6 +19,11 @@ namespace CVBImageProc.Processing.PixelFilter
     public override string Name => "Modulo";
 
     /// <summary>
+    /// Min value of the <see cref="PixelFilterBase.CompareByte"/>.
+    /// </summary>
+    public override byte MinCompareByte => 1;
+
+    /// <summary>
     /// Checks if the given <paramref name="pixel"/>
     /// passes the filter.
     /// </summary>
@@ -38,5 +43,17 @@ namespace CVBImageProc.Processing.PixelFilter
     }
 
     #endregion IPixelFilter Implementation
+
+    #region Construction
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public Modulo()
+    {
+      CompareByte = MinCompareByte;
+    }
+
+    #endregion Construction
   }
 }

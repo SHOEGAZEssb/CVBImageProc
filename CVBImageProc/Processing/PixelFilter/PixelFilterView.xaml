@@ -18,6 +18,6 @@
 
     <CheckBox Grid.Column="0" IsChecked="{Binding Not}" Content="Not" VerticalAlignment="Center"/>
     <TextBlock Grid.Column="2" Text="Compare to:" VerticalAlignment="Center"/>
-    <xceed:ByteUpDown Grid.Column="4" Minimum="0" Maximum="255" Value="{Binding CompareByte}"/>
+    <xceed:ByteUpDown Grid.Column="4" Minimum="{Binding MinCompareByte}" Maximum="{Binding MaxCompareByte}" Value="{Binding CompareByte}"/>
   </Grid>
 </UserControl>

@@ -33,6 +33,16 @@ namespace CVBImageProc.Processing.PixelFilter
     }
 
     /// <summary>
+    /// Max value of the <see cref="CompareByte"/>.
+    /// </summary>
+    public byte MaxCompareByte => _filter.MaxCompareByte;
+
+    /// <summary>
+    /// Min value of the <see cref="CompareByte"/>.
+    /// </summary>
+    public byte MinCompareByte => _filter.MinCompareByte;
+
+    /// <summary>
     /// If true, inverts the logic of the filter.
     /// </summary>
     public bool Not
