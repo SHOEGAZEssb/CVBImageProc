@@ -224,6 +224,8 @@ namespace CVBImageProc.Processing
           return new PlaneClearViewModel(p);
         case Shuffle s:
           return new ShuffleViewModel(s);
+        case Sort s:
+          return new SortViewModel(s);
         default:
           return new ProcessorViewModel(processor);
       }

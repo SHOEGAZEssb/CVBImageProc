@@ -107,6 +107,11 @@
       <DependentUpon>ShuffleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\ShuffleViewModel.cs" />
+    <Compile Include="Processing\Sort.cs" />
+    <Compile Include="Processing\SortView.xaml.cs">
+      <DependentUpon>SortView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\SortViewModel.cs" />
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
@@ -161,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\ShuffleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\SortView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

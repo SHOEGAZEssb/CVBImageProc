@@ -3,6 +3,10 @@ using System;
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// Base ViewModel for processors that process
+  /// individual planes.
+  /// </summary>
   class PlaneProcessorViewModelBase : ProcessorViewModel, INeedImageInfo, IHasSettings
   {
     #region INeedImageInfo Implementation
