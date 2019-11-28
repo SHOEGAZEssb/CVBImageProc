@@ -11,16 +11,7 @@
     <Grid>
     <TabControl>
       <TabItem Header="Settings">
-        <Grid>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="Auto"/>
-          </Grid.RowDefinitions>
-
-          <TextBlock Grid.Row="0" Text="Plane Index:"/>
-          <xceed:IntegerUpDown Grid.Row="2" Value="{Binding PlaneIndex}" Minimum="0" Maximum="{Binding MaxPlaneIndex}"/>
-        </Grid>
+        <local:PlaneSelectorControl/>
       </TabItem>
       <TabItem Header="Filter">
         <pf:PixelFilterChainView DataContext="{Binding PixelFilterChainVM}"/>

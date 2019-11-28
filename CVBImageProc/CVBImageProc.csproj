@@ -99,6 +99,9 @@
     <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterViewModel.cs" />
     <Compile Include="Processing\PlaneProcessorViewModelBase.cs" />
+    <Compile Include="Processing\PlaneSelectorControl.xaml.cs">
+      <DependentUpon>PlaneSelectorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
@@ -144,7 +147,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Processing\PlaneGainView.xaml">
+    <Page Include="Processing\PlaneSelectorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,10 +185,6 @@
       <DependentUpon>PlaneClearView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\PlaneClearViewModel.cs" />
-    <Compile Include="Processing\PlaneGainView.xaml.cs">
-      <DependentUpon>PlaneGainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Processing\PlaneGainViewModel.cs" />
     <Compile Include="Processing\PlaneSettingsViewModelBase.cs" />
     <Compile Include="Processing\ProcessingView.xaml.cs">
       <DependentUpon>ProcessingView.xaml</DependentUpon>

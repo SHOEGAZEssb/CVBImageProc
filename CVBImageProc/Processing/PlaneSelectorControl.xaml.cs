@@ -3,14 +3,14 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for PlaneGainView.xaml
+  /// Interaction logic for PlaneSelectorControl.xaml
   /// </summary>
-  public partial class PlaneGainView : UserControl
+  public partial class PlaneSelectorControl : UserControl
   {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PlaneGainView()
+    public PlaneSelectorControl()
     {
       InitializeComponent();
     }

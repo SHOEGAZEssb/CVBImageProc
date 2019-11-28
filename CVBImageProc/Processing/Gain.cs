@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProc.Processing.PixelFilter;
+using Stemmer.Cvb;
 using System;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -9,7 +10,7 @@ namespace CVBImageProc.Processing
   /// Applies gain to an image.
   /// </summary>
   [DataContract]
-  class Gain : IProcessor
+  class Gain : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes
   {
     #region IProcessor Implementation
 
@@ -19,7 +20,7 @@ namespace CVBImageProc.Processing
     public string Name => "Gain";
 
     /// <summary>
-    /// Applies the <see cref="Gains"/>
+    /// Applies the <see cref="GainValue"/>
     /// to the given <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to apply gain to.</param>
@@ -29,31 +30,27 @@ namespace CVBImageProc.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      if (Gains == null)
-        Gains = inputImage.Planes.Select(p => 0.0).ToArray();
+      var planeData = inputImage.Planes[PlaneIndex].GetLinearAccess();
 
-      for (int i = 0; i < inputImage.Planes.Count; i++)
+      unsafe
       {
-        var planeData = inputImage.Planes[i].GetLinearAccess();
-        double gain = Gains[i];
-
-        unsafe
+        for (int y = 0; y < inputImage.Height; y++)
         {
-          for (int y = 0; y < inputImage.Height; y++)
+          byte* pLine = (byte*)(planeData.BasePtr + (int)planeData.YInc * y);
+
+          for (int x = 0; x < inputImage.Width; x++)
           {
-            byte* pLine = (byte*)(planeData.BasePtr + (int)planeData.YInc * y);
+            byte* pPixel = pLine + (int)planeData.XInc * x;
 
-            for (int x = 0; x < inputImage.Width; x++)
+            byte pixelValue = *pPixel;
+            if (PixelFilter.Check(pixelValue))
             {
-              byte* pPixel = pLine + (int)planeData.XInc * x;
-
-              byte curPixel = *pPixel;
-              byte value = (byte)(curPixel + gain);
+              byte value = (byte)(pixelValue + GainValue);
               if (!WrapAround)
               {
-                if (curPixel + gain > 255)
+                if (pixelValue + GainValue > 255)
                   value = 255;
-                else if (curPixel + gain < 0)
+                else if (pixelValue + GainValue < 0)
                   value = 0;
               }
 
@@ -68,6 +65,24 @@ namespace CVBImageProc.Processing
 
     #endregion IProcessor Implementation
 
+    #region ICanProcessIndividualPixel Implementation
+
+    /// <summary>
+    /// Filter chain for the processor.
+    /// </summary>
+    public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
+
+    #endregion ICanProcessIndividualPixel Implementation
+
+    #region IProcessIndividualPlanes Implementation
+
+    /// <summary>
+    /// Index of the plane to invert.
+    /// </summary>
+    public int PlaneIndex { get; set; }
+
+    #endregion IProcessIndividualPlanes Implementation
+
     #region Properties
 
     /// <summary>
@@ -78,21 +93,10 @@ namespace CVBImageProc.Processing
     public bool WrapAround { get; set; }
 
     /// <summary>
-    /// The gain per image plane.
+    /// The gain value to apply.
     /// </summary>
     [DataMember]
-    public double[] Gains
-    {
-      get => _gains;
-      set
-      {
-        if (value == null || value.Length == 0)
-          throw new ArgumentNullException(nameof(Gains));
-        else
-          _gains = value;
-      }
-    }
-    private double[] _gains;
+    public double GainValue { get; set; }
 
     #endregion Properties
   }

@@ -65,17 +65,20 @@ namespace CVBImageProc.Processing
 
     #region ICanProcessIndividualPixel Implementation
 
+    /// <summary>
+    /// Filter chain for the processor.
+    /// </summary>
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation
 
-    #region Properties
+    #region IProcessIndividualPlanes Implementation
 
     /// <summary>
     /// Index of the plane to invert.
     /// </summary>
     public int PlaneIndex { get; set; }
 
-    #endregion Properties
+    #endregion IProcessIndividualPlanes Implementation
   }
 }

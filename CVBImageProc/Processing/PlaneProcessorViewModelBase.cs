@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   {
     #region INeedImageInfo Implementation
 
-    public void UpdateImageInfo(Image img)
+    public virtual void UpdateImageInfo(Image img)
     {
       MaxPlaneIndex = img.Planes.Count - 1;
       if (PlaneIndex > MaxPlaneIndex)
