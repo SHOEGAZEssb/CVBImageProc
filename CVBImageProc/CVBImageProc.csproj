@@ -102,6 +102,11 @@
     <Compile Include="Processing\PlaneSelectorControl.xaml.cs">
       <DependentUpon>PlaneSelectorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Processing\Shuffle.cs" />
+    <Compile Include="Processing\ShuffleView.xaml.cs">
+      <DependentUpon>ShuffleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\ShuffleViewModel.cs" />
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
@@ -152,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\ProcessingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\ShuffleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

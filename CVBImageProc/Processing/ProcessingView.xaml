@@ -107,6 +107,9 @@
           <DataTemplate DataType="{x:Type local:PlaneClearViewModel}">
             <local:PlaneClearView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:ShuffleViewModel}">
+            <local:ShuffleView/>
+          </DataTemplate>
         </ContentControl.Resources>
       </ContentControl>
     </GroupBox>
