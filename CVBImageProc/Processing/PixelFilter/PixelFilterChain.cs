@@ -4,12 +4,34 @@ using System.Runtime.Serialization;
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
+  /// Logic to use when checking.
+  /// </summary>
+  enum LogicMode
+  {
+    /// <summary>
+    /// All filter checks need to pass.
+    /// </summary>
+    And,
+
+    /// <summary>
+    /// Only one filter check needs to pass.
+    /// </summary>
+    Or
+  }
+
+  /// <summary>
   /// Filter chain for processors.
   /// </summary>
   [DataContract]
   class PixelFilterChain
   {
     #region Properties
+
+    /// <summary>
+    /// Logic used when checking.
+    /// </summary>
+    [DataMember]
+    public LogicMode Mode { get; set; }
 
     /// <summary>
     /// The configured filters.
@@ -40,10 +62,26 @@ namespace CVBImageProc.Processing.PixelFilter
     /// the filter, otherwise false.</returns>
     public bool Check(byte pixel)
     {
-      foreach (var filter in Filters)
+      if (Filters.Count == 0)
+        return true;
+
+      if (Mode == LogicMode.And)
       {
-        if (!filter.Check(pixel))
-          return false;
+        foreach (var filter in Filters)
+        {
+          if (!filter.Check(pixel))
+            return false;
+        }
+      }
+      else
+      {
+        foreach(var filter in Filters)
+        {
+          if (filter.Check(pixel))
+            return true;
+        }
+
+        return false;
       }
 
       return true;

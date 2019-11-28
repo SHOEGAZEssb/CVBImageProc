@@ -41,6 +41,23 @@ namespace CVBImageProc.Processing.PixelFilter
     #region Properties
 
     /// <summary>
+    /// Logic used when checking.
+    /// </summary>
+    public LogicMode Mode
+    {
+      get => _filterChain.Mode;
+      set
+      {
+        if(Mode != value)
+        {
+          _filterChain.Mode = value;
+          NotifyOfPropertyChange();
+          SettingsChanged?.Invoke(this, EventArgs.Empty);
+        }
+      }
+    }
+
+    /// <summary>
     /// The configured filters.
     /// </summary>
     public ObservableCollection<IPixelFilterViewModel> Filters { get; }
