@@ -1,13 +1,12 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// ViewModel that replaces certain pixel values.
+  /// </summary>
   class Replace : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
@@ -15,7 +14,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Shuffle";
+    public string Name => "Replace";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
@@ -38,7 +37,7 @@ namespace CVBImageProc.Processing
           {
             byte* pPixel = pLine + (int)planeData.XInc * x;
 
-            if(PixelFilter.Check(*pPixel))
+            if (PixelFilter.Check(*pPixel))
               *pPixel = ReplaceWith;
           }
         }
@@ -60,6 +59,9 @@ namespace CVBImageProc.Processing
 
     #region ICanProcessIndividualPixel Implementation
 
+    /// <summary>
+    /// Filter chain of the processor.
+    /// </summary>
     public PixelFilterChain PixelFilter { get; } = new PixelFilterChain();
 
     #endregion ICanprocessIndividualPixel Implementation
