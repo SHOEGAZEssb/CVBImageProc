@@ -118,6 +118,12 @@ namespace CVBImageProc.Processing
     [DataMember]
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
 
+    [DataMember]
+    public bool UseAOI { get; set; }
+
+    [DataMember]
+    public Rect AOI { get; set; }
+
     #endregion ICanProcessIndividualPixel Implementation
 
     #region Properties

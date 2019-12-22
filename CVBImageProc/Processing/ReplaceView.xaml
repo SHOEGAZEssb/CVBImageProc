@@ -27,7 +27,7 @@
       </Grid>
     </TabItem>
     <TabItem Header="Filter">
-      <pf:PixelFilterChainView DataContext="{Binding PixelFilterChainVM}"/>
+      <pf:IndividualPixelProcessorSettingsView DataContext="{Binding PixelFilterChainVM}"/>
     </TabItem>
   </TabControl>
 </UserControl>

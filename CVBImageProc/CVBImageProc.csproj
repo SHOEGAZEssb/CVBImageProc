@@ -93,10 +93,10 @@
     <Compile Include="Processing\PixelFilter\IPixelFilterViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterChain.cs" />
-    <Compile Include="Processing\PixelFilter\PixelFilterChainView.xaml.cs">
-      <DependentUpon>PixelFilterChainView.xaml</DependentUpon>
+    <Compile Include="Processing\PixelFilter\IndividualPixelProcessorSettingsView.xaml.cs">
+      <DependentUpon>IndividualPixelProcessorSettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\IndividualPixelProcessorSettingsViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterViewModel.cs" />
     <Compile Include="Processing\ReplaceViewModel.cs" />
     <Compile Include="Processing\PlaneProcessorViewModelBase.cs" />
@@ -150,7 +150,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Processing\PixelFilter\PixelFilterChainView.xaml">
+    <Page Include="Processing\PixelFilter\IndividualPixelProcessorSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

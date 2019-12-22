@@ -28,37 +28,38 @@ namespace CVBImageProc.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      InvertPlane(inputImage.Planes[PlaneIndex], inputImage.Size);
+      var planeData = inputImage.Planes[PlaneIndex].GetLinearAccess();
 
-      return inputImage;
-    }
-
-    /// <summary>
-    /// Inverts the pixel values of the
-    /// given <paramref name="plane"/>.
-    /// </summary>
-    /// <param name="plane">Plane to invert.</param>
-    /// <param name="imageSize">Size of the plane.</param>
-    private void InvertPlane(ImagePlane plane, Size2D imageSize)
-    {
-      var data = plane.GetLinearAccess();
+      int startY = 0;
+      int startX = 0;
+      int height = inputImage.Height;
+      int width = inputImage.Width;
+      if (UseAOI)
+      {
+        startY = AOI.Location.Y;
+        startX = AOI.Location.X;
+        height = AOI.Size.Height;
+        width = AOI.Size.Width;
+      }
 
       unsafe
       {
-        for (int y = 0; y < imageSize.Height; y++)
+        for (; startY < height; startY++)
         {
-          byte* pLine = (byte*)(data.BasePtr + (int)data.YInc * y);
+          byte* pLine = (byte*)(planeData.BasePtr + (int)planeData.YInc * startY);
 
-          for (int x = 0; x < imageSize.Width; x++)
+          for (int x = startX; x < width; x++)
           {
-            byte* pPixel = pLine + (int)data.XInc * x;
+            byte* pPixel = pLine + (int)planeData.XInc * x;
 
             byte pixelValue = *pPixel;
-            if(PixelFilter.Check(pixelValue))
+            if (PixelFilter.Check(pixelValue))
               *pPixel = (byte)(255 - pixelValue);
           }
         }
       }
+
+      return inputImage;
     }
 
     #endregion IProcessor Implementation
@@ -69,6 +70,12 @@ namespace CVBImageProc.Processing
     /// Filter chain for the processor.
     /// </summary>
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
+
+    [DataMember]
+    public bool UseAOI { get; set; }
+
+    [DataMember]
+    public Rect AOI { get; set; }
 
     #endregion ICanProcessIndividualPixel Implementation
 

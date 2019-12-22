@@ -52,7 +52,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// ViewModel for the processors pixel filter chain.
     /// </summary>
-    public PixelFilterChainViewModel PixelFilterChainVM { get; }
+    public IndividualPixelProcessorSettingsViewModel PixelFilterChainVM { get; }
 
     #endregion Properties
 
@@ -75,7 +75,7 @@ namespace CVBImageProc.Processing
       : base(processor)
     {
       _processor = processor;
-      PixelFilterChainVM = new PixelFilterChainViewModel(_processor.PixelFilter);
+      PixelFilterChainVM = new IndividualPixelProcessorSettingsViewModel(_processor);
       PixelFilterChainVM.SettingsChanged += PixelFilterChainVM_SettingsChanged;
     }
 
