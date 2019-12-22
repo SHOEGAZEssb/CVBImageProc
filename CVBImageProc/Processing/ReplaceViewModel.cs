@@ -30,7 +30,12 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// ViewModel for the processors pixel filter chain.
     /// </summary>
-    public IndividualPixelProcessorSettingsViewModel PixelFilterChainVM { get; }
+    public PixelFilterChainViewModel PixelFilterChainVM { get; }
+
+    /// <summary>
+    /// ViewModel for the AOI.
+    /// </summary>
+    public AOIViewModel AOIVM { get; }
 
     #endregion Properties
 
@@ -51,8 +56,10 @@ namespace CVBImageProc.Processing
       : base(processor)
     {
       _processor = processor;
-      PixelFilterChainVM = new IndividualPixelProcessorSettingsViewModel(_processor);
-      PixelFilterChainVM.SettingsChanged += PixelFilterChainVM_SettingsChanged;
+      PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
+      PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
+      AOIVM = new AOIViewModel(_processor);
+      AOIVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     /// <summary>
@@ -61,7 +68,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     /// <param name="sender">Ignored.</param>
     /// <param name="e">Ignored.</param>
-    private void PixelFilterChainVM_SettingsChanged(object sender, EventArgs e)
+    private void SubVM_SettingsChanged(object sender, EventArgs e)
     {
       OnSettingsChanged();
     }

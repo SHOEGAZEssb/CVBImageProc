@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Processor for binarising an image.
   /// </summary>
   [DataContract]
-  class Binarise : IProcessor, ICanProcessIndividualPixel
+  class Binarise : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -118,13 +118,24 @@ namespace CVBImageProc.Processing
     [DataMember]
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
 
+    #endregion ICanProcessIndividualPixel Implementation
+
+    #region ICanProcessIndividualRegions Implementation
+
+    /// <summary>
+    /// If true, uses the <see cref="AOI"/>
+    /// while processing.
+    /// </summary>
     [DataMember]
     public bool UseAOI { get; set; }
 
+    /// <summary>
+    /// The AOI to process.
+    /// </summary>
     [DataMember]
     public Rect AOI { get; set; }
 
-    #endregion ICanProcessIndividualPixel Implementation
+    #endregion ICanProcessIndividualRegions Implementation
 
     #region Properties
 

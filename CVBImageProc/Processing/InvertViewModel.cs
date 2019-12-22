@@ -13,7 +13,12 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// ViewModel for the processors pixel filter chain.
     /// </summary>
-    public IndividualPixelProcessorSettingsViewModel PixelFilterChainVM { get; }
+    public PixelFilterChainViewModel PixelFilterChainVM { get; }
+
+    /// <summary>
+    /// ViewModel for the AOI.
+    /// </summary>
+    public AOIViewModel AOIVM { get; }
 
     #endregion Properties
 
@@ -24,8 +29,10 @@ namespace CVBImageProc.Processing
     public InvertViewModel(Invert processor)
       : base(processor)
     {
-      PixelFilterChainVM = new IndividualPixelProcessorSettingsViewModel(processor);
-      PixelFilterChainVM.SettingsChanged += PixelFilterChainVM_SettingsChanged;
+      PixelFilterChainVM = new PixelFilterChainViewModel(processor);
+      PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
+      AOIVM = new AOIViewModel(processor);
+      AOIVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     /// <summary>
@@ -34,7 +41,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     /// <param name="sender">Ignored.</param>
     /// <param name="e">Ignored.</param>
-    private void PixelFilterChainVM_SettingsChanged(object sender, EventArgs e)
+    private void SubVM_SettingsChanged(object sender, EventArgs e)
     {
       OnSettingsChanged();
     }

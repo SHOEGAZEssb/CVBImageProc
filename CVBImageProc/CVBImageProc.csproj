@@ -82,7 +82,12 @@
     </Compile>
     <Compile Include="Processing\IProcessIndividualPlanes.cs" />
     <Compile Include="Processing\InvertViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\AOIView.xaml.cs">
+      <DependentUpon>AOIView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\PixelFilter\AOIViewModel.cs" />
     <Compile Include="Processing\PixelFilter\Equals.cs" />
+    <Compile Include="Processing\PixelFilter\ICanProcessIndividualRegions.cs" />
     <Compile Include="Processing\PixelFilter\LargerThan.cs" />
     <Compile Include="Processing\PixelFilter\Modulo.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterView.xaml.cs">
@@ -93,10 +98,10 @@
     <Compile Include="Processing\PixelFilter\IPixelFilterViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterChain.cs" />
-    <Compile Include="Processing\PixelFilter\IndividualPixelProcessorSettingsView.xaml.cs">
-      <DependentUpon>IndividualPixelProcessorSettingsView.xaml</DependentUpon>
+    <Compile Include="Processing\PixelFilter\PixelFilterChainView.xaml.cs">
+      <DependentUpon>PixelFilterChainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\PixelFilter\IndividualPixelProcessorSettingsViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterViewModel.cs" />
     <Compile Include="Processing\ReplaceViewModel.cs" />
     <Compile Include="Processing\PlaneProcessorViewModelBase.cs" />
@@ -107,6 +112,7 @@
     <Compile Include="Processing\ReplaceView.xaml.cs">
       <DependentUpon>ReplaceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Processing\SettingsViewModelBase.cs" />
     <Compile Include="Processing\Shuffle.cs" />
     <Compile Include="Processing\ShuffleView.xaml.cs">
       <DependentUpon>ShuffleView.xaml</DependentUpon>
@@ -146,11 +152,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Processing\PixelFilter\AOIView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Processing\PixelFilter\PixelFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Processing\PixelFilter\IndividualPixelProcessorSettingsView.xaml">
+    <Page Include="Processing\PixelFilter\PixelFilterChainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

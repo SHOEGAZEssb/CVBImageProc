@@ -1,6 +1,8 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProc.Processing.PixelFilter;
+using Stemmer.Cvb;
 using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
@@ -23,7 +25,8 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Processor that sorts an image plane.
   /// </summary>
-  class Sort : IProcessor, IProcessIndividualPlanes
+  [DataContract]
+  class Sort : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -45,18 +48,42 @@ namespace CVBImageProc.Processing
       var planeData = inputImage.Planes[PlaneIndex].GetLinearAccess();
       int byteCounter = 0;
       byte[] sortedBytes;
+
+      int startY = 0;
+      int startX = 0;
+      int height = inputImage.Height;
+      int width = inputImage.Width;
+      if (UseAOI)
+      {
+        startY = AOI.Location.Y;
+        startX = AOI.Location.X;
+        height = AOI.Size.Height;
+        width = AOI.Size.Width;
+      }
+
       unsafe
       {
-        if (Mode == SortMode.Ascending)
-          sortedBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderBy(i => i).ToArray();
-        else
-          sortedBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderByDescending(i => i).ToArray();
-
-        for (int y = 0; y < inputImage.Height; y++)
+        if(UseAOI)
         {
-          byte* pLine = (byte*)(planeData.BasePtr + (int)planeData.YInc * y);
+          if (Mode == SortMode.Ascending)
+            sortedBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => i).ToArray();
+          else
+            sortedBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderByDescending(i => i).ToArray();
+        }
+        else
+        {
+          if (Mode == SortMode.Ascending)
+            sortedBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderBy(i => i).ToArray();
+          else
+            sortedBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderByDescending(i => i).ToArray();
+        }
 
-          for (int x = 0; x < inputImage.Width; x++)
+
+        for (; startY < height; startY++)
+        {
+          byte* pLine = (byte*)(planeData.BasePtr + (int)planeData.YInc * startY);
+
+          for (int x = startX; x < width; x++)
           {
             byte* pPixel = pLine + (int)planeData.XInc * x;
 
@@ -69,6 +96,23 @@ namespace CVBImageProc.Processing
     }
 
     #endregion IProcessor Implementation
+
+    #region ICanProcessIndividualRegions Implementation
+
+    /// <summary>
+    /// If true, uses the <see cref="AOI"/>
+    /// while processing.
+    /// </summary>
+    [DataMember]
+    public bool UseAOI { get; set; }
+
+    /// <summary>
+    /// The AOI to process.
+    /// </summary>
+    [DataMember]
+    public Rect AOI { get; set; }
+
+    #endregion ICanProcessIndividualRegions Implementation
 
     #region IProcessIndividualPlanes Implementation
 

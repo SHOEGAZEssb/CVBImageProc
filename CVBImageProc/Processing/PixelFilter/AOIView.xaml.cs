@@ -3,14 +3,14 @@
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Interaction logic for PixelFilterChainView.xaml
+  /// Interaction logic for AOIView.xaml
   /// </summary>
-  public partial class IndividualPixelProcessorSettingsView : UserControl
+  public partial class AOIView : UserControl
   {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public IndividualPixelProcessorSettingsView()
+    public AOIView()
     {
       InitializeComponent();
     }

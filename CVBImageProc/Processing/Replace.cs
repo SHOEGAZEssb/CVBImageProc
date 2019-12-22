@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// ViewModel that replaces certain pixel values.
   /// </summary>
   [DataContract]
-  class Replace : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualPixel
+  class Replace : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualPixel, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -80,13 +80,24 @@ namespace CVBImageProc.Processing
     [DataMember]
     public PixelFilterChain PixelFilter { get; } = new PixelFilterChain();
 
+    #endregion ICanprocessIndividualPixel Implementation
+
+    #region ICanProcessIndividualRegions Implementation
+
+    /// <summary>
+    /// If true, uses the <see cref="AOI"/>
+    /// while processing.
+    /// </summary>
     [DataMember]
     public bool UseAOI { get; set; }
 
+    /// <summary>
+    /// The AOI to process.
+    /// </summary>
     [DataMember]
     public Rect AOI { get; set; }
 
-    #endregion ICanprocessIndividualPixel Implementation
+    #endregion ICanProcessIndividualRegions Implementation
 
     #region Properties
 

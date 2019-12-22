@@ -1,4 +1,7 @@
-﻿namespace CVBImageProc.Processing
+﻿using CVBImageProc.Processing.PixelFilter;
+using System;
+
+namespace CVBImageProc.Processing
 {
   /// <summary>
   /// ViewModel for the <see cref="Sort"/> processor.
@@ -24,6 +27,11 @@
       }
     }
 
+    /// <summary>
+    /// ViewModel for the AOI.
+    /// </summary>
+    public AOIViewModel AOIVM { get; }
+
     #endregion Properties
 
     #region Member
@@ -45,8 +53,21 @@
       : base(processor)
     {
       _processor = processor;
+      AOIVM = new AOIViewModel(_processor);
+      AOIVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     #endregion Construction
+
+    /// <summary>
+    /// Fires the SettingsChanged event when the
+    /// pixel filter settings changed.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Ignored.</param>
+    private void SubVM_SettingsChanged(object sender, EventArgs e)
+    {
+      OnSettingsChanged();
+    }
   }
 }

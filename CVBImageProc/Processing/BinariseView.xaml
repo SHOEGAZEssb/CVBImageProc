@@ -35,7 +35,10 @@
       </Grid>
     </TabItem>
     <TabItem Header="Filter">
-      <pf:IndividualPixelProcessorSettingsView DataContext="{Binding PixelFilterChainVM}"/>
+      <pf:PixelFilterChainView DataContext="{Binding PixelFilterChainVM}"/>
+    </TabItem>
+    <TabItem Header="AOI">
+      <pf:AOIView DataContext="{Binding AOIVM}"/>
     </TabItem>
   </TabControl>
 </UserControl>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:CVBImageProc.Processing"
+             xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -17,25 +18,32 @@
       </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
   </UserControl.Resources>
-  
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="3"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
 
-    <Grid Grid.Row="0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="3"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
+  <TabControl>
+    <TabItem Header="Settings">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="3"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-      <TextBlock Grid.Column="0" Text="Mode:" VerticalAlignment="Center"/>
-      <ComboBox Grid.Column="2" SelectedItem="{Binding Mode}" ItemsSource="{Binding Source={StaticResource SortModeDataProvider}}"/>
-    </Grid>
+        <Grid Grid.Row="0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
 
-    <local:PlaneSelectorControl Grid.Row="2"/>
-  </Grid>
+          <TextBlock Grid.Column="0" Text="Mode:" VerticalAlignment="Center"/>
+          <ComboBox Grid.Column="2" SelectedItem="{Binding Mode}" ItemsSource="{Binding Source={StaticResource SortModeDataProvider}}"/>
+        </Grid>
+
+        <local:PlaneSelectorControl Grid.Row="2"/>
+      </Grid>
+    </TabItem>
+    <TabItem Header="AOI">
+      <pf:AOIView DataContext="{Binding AOIVM}"/>
+    </TabItem>
+  </TabControl>
 </UserControl>

@@ -1,7 +1,6 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
-using System.Linq;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
@@ -10,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Applies gain to an image.
   /// </summary>
   [DataContract]
-  class Gain : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes
+  class Gain : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -84,13 +83,24 @@ namespace CVBImageProc.Processing
     /// </summary>
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
 
+    #endregion ICanProcessIndividualPixel Implementation
+
+    #region ICanProcessIndividualRegions Implementation
+
+    /// <summary>
+    /// If true, uses the <see cref="AOI"/>
+    /// while processing.
+    /// </summary>
     [DataMember]
     public bool UseAOI { get; set; }
 
+    /// <summary>
+    /// The AOI to process.
+    /// </summary>
     [DataMember]
     public Rect AOI { get; set; }
 
-    #endregion ICanProcessIndividualPixel Implementation
+    #endregion ICanProcessIndividualRegions Implementation
 
     #region IProcessIndividualPlanes Implementation
 

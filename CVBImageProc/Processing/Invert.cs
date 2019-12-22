@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Inverts an image.
   /// </summary>
   [DataContract]
-  class Invert : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes
+  class Invert : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -71,13 +71,24 @@ namespace CVBImageProc.Processing
     /// </summary>
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
 
+    #endregion ICanProcessIndividualPixel Implementation
+
+    #region ICanProcessIndividualRegions Implementation
+
+    /// <summary>
+    /// If true, uses the <see cref="AOI"/>
+    /// while processing.
+    /// </summary>
     [DataMember]
     public bool UseAOI { get; set; }
 
+    /// <summary>
+    /// The AOI to process.
+    /// </summary>
     [DataMember]
     public Rect AOI { get; set; }
 
-    #endregion ICanProcessIndividualPixel Implementation
+    #endregion ICanProcessIndividualRegions Implementation
 
     #region IProcessIndividualPlanes Implementation
 
