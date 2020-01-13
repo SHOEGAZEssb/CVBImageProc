@@ -47,7 +47,24 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
-          <cvb:Display Image="{Binding InputImage}"/>
+          <cvb:Display Image="{Binding InputImage}">
+            <cvb:RectangleOverlay DataContext="{Binding ProcessingVM.SelectedProcessor}" Stroke="Red" StrokeThickness="1" Movable="True" Resizable="True"
+                                   OverlayX="{Binding AOIVM.AOIX}" OverlayY="{Binding AOIVM.AOIY}" OverlayWidth="{Binding AOIVM.AOIWidth}"
+                                   OverlayHeight="{Binding AOIVM.AOIHeight}">
+              <cvb:RectangleOverlay.Style>
+                <Style TargetType="cvb:RectangleOverlay">
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding AOIVM.UseAOI}" Value="False">
+                      <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding AOIVM, FallbackValue={x:Null}}" Value="{x:Null}">
+                      <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </cvb:RectangleOverlay.Style>
+            </cvb:RectangleOverlay>
+          </cvb:Display>
         </Border>
 
         <Button Grid.Row="2" Content="Open Image" Command="{Binding OpenImageCommand}" HorizontalAlignment="Center"/>
