@@ -103,6 +103,8 @@
     </Compile>
     <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\ProcessingBounds.cs" />
+    <Compile Include="Processing\ProcessingHelper.cs" />
     <Compile Include="Processing\ReplaceViewModel.cs" />
     <Compile Include="Processing\PlaneProcessorViewModelBase.cs" />
     <Compile Include="Processing\PlaneSelectorControl.xaml.cs">

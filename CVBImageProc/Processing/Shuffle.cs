@@ -30,41 +30,21 @@ namespace CVBImageProc.Processing
         throw new ArgumentNullException(nameof(inputImage));
 
       var rnd = new Random(DateTime.Now.Ticks.GetHashCode());
-      var planeData = inputImage.Planes[PlaneIndex].GetLinearAccess();
       int byteCounter = 0;
-
-      int startY = 0;
-      int startX = 0;
-      int height = inputImage.Height;
-      int width = inputImage.Width;
-      if (UseAOI)
-      {
-        startY = AOI.Location.Y;
-        startX = AOI.Location.X;
-        height = AOI.Size.Height;
-        width = AOI.Size.Width;
-      }
-
       byte[] shuffledBytes;
+
       unsafe
       {
         if(UseAOI)
           shuffledBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
         else
           shuffledBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
-
-        for (; startY < height; startY++)
-        {
-          byte* pLine = (byte*)(planeData.BasePtr + (int)planeData.YInc * startY);
-
-          for (int x = startX; x < width; x++)
-          {
-            byte* pPixel = pLine + (int)planeData.XInc * x;
-
-            *pPixel = shuffledBytes[byteCounter++];
-          }
-        }
       }
+
+      ProcessingHelper.Process(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
+      {
+        return shuffledBytes[byteCounter++];
+      });
 
       return inputImage;
     }

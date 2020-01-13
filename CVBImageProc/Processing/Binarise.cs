@@ -43,23 +43,13 @@ namespace CVBImageProc.Processing
     /// <returns>Binarised image.</returns>
     private Image BinariseMono(Image inputImage)
     {
-      var data = inputImage.Planes[0].GetLinearAccess();
-
-      unsafe
+      ProcessingHelper.Process(inputImage.Planes[0], (b) =>
       {
-        for (int y = 0; y < inputImage.Height; y++)
-        {
-          byte* pLine = (byte*)(data.BasePtr + (int)data.YInc * y);
-
-          for (int x = 0; x < inputImage.Width; x++)
-          {
-            byte* pPixel = pLine + (int)data.XInc * x;
-            byte pixelValue = *pPixel;
-            if(PixelFilter.Check(pixelValue))
-              *pPixel = (byte)(pixelValue >= Threshold ? 255 : 0);
-          }
-        }
-      }
+        if (PixelFilter.Check(b))
+          return (byte)(b >= Threshold ? 255 : 0);
+        else
+          return b;
+      });
 
       return inputImage;
     }

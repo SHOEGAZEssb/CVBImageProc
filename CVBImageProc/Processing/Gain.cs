@@ -29,47 +29,24 @@ namespace CVBImageProc.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      var planeData = inputImage.Planes[PlaneIndex].GetLinearAccess();
-
-      int startY = 0;
-      int startX = 0;
-      int height = inputImage.Height;
-      int width = inputImage.Width;
-      if (UseAOI)
+      ProcessingHelper.Process(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
-        startY = AOI.Location.Y;
-        startX = AOI.Location.X;
-        height = AOI.Size.Height;
-        width = AOI.Size.Width;
-      }
-
-      unsafe
-      {
-        for (; startY < height; startY++)
+        if (PixelFilter.Check(b))
         {
-          byte* pLine = (byte*)(planeData.BasePtr + (int)planeData.YInc * startY);
-
-          for (int x = startX; x < width; x++)
+          byte value = (byte)(b + GainValue);
+          if (!WrapAround)
           {
-            byte* pPixel = pLine + (int)planeData.XInc * x;
-
-            byte pixelValue = *pPixel;
-            if (PixelFilter.Check(pixelValue))
-            {
-              byte value = (byte)(pixelValue + GainValue);
-              if (!WrapAround)
-              {
-                if (pixelValue + GainValue > 255)
-                  value = 255;
-                else if (pixelValue + GainValue < 0)
-                  value = 0;
-              }
-
-              *pPixel = value;
-            }
+            if (b + GainValue > 255)
+              value = 255;
+            else if (b + GainValue < 0)
+              value = 0;
           }
+
+          return value;
         }
-      }
+        else
+          return b;
+      });
 
       return inputImage;
     }
