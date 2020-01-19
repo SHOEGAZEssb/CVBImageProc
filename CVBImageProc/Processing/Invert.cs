@@ -43,6 +43,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Filter chain for the processor.
     /// </summary>
+    [DataMember]
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation
