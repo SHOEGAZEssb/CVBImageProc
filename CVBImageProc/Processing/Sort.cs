@@ -98,6 +98,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Index of the plane to invert.
     /// </summary>
+    [DataMember]
     public int PlaneIndex { get; set; }
 
     #endregion IProcessIndividualPlanes Implementation
@@ -107,6 +108,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Sorting mode.
     /// </summary>
+    [DataMember]
     public SortMode Mode { get; set; }
 
     #endregion Properties

@@ -214,7 +214,7 @@ namespace CVBImageProc
       }
       catch (Exception ex)
       {
-        MessageBox.Show($"Error processing image: {ex.Message}");
+        StatusBarVM.StatusMessage = $"Error processing image: {ex.Message}";
       }
     }
 
