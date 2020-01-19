@@ -11,5 +11,10 @@ namespace CVBImageProc.Processing
     /// Name of the processor
     /// </summary>
     string Name { get; }
+
+    /// <summary>
+    /// The wrapped processor.
+    /// </summary>
+    IProcessor Processor { get; }
   }
 }

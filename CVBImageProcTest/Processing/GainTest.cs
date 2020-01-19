@@ -15,8 +15,10 @@ namespace CVBImageProcTest.Processing
       byte[] pixelValues = new byte[4] { 0, 10, 20, 30 };
       using(var img = TestHelper.CreateMonoTestImage(pixelValues))
       {
-        var gain = new Gain();
-        gain.GainValue = 12;
+        var gain = new Gain
+        {
+          GainValue = 12
+        };
 
         // when: applying the processor
         using (Image processedImage = gain.Process(img))

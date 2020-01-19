@@ -66,6 +66,11 @@ namespace CVBImageProc.Processing
     /// </summary>
     public ICommand LoadProcessorChainCommand { get; }
 
+    /// <summary>
+    /// Command for cloning the currently selected processor.
+    /// </summary>
+    public ICommand CloneProcessorCommand { get; }
+
     #endregion Commands
 
     #region Properties
@@ -160,6 +165,7 @@ namespace CVBImageProc.Processing
                                                                                                 && Processors.IndexOf(SelectedProcessor) != Processors.Count - 1);
       SaveProcessorChainCommand = new DelegateCommand((o) => SaveProcessorChain());
       LoadProcessorChainCommand = new DelegateCommand((o) => LoadProcessorChain());
+      CloneProcessorCommand = new DelegateCommand((o) => CloneSelectedProcessor());
 
       _processorChain = new ProcessorChain();
       Processors = new ObservableCollection<IProcessorViewModel>();
@@ -193,8 +199,17 @@ namespace CVBImageProc.Processing
       if (SelectedProcessorType == null)
         return;
 
+      AddProcessor((IProcessor)SelectedProcessorType.Instanciate());
+    }
+
+    /// <summary>
+    /// Adds the given <paramref name="processor"/> to the chain.
+    /// </summary>
+    /// <param name="processor">Processor to add.</param>
+    private void AddProcessor(IProcessor processor)
+    {
       // add to model
-      _processorChain.Processors.Add((IProcessor)SelectedProcessorType.Instanciate());
+      _processorChain.Processors.Add(processor);
 
       // add to vm
       Processors.Add(CreateProcessorViewModel(_processorChain.Processors.Last()));
@@ -352,6 +367,38 @@ namespace CVBImageProc.Processing
       catch(Exception ex)
       {
         MessageBox.Show($"Error loading processor chain: {ex.Message}");
+      }
+    }
+
+    /// <summary>
+    /// Clones the <see cref="SelectedProcessor"/>.
+    /// </summary>
+    private void CloneSelectedProcessor()
+    {
+      if (SelectedProcessor == null)
+        return;
+
+      try
+      {
+        var settings = new DataContractSerializerSettings()
+        {
+          KnownTypes = GetSerializerTypes
+        };
+        var serializer = new DataContractSerializer(typeof(ProcessorChain), settings);
+
+        using(var ms = new MemoryStream())
+        {
+          // serialize to memory
+          serializer.WriteObject(ms, SelectedProcessor.Processor);
+
+          // clone from memory
+          ms.Position = 0;
+          AddProcessor((IProcessor)serializer.ReadObject(ms));
+        }
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show($"Error cloning processor: {ex.Message}");
       }
     }
 

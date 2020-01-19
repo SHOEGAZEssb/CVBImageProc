@@ -13,18 +13,14 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => _processor.Name;
-
-    #endregion IProcessorViewModel Implementation
-
-    #region Member
+    public string Name => Processor.Name;
 
     /// <summary>
-    /// The actual processor.
+    /// The wrapped processor.
     /// </summary>
-    private readonly IProcessor _processor;
+    public IProcessor Processor { get; }
 
-    #endregion Member
+    #endregion IProcessorViewModel Implementation
 
     #region Construction
 
@@ -34,7 +30,7 @@ namespace CVBImageProc.Processing
     /// <param name="processor">The actual processor.</param>
     public ProcessorViewModel(IProcessor processor)
     {
-      _processor = processor ?? throw new ArgumentNullException(nameof(processor));
+      Processor = processor ?? throw new ArgumentNullException(nameof(processor));
     }
 
     #endregion Construction
