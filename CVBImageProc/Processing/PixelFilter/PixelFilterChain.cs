@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// Logic to use when checking.
   /// </summary>
-  enum LogicMode
+  public enum LogicMode
   {
     /// <summary>
     /// All filter checks need to pass.
@@ -23,7 +23,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// Filter chain for processors.
   /// </summary>
   [DataContract]
-  class PixelFilterChain
+  public class PixelFilterChain
   {
     #region Properties
 

@@ -1,5 +1,4 @@
 ﻿using CVBImageProc.MVVM;
-using Stemmer.Cvb;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

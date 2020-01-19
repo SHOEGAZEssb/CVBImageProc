@@ -45,7 +45,6 @@ namespace CVBImageProc.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      var planeData = inputImage.Planes[PlaneIndex].GetLinearAccess();
       int byteCounter = 0;
       byte[] sortedBytes;
 

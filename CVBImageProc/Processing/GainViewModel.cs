@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
 using CVBImageProc.Processing.PixelFilter;
-using Stemmer.Cvb;
 
 namespace CVBImageProc.Processing
 {

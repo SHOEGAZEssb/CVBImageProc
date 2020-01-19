@@ -3,7 +3,7 @@
   /// <summary>
   /// Interface for an object checking validity of pixels.
   /// </summary>
-  interface IPixelFilter
+  public interface IPixelFilter
   {
     /// <summary>
     /// Name of the filter.

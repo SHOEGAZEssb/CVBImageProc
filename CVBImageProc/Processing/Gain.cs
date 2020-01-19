@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Applies gain to an image.
   /// </summary>
   [DataContract]
-  class Gain : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Gain : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
