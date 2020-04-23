@@ -158,7 +158,11 @@ namespace CVBImageProc
         }
         catch (Exception ex)
         {
-          MessageBox.Show($"Error opening image: {ex.Message}");
+          if(MessageBox.Show($"Error opening file: {ex.Message}\r\nDo you want to open the file as raw image?",
+                             "Open file", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+          {
+            InputImage = RawFileImporter.ImportAsRGB(ofd.FileName, new Size2D(800, 800), 255, RGBMode.RRGGBB);
+          }
         }
       }
     }

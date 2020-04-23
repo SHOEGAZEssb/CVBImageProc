@@ -66,7 +66,7 @@ namespace CVBImageProc.Processing
         }
       }
 
-      ProcessingHelper.Process(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
+      ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
         return sortedBytes[byteCounter++];
       });

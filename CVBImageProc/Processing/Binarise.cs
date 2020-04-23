@@ -43,7 +43,7 @@ namespace CVBImageProc.Processing
     /// <returns>Binarised image.</returns>
     private Image BinariseMono(Image inputImage)
     {
-      ProcessingHelper.Process(inputImage.Planes[0], (b) =>
+      ProcessingHelper.ProcessMono(inputImage.Planes[0], (b) =>
       {
         if (PixelFilter.Check(b))
           return (byte)(b >= Threshold ? 255 : 0);

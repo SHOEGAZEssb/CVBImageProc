@@ -47,6 +47,29 @@
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\CVBImageProc.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Stemmer.Cvb, Version=1.80.0.0, Culture=neutral, PublicKeyToken=bff841d173155285, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -81,10 +104,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions.cs" />
+    <Compile Include="MVVM\ContextWindow.xaml.cs">
+      <DependentUpon>ContextWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Converter\ImplementsTypeConverter.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="MVVM\IWindowManager.cs" />
     <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="MVVM\WindowManager.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
       <DependentUpon>InvertView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +161,7 @@
       <DependentUpon>SortView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\SortViewModel.cs" />
+    <Compile Include="RawFileImporter.cs" />
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +179,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\ContextWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Processing\BinariseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

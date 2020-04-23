@@ -1,0 +1,120 @@
+﻿using CVBImageProc.Processing;
+using Stemmer.Cvb;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace CVBImageProc
+{
+  /// <summary>
+  /// How rgb pixels should be read
+  /// from the raw bytes.
+  /// </summary>
+  enum RGBMode
+  {
+    /// <summary>
+    /// Pixels are read in r g b
+    /// order after each other.
+    /// </summary>
+    RGBRGB,
+
+    /// <summary>
+    /// R pixels are read fully first,
+    /// followed by g and then b in full.
+    /// </summary>
+    RRGGBB
+  }
+
+  /// <summary>
+  /// Imports any file as an image.
+  /// </summary>
+  static class RawFileImporter
+  {
+    /// <summary>
+    /// Imports the given <paramref name="file"/> as a mono image.
+    /// </summary>
+    /// <param name="file">File to import.</param>
+    /// <param name="imageSize">Size of the resulting image.</param>
+    /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
+    /// <returns>Imported mono image.</returns>
+    public static Image ImportAsMono(string file, Size2D imageSize, byte fill)
+    {
+      if (string.IsNullOrEmpty(file))
+        throw new ArgumentNullException(nameof(file));
+
+      var rawBytes = new Queue<byte>(File.ReadAllBytes(file));
+
+      var img = new Image(imageSize);
+      ProcessingHelper.ProcessMono(img.Planes[0], (b) =>
+      {
+        return rawBytes.Any() ? rawBytes.Dequeue() : fill;
+      });
+
+      return img;
+    }
+
+    /// <summary>
+    /// Imports the given <paramref name="file"/> as a mono image.
+    /// </summary>
+    /// <param name="file">File to import.</param>
+    /// <param name="imageSize">Size of the resulting image.</param>
+    /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
+    /// <param name="rgbMode">Read-in mode of the rgb bytes.</param>
+    /// <returns>Imported rgb image.</returns>
+    public static Image ImportAsRGB(string file, Size2D imageSize, byte fill, RGBMode rgbMode)
+    {
+      if (string.IsNullOrEmpty(file))
+        throw new ArgumentNullException(nameof(file));
+
+      var rawBytes = new Queue<byte>(File.ReadAllBytes(file));
+      var img = new Image(imageSize, 3);
+
+      if (rgbMode == RGBMode.RGBRGB)
+        ImportRGBAsRGBRGB(rawBytes, img, fill);
+      else
+        ImportRGBAsRRGGBB(rawBytes, img, fill);
+
+      return img;
+    }
+
+    private static void ImportRGBAsRGBRGB(Queue<byte> rawBytes, Image img, byte fill)
+    {
+      if (rawBytes == null)
+        throw new ArgumentNullException(nameof(rawBytes));
+      if (img == null)
+        throw new ArgumentNullException(nameof(img));
+
+      ProcessingHelper.ProcessRGB(img, (i) =>
+      {
+        byte r = rawBytes.Any() ? rawBytes.Dequeue() : fill;
+        byte g = rawBytes.Any() ? rawBytes.Dequeue() : fill;
+        byte b = rawBytes.Any() ? rawBytes.Dequeue() : fill;
+        return new Tuple<byte, byte, byte>(r, g, b);
+      });
+    }
+
+    private static void ImportRGBAsRRGGBB(Queue<byte> rawBytes, Image img, byte fill)
+    {
+      if (rawBytes == null)
+        throw new ArgumentNullException(nameof(rawBytes));
+      if (img == null)
+        throw new ArgumentNullException(nameof(img));
+
+      ProcessingHelper.ProcessMono(img.Planes[0], (b) =>
+      {
+        return rawBytes.Any() ? rawBytes.Dequeue() : fill;
+      });
+
+      ProcessingHelper.ProcessMono(img.Planes[1], (b) =>
+      {
+        return rawBytes.Any() ? rawBytes.Dequeue() : fill;
+      });
+
+      ProcessingHelper.ProcessMono(img.Planes[2], (b) =>
+      {
+        return rawBytes.Any() ? rawBytes.Dequeue() : fill;
+      });
+    }
+  }
+}
