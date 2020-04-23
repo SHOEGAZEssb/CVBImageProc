@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Processor for clearing planes.
   /// </summary>
   [DataContract]
-  class PlaneClear : IProcessor
+  public class PlaneClear : IProcessor
   {
     #region IProcessor Implementation
 

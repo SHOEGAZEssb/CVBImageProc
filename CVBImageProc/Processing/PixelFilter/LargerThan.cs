@@ -8,7 +8,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// configured value.
   /// </summary>
   [DataContract]
-  class LargerThan : PixelFilterBase
+  public class LargerThan : PixelFilterBase
   {
     #region IPixelFilter Implementation
 

@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// ViewModel that replaces certain pixel values.
   /// </summary>
   [DataContract]
-  class Replace : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualPixel, ICanProcessIndividualRegions
+  public class Replace : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualPixel, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 

@@ -154,7 +154,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// </summary>
     /// <param name="filter">Filter to create ViewModel for.</param>
     /// <returns>ViewModel for the <paramref name="filter"/>.</returns>
-    private IPixelFilterViewModel CreatePixelFilterViewModel(IPixelFilter filter)
+    private static IPixelFilterViewModel CreatePixelFilterViewModel(IPixelFilter filter)
     {
       if (filter == null)
         throw new ArgumentNullException(nameof(filter));

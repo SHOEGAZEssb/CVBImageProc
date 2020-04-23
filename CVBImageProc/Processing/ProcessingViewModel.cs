@@ -18,7 +18,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the image processing.
   /// </summary>
-  class ProcessingViewModel : ViewModelBase, INeedImageInfo
+  public class ProcessingViewModel : ViewModelBase, INeedImageInfo
   {
     #region INeedImageInfo Implementation
 
@@ -126,8 +126,8 @@ namespace CVBImageProc.Processing
         {
           _selectedProcessor = value;
           NotifyOfPropertyChange();
-          (MoveProcessorUpCommand as DelegateCommand).RaiseCanExecuteChanged();
-          (MoveProcessorDownCommand as DelegateCommand).RaiseCanExecuteChanged();
+          (MoveProcessorUpCommand as DelegateCommand).OnCanExecuteChanged();
+          (MoveProcessorDownCommand as DelegateCommand).OnCanExecuteChanged();
         }
       }
     }
@@ -161,7 +161,7 @@ namespace CVBImageProc.Processing
       MoveProcessorUpCommand = new DelegateCommand((o) => MoveSelectedProcessorUp(), (o) => SelectedProcessor != null && Processors.Count > 1
                                                                                             && Processors.IndexOf(SelectedProcessor) > 0);
       MoveProcessorDownCommand = new DelegateCommand((o) => MoveSelectedProcessorDown(), (o) => SelectedProcessor != null && Processors.Count > 1
-                                                                                                && Processors.IndexOf(SelectedProcessor) >= 0 
+                                                                                                && Processors.IndexOf(SelectedProcessor) >= 0
                                                                                                 && Processors.IndexOf(SelectedProcessor) != Processors.Count - 1);
       SaveProcessorChainCommand = new DelegateCommand((o) => SaveProcessorChain());
       LoadProcessorChainCommand = new DelegateCommand((o) => LoadProcessorChain());
@@ -319,7 +319,7 @@ namespace CVBImageProc.Processing
           Filter = "XML Files (*.xml) |*.xml"
         };
 
-        if(sfd.ShowDialog() ?? false)
+        if (sfd.ShowDialog() ?? false)
         {
           var settings = new DataContractSerializerSettings()
           {
@@ -332,7 +332,7 @@ namespace CVBImageProc.Processing
             serializer.WriteObject(w, _processorChain);
         }
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         MessageBox.Show($"Error saving processor chain: {ex.Message}");
       }
@@ -350,7 +350,7 @@ namespace CVBImageProc.Processing
           Filter = "XML Files (*.xml) |*.xml"
         };
 
-        if(ofd.ShowDialog() ?? false)
+        if (ofd.ShowDialog() ?? false)
         {
           var settings = new DataContractSerializerSettings()
           {
@@ -364,7 +364,7 @@ namespace CVBImageProc.Processing
           InitializeViewModels();
         }
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         MessageBox.Show($"Error loading processor chain: {ex.Message}");
       }
@@ -386,7 +386,7 @@ namespace CVBImageProc.Processing
         };
         var serializer = new DataContractSerializer(typeof(ProcessorChain), settings);
 
-        using(var ms = new MemoryStream())
+        using (var ms = new MemoryStream())
         {
           // serialize to memory
           serializer.WriteObject(ms, SelectedProcessor.Processor);
@@ -396,7 +396,7 @@ namespace CVBImageProc.Processing
           AddProcessor((IProcessor)serializer.ReadObject(ms));
         }
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         MessageBox.Show($"Error cloning processor: {ex.Message}");
       }
@@ -426,26 +426,26 @@ namespace CVBImageProc.Processing
     /// <param name="e">Contains the event data.</param>
     private void Processors_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
-      if(e.Action == NotifyCollectionChangedAction.Add)
+      if (e.Action == NotifyCollectionChangedAction.Add)
       {
-        foreach(var settingsProc in e.NewItems.OfType<IHasSettings>())
+        foreach (var settingsProc in e.NewItems.OfType<IHasSettings>())
           settingsProc.SettingsChanged += SettingsProc_SettingsChanged;
 
-        if (e.NewItems.OfType<INeedImageInfo>().Count() != 0)
+        if (e.NewItems.OfType<INeedImageInfo>().Any())
           UpdateImageInfoRequested?.Invoke(this, EventArgs.Empty);
       }
-      else if(e.Action == NotifyCollectionChangedAction.Remove)
+      else if (e.Action == NotifyCollectionChangedAction.Remove)
       {
         foreach (var settingsProc in e.OldItems.OfType<IHasSettings>())
           settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
       }
-      
+
       // don't fire when "replacing" (moveup, down)
-      if(e.Action != NotifyCollectionChangedAction.Replace)
+      if (e.Action != NotifyCollectionChangedAction.Replace)
         ProcessingRequested?.Invoke(this, EventArgs.Empty);
 
-      (MoveProcessorUpCommand as DelegateCommand).RaiseCanExecuteChanged();
-      (MoveProcessorDownCommand as DelegateCommand).RaiseCanExecuteChanged();
+      (MoveProcessorUpCommand as DelegateCommand).OnCanExecuteChanged();
+      (MoveProcessorDownCommand as DelegateCommand).OnCanExecuteChanged();
     }
 
     /// <summary>

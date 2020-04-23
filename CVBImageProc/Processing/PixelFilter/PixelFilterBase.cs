@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// Base class for pixel filters.
   /// </summary>
   [DataContract]
-  abstract class PixelFilterBase : IPixelFilter
+  public abstract class PixelFilterBase : IPixelFilter
   {
     #region IPixelFilter Implementation
 

@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Inverts an image.
   /// </summary>
   [DataContract]
-  class Invert : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Invert : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 

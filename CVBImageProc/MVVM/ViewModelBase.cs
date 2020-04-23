@@ -6,7 +6,7 @@ namespace CVBImageProc.MVVM
   /// <summary>
   /// Base class for all ViewModels.
   /// </summary>
-  abstract class ViewModelBase : INotifyPropertyChanged
+  public abstract class ViewModelBase : INotifyPropertyChanged
   {
     #region INotifyPropertyChanged Implementation
 

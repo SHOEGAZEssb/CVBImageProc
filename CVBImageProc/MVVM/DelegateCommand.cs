@@ -71,7 +71,7 @@ namespace CVBImageProc.MVVM
     /// <summary>
     /// Fires the <see cref="CanExecuteChanged"/> event.
     /// </summary>
-    public void RaiseCanExecuteChanged()
+    public void OnCanExecuteChanged()
     {
       CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }

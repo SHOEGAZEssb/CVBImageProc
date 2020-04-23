@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// pixel value is equal the configured value.
   /// </summary>
   [DataContract]
-  class Equals : PixelFilterBase
+  public class Equals : PixelFilterBase
   {
     #region IPixelFilter Implementation
 

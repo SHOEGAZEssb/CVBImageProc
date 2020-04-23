@@ -13,7 +13,7 @@ namespace CVBImageProc
   /// <summary>
   /// ViewModel for MainView.
   /// </summary>
-  class MainViewModel : ViewModelBase
+  public class MainViewModel : ViewModelBase
   {
 
     #region Commands
@@ -195,20 +195,17 @@ namespace CVBImageProc
     /// </summary>
     private async Task Process()
     {
-      if (_processingTask != null && !_processingTask.IsCompleted)
-        return;
-
-      if (InputImage == null)
+      if ((_processingTask != null && !_processingTask.IsCompleted) || InputImage == null)
         return;
 
       try
       {
         StatusBarVM.StatusMessage = "Processing...";
 
-        DateTime start = DateTime.Now;
+        var start = DateTime.Now;
         _processingTask = ProcessingVM.ProcessAsync(InputImage);
         OutputImage = await _processingTask;
-        DateTime end = DateTime.Now;
+        var end = DateTime.Now;
 
         StatusBarVM.StatusMessage = $"Processing took {(end - start).TotalMilliseconds} ms";
       }

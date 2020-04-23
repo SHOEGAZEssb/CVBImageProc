@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Mode to use while sorting.
   /// </summary>
-  enum SortMode
+  public enum SortMode
   {
     /// <summary>
     /// Pixels will be sorted in ascending order.
@@ -26,7 +26,7 @@ namespace CVBImageProc.Processing
   /// Processor that sorts an image plane.
   /// </summary>
   [DataContract]
-  class Sort : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Sort : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 

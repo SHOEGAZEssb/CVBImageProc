@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Processor for binarising an image.
   /// </summary>
   [DataContract]
-  class Binarise : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions
+  public class Binarise : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -105,6 +105,9 @@ namespace CVBImageProc.Processing
 
     #region ICanProcessIndividualPixel Implementation
 
+    /// <summary>
+    /// Filter chain for the processor.
+    /// </summary>
     [DataMember]
     public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
 
@@ -159,8 +162,19 @@ namespace CVBImageProc.Processing
     /// </summary>
     public const int MINTHRESHOLD = 1;
 
+    /// <summary>
+    /// Red conversion factor.
+    /// </summary>
     public const double FACTORRED = 0.2125;
+
+    /// <summary>
+    /// Green conversion factor.
+    /// </summary>
     public const double FACTORGREEN = 0.7154;
+
+    /// <summary>
+    /// Blue conversion factor.
+    /// </summary>
     public const double FACTORBLUE = 0.0721;
 
     #endregion Properties

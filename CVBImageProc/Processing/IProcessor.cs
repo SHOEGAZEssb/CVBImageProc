@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Interface for an image processor.
   /// </summary>
-  interface IProcessor
+  public interface IProcessor
   {
     /// <summary>
     /// Name of the processor.

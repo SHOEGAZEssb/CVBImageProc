@@ -4,13 +4,32 @@ using System;
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// Helper class for pixel access and processing.
+  /// </summary>
   static class ProcessingHelper
   {
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// with the given <paramref name="processorFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="processorFunc">Func that takes a byte, processes
+    /// it and returns a byte.</param>
     public static void Process(ImagePlane plane, Func<byte, byte> processorFunc)
     {
       Process(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc);
     }
 
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// in the given <paramref name="bounds"/> with the
+    /// given <paramref name="processorFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="bounds">Bounds defining which pixels to process.</param>
+    /// <param name="processorFunc">Func that takes a byte, processes
+    /// it and returns a byte.</param>
     public static void Process(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processorFunc)
     {
       if (processorFunc == null)

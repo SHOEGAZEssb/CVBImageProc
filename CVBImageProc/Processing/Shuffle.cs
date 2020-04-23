@@ -10,7 +10,7 @@ namespace CVBImageProc.Processing
   /// Processor that shuffles an image plane.
   /// </summary>
   [DataContract]
-  class Shuffle : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Shuffle : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 

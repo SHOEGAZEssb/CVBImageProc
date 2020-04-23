@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Interface for a ViewModel managing a <see cref="IProcessor"/>.
   /// </summary>
-  interface IProcessorViewModel : INotifyPropertyChanged
+  public interface IProcessorViewModel : INotifyPropertyChanged
   {
     /// <summary>
     /// Name of the processor

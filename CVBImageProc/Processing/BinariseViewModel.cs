@@ -22,7 +22,7 @@ namespace CVBImageProc.Processing
 
     /// <summary>
     /// Threshold of the binarization.
-    /// Values &lt; will be set to 0. 
+    /// Values &lt; will be set to 0.
     /// Values &gt;= will be set to 255.
     /// </summary>
     public int Threshold
@@ -38,16 +38,6 @@ namespace CVBImageProc.Processing
         }
       }
     }
-
-    /// <summary>
-    /// Max value of the <see cref="Threshold"/>.
-    /// </summary>
-    public int MaxThreshold => Binarise.MAXTHRESHOLD;
-
-    /// <summary>
-    /// Min value of the <see cref="Threshold"/>.
-    /// </summary>
-    public int MinThreshold => Binarise.MINTHRESHOLD;
 
     /// <summary>
     /// ViewModel for the processors pixel filter chain.

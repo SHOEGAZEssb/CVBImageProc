@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// configured value.
   /// </summary>
   [DataContract]
-  class Modulo : PixelFilterBase
+  public class Modulo : PixelFilterBase
   {
     #region IPixelFilter Implementation
 
