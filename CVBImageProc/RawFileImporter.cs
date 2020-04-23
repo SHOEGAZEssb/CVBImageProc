@@ -43,12 +43,27 @@ namespace CVBImageProc
       if (string.IsNullOrEmpty(file))
         throw new ArgumentNullException(nameof(file));
 
-      var rawBytes = new Queue<byte>(File.ReadAllBytes(file));
+      return ImportAsMono(File.ReadAllBytes(file), imageSize, fill);
+    }
 
+    /// <summary>
+    /// Imports the given <paramref name="rawBytes"/> as mono image.
+    /// </summary>
+    /// <param name="rawBytes">The raw bytes to use for the image.</param>
+    /// <param name="imageSize">Size of the resulting image.</param>
+    /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
+    /// <returns>Imported mono image.</returns>
+    public static Image ImportAsMono(byte[] rawBytes, Size2D imageSize, byte fill)
+    {
+      if (rawBytes == null)
+        throw new ArgumentNullException(nameof(rawBytes));
+
+      var queue = new Queue<byte>(rawBytes);
       var img = new Image(imageSize);
+
       ProcessingHelper.ProcessMono(img.Planes[0], (b) =>
       {
-        return rawBytes.Any() ? rawBytes.Dequeue() : fill;
+        return queue.Any() ? queue.Dequeue() : fill;
       });
 
       return img;
@@ -67,13 +82,29 @@ namespace CVBImageProc
       if (string.IsNullOrEmpty(file))
         throw new ArgumentNullException(nameof(file));
 
-      var rawBytes = new Queue<byte>(File.ReadAllBytes(file));
+      return ImportAsRGB(File.ReadAllBytes(file), imageSize, fill, rgbMode);
+    }
+
+    /// <summary>
+    /// Imports the given <paramref name="rawBytes"/> as rgb image.
+    /// </summary>
+    /// <param name="rawBytes">The raw bytes to use for the image.</param>
+    /// <param name="imageSize">Size of the resulting image.</param>
+    /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
+    /// <param name="rgbMode">Read-in mode of the rgb bytes.</param>
+    /// <returns>Imported rgb image.</returns>
+    public static Image ImportAsRGB(byte[] rawBytes, Size2D imageSize, byte fill, RGBMode rgbMode)
+    {
+      if (rawBytes == null)
+        throw new ArgumentNullException(nameof(rawBytes));
+
+      var queue = new Queue<byte>(rawBytes);
       var img = new Image(imageSize, 3);
 
       if (rgbMode == RGBMode.RGBRGB)
-        ImportRGBAsRGBRGB(rawBytes, img, fill);
+        ImportRGBAsRGBRGB(queue, img, fill);
       else
-        ImportRGBAsRRGGBB(rawBytes, img, fill);
+        ImportRGBAsRRGGBB(queue, img, fill);
 
       return img;
     }

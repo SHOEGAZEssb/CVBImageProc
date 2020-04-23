@@ -29,7 +29,7 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    
+
     <Grid Margin="5">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="2*"/>
@@ -67,7 +67,16 @@
           </cvb:Display>
         </Border>
 
-        <Button Grid.Row="2" Content="Open Image" Command="{Binding OpenImageCommand}" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          
+          <Button Grid.Column="0" Content="Open Image" Command="{Binding OpenImageCommand}"/>
+          <Button Grid.Column="2" Content="Open Raw File" Command="{Binding OpenRawFileCommand}"/>
+        </Grid>
       </Grid>
 
       <Grid Grid.Column="2">
@@ -109,18 +118,22 @@
           <RowDefinition Height="*"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
-          <RowDefinition Height="5"/>
-          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
           <cvb:Display Image="{Binding OutputImage}"/>
         </Border>
 
-        <Button Grid.Row="2" Style="{StaticResource outputImageButton}" Content="Open Image" Command="{Binding SaveImageCommand}" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="4" Style="{StaticResource outputImageButton}" Content="Use as Input Image"
-              Command="{Binding UseOutputImageAsInputImageCommand}" HorizontalAlignment="Center"/>
+          <Button Grid.Column="0" Style="{StaticResource outputImageButton}" Content="Save Image" Command="{Binding SaveImageCommand}"/>
+          <Button Grid.Column="2" Style="{StaticResource outputImageButton}" Content="Use as Input Image" Command="{Binding UseOutputImageAsInputImageCommand}"/>
+        </Grid>
       </Grid>
     </Grid>
 

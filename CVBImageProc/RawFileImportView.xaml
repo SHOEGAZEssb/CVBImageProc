@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="CVBImageProc.RawFileImportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:CVBImageProc"
+             xmlns:cvb="http://www.commonvisionblox.com/wpf"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+  <UserControl.Resources>
+    <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="ColorModeDataProvider">
+      <ObjectDataProvider.MethodParameters>
+        <x:Type TypeName="local:ColorMode"/>
+      </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="RGBModeDataProvider">
+      <ObjectDataProvider.MethodParameters>
+        <x:Type TypeName="local:RGBMode"/>
+      </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <Style x:Key="NeedRGBStyle" TargetType="FrameworkElement">
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding ColorMode}" Value="{x:Static local:ColorMode.Mono}">
+          <Setter Property="Visibility" Value="Collapsed"/>
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+  </UserControl.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="5"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="5"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="3"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="3"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="3"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="3"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Image Size (WxH):"/>
+        <Grid Grid.Row="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+
+          <xctk:IntegerUpDown Grid.Column="0" Minimum="1" Value="{Binding Width}"/>
+          <TextBlock Grid.Column="2" Text="x"/>
+          <xctk:IntegerUpDown Grid.Column="4" Minimum="1" Value="{Binding Height}"/>
+        </Grid>
+
+        <TextBlock Grid.Row="4" Text="Fill Value:"/>
+        <xctk:ByteUpDown Grid.Row="6" Minimum="0" Value="{Binding FillValue}" Maximum="255"/>
+
+        <TextBlock Grid.Row="8" Text="Color Mode:"/>
+        <ComboBox Grid.Row="10" SelectedValue="{Binding ColorMode}" ItemsSource="{Binding Source={StaticResource ColorModeDataProvider}}"/>
+
+        <TextBlock Grid.Row="12" Text="RGB Mode:" Style="{StaticResource NeedRGBStyle}"/>
+        <ComboBox Grid.Row="14" SelectedValue="{Binding RGBMode}" ItemsSource="{Binding Source={StaticResource RGBModeDataProvider}}" Style="{StaticResource NeedRGBStyle}"/>
+      </Grid>
+      
+      <cvb:Display Grid.Column="2" Grid.Row="0" Image="{Binding ImportedImage}"/>
+    </Grid>
+
+    <Grid Grid.Row="2" HorizontalAlignment="Center">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="5"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Content="OK" Command="{Binding OKCommand}"/>
+      <Button Grid.Column="2" Content="Cancel" Command="{Binding CancelCommand}"/>
+    </Grid>
+  </Grid>
+</UserControl>

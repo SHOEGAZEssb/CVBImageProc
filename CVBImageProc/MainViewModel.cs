@@ -15,13 +15,17 @@ namespace CVBImageProc
   /// </summary>
   public class MainViewModel : ViewModelBase
   {
-
     #region Commands
 
     /// <summary>
     /// Command for opening an image.
     /// </summary>
     public ICommand OpenImageCommand { get; }
+
+    /// <summary>
+    /// Command for opening a raw file.
+    /// </summary>
+    public ICommand OpenRawFileCommand { get; }
 
     /// <summary>
     /// Command for saving an image.
@@ -117,6 +121,11 @@ namespace CVBImageProc
     /// </summary>
     private Task<Image> _processingTask;
 
+    /// <summary>
+    /// WindowManager used to display dialogs.
+    /// </summary>
+    private readonly IWindowManager _windowManager;
+
     #endregion Member
 
     #region Construction
@@ -127,6 +136,7 @@ namespace CVBImageProc
     public MainViewModel()
     {
       OpenImageCommand = new DelegateCommand((o) => OpenImage());
+      OpenRawFileCommand = new DelegateCommand((o) => OpenRawFile());
       SaveImageCommand = new DelegateCommand((o) => SaveImage());
       ProcessCommand = new DelegateCommand((o) => Process().Forget());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
@@ -136,6 +146,8 @@ namespace CVBImageProc
       ProcessingVM.UpdateImageInfoRequested += ProcessingVM_UpdateImageInfoRequested;
       ProcessingVM.ProcessingRequested += ProcessingVM_ProcessingRequested;
       StatusBarVM = new StatusBarViewModel();
+
+      _windowManager = new WindowManager();
     }
 
     #endregion Construction
@@ -158,12 +170,19 @@ namespace CVBImageProc
         }
         catch (Exception ex)
         {
-          if(MessageBox.Show($"Error opening file: {ex.Message}\r\nDo you want to open the file as raw image?",
-                             "Open file", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-          {
-            InputImage = RawFileImporter.ImportAsRGB(ofd.FileName, new Size2D(800, 800), 255, RGBMode.RRGGBB);
-          }
+          MessageBox.Show($"Error opening image: {ex.Message}");
         }
+      }
+    }
+
+    private void OpenRawFile()
+    {
+      var ofd = new OpenFileDialog();
+      if(ofd.ShowDialog() ?? false)
+      {
+        var vm = new RawFileImportViewModel(ofd.FileName);
+        if (_windowManager.ShowDialog(vm) ?? false)
+          InputImage = vm.ImportedImage;
       }
     }
 

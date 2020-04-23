@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="MVVM\Converter\ImplementsTypeConverter.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="MVVM\IWindowContext.cs" />
     <Compile Include="MVVM\IWindowManager.cs" />
     <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
@@ -162,6 +163,10 @@
     </Compile>
     <Compile Include="Processing\SortViewModel.cs" />
     <Compile Include="RawFileImporter.cs" />
+    <Compile Include="RawFileImportView.xaml.cs">
+      <DependentUpon>RawFileImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RawFileImportViewModel.cs" />
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
@@ -232,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\SortView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RawFileImportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
