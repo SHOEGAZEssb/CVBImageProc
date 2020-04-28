@@ -4,17 +4,18 @@ namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
   /// Pixel filter that checks if a given
-  /// pixel value is equal the configured value.
+  /// pixel value is larger than the
+  /// configured value.
   /// </summary>
   [DataContract]
-  public class Equals : PixelFilterBase
+  public class LargerThanValue : PixelValueFilterBase
   {
     #region IPixelFilter Implementation
 
     /// <summary>
     /// Name of the filter.
     /// </summary>
-    public override string Name => "Equals";
+    public override string Name => "Larger Than (Value)";
 
     /// <summary>
     /// Checks if the given <paramref name="pixel"/>
@@ -25,7 +26,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// the filter, otherwise false.</returns>
     public override bool Check(byte pixel)
     {
-      return Not ? pixel != CompareByte : pixel == CompareByte;
+      return Invert ? CompareByte > pixel : CompareByte < pixel;
     }
 
     #endregion IPixelFilter Implementation

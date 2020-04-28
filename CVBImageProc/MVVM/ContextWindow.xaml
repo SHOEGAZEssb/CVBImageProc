@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="ContextWindow" Height="450" Width="800">
   <Grid>
-    <ContentControl x:Name="Content">
+    <ContentControl x:Name="ContentCtrl">
       <ContentControl.Resources>
         <DataTemplate DataType="{x:Type main:RawFileImportViewModel}">
           <main:RawFileImportView/>

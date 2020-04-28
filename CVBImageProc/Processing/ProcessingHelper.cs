@@ -16,9 +16,10 @@ namespace CVBImageProc.Processing
     /// <param name="plane">The plane whose pixels to process.</param>
     /// <param name="processorFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
-    public static void ProcessMono(ImagePlane plane, Func<byte, byte> processorFunc)
+    /// <param name="filterChain">Optional filter chain.</param>
+    public static void ProcessMono(ImagePlane plane, Func<byte, byte> processorFunc, PixelFilterChain filterChain = null)
     {
-      ProcessMono(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc);
+      ProcessMono(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc, filterChain);
     }
 
     /// <summary>
@@ -30,23 +31,27 @@ namespace CVBImageProc.Processing
     /// <param name="bounds">Bounds defining which pixels to process.</param>
     /// <param name="processorFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
-    public static void ProcessMono(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processorFunc)
+    /// <param name="filterChain">Optional filter chain.</param>
+    public static void ProcessMono(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processorFunc, PixelFilterChain filterChain = null)
     {
       if (processorFunc == null)
         throw new ArgumentNullException(nameof(processorFunc));
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
+        int boundsY = bounds.StartY + bounds.Height;
+        int boundsX = bounds.StartX + bounds.Width;
         unsafe
         {
-          for (int y = bounds.StartY; y < bounds.StartY + bounds.Height; y++)
+          for (int y = bounds.StartY; y < boundsY; y++)
           {
             byte* pLine = (byte*)(data.BasePtr + (int)data.YInc * y);
 
-            for (int x = bounds.StartX; x < bounds.StartX + bounds.Width; x++)
+            for (int x = bounds.StartX; x < boundsX; x++)
             {
               byte* pPixel = pLine + (int)data.XInc * x;
-              *pPixel = processorFunc.Invoke(*pPixel);
+              if(filterChain?.Check(*pPixel, y * boundsY + x) ?? false)
+                *pPixel = processorFunc.Invoke(*pPixel);
             }
           }
         }
@@ -74,15 +79,18 @@ namespace CVBImageProc.Processing
           img.Planes[1].TryGetLinearAccess(out LinearAccessData gData) &&
           img.Planes[2].TryGetLinearAccess(out LinearAccessData bData))
       {
+
+        int boundsY = bounds.StartY + bounds.Height;
+        int boundsX = bounds.StartX + bounds.Width;
         unsafe
         {
-          for (int y = bounds.StartY; y < bounds.StartY + bounds.Height; y++)
+          for (int y = bounds.StartY; y < boundsY; y++)
           {
             byte* rLine = (byte*)(rData.BasePtr + (int)rData.YInc * y);
             byte* gLine = (byte*)(gData.BasePtr + (int)gData.YInc * y);
             byte* bLine = (byte*)(bData.BasePtr + (int)bData.YInc * y);
 
-            for (int x = bounds.StartX; x < bounds.StartX + bounds.Width; x++)
+            for (int x = bounds.StartX; x < boundsX; x++)
             {
               byte* rPixel = rLine + (int)rData.XInc * x;
               byte* gPixel = gLine + (int)gData.XInc * x;

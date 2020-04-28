@@ -127,7 +127,7 @@ namespace CVBImageProc.Processing.PixelFilter
       Filters = new ObservableCollection<IPixelFilterViewModel>();
       Filters.CollectionChanged += Filters_CollectionChanged;
 
-      foreach (var filter in _processor.PixelFilter.Filters)
+      foreach (var filter in _processor.PixelFilter.ValueFilters)
         Filters.Add(CreatePixelFilterViewModel(filter));
     }
 
@@ -142,10 +142,16 @@ namespace CVBImageProc.Processing.PixelFilter
         return;
 
       // add to model
-      _processor.PixelFilter.Filters.Add((IPixelFilter)SelectedFilterType.Instanciate());
+      var filter = (IPixelFilter)SelectedFilterType.Instanciate();
+      if (filter is IPixelValueFilter vf)
+        _processor.PixelFilter.ValueFilters.Add(vf);
+      else if (filter is IPixelIndexFilter inf)
+        _processor.PixelFilter.IndexFilters.Add(inf);
+      else
+        return;
 
       // add to vm
-      Filters.Add(CreatePixelFilterViewModel(_processor.PixelFilter.Filters.Last()));
+      Filters.Add(CreatePixelFilterViewModel(filter));
       SelectedFilter = Filters.Last();
     }
 
@@ -161,8 +167,12 @@ namespace CVBImageProc.Processing.PixelFilter
 
       switch (filter)
       {
+        case IPixelValueFilter vf:
+          return new PixelValueFilterViewModel(vf);
+        case IPixelIndexFilter inf:
+          return new PixelIndexFilterViewModel(inf);
         default:
-          return new PixelFilterViewModel(filter);
+          throw new ArgumentException("Unknown filter type", nameof(filter));
       }
     }
 
@@ -176,7 +186,12 @@ namespace CVBImageProc.Processing.PixelFilter
 
       // remove from model
       int index = Filters.IndexOf(SelectedFilter);
-      _processor.PixelFilter.Filters.RemoveAt(index);
+      if (SelectedFilter is PixelValueFilterViewModel)
+        _processor.PixelFilter.ValueFilters.RemoveAt(index);
+      else if (SelectedFilter is PixelIndexFilterViewModel)
+        _processor.PixelFilter.IndexFilters.RemoveAt(index);
+      else
+        return;
 
       // remove from vm
       Filters.RemoveAt(index);

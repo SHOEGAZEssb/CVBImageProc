@@ -30,8 +30,8 @@ namespace CVBImageProc.Processing
 
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
-        return PixelFilter.Check(b) ? ReplaceWith : b;
-      });
+        return ReplaceWith;
+      }, PixelFilter);
 
       return inputImage;
     }

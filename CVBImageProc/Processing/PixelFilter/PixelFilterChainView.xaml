@@ -92,8 +92,11 @@
 
       <ContentControl Content="{Binding SelectedFilter}">
         <ContentControl.Resources>
-          <DataTemplate DataType="{x:Type local:PixelFilterViewModel}">
-            <local:PixelFilterView/>
+          <DataTemplate DataType="{x:Type local:PixelValueFilterViewModel}">
+            <local:PixelValueFilterView/>
+          </DataTemplate>
+          <DataTemplate DataType="{x:Type local:PixelIndexFilterViewModel}">
+            <local:PixelIndexFilterView/>
           </DataTemplate>
         </ContentControl.Resources>
       </ContentControl>

@@ -45,10 +45,7 @@ namespace CVBImageProc.Processing
     {
       ProcessingHelper.ProcessMono(inputImage.Planes[0], (b) =>
       {
-        if (PixelFilter.Check(b))
-          return (byte)(b >= Threshold ? 255 : 0);
-        else
-          return b;
+        return (byte)(b >= Threshold ? 255 : 0);
       });
 
       return inputImage;
@@ -87,7 +84,7 @@ namespace CVBImageProc.Processing
 
             byte value = 0;
             byte pixelValue = (byte)(*pPixelR * FACTORRED + *pPixelG * FACTORGREEN + *pPixelB * FACTORBLUE);
-            if (PixelFilter.Check(pixelValue))
+            if (PixelFilter.Check(pixelValue, y * inputImage.Height + x))
             {
               if (pixelValue >= Threshold)
                 value = 255;

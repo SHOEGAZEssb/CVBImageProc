@@ -3,14 +3,14 @@
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Interaction logic for PixelFilterView.xaml
+  /// Interaction logic for PixelValueFilterView.xaml
   /// </summary>
-  public partial class PixelFilterView : UserControl
+  public partial class PixelValueFilterView : UserControl
   {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PixelFilterView()
+    public PixelValueFilterView()
     {
       InitializeComponent();
     }

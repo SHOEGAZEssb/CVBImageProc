@@ -31,22 +31,17 @@ namespace CVBImageProc.Processing
 
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
-        if (PixelFilter.Check(b))
+        byte value = (byte)(b + GainValue);
+        if (!WrapAround)
         {
-          byte value = (byte)(b + GainValue);
-          if (!WrapAround)
-          {
-            if (b + GainValue > 255)
-              value = 255;
-            else if (b + GainValue < 0)
-              value = 0;
-          }
-
-          return value;
+          if (b + GainValue > 255)
+            value = 255;
+          else if (b + GainValue < 0)
+            value = 0;
         }
-        else
-          return b;
-      });
+
+        return value;
+      }, PixelFilter);
 
       return inputImage;
     }

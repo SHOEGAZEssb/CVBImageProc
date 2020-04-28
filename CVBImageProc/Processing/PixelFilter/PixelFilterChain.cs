@@ -34,10 +34,16 @@ namespace CVBImageProc.Processing.PixelFilter
     public LogicMode Mode { get; set; }
 
     /// <summary>
-    /// The configured filters.
+    /// The configured value filters.
     /// </summary>
     [DataMember]
-    public List<IPixelFilter> Filters { get; private set; }
+    public List<IPixelValueFilter> ValueFilters { get; private set; }
+
+    /// <summary>
+    /// The configured index filters.
+    /// </summary>
+    [DataMember]
+    public List<IPixelIndexFilter> IndexFilters { get; private set; }
 
     #endregion Properties
 
@@ -48,7 +54,8 @@ namespace CVBImageProc.Processing.PixelFilter
     /// </summary>
     public PixelFilterChain()
     {
-      Filters = new List<IPixelFilter>();
+      ValueFilters = new List<IPixelValueFilter>();
+      IndexFilters = new List<IPixelIndexFilter>();
     }
 
     #endregion Construction
@@ -57,27 +64,38 @@ namespace CVBImageProc.Processing.PixelFilter
     /// Checks if the given <paramref name="pixel"/>
     /// passes the filter.
     /// </summary>
-    /// <param name="pixel">Pixel to check.</param>
-    /// <returns>True if the <paramref name="pixel"/> passes
+    /// <param name="pixel">Pixel value to check.</param>
+    /// <param name="index">Pixel index to check.</param>
+    /// <returns>True if the <paramref name="pixel"/> and <paramref name="index"/> pass
     /// the filter, otherwise false.</returns>
-    public bool Check(byte pixel)
+    public bool Check(byte pixel, int index)
     {
-      if (Filters.Count == 0)
+      if (ValueFilters.Count == 0 && IndexFilters.Count == 0)
         return true;
 
       if (Mode == LogicMode.And)
       {
-        foreach (var filter in Filters)
+        foreach (var filter in ValueFilters)
         {
           if (!filter.Check(pixel))
+            return false;
+        }
+        foreach (var filter in IndexFilters)
+        {
+          if (!filter.Check(index))
             return false;
         }
       }
       else
       {
-        foreach(var filter in Filters)
+        foreach (var filter in ValueFilters)
         {
           if (filter.Check(pixel))
+            return true;
+        }
+        foreach (var filter in IndexFilters)
+        {
+          if (filter.Check(index))
             return true;
         }
 

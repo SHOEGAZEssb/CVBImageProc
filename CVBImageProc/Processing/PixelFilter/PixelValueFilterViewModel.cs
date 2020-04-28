@@ -4,9 +4,9 @@ using System;
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// ViewModel for a <see cref="IPixelFilter"/>.
+  /// ViewModel for a <see cref="IPixelValueFilter"/>.
   /// </summary>
-  class PixelFilterViewModel : ViewModelBase, IPixelFilterViewModel
+  class PixelValueFilterViewModel : ViewModelBase, IPixelFilterViewModel
   {
     #region IPixelFilterViewModel Implementation
 
@@ -45,14 +45,14 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// If true, inverts the logic of the filter.
     /// </summary>
-    public bool Not
+    public bool Invert
     {
-      get => _filter.Not;
+      get => _filter.Invert;
       set
       {
-        if (Not != value)
+        if (Invert != value)
         {
-          _filter.Not = value;
+          _filter.Invert = value;
           NotifyOfPropertyChange();
           OnSettingsChanged();
         }
@@ -80,7 +80,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// The filter.
     /// </summary>
-    private readonly IPixelFilter _filter;
+    private readonly IPixelValueFilter _filter;
 
     #endregion Member
 
@@ -90,7 +90,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// Constructor.
     /// </summary>
     /// <param name="filter">The filter.</param>
-    public PixelFilterViewModel(IPixelFilter filter)
+    public PixelValueFilterViewModel(IPixelValueFilter filter)
     {
       _filter = filter ?? throw new ArgumentNullException(nameof(filter));
     }

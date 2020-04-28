@@ -9,17 +9,17 @@ namespace CVBImageProc.Processing.PixelFilter
   /// configured value.
   /// </summary>
   [DataContract]
-  public class Modulo : PixelFilterBase
+  public class ModuloValue : PixelValueFilterBase
   {
     #region IPixelFilter Implementation
 
     /// <summary>
     /// Name of the filter.
     /// </summary>
-    public override string Name => "Modulo";
+    public override string Name => "Modulo (Value)";
 
     /// <summary>
-    /// Min value of the <see cref="PixelFilterBase.CompareByte"/>.
+    /// Min value of the <see cref="PixelValueFilterBase.CompareByte"/>.
     /// </summary>
     public override byte MinCompareByte => 1;
 
@@ -34,7 +34,7 @@ namespace CVBImageProc.Processing.PixelFilter
     {
       try
       {
-        return Not ? pixel % CompareByte != 0 : pixel % CompareByte == 0;
+        return Invert ? pixel % CompareByte != 0 : pixel % CompareByte == 0;
       }
       catch (DivideByZeroException)
       {
@@ -49,7 +49,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// Constructor.
     /// </summary>
-    public Modulo()
+    public ModuloValue()
     {
       CompareByte = MinCompareByte;
     }

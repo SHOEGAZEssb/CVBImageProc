@@ -3,10 +3,10 @@
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Base class for pixel filters.
+  /// Base class for pixel value filters.
   /// </summary>
   [DataContract]
-  public abstract class PixelFilterBase : IPixelFilter
+  public abstract class PixelValueFilterBase : IPixelValueFilter
   {
     #region IPixelFilter Implementation
 
@@ -49,7 +49,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <see cref="Check(byte)"/>.
     /// </summary>
     [DataMember]
-    public bool Not { get; set; }
+    public bool Invert { get; set; }
 
     /// <summary>
     /// Checks if the given <paramref name="pixel"/>

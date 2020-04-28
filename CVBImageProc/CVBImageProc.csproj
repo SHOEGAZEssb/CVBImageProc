@@ -123,23 +123,33 @@
       <DependentUpon>AOIView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\PixelFilter\AOIViewModel.cs" />
-    <Compile Include="Processing\PixelFilter\Equals.cs" />
+    <Compile Include="Processing\PixelFilter\EqualsIndex.cs" />
+    <Compile Include="Processing\PixelFilter\EqualsValue.cs" />
     <Compile Include="Processing\PixelFilter\ICanProcessIndividualRegions.cs" />
-    <Compile Include="Processing\PixelFilter\LargerThan.cs" />
-    <Compile Include="Processing\PixelFilter\Modulo.cs" />
-    <Compile Include="Processing\PixelFilter\PixelFilterView.xaml.cs">
-      <DependentUpon>PixelFilterView.xaml</DependentUpon>
+    <Compile Include="Processing\PixelFilter\IPixelFilter.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelIndexFilter.cs" />
+    <Compile Include="Processing\PixelFilter\LargerThanIndex.cs" />
+    <Compile Include="Processing\PixelFilter\LargerThanValue.cs" />
+    <Compile Include="Processing\PixelFilter\ModuloIndex.cs" />
+    <Compile Include="Processing\PixelFilter\ModuloValue.cs" />
+    <Compile Include="Processing\PixelFilter\PixelIndexFilterBase.cs" />
+    <Compile Include="Processing\PixelFilter\PixelIndexFilterView.xaml.cs">
+      <DependentUpon>PixelIndexFilterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\PixelFilter\PixelIndexFilterViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\PixelValueFilterView.xaml.cs">
+      <DependentUpon>PixelValueFilterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\PixelFilter\ICanProcessIndividualPixel.cs" />
-    <Compile Include="Processing\PixelFilter\IPixelFilter.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelValueFilter.cs" />
     <Compile Include="Processing\PixelFilter\IPixelFilterViewModel.cs" />
-    <Compile Include="Processing\PixelFilter\PixelFilterBase.cs" />
+    <Compile Include="Processing\PixelFilter\PixelValueFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterChain.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterChainView.xaml.cs">
       <DependentUpon>PixelFilterChainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
-    <Compile Include="Processing\PixelFilter\PixelFilterViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\PixelValueFilterViewModel.cs" />
     <Compile Include="Processing\PixelFilter\ProcessingBounds.cs" />
     <Compile Include="Processing\ProcessingHelper.cs" />
     <Compile Include="Processing\ReplaceViewModel.cs" />
@@ -204,7 +214,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Processing\PixelFilter\PixelFilterView.xaml">
+    <Page Include="Processing\PixelFilter\PixelIndexFilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\PixelFilter\PixelValueFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
