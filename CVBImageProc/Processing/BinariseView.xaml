@@ -28,10 +28,9 @@
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Column="0" Text="{Binding MinThreshold}"/>
-          <Slider Grid.Column="2" Value="{Binding Threshold}" Minimum="{x:Static local:Binarise.MINTHRESHOLD}"
-                  Maximum="{x:Static local:Binarise.MAXTHRESHOLD}"/>
-          <TextBlock Grid.Column="4" Text="{Binding MaxThreshold}"/>
+          <TextBlock Grid.Column="0" Text="1"/>
+          <Slider Grid.Column="2" Value="{Binding Threshold}" Minimum="1" Maximum="254"/>
+          <TextBlock Grid.Column="4" Text="254"/>
         </Grid>
       </Grid>
     </TabItem>
