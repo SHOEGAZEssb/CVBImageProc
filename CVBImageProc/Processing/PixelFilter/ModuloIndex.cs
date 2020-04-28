@@ -38,5 +38,17 @@ namespace CVBImageProc.Processing.PixelFilter
         return false;
       }
     }
+
+    #region Construction
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public ModuloIndex()
+    {
+      CompareValue = MinCompareValue;
+    }
+
+    #endregion Construction
   }
 }

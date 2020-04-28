@@ -46,7 +46,7 @@ namespace CVBImageProc.Processing
       ProcessingHelper.ProcessMono(inputImage.Planes[0], (b) =>
       {
         return (byte)(b >= Threshold ? 255 : 0);
-      });
+      }, PixelFilter);
 
       return inputImage;
     }
