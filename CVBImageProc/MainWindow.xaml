@@ -48,7 +48,7 @@
 
         <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
           <cvb:Display Image="{Binding InputImage}">
-            <cvb:RectangleOverlay DataContext="{Binding ProcessingVM.SelectedProcessor}" Stroke="Red" StrokeThickness="1" Movable="True" Resizable="True"
+            <cvb:RectangleOverlay DataContext="{Binding ProcessingVM.SelectedProcessor}" Stroke="Red" StrokeThickness="1" Movable="True" Resizable="True" CanCenterDrag="True"
                                    OverlayX="{Binding AOIVM.AOIX}" OverlayY="{Binding AOIVM.AOIY}" OverlayWidth="{Binding AOIVM.AOIWidth}"
                                    OverlayHeight="{Binding AOIVM.AOIHeight}">
               <cvb:RectangleOverlay.Style>
