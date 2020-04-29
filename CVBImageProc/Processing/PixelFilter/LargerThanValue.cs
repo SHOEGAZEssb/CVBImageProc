@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.PixelFilter
 {
@@ -8,6 +9,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// configured value.
   /// </summary>
   [DataContract]
+  [DisplayName("Larger Than (Value)")]
   public class LargerThanValue : PixelValueFilterBase
   {
     #region IPixelFilter Implementation

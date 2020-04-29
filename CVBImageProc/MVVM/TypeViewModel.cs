@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace CVBImageProc.MVVM
 {
@@ -12,7 +14,8 @@ namespace CVBImageProc.MVVM
     /// <summary>
     /// Name of the type.
     /// </summary>
-    public string Name => Type.Name;
+    public string Name => _displayName == null ? Type.Name : _displayName;
+    private string _displayName;
 
     /// <summary>
     /// The wrapped type.
@@ -30,6 +33,9 @@ namespace CVBImageProc.MVVM
     public TypeViewModel(Type type)
     {
       Type = type ?? throw new ArgumentNullException(nameof(type));
+      var dn = Type.GetCustomAttribute<DisplayNameAttribute>();
+      if (dn != null)
+        _displayName = dn.DisplayName;
     }
 
     #endregion Construction

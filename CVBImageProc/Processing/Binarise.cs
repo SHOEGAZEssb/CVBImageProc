@@ -51,7 +51,6 @@ namespace CVBImageProc.Processing
       return inputImage;
     }
 
-
     /// <summary>
     /// Binarises the <paramref name="inputImage"/>.
     /// </summary>

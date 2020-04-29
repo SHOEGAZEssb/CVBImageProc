@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.PixelFilter
 {
@@ -7,6 +8,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// pixel index is equal the configured value.
   /// </summary>
   [DataContract]
+  [DisplayName("Equals (Index)")]
   public class EqualsIndex : PixelIndexFilterBase
   {
     /// <summary>

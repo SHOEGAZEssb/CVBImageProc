@@ -1,5 +1,6 @@
 ﻿using Stemmer.Cvb;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -9,6 +10,7 @@ namespace CVBImageProc.Processing
   /// Processor for clearing planes.
   /// </summary>
   [DataContract]
+  [DisplayName("Plane Clear")]
   public class PlaneClear : IProcessor
   {
     #region IProcessor Implementation

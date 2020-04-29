@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.PixelFilter
@@ -9,6 +10,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// configured value.
   /// </summary>
   [DataContract]
+  [DisplayName("Modulo (Value)")]
   public class ModuloValue : PixelValueFilterBase
   {
     #region IPixelFilter Implementation

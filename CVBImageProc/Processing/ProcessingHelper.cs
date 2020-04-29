@@ -60,18 +60,38 @@ namespace CVBImageProc.Processing
         throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
     }
 
+    /// <summary>
+    /// Processes the given rgb <paramref name="img"/> with
+    /// the given <paramref name="processingFunc"/>.
+    /// </summary>
+    /// <param name="img">Image to process.</param>
+    /// <param name="processingFunc">Processing function to process
+    /// the <paramref name="img"/> with.</param>
     public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc)
     {
       if (img == null)
         throw new ArgumentNullException(nameof(img));
+      if (img.Planes.Count != 3)
+        throw new ArgumentException("Image is no rgb image", nameof(img));
 
       ProcessRGB(img, processingFunc, new ProcessingBounds(img.Bounds));
     }
 
+    /// <summary>
+    /// Processes the given rgb <paramref name="img"/> in the
+    /// given <paramref name="bounds"/> with
+    /// the given <paramref name="processingFunc"/>.
+    /// </summary>
+    /// <param name="img">Image to process.</param>
+    /// <param name="processingFunc">Processing function to process
+    /// the <paramref name="img"/> with.</param>
+    /// <param name="bounds">Bounds defining which pixels to process.</param>
     public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc, ProcessingBounds bounds)
     {
       if (img == null)
         throw new ArgumentNullException(nameof(img));
+      if (img.Planes.Count != 3)
+        throw new ArgumentException("Image is no rgb image", nameof(img));
       if (processingFunc == null)
         throw new ArgumentNullException(nameof(processingFunc));
 
