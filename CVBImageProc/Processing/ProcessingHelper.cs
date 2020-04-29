@@ -50,7 +50,7 @@ namespace CVBImageProc.Processing
             for (int x = bounds.StartX; x < boundsX; x++)
             {
               byte* pPixel = pLine + (int)data.XInc * x;
-              if(filterChain?.Check(*pPixel, y * boundsY + x) ?? false)
+              if(filterChain?.Check(*pPixel, y * boundsY + x) ?? true)
                 *pPixel = processorFunc.Invoke(*pPixel);
             }
           }
