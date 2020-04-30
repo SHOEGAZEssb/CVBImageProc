@@ -129,6 +129,8 @@ namespace CVBImageProc.Processing.PixelFilter
 
       foreach (var filter in _processor.PixelFilter.ValueFilters)
         Filters.Add(CreatePixelFilterViewModel(filter));
+      foreach (var filter in _processor.PixelFilter.IndexFilters)
+        Filters.Add(CreatePixelFilterViewModel(filter));
     }
 
     #endregion Construction
