@@ -159,7 +159,8 @@ namespace CVBImageProc
     {
       var ofd = new OpenFileDialog
       {
-        Filter = SystemInfo.ImageFileLoadFormatFilter
+        Filter = SystemInfo.ImageFileLoadFormatFilter,
+        FilterIndex = 7
       };
 
       if (ofd.ShowDialog() ?? false)
