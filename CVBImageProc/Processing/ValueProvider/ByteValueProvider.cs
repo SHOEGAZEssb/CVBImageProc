@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace CVBImageProc.Processing
+namespace CVBImageProc.Processing.ValueProvider
 {
   /// <summary>
   /// Object providing byte values to processors.
   /// </summary>
   [DataContract]
-  class ByteValueProvider
+  public class ByteValueProvider : IValueProvider<byte>
   {
     #region Properties
 
@@ -16,19 +16,19 @@ namespace CVBImageProc.Processing
     /// normal mode.
     /// </summary>
     [DataMember]
-    public byte Value { get; set; }
+    public byte FixedValue { get; set; }
 
     /// <summary>
     /// The minimum possible byte value.
     /// </summary>
     [DataMember]
-    public byte MinByte { get; private set; }
+    public byte MinValue { get; private set; }
 
     /// <summary>
     /// The maximum possible byte value.
     /// </summary>
     [DataMember]
-    public byte MaxByte { get; private set; }
+    public byte MaxValue { get; private set; }
 
     /// <summary>
     /// If true, randomizes the bytes to provide.
@@ -41,14 +41,14 @@ namespace CVBImageProc.Processing
     /// <see cref="Randomize"/> mode.
     /// </summary>
     [DataMember]
-    public byte MinRandomByte { get; set; }
+    public byte MinRandomValue { get; set; }
 
     /// <summary>
     /// The maximum byte to use in
     /// <see cref="Randomize"/> mode.
     /// </summary>
     [DataMember]
-    public byte MaxRandomByte { get; set; }
+    public byte MaxRandomValue { get; set; }
 
     #endregion Properties
 
@@ -71,10 +71,10 @@ namespace CVBImageProc.Processing
     /// <param name="max">Maximum possible value.</param>
     public ByteValueProvider(byte min, byte max)
     {
-      MinByte = min;
-      MaxByte = max;
-      MinRandomByte = MinByte;
-      MaxRandomByte = MaxByte;
+      MinValue = min;
+      MaxValue = max;
+      MinRandomValue = MinValue;
+      MaxRandomValue = MaxValue;
     }
 
     #endregion Construction
@@ -85,7 +85,7 @@ namespace CVBImageProc.Processing
     /// <returns>Byte based on the current configuration.</returns>
     public byte Provide()
     {
-      return Randomize ? (byte)_rng.Next(MinRandomByte, MaxRandomByte) : Value;
+      return Randomize ? (byte)_rng.Next(MinRandomValue, MaxRandomValue) : FixedValue;
     }
   }
 }

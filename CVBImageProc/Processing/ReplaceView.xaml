@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CVBImageProc.Processing"
              xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vp="clr-namespace:CVBImageProc.Processing.ValueProvider"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -16,14 +17,11 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="3"/>
           <RowDefinition Height="Auto"/>
-          <RowDefinition Height="3"/>
-          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Replace With:"/>
-        <xceed:ByteUpDown Grid.Row="2" Minimum="0" Value="{Binding ReplaceWith}" Maximum="255"/>
+        <vp:ByteValueProviderView Grid.Row="0" DataContext="{Binding ValueProviderVM}"/>
 
-        <local:PlaneSelectorControl Grid.Row="4"/>
+        <local:PlaneSelectorControl Grid.Row="2"/>
       </Grid>
     </TabItem>
     <TabItem Header="Filter">

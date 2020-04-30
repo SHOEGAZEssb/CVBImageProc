@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
+using CVBImageProc.Processing.ValueProvider;
 using Stemmer.Cvb;
 using System;
 using System.Runtime.Serialization;
@@ -30,7 +31,7 @@ namespace CVBImageProc.Processing
 
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
-        return ReplaceWith;
+        return ValueProvider.Provide();
       }, PixelFilter);
 
       return inputImage;
@@ -81,7 +82,7 @@ namespace CVBImageProc.Processing
     /// Value to use when replacing.
     /// </summary>
     [DataMember]
-    public byte ReplaceWith { get; set; }
+    public ByteValueProvider ValueProvider { get; private set; } = new ByteValueProvider(0, 255);
 
     #endregion Properties
   }

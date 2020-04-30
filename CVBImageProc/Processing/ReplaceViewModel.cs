@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
+using CVBImageProc.Processing.ValueProvider;
 using System;
 
 namespace CVBImageProc.Processing
@@ -11,21 +12,9 @@ namespace CVBImageProc.Processing
     #region Properties
 
     /// <summary>
-    /// Value to use when replacing.
+    /// ViewModel for the processors value provider.
     /// </summary>
-    public byte ReplaceWith
-    {
-      get => _processor.ReplaceWith;
-      set
-      {
-        if (ReplaceWith != value)
-        {
-          _processor.ReplaceWith = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+    public ValueProviderViewModel<byte> ValueProviderVM { get; }
 
     /// <summary>
     /// ViewModel for the processors pixel filter chain.
@@ -56,6 +45,8 @@ namespace CVBImageProc.Processing
       : base(processor)
     {
       _processor = processor;
+      ValueProviderVM = new ValueProviderViewModel<byte>(_processor.ValueProvider);
+      ValueProviderVM.SettingsChanged += SubVM_SettingsChanged;
       PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
       PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
       AOIVM = new AOIViewModel(_processor);

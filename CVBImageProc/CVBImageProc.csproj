@@ -114,12 +114,17 @@
     <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\WindowManager.cs" />
-    <Compile Include="Processing\ByteValueProvider.cs" />
+    <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
       <DependentUpon>InvertView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\IProcessIndividualPlanes.cs" />
     <Compile Include="Processing\InvertViewModel.cs" />
+    <Compile Include="Processing\ValueProvider\ByteValueProviderView.xaml.cs">
+      <DependentUpon>ByteValueProviderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\ValueProvider\ValueProviderViewModel.cs" />
+    <Compile Include="Processing\ValueProvider\IValueProvider.cs" />
     <Compile Include="Processing\PixelFilter\AOIView.xaml.cs">
       <DependentUpon>AOIView.xaml</DependentUpon>
     </Compile>
@@ -252,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\SortView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\ValueProvider\ByteValueProviderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
