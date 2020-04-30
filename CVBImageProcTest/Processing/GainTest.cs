@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Linq;
 using Stemmer.Cvb;
 using CVBImageProc.Processing;
 
@@ -17,9 +16,9 @@ namespace CVBImageProcTest.Processing
       {
         var gain = new Gain
         {
-          GainValue = 12,
           WrapAround = false
         };
+        gain.ValueProvider.FixedValue = 12;
 
         // when: applying the processor
         using (Image processedImage = gain.Process(img))
@@ -39,9 +38,9 @@ namespace CVBImageProcTest.Processing
       {
         var gain = new Gain
         {
-          GainValue = 12,
           WrapAround = true
         };
+        gain.ValueProvider.FixedValue = 12;
 
         // when: applying the processor
         using (Image processedImage = gain.Process(img))

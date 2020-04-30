@@ -15,10 +15,8 @@ namespace CVBImageProcTest.Processing
       // given: test image
       using (var img = TestHelper.CreateMonoTestImage(new byte[] { 10, 50, 255, 0 }))
       {
-        var replace = new Replace()
-        {
-          ReplaceWith = 42
-        };
+        var replace = new Replace();
+        replace.ValueProvider.FixedValue = 42;
 
         // when: applying processor
         using (var processedImage = replace.Process(img))

@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
+using CVBImageProc.Processing.ValueProvider;
 using Stemmer.Cvb;
 using System;
 using System.Runtime.Serialization;
@@ -19,7 +20,7 @@ namespace CVBImageProc.Processing
     public string Name => "Gain";
 
     /// <summary>
-    /// Applies the <see cref="GainValue"/>
+    /// Applies the gain value
     /// to the given <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to apply gain to.</param>
@@ -31,12 +32,13 @@ namespace CVBImageProc.Processing
 
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
-        byte value = (byte)(b + GainValue);
+        int providedValue = ValueProvider.Provide();
+        byte value = (byte)(b + providedValue);
         if (!WrapAround)
         {
-          if (b + GainValue > 255)
+          if (b + providedValue > 255)
             value = 255;
-          else if (b + GainValue < 0)
+          else if (b + providedValue < 0)
             value = 0;
         }
 
@@ -98,7 +100,7 @@ namespace CVBImageProc.Processing
     /// The gain value to apply.
     /// </summary>
     [DataMember]
-    public double GainValue { get; set; }
+    public IntValueProvider ValueProvider { get; private set; } = new IntValueProvider(-255, 255);
 
     #endregion Properties
   }

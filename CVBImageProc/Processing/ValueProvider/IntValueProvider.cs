@@ -4,10 +4,10 @@ using System.Runtime.Serialization;
 namespace CVBImageProc.Processing.ValueProvider
 {
   /// <summary>
-  /// Object providing byte values to processors.
+  /// Object for providing int values;
   /// </summary>
   [DataContract]
-  public class ByteValueProvider : IValueProvider<byte>
+  public class IntValueProvider : IValueProvider<int>
   {
     #region Properties
 
@@ -16,39 +16,39 @@ namespace CVBImageProc.Processing.ValueProvider
     /// normal mode.
     /// </summary>
     [DataMember]
-    public byte FixedValue { get; set; }
+    public int FixedValue { get; set; }
 
     /// <summary>
-    /// The minimum possible byte value.
+    /// The minimum possible value.
     /// </summary>
     [DataMember]
-    public byte MinValue { get; private set; }
+    public int MinValue { get; private set; }
 
     /// <summary>
-    /// The maximum possible byte value.
+    /// The maximum possible value.
     /// </summary>
     [DataMember]
-    public byte MaxValue { get; private set; }
+    public int MaxValue { get; private set; }
 
     /// <summary>
-    /// If true, randomizes the bytes to provide.
+    /// If true, randomizes the values to provide.
     /// </summary>
     [DataMember]
     public bool Randomize { get; set; }
 
     /// <summary>
-    /// The minimum byte to use in
+    /// The minimum value to use in
     /// <see cref="Randomize"/> mode.
     /// </summary>
     [DataMember]
-    public byte MinRandomValue { get; set; }
+    public int MinRandomValue { get; set; }
 
     /// <summary>
-    /// The maximum byte to use in
+    /// The maximum value to use in
     /// <see cref="Randomize"/> mode.
     /// </summary>
     [DataMember]
-    public byte MaxRandomValue { get; set; }
+    public int MaxRandomValue { get; set; }
 
     #endregion Properties
 
@@ -69,7 +69,7 @@ namespace CVBImageProc.Processing.ValueProvider
     /// </summary>
     /// <param name="min">Minimum possible value.</param>
     /// <param name="max">Maximum possible value.</param>
-    public ByteValueProvider(byte min, byte max)
+    public IntValueProvider(int min, int max)
     {
       MinValue = min;
       MaxValue = max;
@@ -80,12 +80,12 @@ namespace CVBImageProc.Processing.ValueProvider
     #endregion Construction
 
     /// <summary>
-    /// Provides the next byte.
+    /// Provides the next value.
     /// </summary>
-    /// <returns>Byte based on the current configuration.</returns>
-    public byte Provide()
+    /// <returns>Value based on the current configuration.</returns>
+    public int Provide()
     {
-      return Randomize ? (byte)_rng.Next(MinRandomValue, MaxRandomValue + 1) : FixedValue;
+      return Randomize ? _rng.Next(MinRandomValue, MaxRandomValue + 1) : FixedValue;
     }
 
     /// <summary>

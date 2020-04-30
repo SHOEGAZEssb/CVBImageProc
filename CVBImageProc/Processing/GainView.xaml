@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CVBImageProc.Processing"
              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
+             xmlns:vp="clr-namespace:CVBImageProc.Processing.ValueProvider"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -25,22 +26,7 @@
         <CheckBox Grid.Row="0" IsChecked="{Binding WrapAround}" Content="Wrap Around"/>
         <local:PlaneSelectorControl Grid.Row="2"/>
         <TextBlock Grid.Row="4" Text="Value:"/>
-        <Grid Grid.Row="6">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="3"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="3"/>
-            <ColumnDefinition Width="Auto"/>
-          </Grid.ColumnDefinitions>
-
-          <TextBlock Grid.Column="0" Text="-255"/>
-          <Slider Grid.Column="2" Minimum="-255" Value="{Binding GainValue}" Maximum="255"/>
-          <TextBlock Grid.Column="4" Text="255"/>
-          <xceed:IntegerUpDown Grid.Column="6" Minimum="-255" Value="{Binding GainValue}" Maximum="255"/>
-        </Grid>
+        <vp:IntValueProviderView Grid.Row="6" DataContext="{Binding ValueProviderVM}"/>
       </Grid>
     </TabItem>
     <TabItem Header="Filter">

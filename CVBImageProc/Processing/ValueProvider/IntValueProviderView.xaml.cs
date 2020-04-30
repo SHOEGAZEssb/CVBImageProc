@@ -3,14 +3,14 @@
 namespace CVBImageProc.Processing.ValueProvider
 {
   /// <summary>
-  /// Interaction logic for ByteValueProviderView.xaml
+  /// Interaction logic for IntValueProvider.xaml
   /// </summary>
-  public partial class ByteValueProviderView : UserControl
+  public partial class IntValueProviderView : UserControl
   {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ByteValueProviderView()
+    public IntValueProviderView()
     {
       InitializeComponent();
     }

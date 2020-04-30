@@ -1,5 +1,6 @@
 ﻿using System;
 using CVBImageProc.Processing.PixelFilter;
+using CVBImageProc.Processing.ValueProvider;
 
 namespace CVBImageProc.Processing
 {
@@ -29,21 +30,9 @@ namespace CVBImageProc.Processing
     }
 
     /// <summary>
-    /// The gain value to apply.
+    /// ViewModel for providing gain values.
     /// </summary>
-    public double GainValue
-    {
-      get => _processor.GainValue;
-      set
-      {
-        if(GainValue != value)
-        {
-          _processor.GainValue = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+    public ValueProviderViewModel<int> ValueProviderVM { get; }
 
     /// <summary>
     /// ViewModel for the processors pixel filter chain.
@@ -76,6 +65,8 @@ namespace CVBImageProc.Processing
       : base(processor)
     {
       _processor = processor;
+      ValueProviderVM = new ValueProviderViewModel<int>(_processor.ValueProvider);
+      ValueProviderVM.SettingsChanged += SubVM_SettingsChanged;
       PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
       PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
       AOIVM = new AOIViewModel(_processor);
