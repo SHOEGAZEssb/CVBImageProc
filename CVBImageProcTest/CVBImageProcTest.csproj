@@ -91,6 +91,8 @@
     <Compile Include="Processing\PixelFilter\ModuloValueTest.cs" />
     <Compile Include="Processing\ReplaceTest.cs" />
     <Compile Include="Processing\SortTest.cs" />
+    <Compile Include="Processing\ValueProvider\ByteValueProviderTest.cs" />
+    <Compile Include="Processing\ValueProvider\IntValueProviderTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelper.cs" />
@@ -108,6 +110,7 @@
       <Name>CVBImageProc</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
