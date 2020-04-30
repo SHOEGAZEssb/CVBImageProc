@@ -4,7 +4,7 @@ using System;
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Base class for ViewModel that implement <see cref="IHasSettings"/>.
+  /// Base class for ViewModels that implement <see cref="IHasSettings"/>.
   /// </summary>
   abstract class SettingsViewModelBase : ViewModelBase, IHasSettings
   {

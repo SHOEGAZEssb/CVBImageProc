@@ -176,6 +176,10 @@ namespace CVBImageProc
       }
     }
 
+    /// <summary>
+    /// Opens the raw file importer to import
+    /// a raw file.
+    /// </summary>
     private void OpenRawFile()
     {
       var ofd = new OpenFileDialog();

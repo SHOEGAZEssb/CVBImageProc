@@ -6,7 +6,7 @@
   interface IWindowManager
   {
     /// <summary>
-    /// Shows a model dialog with the given <paramref name="context"/>.
+    /// Shows a modal dialog with the given <paramref name="context"/>.
     /// </summary>
     /// <param name="context">Context to use for determining the view.</param>
     /// <returns>Dialog result.</returns>
