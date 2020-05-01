@@ -114,6 +114,11 @@
     <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\WindowManager.cs" />
+    <Compile Include="Processing\BitShift.cs" />
+    <Compile Include="Processing\BitShiftView.xaml.cs">
+      <DependentUpon>BitShiftView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\BitshiftViewModel.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
       <DependentUpon>InvertView.xaml</DependentUpon>
@@ -209,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\BinariseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\BitShiftView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

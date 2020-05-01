@@ -145,7 +145,8 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// Gets the processor types for serialization.
     /// </summary>
-    private Type[] GetSerializerTypes => (AvailableProcessors.Select(p => p.Type).Concat(PixelFilter.PixelFilterChainViewModel.AvailableFilter.Select(p => p.Type))).ToArray();
+    private Type[] GetSerializerTypes => AvailableProcessors.Select(p => p.Type).Concat(PixelFilter.PixelFilterChainViewModel.AvailableFilter
+                                                            .Select(p => p.Type)).ToArray();
 
     #endregion Member
 
@@ -231,6 +232,8 @@ namespace CVBImageProc.Processing
       {
         case Binarise b:
           return new BinariseViewModel(b);
+        case BitShift b:
+          return new BitshiftViewModel(b);
         case Gain g:
           return new GainViewModel(g);
         case Invert i:
