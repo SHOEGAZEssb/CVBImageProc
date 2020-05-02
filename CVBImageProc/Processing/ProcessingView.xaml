@@ -104,6 +104,9 @@
           <DataTemplate DataType="{x:Type local:BitshiftViewModel}">
             <local:BitShiftView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:CropViewModel}">
+            <local:CropView/>
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:GainViewModel}">
             <local:GainView/>
           </DataTemplate>

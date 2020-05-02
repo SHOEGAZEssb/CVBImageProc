@@ -119,6 +119,11 @@
       <DependentUpon>BitShiftView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\BitshiftViewModel.cs" />
+    <Compile Include="Processing\Crop.cs" />
+    <Compile Include="Processing\CropView.xaml.cs">
+      <DependentUpon>CropView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\CropViewModel.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
       <DependentUpon>InvertView.xaml</DependentUpon>
@@ -218,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\BitShiftView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\CropView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

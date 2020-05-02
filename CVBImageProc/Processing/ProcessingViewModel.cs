@@ -234,6 +234,8 @@ namespace CVBImageProc.Processing
           return new BinariseViewModel(b);
         case BitShift b:
           return new BitshiftViewModel(b);
+        case Crop c:
+          return new CropViewModel(c);
         case Gain g:
           return new GainViewModel(g);
         case Invert i:
