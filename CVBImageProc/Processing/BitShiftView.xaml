@@ -34,14 +34,20 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3"/>
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Column="0" Text="Shift Direction:"/>
-          <ComboBox Grid.Column="2" SelectedValue="{Binding ShiftDirection}" ItemsSource="{Binding Source={StaticResource ShiftDirectionDataProvider}}"/>
+          <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Wrap Around" IsChecked="{Binding WrapAround}"/>
+          <TextBlock Grid.Row="2" Grid.Column="0" Text="Shift Direction:"/>
+          <ComboBox Grid.Row="2" Grid.Column="2" SelectedValue="{Binding ShiftDirection}" ItemsSource="{Binding Source={StaticResource ShiftDirectionDataProvider}}"/>
         </Grid>
         <local:PlaneSelectorControl Grid.Row="2"/>
         <TextBlock Grid.Row="4" Text="Value:"/>

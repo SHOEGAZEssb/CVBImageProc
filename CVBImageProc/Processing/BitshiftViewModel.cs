@@ -29,6 +29,24 @@ namespace CVBImageProc.Processing
     }
 
     /// <summary>
+    /// If true, pixel values wrap
+    /// around at &lt; 0 and &gt; 255.
+    /// </summary>
+    public bool WrapAround
+    {
+      get => _processor.WrapAround;
+      set
+      {
+        if(WrapAround != value)
+        {
+          _processor.WrapAround = value;
+          OnSettingsChanged();
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+
+    /// <summary>
     /// ViewModel for providing shift values.
     /// </summary>
     public ValueProviderViewModel<int> ValueProviderVM { get; }

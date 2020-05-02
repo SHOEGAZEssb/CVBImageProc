@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Processing\BitShiftTest.cs" />
     <Compile Include="Processing\GainTest.cs" />
     <Compile Include="Processing\InvertTest.cs" />
     <Compile Include="Processing\PixelFilter\EqualsIndexTest.cs" />

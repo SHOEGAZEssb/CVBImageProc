@@ -28,12 +28,20 @@ namespace CVBImageProc.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Bit Shift")]
-  class BitShift : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class BitShift : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
+    /// <summary>
+    /// Name of the processor.
+    /// </summary>
     public string Name => "Bit Shift";
 
+    /// <summary>
+    /// Processes the <paramref name="inputImage"/>.
+    /// </summary>
+    /// <param name="inputImage">Image to process.</param>
+    /// <returns>Processed image.</returns>
     public Image Process(Image inputImage)
     {
       if (inputImage == null)
@@ -42,7 +50,14 @@ namespace CVBImageProc.Processing
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
         if (ShiftDirection == BitShiftDirection.Left)
-          return (byte)(b << ValueProvider.Provide());
+        {
+          int providedValue = ValueProvider.Provide();
+          int pixelValue = b << providedValue;
+          if (WrapAround && pixelValue > 255)
+            return 255;
+          else
+            return (byte)pixelValue;
+        }
         else
           return (byte)(b >> ValueProvider.Provide());
       });
@@ -96,6 +111,13 @@ namespace CVBImageProc.Processing
     /// </summary>
     [DataMember]
     public BitShiftDirection ShiftDirection { get; set; }
+
+    /// <summary>
+    /// If true, pixel values wrap
+    /// around at &lt; 0 and &gt; 255.
+    /// </summary>
+    [DataMember]
+    public bool WrapAround { get; set; }
 
     /// <summary>
     /// The amount to shift.
