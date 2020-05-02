@@ -60,7 +60,7 @@ namespace CVBImageProc.Processing
         }
         else
           return (byte)(b >> ValueProvider.Provide());
-      });
+      }, PixelFilter);
 
       return inputImage;
     }
