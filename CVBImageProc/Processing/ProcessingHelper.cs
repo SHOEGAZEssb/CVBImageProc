@@ -41,17 +41,19 @@ namespace CVBImageProc.Processing
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
+        int yInc = (int)data.YInc;
+        int xInc = (int)data.XInc;
         int boundsY = bounds.StartY + bounds.Height;
         int boundsX = bounds.StartX + bounds.Width;
         unsafe
         {
           for (int y = bounds.StartY; y < boundsY; y++)
           {
-            byte* pLine = (byte*)(data.BasePtr + (int)data.YInc * y);
+            byte* pLine = (byte*)(data.BasePtr + yInc * y);
 
             for (int x = bounds.StartX; x < boundsX; x++)
             {
-              byte* pPixel = pLine + (int)data.XInc * x;
+              byte* pPixel = pLine + xInc * x;
               if(filterChain?.Check(*pPixel, y * boundsY + x) ?? true)
                 *pPixel = processorFunc.Invoke(*pPixel);
             }
@@ -78,6 +80,8 @@ namespace CVBImageProc.Processing
 
         int yInc = (int)data.YInc;
         int xInc = (int)data.XInc;
+        int newYInc = (int)newData.YInc;
+        int newXInc = (int)newData.XInc;
 
         int kernelFac = (int)Math.Floor(kernelSize / 2.0);
 
@@ -112,8 +116,8 @@ namespace CVBImageProc.Processing
 
               if (kernelList.Any())
               {
-                var pTargetLine = (byte*)newData.BasePtr + yInc * y;
-                var pTargetPixel = pTargetLine + xInc * x; // current "middle pixel" in the target image
+                var pTargetLine = (byte*)newData.BasePtr + newYInc * y;
+                var pTargetPixel = pTargetLine + newXInc * x; // current "middle pixel" in the target image
                 *pTargetPixel = processingFunc.Invoke(kernelList);
                 kernelList.Clear();
               }
