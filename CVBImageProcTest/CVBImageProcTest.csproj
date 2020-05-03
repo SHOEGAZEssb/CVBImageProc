@@ -84,6 +84,7 @@
     <Compile Include="Processing\CropTest.cs" />
     <Compile Include="Processing\GainTest.cs" />
     <Compile Include="Processing\InvertTest.cs" />
+    <Compile Include="Processing\MedianTest.cs" />
     <Compile Include="Processing\PixelFilter\EqualsIndexTest.cs" />
     <Compile Include="Processing\PixelFilter\EqualsValueTest.cs" />
     <Compile Include="Processing\PixelFilter\LargerThanValueTest.cs" />

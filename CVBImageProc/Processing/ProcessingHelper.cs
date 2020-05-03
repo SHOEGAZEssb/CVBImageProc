@@ -1,6 +1,8 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CVBImageProc.Processing
 {
@@ -55,6 +57,71 @@ namespace CVBImageProc.Processing
             }
           }
         }
+      }
+      else
+        throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
+    }
+
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<List<byte>, byte> processingFunc, KernelSize kernel, PixelFilterChain filterChain = null)
+    {
+      return ProcessMonoKernel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds), filterChain);
+    }
+
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<List<byte>, byte> processingFunc, KernelSize kernel, ProcessingBounds bounds, PixelFilterChain filterChain = null)
+    {
+      if (plane.TryGetLinearAccess(out LinearAccessData data))
+      {
+        var newImage = Image.FromPlanes(MappingOption.CopyPixels, plane);
+        var newData = newImage.Planes[0].GetLinearAccess();
+        var kernelList = new List<byte>();
+        int kernelSize = kernel.GetKernelNumber();
+
+        int yInc = (int)data.YInc;
+        int xInc = (int)data.XInc;
+
+        int kernelFac = (int)Math.Floor(kernelSize / 2.0);
+
+        int boundHeight = plane.Parent.Height - 1;
+        int boundWidth = plane.Parent.Width - 1;
+
+        int boundsY = bounds.StartY + bounds.Height;
+        int boundsX = bounds.StartX + bounds.Width;
+
+        unsafe
+        {
+          for (int y = bounds.StartY; y < boundsY; y++)
+          {
+            byte* pLine = (byte*)data.BasePtr + y * yInc;
+            for (int x = bounds.StartX; x < boundsX; x++)
+            {
+              var pMiddle = pLine + xInc * x;
+              for (int kRow = -kernelFac; kRow <= kernelFac; kRow++)
+              {
+                byte* pKLine = pMiddle + kRow * yInc;
+                for (int kColumn = -kernelFac; kColumn <= kernelFac; kColumn++)
+                {
+                  if (y + kRow < 0 || y + kRow > boundHeight ||
+                      x + kColumn < 0 || x + kColumn > boundWidth)
+                    continue;
+
+                  byte* pPixel = pKLine + kColumn * xInc;
+                  if (filterChain?.Check(*pPixel, y * boundsY + x) ?? false)
+                    kernelList.Add(*pPixel);
+                }
+              }
+
+              if (kernelList.Any())
+              {
+                var pTargetLine = (byte*)newData.BasePtr + yInc * y;
+                var pTargetPixel = pTargetLine + xInc * x; // current "middle pixel" in the target image
+                *pTargetPixel = processingFunc.Invoke(kernelList);
+                kernelList.Clear();
+              }
+            }
+          }
+        }
+
+        return newImage.Planes[0];
       }
       else
         throw new ArgumentException("Plane could not be accessed linear", nameof(plane));

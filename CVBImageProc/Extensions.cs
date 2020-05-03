@@ -1,4 +1,5 @@
-﻿using CVBImageProc.Processing.PixelFilter;
+﻿using CVBImageProc.Processing;
+using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,22 @@ namespace CVBImageProc
         throw new ArgumentNullException(nameof(inputImage));
 
       return proc.UseAOI ? new ProcessingBounds(proc.AOI) : new ProcessingBounds(inputImage.Bounds);
+    }
+  }
+
+  static class KernelSizeExtensions
+  {
+    public static int GetKernelNumber(this KernelSize kernel)
+    {
+      switch(kernel)
+      {
+        case KernelSize.ThreeByThree:
+          return 3;
+        case KernelSize.FiveByFive:
+          return 5;
+        default:
+          throw new ArgumentException("Unknown kernel size", nameof(kernel));
+      }
     }
   }
 }

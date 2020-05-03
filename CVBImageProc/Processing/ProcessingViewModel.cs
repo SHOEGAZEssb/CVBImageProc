@@ -238,6 +238,8 @@ namespace CVBImageProc.Processing
           return new CropViewModel(c);
         case Gain g:
           return new GainViewModel(g);
+        case Median m:
+          return new MedianViewModel(m);
         case Invert i:
           return new InvertViewModel(i);
         case PlaneClear p:

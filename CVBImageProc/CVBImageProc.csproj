@@ -124,6 +124,11 @@
       <DependentUpon>CropView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\CropViewModel.cs" />
+    <Compile Include="Processing\MedianView.xaml.cs">
+      <DependentUpon>MedianView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\MedianViewModel.cs" />
+    <Compile Include="Processing\Median.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
       <DependentUpon>InvertView.xaml</DependentUpon>
@@ -227,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\CropView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\MedianView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
