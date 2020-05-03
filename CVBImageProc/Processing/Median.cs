@@ -2,6 +2,7 @@
 using Stemmer.Cvb;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
@@ -56,8 +57,9 @@ namespace CVBImageProc.Processing
       int kernelSize = (int)Math.Floor(KernelSize.GetKernelNumber() / 2.0);
       var plane = ProcessingHelper.ProcessMonoKernel(inputImage.Planes[PlaneIndex], (kl) =>
       {
-        kl.Sort();
-        return kl[kl.Count / 2];
+        var stripped = kl.Where(b => b.HasValue).ToArray();
+        Array.Sort(stripped);
+        return stripped[stripped.Length / 2].Value;
       }, KernelSize, this.GetProcessingBounds(inputImage), PixelFilter);
 
       plane.CopyTo(inputImage.Planes[PlaneIndex]);

@@ -64,12 +64,12 @@ namespace CVBImageProc.Processing
         throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
     }
 
-    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<List<byte>, byte> processingFunc, KernelSize kernel, PixelFilterChain filterChain = null)
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, PixelFilterChain filterChain = null)
     {
       return ProcessMonoKernel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds), filterChain);
     }
 
-    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<List<byte>, byte> processingFunc, KernelSize kernel, ProcessingBounds bounds, PixelFilterChain filterChain = null)
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, ProcessingBounds bounds, PixelFilterChain filterChain = null)
     {
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
@@ -85,14 +85,15 @@ namespace CVBImageProc.Processing
         int boundsY = bounds.StartY + bounds.Height;
         int boundsX = bounds.StartX + bounds.Width;
 
-        var kernelList = new List<byte>();
         int kernelSize = kernel.GetKernelNumber();
         int kernelFac = (int)Math.Floor(kernelSize / 2.0);
+        int kernelCounter = -1;
 
         unsafe
         {
           for (int y = bounds.StartY; y < boundsY; y++)
           {
+            var kernelValues = new byte?[kernelSize * kernelSize];
             byte* pLine = (byte*)data.BasePtr + y * yInc;
             for (int x = bounds.StartX; x < boundsX; x++)
             {
@@ -102,23 +103,27 @@ namespace CVBImageProc.Processing
                 byte* pKLine = pMiddle + kRow * yInc;
                 for (int kColumn = -kernelFac; kColumn <= kernelFac; kColumn++)
                 {
+                  kernelCounter++;
                   if (y + kRow < 0 || y + kRow > boundHeight ||
                       x + kColumn < 0 || x + kColumn > boundWidth)
                     continue;
 
                   byte* pPixel = pKLine + kColumn * xInc;
                   if (filterChain?.Check(*pPixel, y * boundsY + x) ?? false)
-                    kernelList.Add(*pPixel);
+                  {
+                    kernelValues[kernelCounter] = *pPixel;
+                  }
                 }
               }
 
-              if (kernelList.Any())
+              if (kernelValues.Any(b => b.HasValue))
               {
                 var pTargetLine = (byte*)newData.BasePtr + newYInc * y;
                 var pTargetPixel = pTargetLine + newXInc * x; // current "middle pixel" in the target image
-                *pTargetPixel = processingFunc.Invoke(kernelList);
-                kernelList.Clear();
+                *pTargetPixel = processingFunc.Invoke(kernelValues);
               }
+
+              kernelCounter = -1;
             }
           }
         }
