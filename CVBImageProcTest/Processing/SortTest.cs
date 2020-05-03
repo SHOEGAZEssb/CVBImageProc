@@ -1,4 +1,5 @@
-﻿using CVBImageProc.Processing;
+﻿using CVBImageProc;
+using CVBImageProc.Processing;
 using NUnit.Framework;
 
 namespace CVBImageProcTest.Processing

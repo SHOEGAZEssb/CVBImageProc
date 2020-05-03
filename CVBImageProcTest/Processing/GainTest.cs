@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Stemmer.Cvb;
 using CVBImageProc.Processing;
+using CVBImageProc;
 
 namespace CVBImageProcTest.Processing
 {

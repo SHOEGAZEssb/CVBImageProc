@@ -4,6 +4,8 @@ using Microsoft.Win32;
 using Stemmer.Cvb;
 using Stemmer.Cvb.Utilities;
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -31,6 +33,12 @@ namespace CVBImageProc
     /// Command for saving an image.
     /// </summary>
     public ICommand SaveImageCommand { get; }
+
+    /// <summary>
+    /// Command for saving the output image
+    /// as a raw file.
+    /// </summary>
+    public ICommand SaveRawCommand { get; }
 
     /// <summary>
     /// Command for processing the image.
@@ -138,6 +146,7 @@ namespace CVBImageProc
       OpenImageCommand = new DelegateCommand((o) => OpenImage());
       OpenRawFileCommand = new DelegateCommand((o) => OpenRawFile());
       SaveImageCommand = new DelegateCommand((o) => SaveImage());
+      SaveRawCommand = new DelegateCommand((o) => SaveRaw());
       ProcessCommand = new DelegateCommand((o) => Process().Forget());
       UseOutputImageAsInputImageCommand = new DelegateCommand((o) => UseOutputImageAsInputImage());
 
@@ -213,6 +222,28 @@ namespace CVBImageProc
         catch (Exception ex)
         {
           MessageBox.Show($"Error saving image: {ex.Message}");
+        }
+      }
+    }
+
+    /// <summary>
+    /// Saves the <see cref="OutputImage"/> as raw file.
+    /// </summary>
+    private void SaveRaw()
+    {
+      if (OutputImage == null)
+        return;
+
+      var sfd = new SaveFileDialog();
+      if(sfd.ShowDialog() ?? false)
+      {
+        try
+        {
+          File.WriteAllBytes(sfd.FileName, OutputImage.GetPixels().ToArray());
+        }
+        catch(Exception ex)
+        {
+          MessageBox.Show($"Error saving as raw: {ex.Message}");
         }
       }
     }

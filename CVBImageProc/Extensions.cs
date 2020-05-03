@@ -1,10 +1,52 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CVBImageProc
 {
+  /// <summary>
+  /// Extensions for a <see cref="Image"/>.
+  /// </summary>
+  public static class ImageExtensions
+  {
+    /// <summary>
+    /// Gets all pixel values in the image.
+    /// </summary>
+    /// <param name="img">Image to get pixel values of.</param>
+    /// <returns>Pixel values.</returns>
+    public static IEnumerable<byte> GetPixels(this Image img)
+    {
+      if (img == null)
+        throw new ArgumentNullException(nameof(img));
+
+      var data = img.Planes.Select(p => p.GetLinearAccess()).ToArray();
+
+      var pixels = new byte[(img.Width * img.Height) * img.Planes.Count];
+      int curPixel = 0;
+
+      for (int i = 0; i < img.Planes.Count; i++)
+      {
+        unsafe
+        {
+          for (int y = 0; y < img.Height; y++)
+          {
+            byte* pLine = (byte*)(data[i].BasePtr + (int)data[i].YInc * y);
+
+            for (int x = 0; x < img.Width; x++)
+            {
+              pixels[curPixel++] = *(pLine + (int)data[i].XInc * x);
+            }
+          }
+        }
+      }
+
+      return pixels;
+    }
+  }
+
   /// <summary>
   /// Extensions for the <see cref="Task"/> class.
   /// </summary>
