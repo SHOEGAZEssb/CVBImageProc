@@ -95,6 +95,8 @@ namespace CVBImageProc
           return 3;
         case KernelSize.FiveByFive:
           return 5;
+        case KernelSize.SevenBySeven:
+          return 7;
         default:
           throw new ArgumentException("Unknown kernel size", nameof(kernel));
       }

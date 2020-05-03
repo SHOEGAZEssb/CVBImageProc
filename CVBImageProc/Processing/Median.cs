@@ -21,7 +21,13 @@ namespace CVBImageProc.Processing
     /// 5x5 kernel.
     /// </summary>
     [Description("5x5")]
-    FiveByFive
+    FiveByFive,
+
+    /// <summary>
+    /// 7x7 kernel.
+    /// </summary>
+    [Description("7x7")]
+    SevenBySeven
   }
 
   /// <summary>
