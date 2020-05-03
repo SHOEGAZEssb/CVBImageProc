@@ -75,21 +75,19 @@ namespace CVBImageProc.Processing
       {
         var newImage = Image.FromPlanes(MappingOption.CopyPixels, plane);
         var newData = newImage.Planes[0].GetLinearAccess();
-        var kernelList = new List<byte>();
-        int kernelSize = kernel.GetKernelNumber();
-
         int yInc = (int)data.YInc;
         int xInc = (int)data.XInc;
         int newYInc = (int)newData.YInc;
         int newXInc = (int)newData.XInc;
 
-        int kernelFac = (int)Math.Floor(kernelSize / 2.0);
-
         int boundHeight = plane.Parent.Height - 1;
         int boundWidth = plane.Parent.Width - 1;
-
         int boundsY = bounds.StartY + bounds.Height;
         int boundsX = bounds.StartX + bounds.Width;
+
+        var kernelList = new List<byte>();
+        int kernelSize = kernel.GetKernelNumber();
+        int kernelFac = (int)Math.Floor(kernelSize / 2.0);
 
         unsafe
         {
@@ -173,19 +171,25 @@ namespace CVBImageProc.Processing
 
         int boundsY = bounds.StartY + bounds.Height;
         int boundsX = bounds.StartX + bounds.Width;
+        int rYInc = (int)rData.YInc;
+        int gYInc = (int)gData.YInc;
+        int bYInc = (int)bData.YInc;
+        int rXInc = (int)rData.XInc;
+        int gXInc = (int)gData.XInc;
+        int bXInc = (int)bData.XInc;
         unsafe
         {
           for (int y = bounds.StartY; y < boundsY; y++)
           {
-            byte* rLine = (byte*)(rData.BasePtr + (int)rData.YInc * y);
-            byte* gLine = (byte*)(gData.BasePtr + (int)gData.YInc * y);
-            byte* bLine = (byte*)(bData.BasePtr + (int)bData.YInc * y);
+            byte* rLine = (byte*)(rData.BasePtr + rYInc * y);
+            byte* gLine = (byte*)(gData.BasePtr + gYInc * y);
+            byte* bLine = (byte*)(bData.BasePtr + bYInc * y);
 
             for (int x = bounds.StartX; x < boundsX; x++)
             {
-              byte* rPixel = rLine + (int)rData.XInc * x;
-              byte* gPixel = gLine + (int)gData.XInc * x;
-              byte* bPixel = bLine + (int)bData.XInc * x;
+              byte* rPixel = rLine + rXInc * x;
+              byte* gPixel = gLine + gXInc * x;
+              byte* bPixel = bLine + bXInc * x;
 
               var result = processingFunc.Invoke(new Tuple<byte, byte, byte>(*rPixel, *gPixel, *bPixel));
               *rPixel = result.Item1;

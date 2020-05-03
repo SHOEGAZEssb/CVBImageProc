@@ -25,20 +25,24 @@ namespace CVBImageProc
 
       var data = img.Planes.Select(p => p.GetLinearAccess()).ToArray();
 
-      var pixels = new byte[(img.Width * img.Height) * img.Planes.Count];
+      var pixels = new byte[img.Width * img.Height * img.Planes.Count];
       int curPixel = 0;
 
       for (int i = 0; i < img.Planes.Count; i++)
       {
+        IntPtr basePtr = data[i].BasePtr;
+        int yInc = (int)data[i].YInc;
+        int xInc = (int)data[i].XInc;
+
         unsafe
         {
           for (int y = 0; y < img.Height; y++)
           {
-            byte* pLine = (byte*)(data[i].BasePtr + (int)data[i].YInc * y);
+            byte* pLine = (byte*)(basePtr + yInc * y);
 
             for (int x = 0; x < img.Width; x++)
             {
-              pixels[curPixel++] = *(pLine + (int)data[i].XInc * x);
+              pixels[curPixel++] = *(pLine + xInc * x);
             }
           }
         }
@@ -85,8 +89,16 @@ namespace CVBImageProc
     }
   }
 
+  /// <summary>
+  /// Extensions for the <see cref="KernelSize"/> enum.
+  /// </summary>
   static class KernelSizeExtensions
   {
+    /// <summary>
+    /// Gets the number representing the given <paramref name="kernel"/>.
+    /// </summary>
+    /// <param name="kernel">Size to get number representation for.</param>
+    /// <returns>Number representation for the given <paramref name="kernel"/>.</returns>
     public static int GetKernelNumber(this KernelSize kernel)
     {
       switch(kernel)
