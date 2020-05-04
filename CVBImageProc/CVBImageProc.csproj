@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="Processing\CropViewModel.cs" />
     <Compile Include="Processing\Filter.cs" />
+    <Compile Include="Processing\FilterBase.cs" />
     <Compile Include="Processing\FilterView.xaml.cs">
       <DependentUpon>FilterView.xaml</DependentUpon>
     </Compile>
