@@ -132,6 +132,7 @@
     <Compile Include="Processing\Filter\FilterViewModel.cs" />
     <Compile Include="Processing\Filter\IFilter.cs" />
     <Compile Include="Processing\Filter\Median.cs" />
+    <Compile Include="Processing\Filter\Min.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">

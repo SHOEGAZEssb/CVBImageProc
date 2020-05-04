@@ -6,17 +6,15 @@ using System.Runtime.Serialization;
 namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
-  /// Median filter processor.
+  /// Min filter processor.
   /// </summary>
   [DataContract]
-  public class Median : FilterBase
+  public class Min : FilterBase
   {
-    #region IProcessor Implementation
-
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public override string Name => "Median";
+    public override string Name => "Min";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
@@ -31,15 +29,11 @@ namespace CVBImageProc.Processing.Filter
       int kernelSize = (int)Math.Floor(KernelSize.GetKernelNumber() / 2.0);
       var plane = ProcessingHelper.ProcessMonoKernel(inputImage.Planes[PlaneIndex], (kl) =>
       {
-        var stripped = kl.Where(b => b.HasValue).ToArray();
-        Array.Sort(stripped);
-        return stripped[stripped.Length / 2].Value;
+        return kl.Where(b => b.HasValue).Min(b => b.Value);
       }, KernelSize, this.GetProcessingBounds(inputImage), PixelFilter);
 
       plane.CopyTo(inputImage.Planes[PlaneIndex]);
       return inputImage;
     }
-
-    #endregion IProcessor Implementation
   }
 }

@@ -8,6 +8,7 @@ namespace CVBImageProc.Processing.Filter
   /// Base class for filter processors.
   /// </summary>
   [DataContract]
+  [SubProcessor]
   public abstract class FilterBase : IFilter, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IFilter
