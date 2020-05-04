@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing.Filter
   /// Main processor for filter processors.
   /// </summary>
   [DataContract]
-  class Filter : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Filter : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -86,7 +86,9 @@ namespace CVBImageProc.Processing.Filter
 
     #region Properties
 
-
+    /// <summary>
+    /// The sub filter to use.
+    /// </summary>
     [DataMember]
     public IFilter SelectedFilter { get; set; }
 

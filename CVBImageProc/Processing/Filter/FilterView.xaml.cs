@@ -7,6 +7,9 @@ namespace CVBImageProc.Processing.Filter
   /// </summary>
   public partial class FilterView : UserControl
   {
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public FilterView()
     {
       InitializeComponent();

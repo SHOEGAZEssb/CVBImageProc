@@ -9,12 +9,12 @@ namespace CVBImageProc.Processing.Filter
   /// Min filter processor.
   /// </summary>
   [DataContract]
-  public class Min : FilterBase
+  public class Max : FilterBase
   {
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public override string Name => "Min";
+    public override string Name => "Max";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
@@ -29,7 +29,7 @@ namespace CVBImageProc.Processing.Filter
       int kernelSize = (int)Math.Floor(KernelSize.GetKernelNumber() / 2.0);
       var plane = ProcessingHelper.ProcessMonoKernel(inputImage.Planes[PlaneIndex], (kl) =>
       {
-        return kl.Where(b => b.HasValue).Min(b => b.Value);
+        return kl.Where(b => b.HasValue).Max(b => b.Value);
       }, KernelSize, this.GetProcessingBounds(inputImage), PixelFilter);
 
       plane.CopyTo(inputImage.Planes[PlaneIndex]);

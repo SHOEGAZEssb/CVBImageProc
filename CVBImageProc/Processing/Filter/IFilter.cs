@@ -29,7 +29,7 @@ namespace CVBImageProc.Processing.Filter
   /// <summary>
   /// Interface for a filter processor.
   /// </summary>
-  interface IFilter : IProcessor
+  public interface IFilter : IProcessor
   {
     /// <summary>
     /// Kernel size to use.
