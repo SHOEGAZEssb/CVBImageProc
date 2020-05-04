@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.MVVM;
+using CVBImageProc.Processing.Filter;
 using Microsoft.Win32;
 using Stemmer.Cvb;
 using System;
@@ -238,7 +239,7 @@ namespace CVBImageProc.Processing
           return new BitshiftViewModel(b);
         case Crop c:
           return new CropViewModel(c);
-        case Filter f:
+        case Filter.Filter f:
           return new FilterViewModel(f);
         case Gain g:
           return new GainViewModel(g);

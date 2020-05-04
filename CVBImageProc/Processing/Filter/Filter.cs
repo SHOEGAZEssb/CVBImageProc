@@ -1,30 +1,51 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
+using System;
 using System.Runtime.Serialization;
 
-namespace CVBImageProc.Processing
+namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
-  /// Base class for filter processors.
+  /// Main processor for filter processors.
   /// </summary>
   [DataContract]
-  public abstract class FilterBase : IFilter, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  class Filter : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
-    #region IFilter
+    #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public abstract string Name { get; }
+    public string Name => SelectedFilter == null ? "Filter (None)" : $"Filter ({SelectedFilter.Name})";     
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public abstract Image Process(Image inputImage);
+    public Image Process(Image inputImage)
+    {
+      if (inputImage == null)
+        throw new ArgumentNullException(nameof(inputImage));
 
-    #endregion IFilter
+      if (SelectedFilter == null)
+        return inputImage;
+
+      SelectedFilter.KernelSize = KernelSize;
+      if (SelectedFilter is ICanProcessIndividualPixel p)
+        p.PixelFilter = PixelFilter;
+      if (SelectedFilter is IProcessIndividualPlanes i)
+        i.PlaneIndex = PlaneIndex;
+      if (SelectedFilter is ICanProcessIndividualRegions r)
+      {
+        r.AOI = AOI;
+        r.UseAOI = UseAOI;
+      }
+
+      return SelectedFilter.Process(inputImage);
+    }
+
+    #endregion IProcessorImplementation
 
     #region ICanProcessIndividualPixel Implementation
 
@@ -64,6 +85,10 @@ namespace CVBImageProc.Processing
     #endregion IProcessIndividualPlanes Implementation
 
     #region Properties
+
+
+    [DataMember]
+    public IFilter SelectedFilter { get; set; }
 
     /// <summary>
     /// Kernel size to use.

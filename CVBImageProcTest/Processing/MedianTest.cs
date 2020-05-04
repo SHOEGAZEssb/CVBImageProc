@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.Processing;
+using CVBImageProc.Processing.Filter;
 using NUnit.Framework;
 using Stemmer.Cvb;
 

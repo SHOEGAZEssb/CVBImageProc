@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CVBImageProc.Processing
+namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
   /// Interaction logic for FilterView.xaml

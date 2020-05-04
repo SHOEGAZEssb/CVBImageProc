@@ -1,10 +1,9 @@
-﻿using CVBImageProc.Processing.PixelFilter;
-using Stemmer.Cvb;
+﻿using Stemmer.Cvb;
 using System;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace CVBImageProc.Processing
+namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
   /// Median filter processor.

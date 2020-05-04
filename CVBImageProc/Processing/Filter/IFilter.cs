@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CVBImageProc.Processing
+namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
   /// Kernel size for filter processor.

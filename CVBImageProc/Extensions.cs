@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.Processing;
+using CVBImageProc.Processing.Filter;
 using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
