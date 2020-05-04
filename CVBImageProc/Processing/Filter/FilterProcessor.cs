@@ -1,6 +1,7 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.Filter
@@ -9,7 +10,8 @@ namespace CVBImageProc.Processing.Filter
   /// Main processor for filter processors.
   /// </summary>
   [DataContract]
-  public class Filter : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  [DisplayName("Filter")]
+  public class FilterProcessor : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -31,17 +33,7 @@ namespace CVBImageProc.Processing.Filter
       if (SelectedFilter == null)
         return inputImage;
 
-      SelectedFilter.KernelSize = KernelSize;
-      if (SelectedFilter is ICanProcessIndividualPixel p)
-        p.PixelFilter = PixelFilter;
-      if (SelectedFilter is IProcessIndividualPlanes i)
-        i.PlaneIndex = PlaneIndex;
-      if (SelectedFilter is ICanProcessIndividualRegions r)
-      {
-        r.AOI = AOI;
-        r.UseAOI = UseAOI;
-      }
-
+      ConfigureFilter();
       return SelectedFilter.Process(inputImage);
     }
 
@@ -99,5 +91,34 @@ namespace CVBImageProc.Processing.Filter
     public KernelSize KernelSize { get; set; }
 
     #endregion Properties
+
+    /// <summary>
+    /// Configures the <see cref="SelectedFilter"/>
+    /// with the configured values of this filter.
+    /// </summary>
+    private void ConfigureFilter()
+    {
+      SelectedFilter.KernelSize = KernelSize;
+
+      if (SelectedFilter is FilterBase f)
+      {
+        f.PixelFilter = PixelFilter;
+        f.PlaneIndex = PlaneIndex;
+        f.AOI = AOI;
+        f.UseAOI = UseAOI;
+      }
+      else
+      {
+        if (SelectedFilter is ICanProcessIndividualPixel p)
+          p.PixelFilter = PixelFilter;
+        if (SelectedFilter is IProcessIndividualPlanes i)
+          i.PlaneIndex = PlaneIndex;
+        if (SelectedFilter is ICanProcessIndividualRegions r)
+        {
+          r.AOI = AOI;
+          r.UseAOI = UseAOI;
+        }
+      }
+    }
   }
 }

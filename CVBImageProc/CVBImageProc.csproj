@@ -124,7 +124,7 @@
       <DependentUpon>CropView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\CropViewModel.cs" />
-    <Compile Include="Processing\Filter\Filter.cs" />
+    <Compile Include="Processing\Filter\FilterProcessor.cs" />
     <Compile Include="Processing\Filter\FilterBase.cs" />
     <Compile Include="Processing\Filter\FilterView.xaml.cs">
       <DependentUpon>FilterView.xaml</DependentUpon>

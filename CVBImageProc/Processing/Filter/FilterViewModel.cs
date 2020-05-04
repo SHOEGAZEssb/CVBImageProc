@@ -75,7 +75,7 @@ namespace CVBImageProc.Processing.Filter
     /// <summary>
     /// The processor.
     /// </summary>
-    private readonly Filter _processor;
+    private readonly FilterProcessor _processor;
 
     #endregion Member
 
@@ -95,7 +95,7 @@ namespace CVBImageProc.Processing.Filter
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public FilterViewModel(Filter processor)
+    public FilterViewModel(FilterProcessor processor)
       : base(processor)
     {
       _processor = processor;
