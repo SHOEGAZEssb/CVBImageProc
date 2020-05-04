@@ -146,6 +146,7 @@ namespace CVBImageProc.Processing
     /// Gets the processor types for serialization.
     /// </summary>
     private Type[] GetSerializerTypes => AvailableProcessors.Select(p => p.Type).Concat(PixelFilter.PixelFilterChainViewModel.AvailableFilter
+                                                                                .Concat(FilterViewModel.AvailableFilterTypes)
                                                             .Select(p => p.Type)).ToArray();
 
     #endregion Member
@@ -173,7 +174,8 @@ namespace CVBImageProc.Processing
       Processors.CollectionChanged += Processors_CollectionChanged;
 
       AvailableProcessors = System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
-                 .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor)) && !mytype.IsInterface && !mytype.IsAbstract)
+                 .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor)) && !mytype.IsInterface && !mytype.IsAbstract &&
+                        !mytype.GetCustomAttributes(true).Any(a => a.GetType() == typeof(SubProcessorAttribute)))
                  .Select(i => new TypeViewModel(i)).ToArray();
       SelectedProcessorType = AvailableProcessors.FirstOrDefault();
     }
@@ -236,10 +238,10 @@ namespace CVBImageProc.Processing
           return new BitshiftViewModel(b);
         case Crop c:
           return new CropViewModel(c);
+        case Filter f:
+          return new FilterViewModel(f);
         case Gain g:
           return new GainViewModel(g);
-        case Median m:
-          return new MedianViewModel(m);
         case Invert i:
           return new InvertViewModel(i);
         case PlaneClear p:

@@ -9,6 +9,6 @@
     /// <summary>
     /// Pixel filter chain of the processor.
     /// </summary>
-    PixelFilterChain PixelFilter { get; }
+    PixelFilterChain PixelFilter { get; set; }
   }
 }

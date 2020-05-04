@@ -1,41 +1,17 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Kernel size for filter processor.
-  /// </summary>
-  public enum KernelSize
-  {
-    /// <summary>
-    /// 3x3 kernel.
-    /// </summary>
-    [Description("3x3")]
-    ThreeByThree,
-
-    /// <summary>
-    /// 5x5 kernel.
-    /// </summary>
-    [Description("5x5")]
-    FiveByFive,
-
-    /// <summary>
-    /// 7x7 kernel.
-    /// </summary>
-    [Description("7x7")]
-    SevenBySeven
-  }
-
-  /// <summary>
   /// Median filter processor.
   /// </summary>
   [DataContract]
-  public class Median : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  [SubProcessor]
+  public class Median : IFilter, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
@@ -74,7 +50,7 @@ namespace CVBImageProc.Processing
     /// Filter chain for the processor.
     /// </summary>
     [DataMember]
-    public PixelFilterChain PixelFilter { get; private set; } = new PixelFilterChain();
+    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation
 

@@ -107,11 +107,11 @@
           <DataTemplate DataType="{x:Type local:CropViewModel}">
             <local:CropView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:FilterViewModel}">
+            <local:FilterView/>
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:GainViewModel}">
             <local:GainView/>
-          </DataTemplate>
-          <DataTemplate DataType="{x:Type local:MedianViewModel}">
-            <local:MedianView/>
           </DataTemplate>
           <DataTemplate DataType="{x:Type local:InvertViewModel}">
             <local:InvertView/>

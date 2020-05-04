@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CVBImageProc.Processing.MedianView"
+﻿<UserControl x:Class="CVBImageProc.Processing.FilterView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -28,11 +28,21 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <local:PlaneSelectorControl Grid.Row="0"/>
-        <TextBlock Grid.Row="2" Text="Kernel Size:"/>
-        <ComboBox Grid.Row="4" SelectedValue="{Binding KernelSize}" ItemsSource="{Binding Source={StaticResource KernelSizeDataProvider}}"/>
+        <local:PlaneSelectorControl Grid.Row="2"/>
+        
+        <TextBlock Grid.Row="4" Text="Filter:"/>
+        <ComboBox Grid.Row="6" SelectedValue="{Binding SelectedFilterType}" ItemsSource="{Binding AvailableFilterTypes}" DisplayMemberPath="Name"/>
+
+        <TextBlock Grid.Row="8" Text="Kernel Size:"/>
+        <ComboBox Grid.Row="10" SelectedValue="{Binding KernelSize}" ItemsSource="{Binding Source={StaticResource KernelSizeDataProvider}}"/>
       </Grid>
     </TabItem>
     <TabItem Header="Filter">

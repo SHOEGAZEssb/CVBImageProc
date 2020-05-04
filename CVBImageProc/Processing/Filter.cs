@@ -1,41 +1,22 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
-using CVBImageProc.Processing.ValueProvider;
 using Stemmer.Cvb;
 using System;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Direction of a bit shift operation.
-  /// </summary>
-  public enum BitShiftDirection
-  {
-    /// <summary>
-    /// Bits should be shifted left.
-    /// </summary>
-    Left,
-
-    /// <summary>
-    /// Bits should be shifted right.
-    /// </summary>
-    Right
-  }
-
-  /// <summary>
-  /// Processor that shifts bits.
+  /// Main processor for filter processors.
   /// </summary>
   [DataContract]
-  [DisplayName("Bit Shift")]
-  public class BitShift : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  class Filter : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Bit Shift";
+    public string Name => SelectedFilter == null ? "Filter (None)" : $"Filter ({SelectedFilter.Name})";     
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
@@ -47,25 +28,24 @@ namespace CVBImageProc.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
-      {
-        if (ShiftDirection == BitShiftDirection.Left)
-        {
-          int providedValue = ValueProvider.Provide();
-          int pixelValue = b << providedValue;
-          if (WrapAround && pixelValue > 255)
-            return 255;
-          else
-            return (byte)pixelValue;
-        }
-        else
-          return (byte)(b >> ValueProvider.Provide());
-      }, PixelFilter);
+      if (SelectedFilter == null)
+        return inputImage;
 
-      return inputImage;
+      SelectedFilter.KernelSize = KernelSize;
+      if (SelectedFilter is ICanProcessIndividualPixel p)
+        p.PixelFilter = PixelFilter;
+      if (SelectedFilter is IProcessIndividualPlanes i)
+        i.PlaneIndex = PlaneIndex;
+      if (SelectedFilter is ICanProcessIndividualRegions r)
+      {
+        r.AOI = AOI;
+        r.UseAOI = UseAOI;
+      }
+
+      return SelectedFilter.Process(inputImage);
     }
 
-    #endregion IProcessor Implementation
+    #endregion IProcessorImplementation
 
     #region ICanProcessIndividualPixel Implementation
 
@@ -106,24 +86,15 @@ namespace CVBImageProc.Processing
 
     #region Properties
 
-    /// <summary>
-    /// Direction to shift bits.
-    /// </summary>
+
     [DataMember]
-    public BitShiftDirection ShiftDirection { get; set; }
+    public IFilter SelectedFilter { get; set; }
 
     /// <summary>
-    /// If true, pixel values wrap
-    /// around at &lt; 0 and &gt; 255.
+    /// Kernel size to use.
     /// </summary>
     [DataMember]
-    public bool WrapAround { get; set; }
-
-    /// <summary>
-    /// The amount to shift.
-    /// </summary>
-    [DataMember]
-    public IntValueProvider ValueProvider { get; private set; } = new IntValueProvider(0, 255);
+    public KernelSize KernelSize { get; set; }
 
     #endregion Properties
   }

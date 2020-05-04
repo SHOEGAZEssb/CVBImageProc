@@ -55,7 +55,7 @@ namespace CVBImageProc.Processing
     /// Filter chain of the processor.
     /// </summary>
     [DataMember]
-    public PixelFilterChain PixelFilter { get; } = new PixelFilterChain();
+    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanprocessIndividualPixel Implementation
 
@@ -82,7 +82,7 @@ namespace CVBImageProc.Processing
     /// Value to use when replacing.
     /// </summary>
     [DataMember]
-    public ByteValueProvider ValueProvider { get; private set; } = new ByteValueProvider(0, 255);
+    public ByteValueProvider ValueProvider { get; set; } = new ByteValueProvider(0, 255);
 
     #endregion Properties
   }

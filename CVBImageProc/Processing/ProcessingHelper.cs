@@ -1,15 +1,14 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using Stemmer.Cvb;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// Helper class for pixel access and processing.
-  /// </summary>
-  static class ProcessingHelper
+    /// <summary>
+    /// Helper class for pixel access and processing.
+    /// </summary>
+    static class ProcessingHelper
   {
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
