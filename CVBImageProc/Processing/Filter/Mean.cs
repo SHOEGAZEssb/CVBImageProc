@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace CVBImageProc.Processing.Filter
 {
   [DataContract]
-  class Mean : FilterBase
+  public class Mean : FilterBase
   {
     /// <summary>
     /// Name of the processor.

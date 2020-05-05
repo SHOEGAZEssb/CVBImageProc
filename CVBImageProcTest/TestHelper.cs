@@ -1,4 +1,5 @@
 ﻿using Stemmer.Cvb;
+using System;
 
 namespace CVBImageProcTest
 {
@@ -6,8 +7,10 @@ namespace CVBImageProcTest
   {
     public static Image CreateMonoTestImage(byte[] pixelValues)
     {
-      int size = pixelValues.Length / 2;
-      var img = new Image(size, size, 1);
+      var root = Math.Sqrt(pixelValues.Length);
+      int sizeX = (int)Math.Floor(root);
+      int sizeY = (int)Math.Ceiling(root);
+      var img = new Image(sizeX, sizeY, 1);
 
       var data = img.Planes[0].GetLinearAccess();
 
