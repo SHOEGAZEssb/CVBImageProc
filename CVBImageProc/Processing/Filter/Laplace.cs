@@ -1,15 +1,25 @@
 ﻿using Stemmer.Cvb;
 using System;
-using System.Linq;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.Filter
 {
+  /// <summary>
+  /// Laplace filter processor.
+  /// </summary>
   [DataContract]
-  class Laplace : FilterBase
+  public class Laplace : WeightedFilterBase
   {
+    /// <summary>
+    /// Name of the filter.
+    /// </summary>
     public override string Name => "Laplace";
 
+    /// <summary>
+    /// Processes the <paramref name="inputImage"/>.
+    /// </summary>
+    /// <param name="inputImage">Image to process.</param>
+    /// <returns>Processed image.</returns>
     public override Image Process(Image inputImage)
     {
       if (inputImage == null)
@@ -25,31 +35,8 @@ namespace CVBImageProc.Processing.Filter
       return inputImage;
     }
 
-    private static int[] ThreeByThreeWeights;
-
-    static Laplace()
-    {
-      ThreeByThreeWeights = new int[]{ 0, 1, 0,
-                                       1, -4, 1,
-                                       0, 1, 0 };
-    }
-
-    private byte ApplyWeights(byte?[] values, int[] weights)
-    {
-      var intVals = new int?[values.Length];
-      for (int i = 0; i < values.Length; i++)
-      {
-        if (values[i].HasValue)
-          intVals[i] = values[i].Value * weights[i];
-      }
-
-      var stripped = intVals.Where(b => b.HasValue);
-      int sum = stripped.Sum(v => v.Value);
-      if (sum > 255)
-        return 255;
-      else if(sum < 0)
-        return 0;
-      return (byte)sum;
-    }
+    private static readonly int[] ThreeByThreeWeights = new int[]{ 0, 1, 0,
+                                                                   1, -4, 1,
+                                                                   0, 1, 0 };
   }
 }
