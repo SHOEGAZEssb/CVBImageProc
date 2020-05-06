@@ -131,11 +131,16 @@
     </Compile>
     <Compile Include="Processing\Filter\FilterViewModel.cs" />
     <Compile Include="Processing\Filter\Gauss.cs" />
+    <Compile Include="Processing\Filter\CustomFilterSettingsAttribute.cs" />
     <Compile Include="Processing\Filter\IFilter.cs" />
     <Compile Include="Processing\Filter\Laplace.cs" />
     <Compile Include="Processing\Filter\Max.cs" />
     <Compile Include="Processing\Filter\Mean.cs" />
     <Compile Include="Processing\Filter\Median.cs" />
+    <Compile Include="Processing\Filter\MedianSettingsView.xaml.cs">
+      <DependentUpon>MedianSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Filter\MedianSettingsViewModel.cs" />
     <Compile Include="Processing\Filter\Min.cs" />
     <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />
@@ -246,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\Filter\FilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Filter\MedianSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

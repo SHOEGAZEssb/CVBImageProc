@@ -37,9 +37,31 @@ namespace CVBImageProc.Processing.Filter
           OnSettingsChanged();
           NotifyOfPropertyChange();
           NotifyOfPropertyChange(nameof(Name));
+          CustomSettingsViewModel = MakeCustomSettingsViewModel();
         }
       }
     }
+
+    /// <summary>
+    /// ViewModel for the custom settings of the filter.
+    /// </summary>
+    public SettingsViewModelBase CustomSettingsViewModel
+    {
+      get => _customSettingsViewModel;
+      set
+      {
+        if(CustomSettingsViewModel != value)
+        {
+          if (CustomSettingsViewModel != null)
+            CustomSettingsViewModel.SettingsChanged -= SubVM_SettingsChanged;
+          if (value != null)
+            value.SettingsChanged += SubVM_SettingsChanged;
+          _customSettingsViewModel = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private SettingsViewModelBase _customSettingsViewModel;
 
     /// <summary>
     /// Kernel size to use for the filter.
@@ -109,6 +131,25 @@ namespace CVBImageProc.Processing.Filter
     }
 
     #endregion Construction
+
+    /// <summary>
+    /// Creates the custom settings ViewModel
+    /// for the current configuration.
+    /// </summary>
+    /// <returns></returns>
+    private SettingsViewModelBase MakeCustomSettingsViewModel()
+    {
+      if (SelectedFilterType == null || SelectedFilterType.Type.GetCustomAttribute<CustomFilterSettingsAttribute>() == null)
+        return null;
+
+      switch (_processor.SelectedFilter)
+      {
+        case Median m:
+          return new MedianSettingsViewModel(m);
+        default:
+          return null;
+      }
+    }
 
     /// <summary>
     /// Fires the SettingsChanged event when the

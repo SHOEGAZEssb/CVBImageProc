@@ -5,6 +5,9 @@ using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.Filter
 {
+  /// <summary>
+  /// Mean filter processor.
+  /// </summary>
   [DataContract]
   public class Mean : FilterBase
   {

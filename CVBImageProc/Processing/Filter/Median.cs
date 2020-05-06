@@ -9,6 +9,7 @@ namespace CVBImageProc.Processing.Filter
   /// Median filter processor.
   /// </summary>
   [DataContract]
+  [CustomFilterSettings]
   public class Median : FilterBase
   {
     #region IProcessor Implementation
@@ -33,7 +34,7 @@ namespace CVBImageProc.Processing.Filter
       {
         var stripped = kl.Where(b => b.HasValue).ToArray();
         Array.Sort(stripped);
-        return stripped[stripped.Length / 2].Value;
+        return UseHigherMedian ? stripped[stripped.Length / 2].Value : stripped[(stripped.Length / 2) - 1].Value;
       }, KernelSize, this.GetProcessingBounds(inputImage), PixelFilter);
 
       plane.CopyTo(inputImage.Planes[PlaneIndex]);
@@ -41,5 +42,16 @@ namespace CVBImageProc.Processing.Filter
     }
 
     #endregion IProcessor Implementation
+
+    #region Properties
+
+    /// <summary>
+    /// Indicates if the higher median value
+    /// should be used instead of the lower one.
+    /// </summary>
+    [DataMember]
+    public bool UseHigherMedian { get; set; } = true;
+
+    #endregion Properties
   }
 }
