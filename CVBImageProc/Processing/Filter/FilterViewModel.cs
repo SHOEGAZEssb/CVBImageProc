@@ -131,6 +131,8 @@ namespace CVBImageProc.Processing.Filter
 
       if (processor.SelectedFilter == null)
         SelectedFilterType = AvailableFilterTypes.FirstOrDefault();
+      else
+        CustomSettingsViewModel = MakeCustomSettingsViewModel();
     }
 
     #endregion Construction
