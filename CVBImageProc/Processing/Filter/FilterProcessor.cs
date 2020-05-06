@@ -88,7 +88,15 @@ namespace CVBImageProc.Processing.Filter
     /// Kernel size to use.
     /// </summary>
     [DataMember]
-    public KernelSize KernelSize { get; set; }
+    public KernelSize KernelSize
+    {
+      get => SelectedFilter?.KernelSize ?? KernelSize.ThreeByThree;
+      set
+      {
+        if (SelectedFilter != null)
+          SelectedFilter.KernelSize = value;
+      }
+    }
 
     #endregion Properties
 
@@ -98,8 +106,6 @@ namespace CVBImageProc.Processing.Filter
     /// </summary>
     private void ConfigureFilter()
     {
-      SelectedFilter.KernelSize = KernelSize;
-
       if (SelectedFilter is FilterBase f)
       {
         f.PixelFilter = PixelFilter;

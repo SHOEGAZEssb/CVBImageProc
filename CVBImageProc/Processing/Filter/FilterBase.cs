@@ -70,7 +70,7 @@ namespace CVBImageProc.Processing.Filter
     /// Kernel size to use.
     /// </summary>
     [DataMember]
-    public KernelSize KernelSize { get; set; }
+    public virtual KernelSize KernelSize { get; set; }
 
     #endregion Properties
   }

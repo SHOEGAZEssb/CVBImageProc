@@ -74,6 +74,9 @@ namespace CVBImageProc.Processing.Filter
         if(KernelSize != value)
         {
           _processor.KernelSize = value;
+          if (CustomSettingsViewModel is INeedKernelSizeUpdate v)
+            v.Update();
+          
           OnSettingsChanged();
           NotifyOfPropertyChange();
         }
@@ -144,6 +147,8 @@ namespace CVBImageProc.Processing.Filter
 
       switch (_processor.SelectedFilter)
       {
+        case Custom c:
+          return new CustomKernelSettingsViewModel(c);
         case Median m:
           return new MedianSettingsViewModel(m);
         default:
