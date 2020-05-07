@@ -239,7 +239,7 @@ namespace CVBImageProc.Processing
           return new BitshiftViewModel(b);
         case Crop c:
           return new CropViewModel(c);
-        case Filter.FilterProcessor f:
+        case FilterProcessor f:
           return new FilterViewModel(f);
         case Gain g:
           return new GainViewModel(g);
@@ -249,6 +249,8 @@ namespace CVBImageProc.Processing
           return new PlaneClearViewModel(p);
         case Replace r:
           return new ReplaceViewModel(r);
+        case RGBToMono r:
+          return new RGBToMonoViewModel(r);
         case Shuffle s:
           return new ShuffleViewModel(s);
         case Sort s:

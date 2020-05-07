@@ -150,6 +150,11 @@
     <Compile Include="Processing\Filter\MedianSettingsViewModel.cs" />
     <Compile Include="Processing\Filter\Min.cs" />
     <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
+    <Compile Include="Processing\RGBToMono.cs" />
+    <Compile Include="Processing\RGBToMonoView.xaml.cs">
+      <DependentUpon>RGBToMonoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\RGBToMonoViewModel.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
@@ -310,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\ReplaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\RGBToMonoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
