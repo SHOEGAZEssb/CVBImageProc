@@ -30,7 +30,7 @@ namespace CVBImageProc.Processing
 
       if (inputImage.Planes.Count == 1)
         return BinariseMono(inputImage);
-      else if (inputImage.Planes.Count == 3)
+      else if (inputImage.Planes.Count >= 3)
         return BinariseRGB(inputImage);
       else
         throw new ArgumentException("Given input image not supported for binarising", nameof(inputImage));
@@ -43,7 +43,7 @@ namespace CVBImageProc.Processing
     /// <returns>Binarised image.</returns>
     private Image BinariseMono(Image inputImage)
     {
-      ProcessingHelper.ProcessMono(inputImage.Planes[0], (b) =>
+      ProcessingHelper.ProcessMono(inputImage.Planes[0], this.GetProcessingBounds(inputImage), (b) =>
       {
         return (byte)(b >= Threshold ? 255 : 0);
       }, PixelFilter);
@@ -58,28 +58,43 @@ namespace CVBImageProc.Processing
     /// <returns>Binarised image.</returns>
     private Image BinariseRGB(Image inputImage)
     {
-      var dataR = inputImage.Planes[0].GetLinearAccess();
-      var dataG = inputImage.Planes[1].GetLinearAccess();
-      var dataB = inputImage.Planes[2].GetLinearAccess();
+      var rData = inputImage.Planes[0].GetLinearAccess();
+      var gData = inputImage.Planes[1].GetLinearAccess();
+      var bData = inputImage.Planes[2].GetLinearAccess();
 
       var newImage = new Image(inputImage.Size, 1, inputImage.Planes[0].DataType);
-      var newImageData = newImage.Planes[0].GetLinearAccess();
+      var mData = newImage.Planes[0].GetLinearAccess();
+
+      var bounds = this.GetProcessingBounds(inputImage);
+      int boundHeight = inputImage.Height - 1;
+      int boundWidth = inputImage.Width - 1;
+      int boundsY = bounds.StartY + bounds.Height;
+      int boundsX = bounds.StartX + bounds.Width;
+
+      int rYInc = (int)rData.YInc;
+      int gYInc = (int)gData.YInc;
+      int bYInc = (int)bData.YInc;
+      int rXInc = (int)rData.XInc;
+      int gXInc = (int)gData.XInc;
+      int bXInc = (int)bData.XInc;
+      int mXInc = (int)mData.XInc;
+      int mYInc = (int)mData.YInc;
 
       unsafe
       {
-        for (int y = 0; y < inputImage.Height; y++)
+        for (int y = bounds.StartY; y < boundsY; y++)
         {
-          byte* pLineR = (byte*)(dataR.BasePtr + (int)dataR.YInc * y);
-          byte* pLineG = (byte*)(dataG.BasePtr + (int)dataG.YInc * y);
-          byte* pLineB = (byte*)(dataB.BasePtr + (int)dataB.YInc * y);
-          byte* pLineNew = (byte*)(newImageData.BasePtr + (int)newImageData.YInc * y);
+          byte* pLineR = (byte*)(rData.BasePtr + rYInc * y);
+          byte* pLineG = (byte*)(gData.BasePtr + gYInc * y);
+          byte* pLineB = (byte*)(bData.BasePtr + bYInc * y);
+          byte* pLineNew = (byte*)(mData.BasePtr + mYInc * y);
 
-          for (int x = 0; x < inputImage.Width; x++)
+          for (int x = bounds.StartX; x < boundsX; x++)
           {
-            byte* pPixelR = pLineR + (int)dataR.XInc * x;
-            byte* pPixelG = pLineR + (int)dataG.XInc * x;
-            byte* pPixelB = pLineR + (int)dataB.XInc * x;
-            byte* pPixelNew = pLineNew + (int)newImageData.XInc * x;
+            byte* pPixelR = pLineR + rXInc * x;
+            byte* pPixelG = pLineR + gXInc * x;
+            byte* pPixelB = pLineR + bXInc * x;
+            byte* pPixelNew = pLineNew + mXInc * x;
 
             byte value = 0;
             byte pixelValue = (byte)(*pPixelR * FACTORRED + *pPixelG * FACTORGREEN + *pPixelB * FACTORBLUE);
