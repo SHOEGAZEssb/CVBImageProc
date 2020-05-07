@@ -1,4 +1,5 @@
 ﻿using Stemmer.Cvb;
+using System;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.Filter
@@ -21,6 +22,9 @@ namespace CVBImageProc.Processing.Filter
     /// <returns>Processed image.</returns>
     public override Image Process(Image inputImage)
     {
+      if (inputImage == null)
+        throw new ArgumentNullException(nameof(inputImage));
+
       var factors = MakeBinominalFactors(KernelSize.GetKernelNumber());
       var weights = MakeWeights(factors);
 

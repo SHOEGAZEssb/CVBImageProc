@@ -25,18 +25,31 @@ namespace CVBImageProc.Processing.Filter
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      int kernelSize = (int)Math.Floor(KernelSize.GetKernelNumber() / 2.0);
+      var kernel = CalculateKernel(KernelSize);
       var plane = ProcessingHelper.ProcessMonoKernel(inputImage.Planes[PlaneIndex], (kl) =>
       {
-        return ApplyWeights(kl, ThreeByThreeWeights);
+        return ApplyWeights(kl, kernel);
       }, KernelSize, this.GetProcessingBounds(inputImage), PixelFilter);
 
       plane.CopyTo(inputImage.Planes[PlaneIndex]);
       return inputImage;
     }
 
-    private static readonly int[] ThreeByThreeWeights = new int[]{ 0, 1, 0,
-                                                                   1, -4, 1,
-                                                                   0, 1, 0 };
+    /// <summary>
+    /// Calculate a laplace kernel for the given <paramref name="kernelSize"/>.
+    /// </summary>
+    /// <param name="kernelSize">Kernel size to calculate laplace kernel for.</param>
+    /// <returns>Calculated laplace kernel.</returns>
+    private static int[] CalculateKernel(KernelSize kernelSize)
+    {
+      int kernelNum = kernelSize.GetKernelNumber();
+      int fullKernelNum = kernelNum * kernelNum;
+      var kernel = new int[fullKernelNum];
+      for (int i = 0; i < kernel.Length; i++)
+        kernel[i] = 1;
+      kernel[(int)Math.Floor(fullKernelNum / 2.0)] = 1 - fullKernelNum;
+
+      return kernel;
+    }
   }
 }
