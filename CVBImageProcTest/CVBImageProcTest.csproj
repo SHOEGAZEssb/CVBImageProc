@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Processing\BinariseTest.cs" />
     <Compile Include="Processing\BitShiftTest.cs" />
     <Compile Include="Processing\CropTest.cs" />
     <Compile Include="Processing\Filter\MaxTest.cs" />
