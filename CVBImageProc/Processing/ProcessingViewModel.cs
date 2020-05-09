@@ -213,7 +213,7 @@ namespace CVBImageProc.Processing
     private void AddProcessor(IProcessor processor)
     {
       // add to model
-      _processorChain.Processors.Add(processor);
+      _processorChain.Processors.Add(new KeyValuePair<IProcessor, bool>(processor, true));
 
       // add to vm
       Processors.Add(CreateProcessorViewModel(_processorChain.Processors.Last()));
@@ -222,41 +222,41 @@ namespace CVBImageProc.Processing
 
     /// <summary>
     /// Creates a <see cref="IProcessorViewModel"/> based on
-    /// the given <paramref name="processor"/>s type.
+    /// the given <paramref name="kvp"/>s type.
     /// </summary>
-    /// <param name="processor">Processor to create ViewModel for.</param>
-    /// <returns>ViewModel for the given <paramref name="processor"/>.</returns>
-    private static IProcessorViewModel CreateProcessorViewModel(IProcessor processor)
+    /// <param name="kvp">Processor to create ViewModel for.</param>
+    /// <returns>ViewModel for the given <paramref name="kvp"/>.</returns>
+    private static IProcessorViewModel CreateProcessorViewModel(KeyValuePair<IProcessor, bool> kvp)
     {
-      if (processor == null)
-        throw new ArgumentNullException(nameof(processor));
+      if (kvp.Key == null)
+        throw new ArgumentNullException(nameof(kvp));
 
-      switch (processor)
+      switch (kvp.Key)
       {
         case Binarise b:
-          return new BinariseViewModel(b);
+          return new BinariseViewModel(b, kvp.Value);
         case BitShift b:
-          return new BitshiftViewModel(b);
+          return new BitshiftViewModel(b, kvp.Value);
         case Crop c:
-          return new CropViewModel(c);
+          return new CropViewModel(c, kvp.Value);
         case FilterProcessor f:
-          return new FilterViewModel(f);
+          return new FilterViewModel(f, kvp.Value);
         case Gain g:
-          return new GainViewModel(g);
+          return new GainViewModel(g, kvp.Value);
         case Invert i:
-          return new InvertViewModel(i);
+          return new InvertViewModel(i, kvp.Value);
         case PlaneClear p:
-          return new PlaneClearViewModel(p);
+          return new PlaneClearViewModel(p, kvp.Value);
         case Replace r:
-          return new ReplaceViewModel(r);
+          return new ReplaceViewModel(r, kvp.Value);
         case RGBToMono r:
-          return new RGBToMonoViewModel(r);
+          return new RGBToMonoViewModel(r, kvp.Value);
         case Shuffle s:
-          return new ShuffleViewModel(s);
+          return new ShuffleViewModel(s, kvp.Value);
         case Sort s:
-          return new SortViewModel(s);
+          return new SortViewModel(s, kvp.Value);
         default:
-          return new ProcessorViewModel(processor);
+          return new ProcessorViewModel(kvp.Key, kvp.Value);
       }
     }
 
@@ -274,7 +274,7 @@ namespace CVBImageProc.Processing
       _processorChain.Processors.RemoveAt(index);
 
       // remove from VM
-      Processors.RemoveAt(index);
+      Processors.Remove(SelectedProcessor);
 
       if (Processors.ElementAtOrDefault(index) != null)
         SelectedProcessor = Processors.ElementAt(index);
@@ -440,16 +440,24 @@ namespace CVBImageProc.Processing
     {
       if (e.Action == NotifyCollectionChangedAction.Add)
       {
-        foreach (var settingsProc in e.NewItems.OfType<IHasSettings>())
-          settingsProc.SettingsChanged += SettingsProc_SettingsChanged;
+        foreach (var proc in e.NewItems.OfType<IProcessorViewModel>())
+        {
+          proc.IsActiveChanged += Processor_IsActiveChanged;
+          if(proc is IHasSettings settingsProc)
+            settingsProc.SettingsChanged += SettingsProc_SettingsChanged;
+        }
 
         if (e.NewItems.OfType<INeedImageInfo>().Any())
           UpdateImageInfoRequested?.Invoke(this, EventArgs.Empty);
       }
       else if (e.Action == NotifyCollectionChangedAction.Remove)
       {
-        foreach (var settingsProc in e.OldItems.OfType<IHasSettings>())
-          settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
+        foreach (var proc in e.OldItems.OfType<IProcessorViewModel>())
+        {
+          proc.IsActiveChanged -= Processor_IsActiveChanged;
+          if(proc is IHasSettings settingsProc)
+            settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
+        }
       }
 
       // don't fire when "replacing" (moveup, down)
@@ -467,6 +475,17 @@ namespace CVBImageProc.Processing
     /// <param name="e">Ignored.</param>
     private void SettingsProc_SettingsChanged(object sender, EventArgs e)
     {
+      ProcessingRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Processor_IsActiveChanged(object sender, EventArgs e)
+    {
+      var vm = sender as IProcessorViewModel;
+      if (sender == null)
+        return;
+
+      int index = _processorChain.Processors.IndexOf(_processorChain.Processors.First(p => p.Key == vm.Processor));
+      _processorChain.Processors[index] = new KeyValuePair<IProcessor, bool>(vm.Processor, vm.IsActive);
       ProcessingRequested?.Invoke(this, EventArgs.Empty);
     }
   }

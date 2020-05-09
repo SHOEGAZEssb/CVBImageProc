@@ -34,8 +34,8 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
-    public CropViewModel(Crop processor) 
-      : base(processor)
+    public CropViewModel(Crop processor, bool isActive) 
+      : base(processor, isActive)
     {
       _processor = processor;
       AOIVM = new AOIViewModel(_processor);

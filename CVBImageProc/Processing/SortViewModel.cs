@@ -49,8 +49,9 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public SortViewModel(Sort processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public SortViewModel(Sort processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       AOIVM = new AOIViewModel(_processor);

@@ -66,9 +66,10 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The binarise processor.</param>
+    /// <param name="isActive">Startup IsActive state.</param>
     /// <exception cref="ArgumentNullException">When <paramref name="processor"/> is null.</exception>
-    public BinariseViewModel(Binarise processor)
-      : base(processor)
+    public BinariseViewModel(Binarise processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       PixelFilterChainVM = new PixelFilterChainViewModel(_processor);

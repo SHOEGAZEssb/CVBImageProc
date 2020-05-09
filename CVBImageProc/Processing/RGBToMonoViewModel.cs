@@ -99,8 +99,9 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public RGBToMonoViewModel(RGBToMono processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public RGBToMonoViewModel(RGBToMono processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       ResetFactorRCommand = new DelegateCommand((o) => ResetFactorR());

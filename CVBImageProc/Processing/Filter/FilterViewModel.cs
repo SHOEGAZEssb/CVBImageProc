@@ -120,8 +120,9 @@ namespace CVBImageProc.Processing.Filter
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public FilterViewModel(FilterProcessor processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public FilterViewModel(FilterProcessor processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       PixelFilterChainVM = new PixelFilterChainViewModel(_processor);

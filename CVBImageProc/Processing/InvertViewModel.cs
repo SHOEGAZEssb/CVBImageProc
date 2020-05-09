@@ -26,8 +26,9 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public InvertViewModel(Invert processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public InvertViewModel(Invert processor, bool isActive)
+      : base(processor, isActive)
     {
       PixelFilterChainVM = new PixelFilterChainViewModel(processor);
       PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;

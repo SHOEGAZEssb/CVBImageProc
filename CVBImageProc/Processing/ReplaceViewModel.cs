@@ -41,8 +41,9 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public ReplaceViewModel(Replace processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public ReplaceViewModel(Replace processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       ValueProviderVM = new ValueProviderViewModel<byte>(_processor.ValueProvider);

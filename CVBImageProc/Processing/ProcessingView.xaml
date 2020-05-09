@@ -46,7 +46,22 @@
         <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
 
-      <ListBox Grid.Column="0" ItemsSource="{Binding Processors}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProcessor}"/>
+      <ListBox Grid.Column="0" ItemsSource="{Binding Processors}" SelectedItem="{Binding SelectedProcessor}" HorizontalContentAlignment="Stretch">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+
+              <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+              <CheckBox Grid.Column="2" IsChecked="{Binding IsActive}"/>
+            </Grid>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
 
       <Grid Grid.Column="2">
         <Grid.RowDefinitions>

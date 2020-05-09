@@ -71,8 +71,13 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
-    protected PlaneProcessorViewModelBase(IProcessIndividualPlanes processor)
-      : base(processor)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="processor">The actual processor.</param>
+    /// <param name="isActive">Startup IsActive state.</param>
+    protected PlaneProcessorViewModelBase(IProcessIndividualPlanes processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
     }

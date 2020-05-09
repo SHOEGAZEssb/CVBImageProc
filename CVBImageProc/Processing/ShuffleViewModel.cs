@@ -23,8 +23,9 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public ShuffleViewModel(Shuffle processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public ShuffleViewModel(Shuffle processor, bool isActive)
+      : base(processor, isActive)
     {
       AOIVM = new AOIViewModel(processor);
       AOIVM.SettingsChanged += SubVM_SettingsChanged;

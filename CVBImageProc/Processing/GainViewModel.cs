@@ -61,8 +61,9 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The gain processor.</param>
-    public GainViewModel(Gain processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public GainViewModel(Gain processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       ValueProviderVM = new ValueProviderViewModel<int>(_processor.ValueProvider);

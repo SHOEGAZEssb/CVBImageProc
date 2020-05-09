@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Interface for an object that has settings.
   /// </summary>
-  interface IHasSettings
+  public interface IHasSettings
   {
     /// <summary>
     /// Event that is fired when one of

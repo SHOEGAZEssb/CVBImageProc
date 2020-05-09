@@ -74,8 +74,8 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
-    public BitshiftViewModel(BitShift processor)
-      : base(processor)
+    public BitshiftViewModel(BitShift processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       ValueProviderVM = new ValueProviderViewModel<int>(_processor.ValueProvider);

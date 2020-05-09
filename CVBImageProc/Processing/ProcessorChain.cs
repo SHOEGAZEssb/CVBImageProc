@@ -1,5 +1,6 @@
 ﻿using Stemmer.Cvb;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
@@ -16,7 +17,7 @@ namespace CVBImageProc.Processing
     /// List of processors to use.
     /// </summary>
     [DataMember]
-    public List<IProcessor> Processors { get; private set; }
+    public List<KeyValuePair<IProcessor, bool>> Processors { get; private set; }
 
     #endregion Properties
 
@@ -27,7 +28,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     public ProcessorChain()
     {
-      Processors = new List<IProcessor>();
+      Processors = new List<KeyValuePair<IProcessor, bool>>();
     }
 
     #endregion Construction
@@ -41,7 +42,7 @@ namespace CVBImageProc.Processing
     public Image Process(Image inputImage)
     {
       Image outputImage = inputImage.Clone();
-      foreach (IProcessor processor in Processors)
+      foreach (IProcessor processor in Processors.Where(kvp => kvp.Value).Select(kvp => kvp.Key))
         outputImage = processor.Process(outputImage);
 
       return outputImage;

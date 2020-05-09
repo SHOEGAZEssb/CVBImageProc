@@ -77,8 +77,9 @@ namespace CVBImageProc.Processing
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
-    public PlaneClearViewModel(PlaneClear processor)
-      : base(processor)
+    /// <param name="isActive">Startup IsActive state.</param>
+    public PlaneClearViewModel(PlaneClear processor, bool isActive)
+      : base(processor, isActive)
     {
       _processor = processor;
       Clears = new ObservableCollection<PlaneClearStateViewModel>();
