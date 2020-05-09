@@ -6,18 +6,8 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Binarise"/> processor.
   /// </summary>
-  class BinariseViewModel : ProcessorViewModel, IHasSettings
+  class BinariseViewModel : PlaneProcessorViewModelBase
   {
-    #region IHasSettings Implementation
-
-    /// <summary>
-    /// Event that is fired when one of
-    /// the settings changed.
-    /// </summary>
-    public event EventHandler SettingsChanged;
-
-    #endregion IHasSettings Implementation
-
     #region Properties
 
     /// <summary>
@@ -34,7 +24,7 @@ namespace CVBImageProc.Processing
         {
           _processor.Threshold = value;
           NotifyOfPropertyChange();
-          SettingsChanged?.Invoke(this, EventArgs.Empty);
+          OnSettingsChanged();
         }
       }
     }
@@ -88,7 +78,7 @@ namespace CVBImageProc.Processing
     /// <param name="e">Ignored.</param>
     private void SubVM_SettingsChanged(object sender, EventArgs e)
     {
-      SettingsChanged?.Invoke(this, EventArgs.Empty);
+      OnSettingsChanged();
     }
   }
 }

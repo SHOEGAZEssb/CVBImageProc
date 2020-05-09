@@ -15,11 +15,14 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Threshold:"/>
+        <local:PlaneSelectorControl Grid.Row="0"/>
+        <TextBlock Grid.Row="2" Text="Threshold:"/>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="4">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="2"/>
