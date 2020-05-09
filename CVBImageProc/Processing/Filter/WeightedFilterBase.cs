@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing.Filter
@@ -19,6 +20,11 @@ namespace CVBImageProc.Processing.Filter
     /// <returns>Weighted pixel.</returns>
     protected virtual byte ApplyWeights(byte?[] values, int[] weights)
     {
+      if (values == null)
+        throw new ArgumentNullException(nameof(values));
+      if (weights == null)
+        throw new ArgumentNullException(nameof(weights));
+
       var intVals = new int?[values.Length];
       for (int i = 0; i < values.Length; i++)
       {
@@ -41,13 +47,16 @@ namespace CVBImageProc.Processing.Filter
     }
 
     /// <summary>
-    /// Converts the given binominal factors
+    /// Converts the given binomial factors
     /// to weights.
     /// </summary>
-    /// <param name="binFactors">Binominal factors to convert.</param>
-    /// <returns>Weights calculated with the binominal factors.</returns>
+    /// <param name="binFactors">Binomial factors to convert.</param>
+    /// <returns>Weights calculated with the binomial factors.</returns>
     protected virtual int[] MakeWeights(int[] binFactors)
     {
+      if (binFactors == null)
+        throw new ArgumentNullException(nameof(binFactors));
+
       int[] weights = new int[binFactors.Length * binFactors.Length];
       int counter = 0;
       for (int i = 0; i < binFactors.Length; i++)
