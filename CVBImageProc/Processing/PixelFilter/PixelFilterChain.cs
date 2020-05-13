@@ -104,5 +104,50 @@ namespace CVBImageProc.Processing.PixelFilter
 
       return true;
     }
+
+    /// <summary>
+    /// Checks if the given rgb pixel pass the filter.
+    /// </summary>
+    /// <param name="r">R pixel to check.</param>
+    /// <param name="g">G pixel to check.</param>
+    /// <param name="b">B pixel to check.</param>
+    /// <param name="index">Pixel index to check.</param>
+    /// <returns>True if the given pixels meet the filter conditions.</returns>
+    public bool Check(byte r, byte g, byte b, int index)
+    {
+      if (ValueFilters.Count == 0 && IndexFilters.Count == 0)
+        return true;
+
+      if (Mode == LogicMode.And)
+      {
+        foreach (var filter in ValueFilters)
+        {
+          if (!filter.Check(r) || !filter.Check(g) || !filter.Check(b))
+            return false;
+        }
+        foreach (var filter in IndexFilters)
+        {
+          if (!filter.Check(index))
+            return false;
+        }
+      }
+      else
+      {
+        foreach (var filter in ValueFilters)
+        {
+          if (filter.Check(r) && filter.Check(g) && filter.Check(b))
+            return true;
+        }
+        foreach (var filter in IndexFilters)
+        {
+          if (filter.Check(index))
+            return true;
+        }
+
+        return false;
+      }
+
+      return true;
+    }
   }
 }

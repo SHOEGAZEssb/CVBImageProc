@@ -38,7 +38,7 @@ namespace CVBImageProc.Processing
         byte b = (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorBR) + (rgb.Item2 * FactorBG) + (rgb.Item3 * FactorBB));
 
         return new Tuple<byte, byte, byte>(r, g, b);
-      }, this.GetProcessingBounds(inputImage));
+      }, this.GetProcessingBounds(inputImage), PixelFilter);
 
       return inputImage;
     }

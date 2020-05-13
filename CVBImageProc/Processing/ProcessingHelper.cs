@@ -141,14 +141,15 @@ namespace CVBImageProc.Processing
     /// <param name="img">Image to process.</param>
     /// <param name="processingFunc">Processing function to process
     /// the <paramref name="img"/> with.</param>
-    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc)
+    /// <param name="filterChain">Optional filter chain.</param>
+    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc, PixelFilterChain filterChain = null)
     {
       if (img == null)
         throw new ArgumentNullException(nameof(img));
       if (img.Planes.Count < 3)
         throw new ArgumentException("Image is no rgb image", nameof(img));
 
-      ProcessRGB(img, processingFunc, new ProcessingBounds(img.Bounds));
+      ProcessRGB(img, processingFunc, new ProcessingBounds(img.Bounds), filterChain);
     }
 
     /// <summary>
@@ -160,7 +161,9 @@ namespace CVBImageProc.Processing
     /// <param name="processingFunc">Processing function to process
     /// the <paramref name="img"/> with.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
-    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc, ProcessingBounds bounds)
+    /// <param name="filterChain">Optional filter chain.</param>
+    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc, ProcessingBounds bounds,
+                                  PixelFilterChain filterChain = null)
     {
       if (img == null)
         throw new ArgumentNullException(nameof(img));
@@ -196,10 +199,13 @@ namespace CVBImageProc.Processing
               byte* gPixel = gLine + gXInc * x;
               byte* bPixel = bLine + bXInc * x;
 
-              var result = processingFunc.Invoke(new Tuple<byte, byte, byte>(*rPixel, *gPixel, *bPixel));
-              *rPixel = result.Item1;
-              *gPixel = result.Item2;
-              *bPixel = result.Item3;
+              if (filterChain?.Check(*rPixel, *gPixel, *bPixel, y * boundsY + x) ?? false)
+              {
+                var result = processingFunc.Invoke(new Tuple<byte, byte, byte>(*rPixel, *gPixel, *bPixel));
+                *rPixel = result.Item1;
+                *gPixel = result.Item2;
+                *bPixel = result.Item3;
+              }
             }
           }
         }
