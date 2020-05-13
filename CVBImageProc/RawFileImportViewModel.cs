@@ -205,8 +205,10 @@ namespace CVBImageProc
       OKCommand = new DelegateCommand((o) => OK());
       CancelCommand = new DelegateCommand((o) => Cancel());
 
-      _width = 800;
-      _height = 800;
+      var root = Math.Sqrt(_rawBytes.Length);
+      _width = (int)Math.Floor(root);
+      _height = (int)Math.Ceiling(root);
+
       _fillValue = 0;
       _colorMode = ColorMode.Mono;
       _rgbMode = RGBMode.RGBRGB;

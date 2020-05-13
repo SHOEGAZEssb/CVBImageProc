@@ -11,6 +11,10 @@ namespace CVBImageProc.Processing
   {
     #region Properties
 
+    /// <summary>
+    /// Event that is fired when one of
+    /// the settings changed.
+    /// </summary>
     public event EventHandler SettingsChanged;
 
     /// <summary>

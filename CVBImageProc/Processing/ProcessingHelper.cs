@@ -145,7 +145,7 @@ namespace CVBImageProc.Processing
     {
       if (img == null)
         throw new ArgumentNullException(nameof(img));
-      if (img.Planes.Count != 3)
+      if (img.Planes.Count < 3)
         throw new ArgumentException("Image is no rgb image", nameof(img));
 
       ProcessRGB(img, processingFunc, new ProcessingBounds(img.Bounds));
@@ -206,6 +206,24 @@ namespace CVBImageProc.Processing
       }
       else
         throw new ArgumentException("Image could not be accessed linear", nameof(img));
+    }
+
+    public static int RestrictPixelValue(int value)
+    {
+      if (value > 255)
+        value = 255;
+      else if (value < 0)
+        value = 0;
+      return value;
+    }
+
+    public static int RestrictPixelValue(double value)
+    {
+      if (value > 255)
+        value = 255;
+      else if (value < 0)
+        value = 0;
+      return (int)value;
     }
   }
 }

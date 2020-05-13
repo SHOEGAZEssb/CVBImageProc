@@ -251,6 +251,8 @@ namespace CVBImageProc.Processing
           return new ReplaceViewModel(r, kvp.Value);
         case RGBToMono r:
           return new RGBToMonoViewModel(r, kvp.Value);
+        case RGBToSepia r:
+          return new RGBToSepiaViewModel(r, kvp.Value);
         case Shuffle s:
           return new ShuffleViewModel(s, kvp.Value);
         case Sort s:
