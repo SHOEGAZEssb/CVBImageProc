@@ -7,18 +7,18 @@ using System.Runtime.Serialization;
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Processor for converting an rgb image to sepia.
+  /// Processor for converting an rgb image using factors..
   /// </summary>
   [DataContract]
-  [DisplayName("RGB To Sepia")]
-  public class RGBToSepia : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions
+  [DisplayName("RGB Factors")]
+  public class RGBFactors : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "RGB To Sepia";
+    public string Name => "RGB Factors";
 
     /// <summary>
     /// Applies the gain value
@@ -82,110 +82,61 @@ namespace CVBImageProc.Processing
 
     #endregion IProcessIndividualPlanes Implementation
 
-    #region Consts
-
-    /// <summary>
-    /// Default RR factor.
-    /// </summary>
-    public const double DEFAULTFACTORRR = 0.393;
-
-    /// <summary>
-    /// Default RG factor.
-    /// </summary>
-    public const double DEFAULTFACTORRG = 0.769;
-
-    /// <summary>
-    /// Default RB factor.
-    /// </summary>
-    public const double DEFAULTFACTORRB = 0.189;
-
-    /// <summary>
-    /// Default GR factor.
-    /// </summary>
-    public const double DEFAULTFACTORGR = 0.349;
-
-    /// <summary>
-    /// Default GG factor.
-    /// </summary>
-    public const double DEFAULTFACTORGG = 0.686;
-
-    /// <summary>
-    /// Default GB factor.
-    /// </summary>
-    public const double DEFAULTFACTORGB = 0.168;
-
-    /// <summary>
-    /// Default BR factor.
-    /// </summary>
-    public const double DEFAULTFACTORBR = 0.272;
-
-    /// <summary>
-    /// Default BG factor.
-    /// </summary>
-    public const double DEFAULTFACTORBG = 0.534;
-
-    /// <summary>
-    /// Default BB factor.
-    /// </summary>
-    public const double DEFAULTFACTORBB = 0.131;
-
-    #endregion Consts
-
     #region Properties
 
     /// <summary>
     /// Factor of the R component of the R pixel.
     /// </summary>
     [DataMember]
-    public double FactorRR { get; set; } = DEFAULTFACTORRR;
+    public double FactorRR { get; set; }
 
     /// <summary>
     /// Factor of the G component of the R pixel.
     /// </summary>
     [DataMember]
-    public double FactorRG { get; set; } = DEFAULTFACTORRG;
+    public double FactorRG { get; set; }
 
     /// <summary>
     /// Factor of the B component of the R pixel.
     /// </summary>
     [DataMember]
-    public double FactorRB { get; set; } = DEFAULTFACTORRB;
+    public double FactorRB { get; set; }
 
     /// <summary>
     /// Factor of the R component of the G pixel.
     /// </summary>
     [DataMember]
-    public double FactorGR { get; set; } = DEFAULTFACTORGR;
+    public double FactorGR { get; set; }
 
     /// <summary>
     /// Factor of the G component of the G pixel.
     /// </summary>
     [DataMember]
-    public double FactorGG { get; set; } = DEFAULTFACTORGG;
+    public double FactorGG { get; set; }
 
     /// <summary>
     /// Factor of the B component of the G pixel.
     /// </summary>
     [DataMember]
-    public double FactorGB { get; set; } = DEFAULTFACTORGB;
+    public double FactorGB { get; set; }
 
     /// <summary>
     /// Factor of the R component of the B pixel.
     /// </summary>
     [DataMember]
-    public double FactorBR { get; set; } = DEFAULTFACTORBR;
+    public double FactorBR { get; set; }
 
     /// <summary>
     /// Factor of the G component of the B pixel.
     /// </summary>
     [DataMember]
-    public double FactorBG { get; set; } = DEFAULTFACTORBG;
+    public double FactorBG { get; set; }
 
     /// <summary>
     /// Factor of the B component of the B pixel.
     /// </summary>
     [DataMember]
-    public double FactorBB { get; set; } = DEFAULTFACTORBB;
+    public double FactorBB { get; set; }
 
     #endregion Properties
   }

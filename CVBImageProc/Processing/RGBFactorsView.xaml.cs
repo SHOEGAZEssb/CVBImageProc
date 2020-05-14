@@ -3,14 +3,14 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for RGBToSepiaView.xaml
+  /// Interaction logic for RGBFactors.View.xaml
   /// </summary>
-  public partial class RGBToSepiaView : UserControl
+  public partial class RGBFactorsView : UserControl
   {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public RGBToSepiaView()
+    public RGBFactorsView()
     {
       InitializeComponent();
     }

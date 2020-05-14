@@ -141,8 +141,8 @@
           <DataTemplate DataType="{x:Type local:RGBToMonoViewModel}">
             <local:RGBToMonoView/>
           </DataTemplate>
-          <DataTemplate DataType="{x:Type local:RGBToSepiaViewModel}">
-            <local:RGBToSepiaView/>
+          <DataTemplate DataType="{x:Type local:RGBFactorsViewModel}">
+            <local:RGBFactorsView/>
           </DataTemplate>
           <DataTemplate DataType="{x:Type local:ShuffleViewModel}">
             <local:ShuffleView/>
