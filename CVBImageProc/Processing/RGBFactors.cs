@@ -33,9 +33,12 @@ namespace CVBImageProc.Processing
 
       ProcessingHelper.ProcessRGB(inputImage, (rgb) =>
       {
-        byte r = (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorRR) + (rgb.Item2 * FactorRG) + (rgb.Item3 * FactorRB));
-        byte g = (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorGR) + (rgb.Item2 * FactorGG) + (rgb.Item3 * FactorGB));
-        byte b = (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorBR) + (rgb.Item2 * FactorBG) + (rgb.Item3 * FactorBB));
+        byte r = WrapAroundR ? (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorRR) + (rgb.Item2 * FactorRG) + (rgb.Item3 * FactorRB))
+                             : (byte)((rgb.Item1 * FactorRR) + (rgb.Item2 * FactorRG) + (rgb.Item3 * FactorRB));
+        byte g = WrapAroundG ? (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorGR) + (rgb.Item2 * FactorGG) + (rgb.Item3 * FactorGB))
+                             : (byte)((rgb.Item1 * FactorGR) + (rgb.Item2 * FactorGG) + (rgb.Item3 * FactorGB));
+        byte b = WrapAroundB ? (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorBR) + (rgb.Item2 * FactorBG) + (rgb.Item3 * FactorBB))
+                             : (byte)((rgb.Item1 * FactorBR) + (rgb.Item2 * FactorBG) + (rgb.Item3 * FactorBB));
 
         return new Tuple<byte, byte, byte>(r, g, b);
       }, this.GetProcessingBounds(inputImage), PixelFilter);
@@ -137,6 +140,27 @@ namespace CVBImageProc.Processing
     /// </summary>
     [DataMember]
     public double FactorBB { get; set; }
+
+    /// <summary>
+    /// If true, clamps the pixel values to 255 and 0,
+    /// to stop them from overflowing.
+    /// </summary>
+    [DataMember]
+    public bool WrapAroundR { get; set; } = true;
+
+    /// <summary>
+    /// If true, clamps the pixel values to 255 and 0,
+    /// to stop them from overflowing.
+    /// </summary>
+    [DataMember]
+    public bool WrapAroundG { get; set; } = true;
+
+    /// <summary>
+    /// If true, clamps the pixel values to 255 and 0,
+    /// to stop them from overflowing.
+    /// </summary>
+    [DataMember]
+    public bool WrapAroundB { get; set; } = true;
 
     #endregion Properties
   }

@@ -53,6 +53,8 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
 
           <TextBlock Grid.Row="0" Grid.Column="0" Text="R" FontWeight="Bold"/>
@@ -62,6 +64,7 @@
           <xctk:DoubleUpDown Grid.Row="0" Grid.Column="8" Value="{Binding FactorRG}" Increment="0.001"/>
           <TextBlock Grid.Row="0" Grid.Column="10" Text="B:"/>
           <xctk:DoubleUpDown Grid.Row="0" Grid.Column="12" Value="{Binding FactorRB}" Increment="0.001"/>
+          <CheckBox Grid.Row="0" Grid.Column="14" Content="Wraparound" IsChecked="{Binding WrapAroundR}"/>
 
           <TextBlock Grid.Row="2" Grid.Column="0" Text="G" FontWeight="Bold"/>
           <TextBlock Grid.Row="2" Grid.Column="2" Text="R:"/>
@@ -70,6 +73,7 @@
           <xctk:DoubleUpDown Grid.Row="2" Grid.Column="8" Value="{Binding FactorGG}" Increment="0.001"/>
           <TextBlock Grid.Row="2" Grid.Column="10" Text="B:"/>
           <xctk:DoubleUpDown Grid.Row="2" Grid.Column="12" Value="{Binding FactorGB}" Increment="0.001"/>
+          <CheckBox Grid.Row="2" Grid.Column="14" Content="Wraparound" IsChecked="{Binding WrapAroundG}"/>
 
           <TextBlock Grid.Row="4" Grid.Column="0" Text="B" FontWeight="Bold"/>
           <TextBlock Grid.Row="4" Grid.Column="2" Text="R:"/>
@@ -78,6 +82,7 @@
           <xctk:DoubleUpDown Grid.Row="4" Grid.Column="8" Value="{Binding FactorBG}" Increment="0.001"/>
           <TextBlock Grid.Row="4" Grid.Column="10" Text="B:"/>
           <xctk:DoubleUpDown Grid.Row="4" Grid.Column="12" Value="{Binding FactorBB}" Increment="0.001"/>
+          <CheckBox Grid.Row="4" Grid.Column="14" Content="Wraparound" IsChecked="{Binding WrapAroundB}"/>
         </Grid>
       </Grid>
     </TabItem>

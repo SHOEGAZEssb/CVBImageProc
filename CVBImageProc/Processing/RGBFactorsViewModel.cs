@@ -207,6 +207,60 @@ namespace CVBImageProc.Processing
     }
 
     /// <summary>
+    /// If true, clamps the pixel values to 255 and 0,
+    /// to stop them from overflowing.
+    /// </summary>
+    public bool WrapAroundR
+    {
+      get => _processor.WrapAroundR;
+      set
+      {
+        if(WrapAroundR != value)
+        {
+          _processor.WrapAroundR = value;
+          SettingsChanged?.Invoke(this, EventArgs.Empty);
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+
+    /// <summary>
+    /// If true, clamps the pixel values to 255 and 0,
+    /// to stop them from overflowing.
+    /// </summary>
+    public bool WrapAroundG
+    {
+      get => _processor.WrapAroundG;
+      set
+      {
+        if (WrapAroundG != value)
+        {
+          _processor.WrapAroundG = value;
+          SettingsChanged?.Invoke(this, EventArgs.Empty);
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+
+    /// <summary>
+    /// If true, clamps the pixel values to 255 and 0,
+    /// to stop them from overflowing.
+    /// </summary>
+    public bool WrapAroundB
+    {
+      get => _processor.WrapAroundB;
+      set
+      {
+        if (WrapAroundB != value)
+        {
+          _processor.WrapAroundB = value;
+          SettingsChanged?.Invoke(this, EventArgs.Empty);
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+
+    /// <summary>
     /// Command for reloading the <see cref="SelectedPreset"/>.
     /// </summary>
     public ICommand ReloadPresetCommand { get; }
