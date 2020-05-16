@@ -31,7 +31,7 @@ namespace CVBImageProc.Processing.Filter
       var plane = ProcessingHelper.ProcessMonoKernel(inputImage.Planes[PlaneIndex], (kl) =>
       {
         return ApplyWeights(kl, weights);
-      }, KernelSize, PixelFilter);
+      }, KernelSize, this.GetProcessingBounds(inputImage), PixelFilter);
 
       plane.CopyTo(inputImage.Planes[PlaneIndex]);
 

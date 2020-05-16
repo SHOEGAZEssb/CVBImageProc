@@ -191,7 +191,7 @@ namespace CVBImageProc.Processing
     /// <returns>Processed image.</returns>
     public async Task<Image> ProcessAsync(Image inputImage)
     {
-      return await Task.Run(() => _processorChain.Process(inputImage));
+      return await Task.Run(() => _processorChain.Process(inputImage)).ConfigureAwait(false);
     }
 
     /// <summary>

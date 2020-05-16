@@ -1,7 +1,13 @@
 ﻿namespace CVBImageProc.Processing.Filter
 {
+  /// <summary>
+  /// ViewModel for a value of a filter kernel.
+  /// </summary>
   class KernelValueViewModel : SettingsViewModelBase
   {
+    /// <summary>
+    /// The value.
+    /// </summary>
     public int Value
     {
       get => _value;
@@ -19,6 +25,10 @@
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="value">Initial value.</param>
     public KernelValueViewModel(int value)
     {
       Value = value;

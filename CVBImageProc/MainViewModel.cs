@@ -263,7 +263,7 @@ namespace CVBImageProc
 
         var start = DateTime.Now;
         _processingTask = ProcessingVM.ProcessAsync(InputImage);
-        OutputImage = await _processingTask;
+        OutputImage = await _processingTask.ConfigureAwait(false);
         var end = DateTime.Now;
 
         StatusBarVM.StatusMessage = $"Processing took {(end - start).TotalMilliseconds} ms";
@@ -308,7 +308,7 @@ namespace CVBImageProc
     private async void ProcessingVM_ProcessingRequested(object sender, EventArgs e)
     {
       if (AutoProcess)
-        await Process();
+        await Process().ConfigureAwait(false);
     }
   }
 }

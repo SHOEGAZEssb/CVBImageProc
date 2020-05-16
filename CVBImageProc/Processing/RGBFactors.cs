@@ -33,11 +33,11 @@ namespace CVBImageProc.Processing
 
       ProcessingHelper.ProcessRGB(inputImage, (rgb) =>
       {
-        byte r = WrapAroundR ? (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorRR) + (rgb.Item2 * FactorRG) + (rgb.Item3 * FactorRB))
+        byte r = WrapAroundR ? (byte)ProcessingHelper.ClampPixelValue((rgb.Item1 * FactorRR) + (rgb.Item2 * FactorRG) + (rgb.Item3 * FactorRB))
                              : (byte)((rgb.Item1 * FactorRR) + (rgb.Item2 * FactorRG) + (rgb.Item3 * FactorRB));
-        byte g = WrapAroundG ? (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorGR) + (rgb.Item2 * FactorGG) + (rgb.Item3 * FactorGB))
+        byte g = WrapAroundG ? (byte)ProcessingHelper.ClampPixelValue((rgb.Item1 * FactorGR) + (rgb.Item2 * FactorGG) + (rgb.Item3 * FactorGB))
                              : (byte)((rgb.Item1 * FactorGR) + (rgb.Item2 * FactorGG) + (rgb.Item3 * FactorGB));
-        byte b = WrapAroundB ? (byte)ProcessingHelper.RestrictPixelValue((rgb.Item1 * FactorBR) + (rgb.Item2 * FactorBG) + (rgb.Item3 * FactorBB))
+        byte b = WrapAroundB ? (byte)ProcessingHelper.ClampPixelValue((rgb.Item1 * FactorBR) + (rgb.Item2 * FactorBG) + (rgb.Item3 * FactorBB))
                              : (byte)((rgb.Item1 * FactorBR) + (rgb.Item2 * FactorBG) + (rgb.Item3 * FactorBB));
 
         return new Tuple<byte, byte, byte>(r, g, b);

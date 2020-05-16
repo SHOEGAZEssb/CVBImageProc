@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace CVBImageProc.Processing
 {
-    /// <summary>
-    /// Helper class for pixel access and processing.
-    /// </summary>
-    static class ProcessingHelper
+  /// <summary>
+  /// Helper class for pixel access and processing.
+  /// </summary>
+  static class ProcessingHelper
   {
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
@@ -54,7 +54,7 @@ namespace CVBImageProc.Processing
             for (int x = bounds.StartX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
-              if(filterChain?.Check(*pPixel, y * boundsY + x) ?? true)
+              if (filterChain?.Check(*pPixel, y * boundsY + x) ?? true)
                 *pPixel = processorFunc.Invoke(*pPixel);
             }
           }
@@ -104,15 +104,12 @@ namespace CVBImageProc.Processing
                 for (int kColumn = -kernelFac; kColumn <= kernelFac; kColumn++)
                 {
                   kernelCounter++;
-                  if (y + kRow < 0 || y + kRow > boundHeight ||
-                      x + kColumn < 0 || x + kColumn > boundWidth)
+                  if (y + kRow < 0 || y + kRow > boundHeight || x + kColumn < 0 || x + kColumn > boundWidth)
                     continue;
 
                   byte* pPixel = pKLine + kColumn * xInc;
                   if (filterChain?.Check(*pPixel, y * boundsY + x) ?? false)
-                  {
                     kernelValues[kernelCounter] = *pPixel;
-                  }
                 }
               }
 
@@ -167,7 +164,7 @@ namespace CVBImageProc.Processing
     {
       if (img == null)
         throw new ArgumentNullException(nameof(img));
-      if (img.Planes.Count != 3)
+      if (img.Planes.Count < 3)
         throw new ArgumentException("Image is no rgb image", nameof(img));
       if (processingFunc == null)
         throw new ArgumentNullException(nameof(processingFunc));
@@ -176,7 +173,6 @@ namespace CVBImageProc.Processing
           img.Planes[1].TryGetLinearAccess(out LinearAccessData gData) &&
           img.Planes[2].TryGetLinearAccess(out LinearAccessData bData))
       {
-
         int boundsY = bounds.StartY + bounds.Height;
         int boundsX = bounds.StartX + bounds.Width;
         int rYInc = (int)rData.YInc;
@@ -214,7 +210,7 @@ namespace CVBImageProc.Processing
         throw new ArgumentException("Image could not be accessed linear", nameof(img));
     }
 
-    public static int RestrictPixelValue(int value)
+    public static int ClampPixelValue(int value)
     {
       if (value > 255)
         value = 255;
@@ -223,7 +219,7 @@ namespace CVBImageProc.Processing
       return value;
     }
 
-    public static int RestrictPixelValue(double value)
+    public static int ClampPixelValue(double value)
     {
       if (value > 255)
         value = 255;

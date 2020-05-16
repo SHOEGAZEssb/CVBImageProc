@@ -14,8 +14,8 @@ namespace CVBImageProc.MVVM
     /// <summary>
     /// Name of the type.
     /// </summary>
-    public string Name => _displayName == null ? Type.Name : _displayName;
-    private string _displayName;
+    public string Name => _displayName ?? Type.Name;
+    private readonly string _displayName;
 
     /// <summary>
     /// The wrapped type.

@@ -51,8 +51,7 @@ namespace CVBImageProc.Processing
       {
         if (ShiftDirection == BitShiftDirection.Left)
         {
-          int providedValue = ValueProvider.Provide();
-          int pixelValue = b << providedValue;
+          int pixelValue = b << ValueProvider.Provide();
           if (WrapAround && pixelValue > 255)
             return 255;
           else
