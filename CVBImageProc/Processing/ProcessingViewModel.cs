@@ -253,6 +253,8 @@ namespace CVBImageProc.Processing
           return new RGBToMonoViewModel(r, kvp.Value);
         case RGBFactors r:
           return new RGBFactorsViewModel(r, kvp.Value);
+        case Rotate r:
+          return new RotateViewModel(r, kvp.Value);
         case Shuffle s:
           return new ShuffleViewModel(s, kvp.Value);
         case Sort s:

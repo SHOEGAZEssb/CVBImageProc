@@ -162,6 +162,11 @@
       <DependentUpon>RGBFactorsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\RGBFactorsViewModel.cs" />
+    <Compile Include="Processing\Rotate.cs" />
+    <Compile Include="Processing\RotateView.xaml.cs">
+      <DependentUpon>RotateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\RotateViewModel.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
@@ -330,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\RGBFactorsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\RotateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
