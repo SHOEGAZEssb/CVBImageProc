@@ -61,10 +61,6 @@ namespace CVBImageProc.Processing
             {
               byte* inputPPixel = inputPLine + inputXInc * x;
 
-              //int newX = (int)(Math.Cos(Angle.Rad * (x - midPointX)) + Math.Sin(Angle.Rad * (y - midPointY)));
-              //int newY = (int)(Math.Sin(Angle.Rad * (x - midPointX)) + Math.Cos(Angle.Rad * (y - midPointY)));
-              //int newX = (int)(Math.Cos(Angle.Rad) * (x - midPointX) - Math.Sin(Angle.Rad) * (y - midPointY) + midPointX);
-              //int newY = (int)(Math.Sin(Angle.Rad) * (x - midPointX) + Math.Cos(Angle.Rad) * (y - midPointY) + midPointY);
               int newX = (int)((x - midPointX) * cos - (y - midPointY) * sin + midPointX);
               int newY = (int)((x - midPointX) * sin + (y - midPointY) * cos + midPointY);
 
