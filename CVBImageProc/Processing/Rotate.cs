@@ -64,7 +64,7 @@ namespace CVBImageProc.Processing
               int newX = (int)((x - midPointX) * cos - (y - midPointY) * sin + midPointX);
               int newY = (int)((x - midPointX) * sin + (y - midPointY) * cos + midPointY);
 
-              if (newX < width && newX > 0 && newY < height && newY > 0 && PixelFilter.Check(*inputPPixel, y * height + x))
+              if (newX < width && newX >= 0 && newY < height && newY >= 0 && PixelFilter.Check(*inputPPixel, y * height + x))
               {
                 byte* rotatedPPixel = (byte*)(rotatedData.BasePtr + rotatedYInc * newY + rotatedXInc * newX);
                 *rotatedPPixel = *inputPPixel;
