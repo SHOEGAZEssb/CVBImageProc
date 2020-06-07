@@ -29,6 +29,26 @@ namespace CVBImageProc.Processing
     }
 
     /// <summary>
+    /// If true, fits the rotated image
+    /// in the new image.
+    /// If false, new image size will be
+    /// equal to the size of the input image.
+    /// </summary>
+    public bool FitImage
+    {
+      get => _processor.FitImage;
+      set
+      {
+        if(FitImage != value)
+        {
+          _processor.FitImage = value;
+          OnSettingsChanged();
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+
+    /// <summary>
     /// Fill value for "empty" pixels.
     /// </summary>
     public byte FillValue

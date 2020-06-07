@@ -15,6 +15,8 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
           <RowDefinition Height="3"/>
           <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -29,6 +31,7 @@
         <xctk:DoubleUpDown Grid.Row="2" Grid.Column="2" Minimum="0" Maximum="360" Value="{Binding Degree}"/>
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Fill Value:"/>
         <xctk:ByteUpDown Grid.Row="4" Grid.Column="2" Minimum="0" Maximum="255" Value="{Binding FillValue}"/>
+        <CheckBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Content="Fit Image" IsChecked="{Binding FitImage}"/>
       </Grid>
     </TabItem>
     <TabItem Header="Filter">
