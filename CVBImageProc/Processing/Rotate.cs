@@ -56,6 +56,9 @@ namespace CVBImageProc.Processing
             rotatedImage.Planes[i].Initialize(FillValue);
         }
 
+        int offsetX = (int)((rotatedImage.Width / 2) - midPointX);
+        int offsetY = (int)((rotatedImage.Height / 2) - midPointY);
+
         var rotatedData = rotatedImage.Planes[PlaneIndex].GetLinearAccess();
 
         int inputYInc = (int)inputData.YInc;
@@ -72,7 +75,7 @@ namespace CVBImageProc.Processing
             {
               byte* inputPPixel = inputPLine + inputXInc * x;
 
-              var newP = NormalizePoint(RotatePoint(x, y, midPointX, midPointY, cos, sin));
+              var newP = RotatePoint(x, y, midPointX, midPointY, cos, sin, offsetX, offsetY);
               if (FitImage)
               {
                 if (PixelFilter.Check(*inputPPixel, y * height + x))
@@ -96,25 +99,11 @@ namespace CVBImageProc.Processing
         throw new ArgumentException("Input image could not be accessed linearly", nameof(inputImage));
     }
 
-    private static Point2D RotatePoint(int x, int y, double originX, double originY, double cos, double sin)
+    private static Point2D RotatePoint(int x, int y, double originX, double originY, double cos, double sin, int offsetX, int offsetY)
     {
       int newX = (int)((x - originX) * cos - (y - originY) * sin + originX);
       int newY = (int)((x - originX) * sin + (y - originY) * cos + originY);
-      return new Point2D(newX, newY);
-    }
-
-    private static Point2D NormalizePoint(Point2D p)
-    {
-      if(p.X < 0)
-      {
-        return new Point2D(p.X - p.X, p.Y);
-      }
-      if(p.Y < 0)
-      {
-        return new Point2D(p.X, p.Y - p.Y);
-      }
-
-      return p;
+      return new Point2D(newX + offsetX, newY + offsetY);
     }
 
     #endregion IProcessor Implementation
