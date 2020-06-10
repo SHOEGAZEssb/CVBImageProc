@@ -30,7 +30,24 @@ namespace CVBImageProc.Processing
 
       if (inputImage.Planes[PlaneIndex].TryGetLinearAccess(out LinearAccessData inputData))
       {
-        Image rotatedImage = new Image(inputImage.Size, inputImage.Planes.Count);
+        double midPointY = inputImage.Height / 2;
+        double midPointX = inputImage.Width / 2;
+        int height = inputImage.Height;
+        int width = inputImage.Width;
+        double cos = Math.Cos(Angle.Rad);
+        double sin = Math.Sin(Angle.Rad);
+
+        Image rotatedImage;
+        if (FitImage)
+        {
+          var newHeight = Math.Abs(width * sin) + Math.Abs(height * cos);
+          var newWidth = Math.Abs(width * cos) + Math.Abs(height * sin);
+
+          rotatedImage = new Image((int)newWidth, (int)newHeight, inputImage.Planes.Count);
+        }
+        else
+          rotatedImage = new Image(inputImage.Size, inputImage.Planes.Count);
+
         for (int i = 0; i < inputImage.Planes.Count; i++)
         {
           if (i != PlaneIndex)
@@ -39,34 +56,40 @@ namespace CVBImageProc.Processing
             rotatedImage.Planes[i].Initialize(FillValue);
         }
 
+        int offsetX = (int)((rotatedImage.Width / 2) - midPointX);
+        int offsetY = (int)((rotatedImage.Height / 2) - midPointY);
+
         var rotatedData = rotatedImage.Planes[PlaneIndex].GetLinearAccess();
 
         int inputYInc = (int)inputData.YInc;
         int inputXInc = (int)inputData.XInc;
         int rotatedYInc = (int)rotatedData.YInc;
         int rotatedXInc = (int)rotatedData.XInc;
-        int height = inputImage.Height;
-        int width = inputImage.Width;
-        double midPointY = height / 2;
-        double midPointX = width / 2;
-        double cos = Math.Cos(Angle.Rad);
-        double sin = Math.Sin(Angle.Rad);
+
+        var rotatedWidth = rotatedImage.Width;
+        var rotatedHeight = rotatedImage.Height;
         unsafe
         {
           for (int y = 0; y < height; y++)
           {
             byte* inputPLine = (byte*)(inputData.BasePtr + inputYInc * y);
-             
+
             for (int x = 0; x < width; x++)
             {
               byte* inputPPixel = inputPLine + inputXInc * x;
 
-              int newX = (int)((x - midPointX) * cos - (y - midPointY) * sin + midPointX);
-              int newY = (int)((x - midPointX) * sin + (y - midPointY) * cos + midPointY);
-
-              if (newX < width && newX >= 0 && newY < height && newY >= 0 && PixelFilter.Check(*inputPPixel, y * height + x))
+              var newP = RotatePoint(x, y, midPointX, midPointY, cos, sin, offsetX, offsetY);
+              if (FitImage)
               {
-                byte* rotatedPPixel = (byte*)(rotatedData.BasePtr + rotatedYInc * newY + rotatedXInc * newX);
+                if (PixelFilter.Check(*inputPPixel, y * height + x) && newP.X < rotatedWidth && newP.Y < rotatedHeight)
+                {
+                  byte* rotatedPPixel = (byte*)(rotatedData.BasePtr + rotatedYInc * newP.Y + rotatedXInc * newP.X);
+                  *rotatedPPixel = *inputPPixel;
+                }
+              }
+              else if (newP.X < width && newP.X >= 0 && newP.Y < height && newP.Y >= 0 && PixelFilter.Check(*inputPPixel, y * height + x))
+              {
+                byte* rotatedPPixel = (byte*)(rotatedData.BasePtr + rotatedYInc * newP.Y + rotatedXInc * newP.X);
                 *rotatedPPixel = *inputPPixel;
               }
             }
@@ -77,6 +100,13 @@ namespace CVBImageProc.Processing
       }
       else
         throw new ArgumentException("Input image could not be accessed linearly", nameof(inputImage));
+    }
+
+    private static Point2D RotatePoint(int x, int y, double originX, double originY, double cos, double sin, int offsetX, int offsetY)
+    {
+      int newX = (int)((x - originX) * cos - (y - originY) * sin + originX);
+      int newY = (int)((x - originX) * sin + (y - originY) * cos + originY);
+      return new Point2D(newX + offsetX, newY + offsetY);
     }
 
     #endregion IProcessor Implementation
@@ -108,6 +138,15 @@ namespace CVBImageProc.Processing
     /// </summary>
     [DataMember]
     public Angle Angle { get; set; }
+
+    /// <summary>
+    /// If true, fits the rotated image
+    /// in the new image.
+    /// If false, new image size will be
+    /// equal to the size of the input image.
+    /// </summary>
+    [DataMember]
+    public bool FitImage { get; set; }
 
     /// <summary>
     /// Fill value for "empty" pixels.
