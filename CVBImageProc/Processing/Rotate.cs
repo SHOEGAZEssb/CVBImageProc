@@ -65,6 +65,9 @@ namespace CVBImageProc.Processing
         int inputXInc = (int)inputData.XInc;
         int rotatedYInc = (int)rotatedData.YInc;
         int rotatedXInc = (int)rotatedData.XInc;
+
+        var rotatedWidth = rotatedImage.Width;
+        var rotatedHeight = rotatedImage.Height;
         unsafe
         {
           for (int y = 0; y < height; y++)
@@ -78,7 +81,7 @@ namespace CVBImageProc.Processing
               var newP = RotatePoint(x, y, midPointX, midPointY, cos, sin, offsetX, offsetY);
               if (FitImage)
               {
-                if (PixelFilter.Check(*inputPPixel, y * height + x))
+                if (PixelFilter.Check(*inputPPixel, y * height + x) && newP.X < rotatedWidth && newP.Y < rotatedHeight)
                 {
                   byte* rotatedPPixel = (byte*)(rotatedData.BasePtr + rotatedYInc * newP.Y + rotatedXInc * newP.X);
                   *rotatedPPixel = *inputPPixel;
