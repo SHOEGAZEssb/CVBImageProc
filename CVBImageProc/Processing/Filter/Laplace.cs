@@ -47,7 +47,7 @@ namespace CVBImageProc.Processing.Filter
       var kernel = new int[fullKernelNum];
       for (int i = 0; i < kernel.Length; i++)
         kernel[i] = 1;
-      kernel[(int)Math.Floor(fullKernelNum / 2.0)] = 1 - fullKernelNum;
+      kernel[(int)System.Math.Floor(fullKernelNum / 2.0)] = 1 - fullKernelNum;
 
       return kernel;
     }

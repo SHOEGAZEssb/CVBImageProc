@@ -27,7 +27,7 @@ namespace CVBImageProc.Processing
       {
         if (FactorR != value)
         {
-          _processor.FactorR = Math.Round(value, 4);
+          _processor.FactorR = System.Math.Round(value, 4);
           SettingsChanged?.Invoke(this, EventArgs.Empty);
           NotifyOfPropertyChange();
         }
@@ -44,7 +44,7 @@ namespace CVBImageProc.Processing
       {
         if (FactorG != value)
         {
-          _processor.FactorG = Math.Round(value, 4);
+          _processor.FactorG = System.Math.Round(value, 4);
           SettingsChanged?.Invoke(this, EventArgs.Empty);
           NotifyOfPropertyChange();
         }
@@ -61,7 +61,7 @@ namespace CVBImageProc.Processing
       {
         if (FactorB != value)
         {
-          _processor.FactorB = Math.Round(value, 4);
+          _processor.FactorB = System.Math.Round(value, 4);
           SettingsChanged?.Invoke(this, EventArgs.Empty);
           NotifyOfPropertyChange();
         }

@@ -34,14 +34,14 @@ namespace CVBImageProc.Processing
         double midPointX = inputImage.Width / 2;
         int height = inputImage.Height;
         int width = inputImage.Width;
-        double cos = Math.Cos(Angle.Rad);
-        double sin = Math.Sin(Angle.Rad);
+        double cos = System.Math.Cos(Angle.Rad);
+        double sin = System.Math.Sin(Angle.Rad);
 
         Image rotatedImage;
         if (FitImage)
         {
-          var newHeight = Math.Abs(width * sin) + Math.Abs(height * cos);
-          var newWidth = Math.Abs(width * cos) + Math.Abs(height * sin);
+          var newHeight = System.Math.Abs(width * sin) + System.Math.Abs(height * cos);
+          var newWidth = System.Math.Abs(width * cos) + System.Math.Abs(height * sin);
 
           rotatedImage = new Image((int)newWidth, (int)newHeight, inputImage.Planes.Count);
         }
@@ -79,6 +79,7 @@ namespace CVBImageProc.Processing
               byte* inputPPixel = inputPLine + inputXInc * x;
 
               var newP = RotatePoint(x, y, midPointX, midPointY, cos, sin, offsetX, offsetY);
+
               if (FitImage)
               {
                 if (PixelFilter.Check(*inputPPixel, y * height + x) && newP.X < rotatedWidth && newP.Y < rotatedHeight)

@@ -7,17 +7,43 @@ using System.Runtime.Serialization;
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Applies gain to an image.
+  /// Math mode to use while processing.
+  /// </summary>
+  public enum MathMode
+  {
+    /// <summary>
+    /// Adds a value to the pixel.
+    /// </summary>
+    Add,
+
+    /// <summary>
+    /// Subtracts a value from the pixel.
+    /// </summary>
+    Subtract,
+
+    /// <summary>
+    /// Divides the pixel value.
+    /// </summary>
+    Divide,
+
+    /// <summary>
+    /// Multiplies the pixel value.
+    /// </summary>
+    Multiply
+  }
+
+  /// <summary>
+  /// Applies mathematical operations on an image.
   /// </summary>
   [DataContract]
-  public class Gain : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Math : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Gain";
+    public string Name => "Math";
 
     /// <summary>
     /// Applies the gain value
@@ -32,17 +58,7 @@ namespace CVBImageProc.Processing
 
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
-        int providedValue = ValueProvider.Provide();
-        byte value = (byte)(b + providedValue);
-        if (!WrapAround)
-        {
-          if (b + providedValue > 255)
-            value = 255;
-          else if (b + providedValue < 0)
-            value = 0;
-        }
-
-        return value;
+        return CalculateValue(ValueProvider.Provide(), b);
       }, PixelFilter);
 
       return inputImage;
@@ -90,6 +106,12 @@ namespace CVBImageProc.Processing
     #region Properties
 
     /// <summary>
+    /// Math mode to use while processing.
+    /// </summary>
+    [DataMember]
+    public MathMode Mode { get; set; }
+
+    /// <summary>
     /// If true, pixel values wrap
     /// around at &lt; 0 and &gt; 255.
     /// </summary>
@@ -100,8 +122,45 @@ namespace CVBImageProc.Processing
     /// The gain value to apply.
     /// </summary>
     [DataMember]
-    public IntValueProvider ValueProvider { get; private set; } = new IntValueProvider(-255, 255);
+    public IntValueProvider ValueProvider { get; private set; } = new IntValueProvider(0, 255);
 
     #endregion Properties
+
+    private byte CalculateValue(int providedValue, byte value)
+    {
+      int calculatedValue;
+      switch(Mode)
+      {
+        case MathMode.Add:
+          calculatedValue = value + providedValue;
+          break;
+        case MathMode.Subtract:
+          calculatedValue = value - providedValue;
+          break;
+        case MathMode.Divide:
+          if (providedValue == 0)
+          {
+            calculatedValue = value;
+            break;
+          }
+          calculatedValue = value / providedValue;
+          break;
+        case MathMode.Multiply:
+          calculatedValue = value * providedValue;
+          break;
+        default:
+          throw new ArgumentException("Unknown math mode");
+      }
+
+      if (WrapAround)
+      {
+        if (calculatedValue > 255)
+          calculatedValue = 255;
+        else if (calculatedValue < 0)
+          calculatedValue = 0;
+      }
+
+      return (byte)calculatedValue;
+    }
   }
 }

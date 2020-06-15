@@ -286,7 +286,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Processing\GainView.xaml">
+    <Page Include="Processing\MathView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -373,14 +373,14 @@
       <DependentUpon>BinariseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\BinariseViewModel.cs" />
-    <Compile Include="Processing\Gain.cs" />
-    <Compile Include="Processing\GainView.xaml.cs">
-      <DependentUpon>GainView.xaml</DependentUpon>
+    <Compile Include="Processing\Math.cs" />
+    <Compile Include="Processing\MathView.xaml.cs">
+      <DependentUpon>MathView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\IHasSettings.cs" />
     <Compile Include="Processing\INeedImageInfo.cs" />
     <Compile Include="Processing\Invert.cs" />
-    <Compile Include="Processing\GainViewModel.cs" />
+    <Compile Include="Processing\MathViewModel.cs" />
     <Compile Include="Processing\IProcessorViewModel.cs" />
     <Compile Include="Processing\IProcessor.cs" />
     <Compile Include="Processing\PlaneClear.cs" />

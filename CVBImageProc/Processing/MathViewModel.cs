@@ -5,11 +5,28 @@ using CVBImageProc.Processing.ValueProvider;
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// ViewModel for the <see cref="Gain"/> processor.
+  /// ViewModel for the <see cref="Math"/> processor.
   /// </summary>
-  class GainViewModel : PlaneProcessorViewModelBase
+  class MathViewModel : PlaneProcessorViewModelBase
   {
     #region Properties
+
+    /// <summary>
+    /// Math mode to use while processing.
+    /// </summary>
+    public MathMode Mode
+    {
+      get => _processor.Mode;
+      set
+      {
+        if(Mode != value)
+        {
+          _processor.Mode = value;
+          OnSettingsChanged();
+          NotifyOfPropertyChange();
+        }
+      }
+    }
 
     /// <summary>
     /// If true, pixel values wrap
@@ -51,7 +68,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// The gain processor.
     /// </summary>
-    private readonly Gain _processor;
+    private readonly Math _processor;
 
     #endregion Member
 
@@ -62,7 +79,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     /// <param name="processor">The gain processor.</param>
     /// <param name="isActive">Startup IsActive state.</param>
-    public GainViewModel(Gain processor, bool isActive)
+    public MathViewModel(Math processor, bool isActive)
       : base(processor, isActive)
     {
       _processor = processor;

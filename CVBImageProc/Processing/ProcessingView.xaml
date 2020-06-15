@@ -126,8 +126,8 @@
           <DataTemplate DataType="{x:Type filter:FilterViewModel}">
             <filter:FilterView/>
           </DataTemplate>
-          <DataTemplate DataType="{x:Type local:GainViewModel}">
-            <local:GainView/>
+          <DataTemplate DataType="{x:Type local:MathViewModel}">
+            <local:MathView/>
           </DataTemplate>
           <DataTemplate DataType="{x:Type local:InvertViewModel}">
             <local:InvertView/>

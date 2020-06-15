@@ -86,7 +86,7 @@ namespace CVBImageProc.Processing
         int boundsX = bounds.StartX + bounds.Width;
 
         int kernelSize = kernel.GetKernelNumber();
-        int kernelFac = (int)Math.Floor(kernelSize / 2.0);
+        int kernelFac = (int)System.Math.Floor(kernelSize / 2.0);
         int kernelCounter = -1;
 
         unsafe

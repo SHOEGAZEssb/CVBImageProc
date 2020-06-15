@@ -26,7 +26,7 @@ namespace CVBImageProc.Processing.Filter
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      int kernelSize = (int)Math.Floor(KernelSize.GetKernelNumber() / 2.0);
+      int kernelSize = (int)System.Math.Floor(base.KernelSize.GetKernelNumber() / 2.0);
       var plane = ProcessingHelper.ProcessMonoKernel(inputImage.Planes[PlaneIndex], (kl) =>
       {
         var stripped = kl.Where(b => b.HasValue);
