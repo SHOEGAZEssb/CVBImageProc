@@ -177,7 +177,7 @@ namespace CVBImageProc.Processing
       AvailableProcessors = System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
                  .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor)) && !mytype.IsInterface && !mytype.IsAbstract &&
                         !mytype.GetCustomAttributes(true).Any(a => a.GetType() == typeof(SubProcessorAttribute)))
-                 .Select(i => new TypeViewModel(i)).ToArray();
+                 .Select(i => new TypeViewModel(i)).OrderBy(t => t.Name).ToArray();
       SelectedProcessorType = AvailableProcessors.FirstOrDefault();
     }
 

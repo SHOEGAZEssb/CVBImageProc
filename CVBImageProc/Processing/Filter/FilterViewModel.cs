@@ -113,7 +113,7 @@ namespace CVBImageProc.Processing.Filter
     {
       AvailableFilterTypes = Assembly.GetExecutingAssembly().GetTypes()
                             .Where(mytype => mytype.GetInterfaces().Contains(typeof(IFilter)) && !mytype.IsInterface && !mytype.IsAbstract)
-                            .Select(i => new TypeViewModel(i)).ToArray();
+                            .Select(i => new TypeViewModel(i)).OrderBy(t => t.Name).ToArray();
     }
 
     /// <summary>

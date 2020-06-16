@@ -110,7 +110,8 @@ namespace CVBImageProc.Processing.PixelFilter
     static PixelFilterChainViewModel()
     {
       AvailableFilter = Assembly.GetExecutingAssembly().GetTypes()
-        .Where(mytype => mytype.GetInterfaces().Contains(typeof(IPixelFilter)) && !mytype.IsAbstract).Select(i => new TypeViewModel(i)).ToArray();
+        .Where(mytype => mytype.GetInterfaces().Contains(typeof(IPixelFilter)) && !mytype.IsAbstract).Select(i => new TypeViewModel(i))
+        .OrderBy(t => t.Name).ToArray();
     }
 
     /// <summary>
