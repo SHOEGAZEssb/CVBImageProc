@@ -14,6 +14,12 @@ namespace CVBImageProc.Processing
     string Name { get; }
 
     /// <summary>
+    /// Gets if the last processing operation of
+    /// this processor resulted in an error.
+    /// </summary>
+    bool IsFaulted { get; set; }
+
+    /// <summary>
     /// Indicates if this processor is
     /// active in the processor chain.
     /// </summary>

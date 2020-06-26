@@ -1,4 +1,5 @@
 ﻿using Stemmer.Cvb;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -43,7 +44,16 @@ namespace CVBImageProc.Processing
     {
       Image outputImage = inputImage.Clone();
       foreach (IProcessor processor in Processors.Where(kvp => kvp.Value).Select(kvp => kvp.Key))
-        outputImage = processor.Process(outputImage);
+      {
+        try
+        {
+          outputImage = processor.Process(outputImage);
+        }
+        catch(Exception ex)
+        {
+          throw new ProcessingException(processor, ex.Message);
+        }
+      }
 
       return outputImage;
     }

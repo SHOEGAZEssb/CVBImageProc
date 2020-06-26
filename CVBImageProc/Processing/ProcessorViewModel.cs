@@ -16,6 +16,24 @@ namespace CVBImageProc.Processing
     public string Name => Processor.Name;
 
     /// <summary>
+    /// Gets if the last processing operation of
+    /// this processor resulted in an error.
+    /// </summary>
+    public bool IsFaulted
+    {
+      get => _isFaulted;
+      set
+      {
+        if(IsFaulted != value)
+        {
+          _isFaulted = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private bool _isFaulted;
+
+    /// <summary>
     /// Event that is fired when the
     /// <see cref="IsActive"/> changed.
     /// </summary>

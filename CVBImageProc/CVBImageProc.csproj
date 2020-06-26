@@ -150,6 +150,7 @@
     <Compile Include="Processing\Filter\MedianSettingsViewModel.cs" />
     <Compile Include="Processing\Filter\Min.cs" />
     <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
+    <Compile Include="Processing\ProcessingException.cs" />
     <Compile Include="Processing\RGBFactorPreset.cs" />
     <Compile Include="Processing\RGBFactorPresetViewModel.cs" />
     <Compile Include="Processing\RGBToMono.cs" />

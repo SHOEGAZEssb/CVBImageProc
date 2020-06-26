@@ -191,7 +191,23 @@ namespace CVBImageProc.Processing
     /// <returns>Processed image.</returns>
     public async Task<Image> ProcessAsync(Image inputImage)
     {
-      return await Task.Run(() => _processorChain.Process(inputImage)).ConfigureAwait(false);
+      return await Task.Run(() =>
+      {
+        try
+        {
+          var img = _processorChain.Process(inputImage);
+          foreach (var p in Processors)
+            p.IsFaulted = false;
+          return img;
+        }
+        catch(ProcessingException ex)
+        {
+          Processors.Where(p => p.Processor == ex.Processor).First().IsFaulted = true;
+          foreach (var p in Processors.Where(p => p.Processor != ex.Processor))
+            p.IsFaulted = false;
+          throw ex;
+        }
+      }).ConfigureAwait(false);
     }
 
     /// <summary>

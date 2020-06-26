@@ -56,7 +56,17 @@
                 <ColumnDefinition Width="Auto"/>
               </Grid.ColumnDefinitions>
 
-              <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+              <TextBlock Grid.Column="0" Text="{Binding Name}">
+                <TextBlock.Style>
+                  <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding IsFaulted}" Value="True">
+                        <Setter Property="Foreground" Value="Red"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </TextBlock.Style>
+              </TextBlock>
               <CheckBox Grid.Column="2" IsChecked="{Binding IsActive}"/>
             </Grid>
           </DataTemplate>
@@ -146,7 +156,7 @@
           </DataTemplate>
           <DataTemplate DataType="{x:Type local:RotateViewModel}">
             <local:RotateView/>
-          </DataTemplate>          
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:ShuffleViewModel}">
             <local:ShuffleView/>
           </DataTemplate>
