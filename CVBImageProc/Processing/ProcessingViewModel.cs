@@ -205,7 +205,7 @@ namespace CVBImageProc.Processing
           Processors.Where(p => p.Processor == ex.Processor).First().IsFaulted = true;
           foreach (var p in Processors.Where(p => p.Processor != ex.Processor))
             p.IsFaulted = false;
-          throw ex;
+          throw;
         }
       }).ConfigureAwait(false);
     }
