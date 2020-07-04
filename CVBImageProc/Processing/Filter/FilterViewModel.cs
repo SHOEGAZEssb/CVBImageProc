@@ -27,12 +27,9 @@ namespace CVBImageProc.Processing.Filter
       get => AvailableFilterTypes.FirstOrDefault(f => f.Type == _processor.SelectedFilter?.GetType());
       set
       {
-        if(SelectedFilterType != value)
+        if (SelectedFilterType != value)
         {
-          if (value != null)
-            _processor.SelectedFilter = (IFilter)value.Instanciate();
-          else
-            _processor.SelectedFilter = null;
+          _processor.SelectedFilter = value == null ? null : (IFilter)value.Instanciate();
 
           OnSettingsChanged();
           NotifyOfPropertyChange();
@@ -50,7 +47,7 @@ namespace CVBImageProc.Processing.Filter
       get => _customSettingsViewModel;
       set
       {
-        if(CustomSettingsViewModel != value)
+        if (CustomSettingsViewModel != value)
         {
           if (CustomSettingsViewModel != null)
             CustomSettingsViewModel.SettingsChanged -= SubVM_SettingsChanged;
@@ -71,12 +68,12 @@ namespace CVBImageProc.Processing.Filter
       get => _processor.KernelSize;
       set
       {
-        if(KernelSize != value)
+        if (KernelSize != value)
         {
           _processor.KernelSize = value;
           if (CustomSettingsViewModel is INeedKernelSizeUpdate v)
             v.Update();
-          
+
           OnSettingsChanged();
           NotifyOfPropertyChange();
         }

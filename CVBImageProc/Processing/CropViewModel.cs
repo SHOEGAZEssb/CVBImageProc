@@ -34,7 +34,7 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
-    public CropViewModel(Crop processor, bool isActive) 
+    public CropViewModel(Crop processor, bool isActive)
       : base(processor, isActive)
     {
       _processor = processor;

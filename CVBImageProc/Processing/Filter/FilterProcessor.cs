@@ -18,7 +18,7 @@ namespace CVBImageProc.Processing.Filter
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => SelectedFilter == null ? "Filter (None)" : $"Filter ({SelectedFilter.Name})";     
+    public string Name => SelectedFilter == null ? "Filter (None)" : $"Filter ({SelectedFilter.Name})";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.

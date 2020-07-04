@@ -192,7 +192,7 @@ namespace CVBImageProc
     private void OpenRawFile()
     {
       var ofd = new OpenFileDialog();
-      if(ofd.ShowDialog() ?? false)
+      if (ofd.ShowDialog() ?? false)
       {
         var vm = new RawFileImportViewModel(ofd.FileName);
         if (_windowManager.ShowDialog(vm) ?? false)
@@ -235,13 +235,13 @@ namespace CVBImageProc
         return;
 
       var sfd = new SaveFileDialog();
-      if(sfd.ShowDialog() ?? false)
+      if (sfd.ShowDialog() ?? false)
       {
         try
         {
           File.WriteAllBytes(sfd.FileName, OutputImage.GetPixels().ToArray());
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
           MessageBox.Show($"Error saving as raw: {ex.Message}");
         }

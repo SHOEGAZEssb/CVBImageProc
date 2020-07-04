@@ -19,7 +19,7 @@ namespace CVBImageProc.Processing
       get => _processor.Mode;
       set
       {
-        if(Mode != value)
+        if (Mode != value)
         {
           _processor.Mode = value;
           OnSettingsChanged();

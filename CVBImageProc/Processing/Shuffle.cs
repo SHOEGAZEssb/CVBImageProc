@@ -35,7 +35,7 @@ namespace CVBImageProc.Processing
 
       unsafe
       {
-        if(UseAOI)
+        if (UseAOI)
           shuffledBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
         else
           shuffledBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();

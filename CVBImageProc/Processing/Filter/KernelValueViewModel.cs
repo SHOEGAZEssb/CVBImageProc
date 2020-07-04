@@ -13,7 +13,7 @@
       get => _value;
       set
       {
-        if(Value != value)
+        if (Value != value)
         {
           _value = value;
           OnSettingsChanged();

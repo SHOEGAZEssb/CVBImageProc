@@ -23,7 +23,7 @@ namespace CVBImageProc.Processing.PixelFilter
       get => _filter.CompareByte;
       set
       {
-        if(CompareByte != value)
+        if (CompareByte != value)
         {
           _filter.CompareByte = value;
           NotifyOfPropertyChange();

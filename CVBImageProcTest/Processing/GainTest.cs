@@ -13,7 +13,7 @@ namespace CVBImageProcTest.Processing
     {
       // given: test image
       byte[] pixelValues = new byte[4] { 0, 10, 20, 250 };
-      using(var img = TestHelper.CreateMonoTestImage(pixelValues))
+      using (var img = TestHelper.CreateMonoTestImage(pixelValues))
       {
         var gain = new Math
         {

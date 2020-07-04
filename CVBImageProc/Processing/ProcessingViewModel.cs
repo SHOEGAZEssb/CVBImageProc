@@ -200,7 +200,7 @@ namespace CVBImageProc.Processing
             p.IsFaulted = false;
           return img;
         }
-        catch(ProcessingException ex)
+        catch (ProcessingException ex)
         {
           Processors.Where(p => p.Processor == ex.Processor).First().IsFaulted = true;
           foreach (var p in Processors.Where(p => p.Processor != ex.Processor))
@@ -463,7 +463,7 @@ namespace CVBImageProc.Processing
         foreach (var proc in e.NewItems.OfType<IProcessorViewModel>())
         {
           proc.IsActiveChanged += Processor_IsActiveChanged;
-          if(proc is IHasSettings settingsProc)
+          if (proc is IHasSettings settingsProc)
             settingsProc.SettingsChanged += SettingsProc_SettingsChanged;
         }
 
@@ -475,7 +475,7 @@ namespace CVBImageProc.Processing
         foreach (var proc in e.OldItems.OfType<IProcessorViewModel>())
         {
           proc.IsActiveChanged -= Processor_IsActiveChanged;
-          if(proc is IHasSettings settingsProc)
+          if (proc is IHasSettings settingsProc)
             settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
         }
       }

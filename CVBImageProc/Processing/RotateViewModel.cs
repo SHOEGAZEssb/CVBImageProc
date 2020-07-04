@@ -39,7 +39,7 @@ namespace CVBImageProc.Processing
       get => _processor.FitImage;
       set
       {
-        if(FitImage != value)
+        if (FitImage != value)
         {
           _processor.FitImage = value;
           OnSettingsChanged();

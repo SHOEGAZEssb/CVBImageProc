@@ -43,7 +43,7 @@ namespace CVBImageProc.Processing
       get => _selectedPreset;
       set
       {
-        if(SelectedPreset != value)
+        if (SelectedPreset != value)
         {
           _selectedPreset = value;
           LoadPreset();
@@ -61,7 +61,7 @@ namespace CVBImageProc.Processing
       get => _processor.FactorRR;
       set
       {
-        if(FactorRR != value)
+        if (FactorRR != value)
         {
           _processor.FactorRR = value;
           SettingsChanged?.Invoke(this, EventArgs.Empty);
@@ -215,7 +215,7 @@ namespace CVBImageProc.Processing
       get => _processor.WrapAroundR;
       set
       {
-        if(WrapAroundR != value)
+        if (WrapAroundR != value)
         {
           _processor.WrapAroundR = value;
           SettingsChanged?.Invoke(this, EventArgs.Empty);

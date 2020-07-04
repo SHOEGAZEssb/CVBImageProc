@@ -14,7 +14,7 @@ namespace CVBImageProcTest.Processing
     public void ProcessAscendingTest()
     {
       // given: test image
-      using(var img = TestHelper.CreateMonoTestImage(new byte[] { 10, 5, 30, 1}))
+      using (var img = TestHelper.CreateMonoTestImage(new byte[] { 10, 5, 30, 1 }))
       {
         var sort = new Sort()
         {
@@ -22,7 +22,7 @@ namespace CVBImageProcTest.Processing
         };
 
         // when: applying the processor
-        using(var processedImage = sort.Process(img))
+        using (var processedImage = sort.Process(img))
         {
           // then: pixels sorted
           CollectionAssert.AreEqual(new byte[] { 1, 5, 10, 30 }, processedImage.GetPixels());

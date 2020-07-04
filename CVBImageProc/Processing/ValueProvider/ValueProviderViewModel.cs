@@ -19,7 +19,7 @@ namespace CVBImageProc.Processing.ValueProvider
       get => _provider.FixedValue;
       set
       {
-        if(!FixedValue.Equals(value))
+        if (!FixedValue.Equals(value))
         {
           _provider.FixedValue = value;
           OnSettingsChanged();
@@ -46,7 +46,7 @@ namespace CVBImageProc.Processing.ValueProvider
       get => _provider.Randomize;
       set
       {
-        if(Randomize != value)
+        if (Randomize != value)
         {
           _provider.Randomize = value;
           OnSettingsChanged();
@@ -64,7 +64,7 @@ namespace CVBImageProc.Processing.ValueProvider
       get => _provider.MinRandomValue;
       set
       {
-        if(!MinRandomValue.Equals(value))
+        if (!MinRandomValue.Equals(value))
         {
           _provider.MinRandomValue = value;
           OnSettingsChanged();

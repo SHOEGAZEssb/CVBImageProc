@@ -49,7 +49,7 @@ namespace CVBImageProc.Processing
         {
           outputImage = processor.Process(outputImage);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
           throw new ProcessingException(processor, ex.Message);
         }

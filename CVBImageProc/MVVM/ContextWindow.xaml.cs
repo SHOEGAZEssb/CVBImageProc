@@ -16,7 +16,7 @@ namespace CVBImageProc.MVVM
     {
       InitializeComponent();
       ContentCtrl.Content = context ?? throw new ArgumentNullException(nameof(context));
-      if(context is IWindowContext c)
+      if (context is IWindowContext c)
         c.CloseRequested += ContextCloseRequested;
     }
 

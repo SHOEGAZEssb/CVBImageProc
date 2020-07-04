@@ -24,7 +24,7 @@ namespace CVBImageProc.Processing
       get => _isFaulted;
       set
       {
-        if(IsFaulted != value)
+        if (IsFaulted != value)
         {
           _isFaulted = value;
           NotifyOfPropertyChange();
@@ -48,7 +48,7 @@ namespace CVBImageProc.Processing
       get => _isActive;
       set
       {
-        if(IsActive != value)
+        if (IsActive != value)
         {
           _isActive = value;
           IsActiveChanged?.Invoke(this, EventArgs.Empty);

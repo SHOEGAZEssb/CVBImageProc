@@ -19,7 +19,7 @@ namespace CVBImageProc.Processing
       get => _processor.ShiftDirection;
       set
       {
-        if(ShiftDirection != value)
+        if (ShiftDirection != value)
         {
           _processor.ShiftDirection = value;
           OnSettingsChanged();
@@ -37,7 +37,7 @@ namespace CVBImageProc.Processing
       get => _processor.WrapAround;
       set
       {
-        if(WrapAround != value)
+        if (WrapAround != value)
         {
           _processor.WrapAround = value;
           OnSettingsChanged();

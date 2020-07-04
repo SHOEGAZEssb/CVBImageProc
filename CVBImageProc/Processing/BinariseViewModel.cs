@@ -20,7 +20,7 @@ namespace CVBImageProc.Processing
       get => _processor.Threshold;
       set
       {
-        if(Threshold != value)
+        if (Threshold != value)
         {
           _processor.Threshold = value;
           NotifyOfPropertyChange();

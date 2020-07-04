@@ -17,7 +17,7 @@ namespace CVBImageProc
       get => _statusMessage;
       set
       {
-        if(StatusMessage != value)
+        if (StatusMessage != value)
         {
           _statusMessage = value;
           NotifyOfPropertyChange();

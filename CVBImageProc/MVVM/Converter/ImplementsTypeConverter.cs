@@ -21,7 +21,7 @@ namespace CVBImageProc.MVVM.Converter
     /// otherwise false.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      return (value == null || parameter == null || !(parameter is Type type)) ? false : type.IsAssignableFrom(value.GetType());
+      return value != null && parameter != null && parameter is Type type && type.IsAssignableFrom(value.GetType());
     }
 
     /// <summary>

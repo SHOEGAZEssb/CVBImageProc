@@ -38,7 +38,7 @@ namespace CVBImageProc.Processing.PixelFilter
       get => _processor.PixelFilter.Mode;
       set
       {
-        if(Mode != value)
+        if (Mode != value)
         {
           _processor.PixelFilter.Mode = value;
           NotifyOfPropertyChange();

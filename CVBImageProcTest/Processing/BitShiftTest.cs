@@ -11,7 +11,7 @@ namespace CVBImageProcTest.Processing
     public void ProcessingLeftNoWrapAroundTest()
     {
       // given: test image
-      using(var img = TestHelper.CreateMonoTestImage(new byte[] { 0, 1, 10, 255}))
+      using (var img = TestHelper.CreateMonoTestImage(new byte[] { 0, 1, 10, 255 }))
       {
         var p = new BitShift()
         {

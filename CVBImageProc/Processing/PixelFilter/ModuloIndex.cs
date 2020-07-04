@@ -35,7 +35,7 @@ namespace CVBImageProc.Processing.PixelFilter
       {
         return Invert ? index % CompareValue != 0 : index % CompareValue == 0;
       }
-      catch(DivideByZeroException)
+      catch (DivideByZeroException)
       {
         return false;
       }

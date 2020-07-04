@@ -129,7 +129,7 @@ namespace CVBImageProc.Processing
     private byte CalculateValue(int providedValue, byte value)
     {
       int calculatedValue;
-      switch(Mode)
+      switch (Mode)
       {
         case MathMode.Add:
           calculatedValue = value + providedValue;

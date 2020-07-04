@@ -58,11 +58,11 @@ namespace CVBImageProc
   static class TaskExtensions
   {
 #pragma warning disable IDE0060 // Remove unused parameter
-                               /// <summary>
-                               /// Explicitly states that we don't
-                               /// want to do anything with the <paramref name="task"/>.
-                               /// </summary>
-                               /// <param name="task">task to forget.</param>
+    /// <summary>
+    /// Explicitly states that we don't
+    /// want to do anything with the <paramref name="task"/>.
+    /// </summary>
+    /// <param name="task">task to forget.</param>
     public static void Forget(this Task task)
 #pragma warning restore IDE0060 // Remove unused parameter
     { }
@@ -101,7 +101,7 @@ namespace CVBImageProc
     /// <returns>Number representation for the given <paramref name="kernel"/>.</returns>
     public static int GetKernelNumber(this KernelSize kernel)
     {
-      switch(kernel)
+      switch (kernel)
       {
         case KernelSize.ThreeByThree:
           return 3;

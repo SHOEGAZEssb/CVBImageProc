@@ -69,7 +69,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <returns>True if the objects are equal, otherwise false.</returns>
     public override bool Equals(object obj)
     {
-      return obj is ProcessingBounds b ? Equals(b) : false;
+      return obj is ProcessingBounds b && Equals(b);
     }
 
     /// <summary>

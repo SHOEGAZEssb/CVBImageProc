@@ -23,7 +23,7 @@ namespace CVBImageProc.Processing.PixelFilter
       get => _filter.Invert;
       set
       {
-        if(Invert != value)
+        if (Invert != value)
         {
           _filter.Invert = value;
           OnSettingsChanged();

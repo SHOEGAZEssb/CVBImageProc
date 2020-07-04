@@ -50,7 +50,7 @@ namespace CVBImageProc.Processing
 
       unsafe
       {
-        if(UseAOI)
+        if (UseAOI)
         {
           if (Mode == SortMode.Ascending)
             sortedBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => i).ToArray();

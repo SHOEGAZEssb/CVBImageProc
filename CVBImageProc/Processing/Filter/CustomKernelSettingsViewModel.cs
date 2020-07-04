@@ -37,7 +37,7 @@ namespace CVBImageProc.Processing.Filter
     {
       _processor = processor ?? throw new ArgumentNullException(nameof(processor));
       Weights = new ObservableCollection<KernelValueViewModel>(_processor.Weights.Select(w => new KernelValueViewModel(w)));
-      foreach(var w in Weights)
+      foreach (var w in Weights)
         w.SettingsChanged += KernelValue_SettingsChanged;
     }
 
@@ -50,13 +50,13 @@ namespace CVBImageProc.Processing.Filter
     /// </summary>
     public void Update()
     {
-      foreach(var w in Weights.ToArray())
+      foreach (var w in Weights.ToArray())
       {
         w.SettingsChanged -= KernelValue_SettingsChanged;
         Weights.Remove(w);
       }
 
-      foreach(var v in _processor.Weights)
+      foreach (var v in _processor.Weights)
       {
         var vm = new KernelValueViewModel(v);
         vm.SettingsChanged += KernelValue_SettingsChanged;

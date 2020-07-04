@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
   /// Exception caused by a processor processing.
   /// </summary>
-  class ProcessingException : Exception
+  [Serializable]
+  public class ProcessingException : Exception
   {
     #region Properties
 
@@ -52,6 +54,14 @@ namespace CVBImageProc.Processing
     /// <param name="innerException">Inner exception.</param>
     public ProcessingException(string message, Exception innerException)
       : base(message, innerException)
+    { }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="serializationInfo">SerializationInfo</param>
+    /// <param name="streamingContext">StreamingContext</param>
+    protected ProcessingException(SerializationInfo serializationInfo, StreamingContext streamingContext)
     { }
 
     #endregion Standard Exception Constructors
