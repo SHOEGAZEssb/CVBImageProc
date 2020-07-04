@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\EnumDescriptionConverterTest.cs" />
     <Compile Include="Processing\BinariseTest.cs" />
     <Compile Include="Processing\BitShiftTest.cs" />
     <Compile Include="Processing\CropTest.cs" />

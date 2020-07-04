@@ -108,6 +108,7 @@
     <Compile Include="MVVM\ContextWindow.xaml.cs">
       <DependentUpon>ContextWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Converter\EnumDescriptionConverter.cs" />
     <Compile Include="MVVM\Converter\ImplementsTypeConverter.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="MVVM\IWindowContext.cs" />
