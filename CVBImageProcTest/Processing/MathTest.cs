@@ -6,7 +6,7 @@ using CVBImageProc;
 namespace CVBImageProcTest.Processing
 {
   [TestFixture]
-  class GainTest
+  class MathTest
   {
     [Test]
     public void ProcessingAddWrapAroundTest()
