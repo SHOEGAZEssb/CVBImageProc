@@ -32,21 +32,6 @@ namespace CVBImageProc
   static class RawFileImporter
   {
     /// <summary>
-    /// Imports the given <paramref name="file"/> as a mono image.
-    /// </summary>
-    /// <param name="file">File to import.</param>
-    /// <param name="imageSize">Size of the resulting image.</param>
-    /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
-    /// <returns>Imported mono image.</returns>
-    public static Image ImportAsMono(string file, Size2D imageSize, byte fill)
-    {
-      if (string.IsNullOrEmpty(file))
-        throw new ArgumentNullException(nameof(file));
-
-      return ImportAsMono(File.ReadAllBytes(file), imageSize, fill);
-    }
-
-    /// <summary>
     /// Imports the given <paramref name="rawBytes"/> as mono image.
     /// </summary>
     /// <param name="rawBytes">The raw bytes to use for the image.</param>
@@ -67,22 +52,6 @@ namespace CVBImageProc
       });
 
       return img;
-    }
-
-    /// <summary>
-    /// Imports the given <paramref name="file"/> as a mono image.
-    /// </summary>
-    /// <param name="file">File to import.</param>
-    /// <param name="imageSize">Size of the resulting image.</param>
-    /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
-    /// <param name="rgbMode">Read-in mode of the rgb bytes.</param>
-    /// <returns>Imported rgb image.</returns>
-    public static Image ImportAsRGB(string file, Size2D imageSize, byte fill, RGBMode rgbMode)
-    {
-      if (string.IsNullOrEmpty(file))
-        throw new ArgumentNullException(nameof(file));
-
-      return ImportAsRGB(File.ReadAllBytes(file), imageSize, fill, rgbMode);
     }
 
     /// <summary>
