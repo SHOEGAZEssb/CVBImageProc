@@ -108,7 +108,7 @@ namespace CVBImageProc.Processing
                     continue;
 
                   byte* pPixel = pKLine + kColumn * xInc;
-                  if (filterChain?.Check(*pPixel, y * boundsY + x) ?? false)
+                  if (filterChain?.Check(*pPixel, y * boundsY + x) ?? true)
                     kernelValues[kernelCounter] = *pPixel;
                 }
               }
@@ -195,7 +195,7 @@ namespace CVBImageProc.Processing
               byte* gPixel = gLine + gXInc * x;
               byte* bPixel = bLine + bXInc * x;
 
-              if (filterChain?.Check(*rPixel, *gPixel, *bPixel, y * boundsY + x) ?? false)
+              if (filterChain?.Check(*rPixel, *gPixel, *bPixel, y * boundsY + x) ?? true)
               {
                 var result = processingFunc.Invoke(new Tuple<byte, byte, byte>(*rPixel, *gPixel, *bPixel));
                 *rPixel = result.Item1;

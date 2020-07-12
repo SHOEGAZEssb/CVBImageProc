@@ -15,6 +15,7 @@ namespace CVBImageProc
   {
     /// <summary>
     /// Gets all pixel values in the image.
+    /// Order is plane order. (eg. RGB)
     /// </summary>
     /// <param name="img">Image to get pixel values of.</param>
     /// <returns>Pixel values.</returns>
@@ -23,32 +24,27 @@ namespace CVBImageProc
       if (img == null)
         throw new ArgumentNullException(nameof(img));
 
-      var data = img.Planes.Select(p => p.GetLinearAccess()).ToArray();
-
-      var pixels = new byte[img.Width * img.Height * img.Planes.Count];
-      int curPixel = 0;
-
-      for (int i = 0; i < img.Planes.Count; i++)
-      {
-        IntPtr basePtr = data[i].BasePtr;
-        int yInc = (int)data[i].YInc;
-        int xInc = (int)data[i].XInc;
-
-        unsafe
-        {
-          for (int y = 0; y < img.Height; y++)
-          {
-            byte* pLine = (byte*)(basePtr + yInc * y);
-
-            for (int x = 0; x < img.Width; x++)
-            {
-              pixels[curPixel++] = *(pLine + xInc * x);
-            }
-          }
-        }
-      }
+      var pixels = Enumerable.Empty<byte>();
+      foreach (var plane in img.Planes)
+        pixels = pixels.Concat(plane.GetPixels());
 
       return pixels;
+    }
+  }
+
+  /// <summary>
+  /// Extensions for a <see cref="ImagePlane"/>.
+  /// </summary>
+  public static class ImagePlaneExtensions
+  {
+    /// <summary>
+    /// Gets the pixels of the given <paramref name="plane"/>.
+    /// </summary>
+    /// <param name="plane">Plane to get pixels for.</param>
+    /// <returns>Pixels in the plane.</returns>
+    public static IEnumerable<byte> GetPixels(this ImagePlane plane)
+    {
+      return plane.AllPixels.DereferenceAs<byte>();
     }
   }
 

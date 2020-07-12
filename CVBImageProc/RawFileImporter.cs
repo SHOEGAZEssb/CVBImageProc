@@ -11,7 +11,7 @@ namespace CVBImageProc
   /// How rgb pixels should be read
   /// from the raw bytes.
   /// </summary>
-  enum RGBMode
+  public enum RGBMode
   {
     /// <summary>
     /// Pixels are read in r g b
@@ -29,7 +29,7 @@ namespace CVBImageProc
   /// <summary>
   /// Imports any file as an image.
   /// </summary>
-  static class RawFileImporter
+  public static class RawFileImporter
   {
     /// <summary>
     /// Imports the given <paramref name="rawBytes"/> as mono image.
@@ -38,7 +38,7 @@ namespace CVBImageProc
     /// <param name="imageSize">Size of the resulting image.</param>
     /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
     /// <returns>Imported mono image.</returns>
-    public static Image ImportAsMono(byte[] rawBytes, Size2D imageSize, byte fill)
+    public static Image ImportAsMono(IEnumerable<byte> rawBytes, Size2D imageSize, byte fill)
     {
       if (rawBytes == null)
         throw new ArgumentNullException(nameof(rawBytes));
@@ -62,7 +62,7 @@ namespace CVBImageProc
     /// <param name="fill">Pixel value used as a fill when no raw bytes are left.</param>
     /// <param name="rgbMode">Read-in mode of the rgb bytes.</param>
     /// <returns>Imported rgb image.</returns>
-    public static Image ImportAsRGB(byte[] rawBytes, Size2D imageSize, byte fill, RGBMode rgbMode)
+    public static Image ImportAsRGB(IEnumerable<byte> rawBytes, Size2D imageSize, byte fill, RGBMode rgbMode)
     {
       if (rawBytes == null)
         throw new ArgumentNullException(nameof(rawBytes));
