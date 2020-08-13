@@ -41,15 +41,17 @@ namespace CVBImageProc.Processing
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
-        int yInc = (int)data.YInc;
-        int xInc = (int)data.XInc;
+        var yInc = (int)data.YInc;
+        var xInc = (int)data.XInc;
         int boundsY = bounds.StartY + bounds.Height;
         int boundsX = bounds.StartX + bounds.Width;
         unsafe
         {
+          var pBase = (byte*)data.BasePtr;
+
           for (int y = bounds.StartY; y < boundsY; y++)
           {
-            byte* pLine = (byte*)(data.BasePtr + yInc * y);
+            byte* pLine = pBase + yInc * y;
 
             for (int x = bounds.StartX; x < boundsX; x++)
             {
@@ -75,10 +77,10 @@ namespace CVBImageProc.Processing
       {
         var newImage = Image.FromPlanes(MappingOption.CopyPixels, plane);
         var newData = newImage.Planes[0].GetLinearAccess();
-        int yInc = (int)data.YInc;
-        int xInc = (int)data.XInc;
-        int newYInc = (int)newData.YInc;
-        int newXInc = (int)newData.XInc;
+        var yInc = (int)data.YInc;
+        var xInc = (int)data.XInc;
+        var newYInc = (int)newData.YInc;
+        var newXInc = (int)newData.XInc;
 
         int boundHeight = plane.Parent.Height - 1;
         int boundWidth = plane.Parent.Width - 1;
@@ -86,15 +88,19 @@ namespace CVBImageProc.Processing
         int boundsX = bounds.StartX + bounds.Width;
 
         int kernelSize = kernel.GetKernelNumber();
-        int kernelFac = (int)System.Math.Floor(kernelSize / 2.0);
+        var kernelFac = (int)System.Math.Floor(kernelSize / 2.0);
         int kernelCounter = -1;
 
         unsafe
         {
+          var pBase = (byte*)data.BasePtr;
+          var pBaseNew = (byte*)newData.BasePtr;
+
           for (int y = bounds.StartY; y < boundsY; y++)
           {
             var kernelValues = new byte?[kernelSize * kernelSize];
-            byte* pLine = (byte*)data.BasePtr + y * yInc;
+            var pLine = pBase + y * yInc;
+
             for (int x = bounds.StartX; x < boundsX; x++)
             {
               var pMiddle = pLine + xInc * x;
@@ -115,7 +121,7 @@ namespace CVBImageProc.Processing
 
               if (kernelValues.Any(b => b.HasValue))
               {
-                var pTargetLine = (byte*)newData.BasePtr + newYInc * y;
+                var pTargetLine = pBaseNew + newYInc * y;
                 var pTargetPixel = pTargetLine + newXInc * x; // current "middle pixel" in the target image
                 *pTargetPixel = processingFunc.Invoke(kernelValues);
               }
@@ -175,19 +181,24 @@ namespace CVBImageProc.Processing
       {
         int boundsY = bounds.StartY + bounds.Height;
         int boundsX = bounds.StartX + bounds.Width;
-        int rYInc = (int)rData.YInc;
-        int gYInc = (int)gData.YInc;
-        int bYInc = (int)bData.YInc;
-        int rXInc = (int)rData.XInc;
-        int gXInc = (int)gData.XInc;
-        int bXInc = (int)bData.XInc;
+        var rYInc = (int)rData.YInc;
+        var gYInc = (int)gData.YInc;
+        var bYInc = (int)bData.YInc;
+        var rXInc = (int)rData.XInc;
+        var gXInc = (int)gData.XInc;
+        var bXInc = (int)bData.XInc;
+
         unsafe
         {
+          var pBaseR = (byte*)rData.BasePtr;
+          var pBaseG = (byte*)gData.BasePtr;
+          var pBaseB = (byte*)bData.BasePtr;
+
           for (int y = bounds.StartY; y < boundsY; y++)
           {
-            byte* rLine = (byte*)(rData.BasePtr + rYInc * y);
-            byte* gLine = (byte*)(gData.BasePtr + gYInc * y);
-            byte* bLine = (byte*)(bData.BasePtr + bYInc * y);
+            byte* rLine = pBaseR + rYInc * y;
+            byte* gLine = pBaseG + gYInc * y;
+            byte* bLine = pBaseB + bYInc * y;
 
             for (int x = bounds.StartX; x < boundsX; x++)
             {
