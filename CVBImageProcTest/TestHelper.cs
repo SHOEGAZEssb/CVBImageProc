@@ -17,13 +17,17 @@ namespace CVBImageProcTest
       int curPixel = 0;
       unsafe
       {
+        var pBase = (byte*)data.BasePtr;
+        int xInc = (int)data.XInc;
+        int yInc = (int)data.YInc;
+
         for (int y = 0; y < img.Height; y++)
         {
-          byte* pLine = (byte*)(data.BasePtr + (int)data.YInc * y);
+          byte* pLine = pBase + yInc * y;
 
           for (int x = 0; x < img.Width; x++)
           {
-            *(pLine + (int)data.XInc * x) = pixelValues[curPixel++];
+            *(pLine + xInc * x) = pixelValues[curPixel++];
           }
         }
       }

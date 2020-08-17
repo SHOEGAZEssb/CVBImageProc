@@ -54,12 +54,17 @@ namespace CVBImageProc.Processing
 
         unsafe
         {
+          byte* pBaseR = (byte*)rData.BasePtr;
+          byte* pBaseG = (byte*)gData.BasePtr;
+          byte* pBaseB = (byte*)bData.BasePtr;
+          byte* pBaseM = (byte*)mData.BasePtr;
+
           for (int y = 0; y < height; y++)
           {
-            byte* rLine = (byte*)(rData.BasePtr + rYInc * y);
-            byte* gLine = (byte*)(gData.BasePtr + gYInc * y);
-            byte* bLine = (byte*)(bData.BasePtr + bYInc * y);
-            byte* mLine = (byte*)(mData.BasePtr + mYInc * y);
+            byte* rLine = pBaseR + rYInc * y;
+            byte* gLine = pBaseG + gYInc * y;
+            byte* bLine = pBaseB + bYInc * y;
+            byte* mLine = pBaseM + mYInc * y;
 
             for (int x = 0; x < width; x++)
             {

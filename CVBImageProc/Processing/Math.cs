@@ -139,11 +139,10 @@ namespace CVBImageProc.Processing
           break;
         case MathMode.Divide:
           if (providedValue == 0)
-          {
             calculatedValue = value;
-            break;
-          }
-          calculatedValue = value / providedValue;
+          else
+            calculatedValue = value / providedValue;
+
           break;
         case MathMode.Multiply:
           calculatedValue = value * providedValue;

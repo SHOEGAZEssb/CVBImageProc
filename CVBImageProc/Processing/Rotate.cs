@@ -70,9 +70,12 @@ namespace CVBImageProc.Processing
         var rotatedHeight = rotatedImage.Height;
         unsafe
         {
+          byte* pBaseIn = (byte*)inputData.BasePtr;
+          byte* pBaseRo = (byte*)rotatedData.BasePtr;
+
           for (int y = 0; y < height; y++)
           {
-            byte* inputPLine = (byte*)(inputData.BasePtr + inputYInc * y);
+            byte* inputPLine = pBaseIn + inputYInc * y;
 
             for (int x = 0; x < width; x++)
             {
@@ -84,13 +87,13 @@ namespace CVBImageProc.Processing
               {
                 if (PixelFilter.Check(*inputPPixel, y * height + x) && newP.X < rotatedWidth && newP.Y < rotatedHeight)
                 {
-                  byte* rotatedPPixel = (byte*)(rotatedData.BasePtr + rotatedYInc * newP.Y + rotatedXInc * newP.X);
+                  byte* rotatedPPixel = pBaseRo + rotatedYInc * newP.Y + rotatedXInc * newP.X;
                   *rotatedPPixel = *inputPPixel;
                 }
               }
               else if (newP.X < width && newP.X >= 0 && newP.Y < height && newP.Y >= 0 && PixelFilter.Check(*inputPPixel, y * height + x))
               {
-                byte* rotatedPPixel = (byte*)(rotatedData.BasePtr + rotatedYInc * newP.Y + rotatedXInc * newP.X);
+                byte* rotatedPPixel = pBaseRo + rotatedYInc * newP.Y + rotatedXInc * newP.X;
                 *rotatedPPixel = *inputPPixel;
               }
             }
