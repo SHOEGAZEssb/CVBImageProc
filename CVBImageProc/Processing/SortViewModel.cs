@@ -1,12 +1,9 @@
-﻿using CVBImageProc.Processing.PixelFilter;
-using System;
-
-namespace CVBImageProc.Processing
+﻿namespace CVBImageProc.Processing
 {
   /// <summary>
   /// ViewModel for the <see cref="Sort"/> processor.
   /// </summary>
-  class SortViewModel : PlaneProcessorViewModelBase
+  class SortViewModel : AOIPlaneProcessorViewModelBase
   {
     #region Properties
 
@@ -26,11 +23,6 @@ namespace CVBImageProc.Processing
         }
       }
     }
-
-    /// <summary>
-    /// ViewModel for the AOI.
-    /// </summary>
-    public AOIViewModel AOIVM { get; }
 
     #endregion Properties
 
@@ -54,21 +46,8 @@ namespace CVBImageProc.Processing
       : base(processor, isActive)
     {
       _processor = processor;
-      AOIVM = new AOIViewModel(_processor);
-      AOIVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     #endregion Construction
-
-    /// <summary>
-    /// Fires the SettingsChanged event when the
-    /// pixel filter settings changed.
-    /// </summary>
-    /// <param name="sender">Ignored.</param>
-    /// <param name="e">Ignored.</param>
-    private void SubVM_SettingsChanged(object sender, EventArgs e)
-    {
-      OnSettingsChanged();
-    }
   }
 }

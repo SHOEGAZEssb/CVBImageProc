@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="BitShift"/> processor.
   /// </summary>
-  class BitshiftViewModel : PlaneProcessorViewModelBase
+  class BitshiftViewModel : AOIPlaneProcessorViewModelBase
   {
     #region Properties
 
@@ -56,11 +56,6 @@ namespace CVBImageProc.Processing
     /// </summary>
     public PixelFilterChainViewModel PixelFilterChainVM { get; }
 
-    /// <summary>
-    /// ViewModel for the AOI.
-    /// </summary>
-    public AOIViewModel AOIVM { get; }
-
     #endregion Properties
 
     #region Member
@@ -82,8 +77,6 @@ namespace CVBImageProc.Processing
       ValueProviderVM.SettingsChanged += SubVM_SettingsChanged;
       PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
       PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
-      AOIVM = new AOIViewModel(_processor);
-      AOIVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     #endregion Construction

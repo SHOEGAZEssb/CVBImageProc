@@ -36,7 +36,7 @@ namespace CVBImageProc.Processing
   /// Applies mathematical operations on an image.
   /// </summary>
   [DataContract]
-  public class Math : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Math : IAOIPlaneProcessor, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 

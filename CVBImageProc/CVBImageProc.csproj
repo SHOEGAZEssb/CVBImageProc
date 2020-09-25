@@ -118,6 +118,7 @@
     <Compile Include="MVVM\TypeViewModel.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\WindowManager.cs" />
+    <Compile Include="Processing\AOIPlaneProcessorViewModelBase.cs" />
     <Compile Include="Processing\BitShift.cs" />
     <Compile Include="Processing\BitShiftView.xaml.cs">
       <DependentUpon>BitShiftView.xaml</DependentUpon>
@@ -154,6 +155,7 @@
     <Compile Include="Processing\Filter\MedianSettingsViewModel.cs" />
     <Compile Include="Processing\Filter\Min.cs" />
     <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
+    <Compile Include="Processing\IAOIPlaneProcessor.cs" />
     <Compile Include="Processing\ProcessingException.cs" />
     <Compile Include="Processing\RGBFactorPreset.cs" />
     <Compile Include="Processing\RGBFactorPresetViewModel.cs" />

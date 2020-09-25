@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Invert"/> processor.
   /// </summary>
-  class InvertViewModel : PlaneProcessorViewModelBase
+  class InvertViewModel : AOIPlaneProcessorViewModelBase
   {
     #region Properties
 
@@ -14,11 +14,6 @@ namespace CVBImageProc.Processing
     /// ViewModel for the processors pixel filter chain.
     /// </summary>
     public PixelFilterChainViewModel PixelFilterChainVM { get; }
-
-    /// <summary>
-    /// ViewModel for the AOI.
-    /// </summary>
-    public AOIViewModel AOIVM { get; }
 
     #endregion Properties
 
@@ -32,8 +27,6 @@ namespace CVBImageProc.Processing
     {
       PixelFilterChainVM = new PixelFilterChainViewModel(processor);
       PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
-      AOIVM = new AOIViewModel(processor);
-      AOIVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     /// <summary>

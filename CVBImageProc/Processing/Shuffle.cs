@@ -1,5 +1,4 @@
-﻿using CVBImageProc.Processing.PixelFilter;
-using Stemmer.Cvb;
+﻿using Stemmer.Cvb;
 using System;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Processor that shuffles an image plane.
   /// </summary>
   [DataContract]
-  public class Shuffle : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Shuffle : IAOIPlaneProcessor
   {
     #region IProcessor Implementation
 

@@ -28,7 +28,7 @@ namespace CVBImageProc.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Bit Shift")]
-  public class BitShift : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class BitShift : IAOIPlaneProcessor, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 

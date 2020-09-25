@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Processor for binarising an image.
   /// </summary>
   [DataContract]
-  public class Binarise : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions, IProcessIndividualPlanes
+  public class Binarise : IAOIPlaneProcessor, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 

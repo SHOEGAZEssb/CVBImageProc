@@ -1,7 +1,5 @@
-﻿using CVBImageProc.Processing.PixelFilter;
-using Stemmer.Cvb;
+﻿using Stemmer.Cvb;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -27,7 +25,7 @@ namespace CVBImageProc.Processing
   /// Processor that sorts an image plane.
   /// </summary>
   [DataContract]
-  public class Sort : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class Sort : IAOIPlaneProcessor
   {
     #region IProcessor Implementation
 

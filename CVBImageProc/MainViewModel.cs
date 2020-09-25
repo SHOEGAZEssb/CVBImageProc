@@ -67,7 +67,9 @@ namespace CVBImageProc
         {
           _inputImage = value;
           NotifyOfPropertyChange();
+          _autoProcess = false;
           ProcessingVM.UpdateImageInfo(InputImage);
+          _autoProcess = true;
           Process().Forget();
         }
       }
