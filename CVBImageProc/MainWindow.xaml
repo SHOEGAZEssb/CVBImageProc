@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CVBImageProc"
         xmlns:proc="clr-namespace:CVBImageProc.Processing"
         xmlns:cvb="http://www.commonvisionblox.com/wpf"
-        xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:is="clr-namespace:CVBImageProc.ImageSource"
         mc:Ignorable="d"
         Title="CVB ImageProcessing" Height="450" Width="800">
 
@@ -47,24 +47,35 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
-          <cvb:Display Image="{Binding InputImage}">
-            <cvb:RectangleOverlay DataContext="{Binding ProcessingVM.SelectedProcessor}" Stroke="Red" StrokeThickness="1" Movable="True" Resizable="True" CanCenterDrag="True"
+          <Grid>
+            <cvb:Display Image="{Binding InputImage}">
+              <cvb:RectangleOverlay DataContext="{Binding ProcessingVM.SelectedProcessor}" Stroke="Red" StrokeThickness="1" Movable="True" Resizable="True" CanCenterDrag="True"
                                    OverlayX="{Binding AOIVM.AOIX}" OverlayY="{Binding AOIVM.AOIY}" OverlayWidth="{Binding AOIVM.AOIWidth}"
                                    OverlayHeight="{Binding AOIVM.AOIHeight}">
-              <cvb:RectangleOverlay.Style>
-                <Style TargetType="cvb:RectangleOverlay">
-                  <Style.Triggers>
-                    <DataTrigger Binding="{Binding AOIVM.UseAOI}" Value="False">
-                      <Setter Property="Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding AOIVM, FallbackValue={x:Null}}" Value="{x:Null}">
-                      <Setter Property="Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                  </Style.Triggers>
-                </Style>
-              </cvb:RectangleOverlay.Style>
-            </cvb:RectangleOverlay>
-          </cvb:Display>
+                <cvb:RectangleOverlay.Style>
+                  <Style TargetType="cvb:RectangleOverlay">
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding AOIVM.UseAOI}" Value="False">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                      </DataTrigger>
+                      <DataTrigger Binding="{Binding AOIVM, FallbackValue={x:Null}}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </cvb:RectangleOverlay.Style>
+              </cvb:RectangleOverlay>
+            </cvb:Display>
+
+            <ContentControl Content="{Binding ImageSourceVM}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5">
+              <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type is:StaticImageSourceViewModel}"/>
+                <DataTemplate DataType="{x:Type is:VideoImageSourceViewModel}">
+                  <is:VideoImageSourceView/>
+                </DataTemplate>
+              </ContentControl.Resources>
+            </ContentControl>
+          </Grid>
         </Border>
 
         <Grid Grid.Row="2" HorizontalAlignment="Center">
@@ -73,7 +84,7 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
-          
+
           <Button Grid.Column="0" Content="Open Image" Command="{Binding OpenImageCommand}"/>
           <Button Grid.Column="2" Content="Open Raw File" Command="{Binding OpenRawFileCommand}"/>
         </Grid>

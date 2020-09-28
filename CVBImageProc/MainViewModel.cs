@@ -1,4 +1,5 @@
-﻿using CVBImageProc.MVVM;
+﻿using CVBImageProc.ImageSource;
+using CVBImageProc.MVVM;
 using CVBImageProc.Processing;
 using Microsoft.Win32;
 using Stemmer.Cvb;
@@ -55,26 +56,33 @@ namespace CVBImageProc
 
     #region Properties
 
-    /// <summary>
-    /// The image to edit.
-    /// </summary>
-    public Image InputImage
+    public ImageSourceViewModelBase ImageSourceVM
     {
-      get => _inputImage;
+      get => _imageSourceVM;
       private set
       {
-        if (InputImage != value)
+        if(ImageSourceVM != value)
         {
-          _inputImage = value;
+          // clean up old vm
+          if (ImageSourceVM is IDisposable d)
+            d.Dispose();
+          if (ImageSourceVM is ChangingImageSourceViewModelBase c)
+            c.CurrentImageChanged -= ImageSource_CurrentImageChanged;
+
+          _imageSourceVM = value;
+          if (ImageSourceVM is ChangingImageSourceViewModelBase nc)
+            nc.CurrentImageChanged += ImageSource_CurrentImageChanged;
           NotifyOfPropertyChange();
-          _autoProcess = false;
-          ProcessingVM.UpdateImageInfo(InputImage);
-          _autoProcess = true;
-          Process().Forget();
+          ImageChanged();
         }
       }
     }
-    private Image _inputImage;
+    private ImageSourceViewModelBase _imageSourceVM;
+
+    /// <summary>
+    /// The image to edit.
+    /// </summary>
+    public Image InputImage => ImageSourceVM?.CurrentImage;
 
     /// <summary>
     /// The edited image.
@@ -170,21 +178,32 @@ namespace CVBImageProc
     {
       var ofd = new OpenFileDialog
       {
-        Filter = SystemInfo.ImageFileLoadFormatFilter,
-        FilterIndex = 7
+        //Filter = SystemInfo.ImageFileLoadFormatFilter,
+        //FilterIndex = 7
       };
 
       if (ofd.ShowDialog() ?? false)
       {
         try
         {
-          InputImage = Image.FromFile(ofd.FileName);
+          ImageSourceVM = MakeImageSourceVM(ofd.FileName);
         }
         catch (Exception ex)
         {
           MessageBox.Show($"Error opening image: {ex.Message}");
         }
       }
+    }
+
+    private static ImageSourceViewModelBase MakeImageSourceVM(string file)
+    {
+      string ext = Path.GetExtension(file);
+      if (SystemInfo.ImageFileLoadFormatFilter.Contains(ext))
+        return new StaticImageSourceViewModel(new StaticImageSource(Image.FromFile(file)));
+      else if (SystemInfo.DeviceFileLoadFormatFilter.Contains(ext))
+        return new VideoImageSourceViewModel(new VideoImageSource(DeviceFactory.Open(file)));
+      else
+        throw new ArgumentException("Unsupported file format", nameof(file));
     }
 
     /// <summary>
@@ -198,7 +217,7 @@ namespace CVBImageProc
       {
         var vm = new RawFileImportViewModel(ofd.FileName);
         if (_windowManager.ShowDialog(vm) ?? false)
-          InputImage = vm.ImportedImage;
+          ImageSourceVM = new StaticImageSourceViewModel(new StaticImageSource(vm.ImportedImage));
       }
     }
 
@@ -285,7 +304,22 @@ namespace CVBImageProc
       if (OutputImage == null)
         return;
 
-      InputImage = OutputImage;
+      ImageSourceVM = new StaticImageSourceViewModel(new StaticImageSource(OutputImage));
+    }
+
+    private void ImageChanged()
+    {
+      NotifyOfPropertyChange(nameof(InputImage));
+      bool oldAutoProcess = AutoProcess;
+      _autoProcess = false;
+      ProcessingVM.UpdateImageInfo(InputImage);
+      _autoProcess = oldAutoProcess;
+      Process().Forget();
+    }
+
+    private void ImageSource_CurrentImageChanged(object sender, EventArgs e)
+    {
+      ImageChanged();
     }
 
     /// <summary>

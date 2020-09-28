@@ -107,6 +107,15 @@
     </ApplicationDefinition>
     <Compile Include="Extensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ImageSource\ChangingImageSourceViewModelBase.cs" />
+    <Compile Include="ImageSource\IChangingImageSource.cs" />
+    <Compile Include="ImageSource\IImageSource.cs" />
+    <Compile Include="ImageSource\ImageSourceViewModelBase.cs" />
+    <Compile Include="ImageSource\StaticImageSourceViewModel.cs" />
+    <Compile Include="ImageSource\VideoImageSourceView.xaml.cs">
+      <DependentUpon>VideoImageSourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImageSource\VideoImageSourceViewModel.cs" />
     <Compile Include="MVVM\ContextWindow.xaml.cs">
       <DependentUpon>ContextWindow.xaml</DependentUpon>
     </Compile>
@@ -248,10 +257,16 @@
       <DependentUpon>RawFileImportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="RawFileImportViewModel.cs" />
+    <Compile Include="ImageSource\StaticImageSource.cs" />
     <Compile Include="StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatusBarViewModel.cs" />
+    <Compile Include="ImageSource\VideoImageSource.cs" />
+    <Page Include="ImageSource\VideoImageSourceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
