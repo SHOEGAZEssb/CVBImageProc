@@ -13,7 +13,18 @@
       <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
 
-    <Button Grid.Column="0" Content="Start"/>
+    <Button Grid.Column="0" Command="{Binding ToggleGrabCommand}">
+      <Button.Style>
+        <Style TargetType="Button">
+          <Setter Property="Content" Value="Start"/>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Grab}" Value="True">
+              <Setter Property="Content" Value="Stop"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </Button.Style>
+    </Button>
     <Button Grid.Column="2" Content="Snap" Command="{Binding SnapCommand}"/>
   </Grid>
 </UserControl>

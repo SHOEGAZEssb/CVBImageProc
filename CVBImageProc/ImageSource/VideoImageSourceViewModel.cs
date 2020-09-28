@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.MVVM;
+using CVBImageProc.Processing.ValueProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,21 @@ namespace CVBImageProc.ImageSource
   class VideoImageSourceViewModel : ChangingImageSourceViewModelBase
   {
     #region Properties
+
+    public bool Grab
+    {
+      get => _videoImageSource.Grab;
+      set
+      {
+        if(Grab != value)
+        {
+          _videoImageSource.Grab = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+
+    public ICommand ToggleGrabCommand { get; }
 
     public ICommand SnapCommand { get; }
 
@@ -28,10 +44,16 @@ namespace CVBImageProc.ImageSource
       : base(imageSource)
     {
       _videoImageSource = imageSource;
+      ToggleGrabCommand = new DelegateCommand((o) => ToggleGrab());
       SnapCommand = new DelegateCommand(async (o) => await Snap().ConfigureAwait(false));
     }
 
     #endregion Construction
+
+    private void ToggleGrab()
+    {
+      Grab = !Grab;
+    }
 
     private async Task Snap()
     {

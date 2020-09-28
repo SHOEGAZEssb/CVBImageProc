@@ -11,6 +11,21 @@ namespace CVBImageProc.ImageSource
 
     public Image CurrentImage => _device.DeviceImage;
 
+    public bool Grab
+    {
+      get => _grab;
+      set
+      {
+        if(Grab != value)
+        {
+          _grab = value;
+          if (Grab)
+            GrabImages().Forget();
+        }
+      }
+    }
+    private bool _grab;
+
     public event EventHandler CurrentImageChanged;
 
     #endregion Properties
@@ -34,6 +49,24 @@ namespace CVBImageProc.ImageSource
     {
       await _device.Stream.GetSnapshotAsync().ConfigureAwait(false);
       CurrentImageChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private async Task GrabImages()
+    {
+      var stream = _device.Stream;
+      try
+      {
+        stream.Start();
+        while (Grab)
+        {
+          await stream.WaitAsync().ConfigureAwait(false);
+          CurrentImageChanged?.Invoke(this, EventArgs.Empty);
+        }
+      }
+      finally
+      {
+        stream.Abort();
+      }
     }
   }
 }
