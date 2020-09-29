@@ -11,21 +11,26 @@ namespace CVBImageProc.Processing.PixelFilter
     #region IPixelFilterViewModel Implementation
 
     /// <summary>
+    /// The filter.
+    /// </summary>
+    public IPixelValueFilter Filter { get; }
+
+    /// <summary>
     /// Name of the filter.
     /// </summary>
-    public string Name => _filter.Name;
+    public string Name => Filter.Name;
 
     /// <summary>
     /// Byte to compare to.
     /// </summary>
     public byte CompareByte
     {
-      get => _filter.CompareByte;
+      get => Filter.CompareByte;
       set
       {
         if (CompareByte != value)
         {
-          _filter.CompareByte = value;
+          Filter.CompareByte = value;
           NotifyOfPropertyChange();
           OnSettingsChanged();
         }
@@ -35,24 +40,24 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// Max value of the <see cref="CompareByte"/>.
     /// </summary>
-    public byte MaxCompareByte => _filter.MaxCompareByte;
+    public byte MaxCompareByte => Filter.MaxCompareByte;
 
     /// <summary>
     /// Min value of the <see cref="CompareByte"/>.
     /// </summary>
-    public byte MinCompareByte => _filter.MinCompareByte;
+    public byte MinCompareByte => Filter.MinCompareByte;
 
     /// <summary>
     /// If true, inverts the logic of the filter.
     /// </summary>
     public bool Invert
     {
-      get => _filter.Invert;
+      get => Filter.Invert;
       set
       {
         if (Invert != value)
         {
-          _filter.Invert = value;
+          Filter.Invert = value;
           NotifyOfPropertyChange();
           OnSettingsChanged();
         }
@@ -75,24 +80,16 @@ namespace CVBImageProc.Processing.PixelFilter
 
     #endregion IPixelFilterViewModel Implementation
 
-    #region Member
-
-    /// <summary>
-    /// The filter.
-    /// </summary>
-    private readonly IPixelValueFilter _filter;
-
-    #endregion Member
-
     #region Construction
 
     /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="filter">The filter.</param>
+    /// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
     public PixelValueFilterViewModel(IPixelValueFilter filter)
     {
-      _filter = filter ?? throw new ArgumentNullException(nameof(filter));
+      Filter = filter ?? throw new ArgumentNullException(nameof(filter));
     }
 
     #endregion Construction

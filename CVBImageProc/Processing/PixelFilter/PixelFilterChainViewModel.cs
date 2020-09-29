@@ -188,16 +188,15 @@ namespace CVBImageProc.Processing.PixelFilter
         return;
 
       // remove from model
-      int index = Filters.IndexOf(SelectedFilter);
-      if (SelectedFilter is PixelValueFilterViewModel)
-        _processor.PixelFilter.ValueFilters.RemoveAt(index);
-      else if (SelectedFilter is PixelIndexFilterViewModel)
-        _processor.PixelFilter.IndexFilters.RemoveAt(index);
+      if (SelectedFilter is PixelValueFilterViewModel pvf)
+        _processor.PixelFilter.ValueFilters.RemoveAt(_processor.PixelFilter.ValueFilters.IndexOf(pvf.Filter));
+      else if (SelectedFilter is PixelIndexFilterViewModel pif)
+        _processor.PixelFilter.IndexFilters.RemoveAt(_processor.PixelFilter.IndexFilters.IndexOf(pif.Filter));
       else
         return;
 
       // remove from vm
-      Filters.RemoveAt(index);
+      Filters.Remove(SelectedFilter);
     }
 
     /// <summary>

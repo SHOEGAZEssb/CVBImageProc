@@ -13,19 +13,19 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// Name of the filter.
     /// </summary>
-    public string Name => _filter.Name;
+    public string Name => Filter.Name;
 
     /// <summary>
     /// If true, inverts the logic of the filter.
     /// </summary>
     public bool Invert
     {
-      get => _filter.Invert;
+      get => Filter.Invert;
       set
       {
         if (Invert != value)
         {
-          _filter.Invert = value;
+          Filter.Invert = value;
           OnSettingsChanged();
           NotifyOfPropertyChange();
         }
@@ -48,16 +48,21 @@ namespace CVBImageProc.Processing.PixelFilter
     #region Properties
 
     /// <summary>
+    /// The filter.
+    /// </summary>
+    public IPixelIndexFilter Filter { get; }
+
+    /// <summary>
     /// Index value to compare to.
     /// </summary>
     public int CompareValue
     {
-      get => _filter.CompareValue;
+      get => Filter.CompareValue;
       set
       {
         if (CompareValue != value)
         {
-          _filter.CompareValue = value;
+          Filter.CompareValue = value;
           OnSettingsChanged();
           NotifyOfPropertyChange();
         }
@@ -67,18 +72,9 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// Minimum index value to compare to.
     /// </summary>
-    public int MinCompareValue => _filter.MinCompareValue;
+    public int MinCompareValue => Filter.MinCompareValue;
 
     #endregion Properties
-
-    #region Member
-
-    /// <summary>
-    /// The filter.
-    /// </summary>
-    private readonly IPixelIndexFilter _filter;
-
-    #endregion Member
 
     #region Construction
 
@@ -89,7 +85,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
     public PixelIndexFilterViewModel(IPixelIndexFilter filter)
     {
-      _filter = filter ?? throw new ArgumentNullException(nameof(filter));
+      Filter = filter ?? throw new ArgumentNullException(nameof(filter));
     }
 
     #endregion Construction
