@@ -100,6 +100,7 @@ namespace CVBImageProc.Processing
           {
             var kernelValues = new byte?[kernelSize * kernelSize];
             var pLine = pBase + y * yInc;
+            int newLineInc = newYInc * y;
 
             for (int x = bounds.StartX; x < boundsX; x++)
             {
@@ -121,7 +122,7 @@ namespace CVBImageProc.Processing
 
               if (kernelValues.Any(b => b.HasValue))
               {
-                var pTargetLine = pBaseNew + newYInc * y;
+                var pTargetLine = pBaseNew + newLineInc;
                 var pTargetPixel = pTargetLine + newXInc * x; // current "middle pixel" in the target image
                 *pTargetPixel = processingFunc.Invoke(kernelValues);
               }
