@@ -1,5 +1,4 @@
 ﻿using Stemmer.Cvb;
-using System;
 
 namespace CVBImageProc.ImageSource
 {

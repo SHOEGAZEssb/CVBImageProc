@@ -9,8 +9,14 @@ namespace CVBImageProc.ImageSource
   {
     #region Properties
 
+    /// <summary>
+    /// The current image to provide.
+    /// </summary>
     public Image CurrentImage => _device.DeviceImage;
 
+    /// <summary>
+    /// The grab state of the video.
+    /// </summary>
     public bool Grab
     {
       get => _grab;
@@ -20,24 +26,35 @@ namespace CVBImageProc.ImageSource
         {
           _grab = value;
           if (Grab)
-            GrabImages().Forget();
+            GrabImagesAsync().Forget();
         }
       }
     }
     private bool _grab;
 
+    /// <summary>
+    /// Event that is fired when the <see cref="IImageSource.CurrentImage"/> changed.
+    /// </summary>
     public event EventHandler CurrentImageChanged;
 
     #endregion Properties
 
     #region Member
 
+    /// <summary>
+    /// The video device.
+    /// </summary>
     private readonly Device _device;
 
     #endregion Member
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="device">The video device.</param>
+    /// <exception cref="ArgumentNullException">When <paramref name="device"/> is null.</exception>
     public VideoImageSource(Device device)
     {
       _device = device ?? throw new ArgumentNullException(nameof(device));
@@ -45,13 +62,21 @@ namespace CVBImageProc.ImageSource
 
     #endregion Construction
 
+    /// <summary>
+    /// Snaps a single image.
+    /// </summary>
+    /// <returns>Task.</returns>
     public async Task Snap()
     {
       await _device.Stream.GetSnapshotAsync().ConfigureAwait(false);
       CurrentImageChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private async Task GrabImages()
+    /// <summary>
+    /// Grabs images.
+    /// </summary>
+    /// <returns>Task.</returns>
+    private async Task GrabImagesAsync()
     {
       var stream = _device.Stream;
       try

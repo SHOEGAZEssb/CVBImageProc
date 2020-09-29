@@ -56,6 +56,9 @@ namespace CVBImageProc
 
     #region Properties
 
+    /// <summary>
+    /// ViewModel for the image source.
+    /// </summary>
     public ImageSourceViewModelBase ImageSourceVM
     {
       get => _imageSourceVM;

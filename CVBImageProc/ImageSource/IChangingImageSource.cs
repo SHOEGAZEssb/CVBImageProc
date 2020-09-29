@@ -2,6 +2,9 @@
 
 namespace CVBImageProc.ImageSource
 {
+  /// <summary>
+  /// Interface for a image source whose image can change.
+  /// </summary>
   public interface IChangingImageSource : IImageSource
   {
     /// <summary>
