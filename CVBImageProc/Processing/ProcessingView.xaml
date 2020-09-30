@@ -139,6 +139,9 @@
           <DataTemplate DataType="{x:Type local:MathViewModel}">
             <local:MathView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:MonoToMultiplaneViewModel}">
+            <local:MonoToMultiplaneView/>
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:InvertViewModel}">
             <local:InvertView/>
           </DataTemplate>

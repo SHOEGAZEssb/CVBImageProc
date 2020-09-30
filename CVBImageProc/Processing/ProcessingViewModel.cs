@@ -257,8 +257,10 @@ namespace CVBImageProc.Processing
           return new CropViewModel(c, kvp.Value);
         case FilterProcessor f:
           return new FilterViewModel(f, kvp.Value);
-        case Math g:
-          return new MathViewModel(g, kvp.Value);
+        case Math m:
+          return new MathViewModel(m, kvp.Value);
+        case MonoToMultiplane m:
+          return new MonoToMultiplaneViewModel(m, kvp.Value);
         case Invert i:
           return new InvertViewModel(i, kvp.Value);
         case PlaneClear p:

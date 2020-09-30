@@ -165,6 +165,11 @@
     <Compile Include="Processing\Filter\Min.cs" />
     <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
     <Compile Include="Processing\IAOIPlaneProcessor.cs" />
+    <Compile Include="Processing\MonoToMultiplane.cs" />
+    <Compile Include="Processing\MonoToMultiplaneView.xaml.cs">
+      <DependentUpon>MonoToMultiplaneView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\MonoToMultiplaneViewModel.cs" />
     <Compile Include="Processing\ProcessingException.cs" />
     <Compile Include="Processing\RGBFactorPreset.cs" />
     <Compile Include="Processing\RGBFactorPresetViewModel.cs" />
@@ -313,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\InvertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\MonoToMultiplaneView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
