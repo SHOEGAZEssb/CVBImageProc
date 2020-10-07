@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Interface for a ViewModel of a <see cref="IPixelFilter"/>.
+  /// Interface for a ViewModel of a <see cref="CVBImageProcLib.Processing.PixelFilter.IPixelFilter"/>.
   /// </summary>
   interface IPixelFilterViewModel : INotifyPropertyChanged, IHasSettings
   {

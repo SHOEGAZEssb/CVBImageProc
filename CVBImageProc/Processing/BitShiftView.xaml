@@ -1,13 +1,14 @@
 ﻿<UserControl x:Class="CVBImageProc.Processing.BitShiftView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:CVBImageProc.Processing"
              xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
              xmlns:vp="clr-namespace:CVBImageProc.Processing.ValueProvider"
-             mc:Ignorable="d" 
+             xmlns:lib="clr-namespace:CVBImageProcLib.Processing;assembly=CVBImageProcLib"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
   <UserControl.Resources>
@@ -15,7 +16,7 @@
                     ObjectType="{x:Type sys:Enum}"
                     x:Key="ShiftDirectionDataProvider">
       <ObjectDataProvider.MethodParameters>
-        <x:Type TypeName="local:BitShiftDirection"/>
+        <x:Type TypeName="lib:BitShiftDirection"/>
       </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
   </UserControl.Resources>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVBImageProcLib.Processing.Filter;
+using System;
 
 namespace CVBImageProc.Processing.Filter
 {

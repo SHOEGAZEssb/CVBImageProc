@@ -1,5 +1,6 @@
 ﻿using CVBImageProc.MVVM;
 using CVBImageProc.Processing.PixelFilter;
+using CVBImageProcLib.Processing;
 using System;
 using System.Collections.Generic;
 using System.Linq;

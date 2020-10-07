@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVBImageProcLib.Processing;
+using System;
 using System.ComponentModel;
 
 namespace CVBImageProc.Processing

@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.MVVM;
+using CVBImageProcLib.Processing;
 using System;
 using System.Windows.Input;
 

@@ -8,6 +8,7 @@
              xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
              xmlns:proc="clr-namespace:CVBImageProc.Processing"
              xmlns:conv="clr-namespace:CVBImageProc.MVVM.Converter"
+             xmlns:filter="clr-namespace:CVBImageProcLib.Processing.Filter;assembly=CVBImageProcLib"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -16,7 +17,7 @@
                     ObjectType="{x:Type sys:Enum}"
                     x:Key="KernelSizeDataProvider">
       <ObjectDataProvider.MethodParameters>
-        <x:Type TypeName="local:KernelSize"/>
+        <x:Type TypeName="filter:KernelSize"/>
       </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
     <conv:EnumDescriptionConverter x:Key="EnumDescriptionConv"/>

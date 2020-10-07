@@ -7,6 +7,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
              xmlns:vp="clr-namespace:CVBImageProc.Processing.ValueProvider"
+             xmlns:lib="clr-namespace:CVBImageProcLib.Processing;assembly=CVBImageProcLib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -15,7 +16,7 @@
                     ObjectType="{x:Type sys:Enum}"
                     x:Key="MathModeDataProvider">
       <ObjectDataProvider.MethodParameters>
-        <x:Type TypeName="local:MathMode"/>
+        <x:Type TypeName="lib:MathMode"/>
       </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
   </UserControl.Resources>

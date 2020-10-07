@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CVBImageProcLib</RootNamespace>
+    <AssemblyName>CVBImageProcLib</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Stemmer.Cvb, Version=1.90.0.0, Culture=neutral, PublicKeyToken=bff841d173155285, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Platform\x64\Lib\Net\Stemmer.Cvb.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Processing\Binarise.cs" />
+    <Compile Include="Processing\BitShift.cs" />
+    <Compile Include="Processing\Crop.cs" />
+    <Compile Include="Processing\Filter\Custom.cs" />
+    <Compile Include="Processing\Filter\CustomFilterSettingsAttribute.cs" />
+    <Compile Include="Processing\Filter\FilterBase.cs" />
+    <Compile Include="Processing\Filter\FilterProcessor.cs" />
+    <Compile Include="Processing\Filter\Gauss.cs" />
+    <Compile Include="Processing\Filter\IFilter.cs" />
+    <Compile Include="Processing\Filter\Laplace.cs" />
+    <Compile Include="Processing\Filter\Max.cs" />
+    <Compile Include="Processing\Filter\Mean.cs" />
+    <Compile Include="Processing\Filter\Median.cs" />
+    <Compile Include="Processing\Filter\Min.cs" />
+    <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
+    <Compile Include="Processing\IAOIPlaneProcessor.cs" />
+    <Compile Include="Processing\Invert.cs" />
+    <Compile Include="Processing\IProcessIndividualPlanes.cs" />
+    <Compile Include="Processing\IProcessor.cs" />
+    <Compile Include="Processing\Math.cs" />
+    <Compile Include="Processing\MonoToMultiplane.cs" />
+    <Compile Include="Processing\PixelFilter\EqualsIndex.cs" />
+    <Compile Include="Processing\PixelFilter\EqualsValue.cs" />
+    <Compile Include="Processing\PixelFilter\ICanProcessIndividualPixel.cs" />
+    <Compile Include="Processing\PixelFilter\ICanProcessIndividualRegions.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelFilter.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelIndexFilter.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelValueFilter.cs" />
+    <Compile Include="Processing\PixelFilter\LargerThanIndex.cs" />
+    <Compile Include="Processing\PixelFilter\LargerThanValue.cs" />
+    <Compile Include="Processing\PixelFilter\ModuloIndex.cs" />
+    <Compile Include="Processing\PixelFilter\ModuloValue.cs" />
+    <Compile Include="Processing\PixelFilter\PixelFilterChain.cs" />
+    <Compile Include="Processing\PixelFilter\PixelIndexFilterBase.cs" />
+    <Compile Include="Processing\PixelFilter\PixelValueFilterBase.cs" />
+    <Compile Include="Processing\PixelFilter\ProcessingBounds.cs" />
+    <Compile Include="Processing\PlaneClear.cs" />
+    <Compile Include="Processing\ProcessingException.cs" />
+    <Compile Include="Processing\ProcessingHelper.cs" />
+    <Compile Include="Processing\ProcessorChain.cs" />
+    <Compile Include="Processing\Replace.cs" />
+    <Compile Include="Processing\RGBFactorPreset.cs" />
+    <Compile Include="Processing\RGBFactors.cs" />
+    <Compile Include="Processing\RGBToMono.cs" />
+    <Compile Include="Processing\Rotate.cs" />
+    <Compile Include="Processing\Shuffle.cs" />
+    <Compile Include="Processing\Sort.cs" />
+    <Compile Include="Processing\SubProcessorAttribute.cs" />
+    <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
+    <Compile Include="Processing\ValueProvider\IntValueProvider.cs" />
+    <Compile Include="Processing\ValueProvider\IValueProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawFileImporter.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

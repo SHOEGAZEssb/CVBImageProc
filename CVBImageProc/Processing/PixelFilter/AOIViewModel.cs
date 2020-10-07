@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProcLib.Processing.PixelFilter;
+using Stemmer.Cvb;
 using System;
 
 namespace CVBImageProc.Processing.PixelFilter

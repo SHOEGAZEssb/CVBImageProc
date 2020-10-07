@@ -1,5 +1,7 @@
 ﻿using CVBImageProc.MVVM;
 using CVBImageProc.Processing.Filter;
+using CVBImageProcLib.Processing;
+using CVBImageProcLib.Processing.Filter;
 using Microsoft.Win32;
 using Stemmer.Cvb;
 using System;
@@ -174,7 +176,7 @@ namespace CVBImageProc.Processing
       Processors = new ObservableCollection<IProcessorViewModel>();
       Processors.CollectionChanged += Processors_CollectionChanged;
 
-      AvailableProcessors = System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
+      AvailableProcessors = System.Reflection.Assembly.GetAssembly(typeof(IProcessor)).GetTypes()
                  .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor)) && !mytype.IsInterface && !mytype.IsAbstract &&
                         !mytype.GetCustomAttributes(true).Any(a => a.GetType() == typeof(SubProcessorAttribute)))
                  .Select(i => new TypeViewModel(i)).OrderBy(t => t.Name).ToArray();
@@ -257,7 +259,7 @@ namespace CVBImageProc.Processing
           return new CropViewModel(c, kvp.Value);
         case FilterProcessor f:
           return new FilterViewModel(f, kvp.Value);
-        case Math m:
+        case CVBImageProcLib.Processing.Math m:
           return new MathViewModel(m, kvp.Value);
         case MonoToMultiplane m:
           return new MonoToMultiplaneViewModel(m, kvp.Value);

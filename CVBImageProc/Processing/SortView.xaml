@@ -6,6 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:CVBImageProc.Processing"
              xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
+             xmlns:lib="clr-namespace:CVBImageProcLib.Processing;assembly=CVBImageProcLib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -14,7 +15,7 @@
                     ObjectType="{x:Type sys:Enum}"
                     x:Key="SortModeDataProvider">
       <ObjectDataProvider.MethodParameters>
-        <x:Type TypeName="local:SortMode"/>
+        <x:Type TypeName="lib:SortMode"/>
       </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
   </UserControl.Resources>

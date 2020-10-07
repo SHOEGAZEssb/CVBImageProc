@@ -1,5 +1,6 @@
 ﻿using CVBImageProc.Processing.PixelFilter;
 using CVBImageProc.Processing.ValueProvider;
+using CVBImageProcLib.Processing;
 using System;
 
 namespace CVBImageProc.Processing

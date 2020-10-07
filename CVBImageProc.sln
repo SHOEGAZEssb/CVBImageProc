@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVBImageProc", "CVBImageProc\CVBImageProc.csproj", "{54A8C9DA-F93A-455A-B930-630C60ED4A0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVBImageProcTest", "CVBImageProcTest\CVBImageProcTest.csproj", "{3277B07D-A382-482E-BA73-E6DA9A425D0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVBImageProcLibTest", "CVBImageProcLibTest\CVBImageProcLibTest.csproj", "{3277B07D-A382-482E-BA73-E6DA9A425D0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVBImageProcLib", "CVBImageProcLib\CVBImageProcLib.csproj", "{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVBImageProcTest", "CVBImageProcTest\CVBImageProcTest.csproj", "{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E7642B0E-4C36-41AD-BB03-16A05B3A8F72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,9 +37,29 @@ Global
 		{3277B07D-A382-482E-BA73-E6DA9A425D0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3277B07D-A382-482E-BA73-E6DA9A425D0E}.Release|x64.ActiveCfg = Release|x64
 		{3277B07D-A382-482E-BA73-E6DA9A425D0E}.Release|x64.Build.0 = Release|x64
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Debug|x64.ActiveCfg = Debug|x64
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Debug|x64.Build.0 = Debug|x64
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Release|x64.ActiveCfg = Release|x64
+		{4FFB9FB6-A066-4386-9ED4-87F7D3C6A188}.Release|x64.Build.0 = Release|x64
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Debug|x64.ActiveCfg = Debug|x64
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Debug|x64.Build.0 = Debug|x64
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Release|x64.ActiveCfg = Release|x64
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3277B07D-A382-482E-BA73-E6DA9A425D0E} = {E7642B0E-4C36-41AD-BB03-16A05B3A8F72}
+		{AD77EFF7-2DD9-4B8B-BF5F-756D8FB64100} = {E7642B0E-4C36-41AD-BB03-16A05B3A8F72}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DA8E27C-A191-445E-9BFA-0D2625FBB95E}

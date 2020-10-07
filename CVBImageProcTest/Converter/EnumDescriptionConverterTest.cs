@@ -1,7 +1,7 @@
 ﻿using CVBImageProc.MVVM.Converter;
 using NUnit.Framework;
 
-namespace CVBImageProcTest.Converter
+namespace CVBImageProcLibTest.Converter
 {
   /// <summary>
   /// Tests for the <see cref="EnumDescriptionConverter"/>.

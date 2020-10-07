@@ -1,5 +1,6 @@
 ﻿using CVBImageProc.MVVM;
 using CVBImageProc.Processing.PixelFilter;
+using CVBImageProcLib.Processing.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,7 +109,7 @@ namespace CVBImageProc.Processing.Filter
     /// </summary>
     static FilterViewModel()
     {
-      AvailableFilterTypes = Assembly.GetExecutingAssembly().GetTypes()
+      AvailableFilterTypes = Assembly.GetAssembly(typeof(IFilter)).GetTypes()
                             .Where(mytype => mytype.GetInterfaces().Contains(typeof(IFilter)) && !mytype.IsInterface && !mytype.IsAbstract)
                             .Select(i => new TypeViewModel(i)).OrderBy(t => t.Name).ToArray();
     }

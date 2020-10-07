@@ -1,4 +1,6 @@
-﻿namespace CVBImageProc.Processing
+﻿using CVBImageProcLib.Processing;
+
+namespace CVBImageProc.Processing
 {
   /// <summary>
   /// ViewModel for the <see cref="Shuffle"/> processor.

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVBImageProcLib.Processing.ValueProvider;
+using System;
 
 namespace CVBImageProc.Processing.ValueProvider
 {

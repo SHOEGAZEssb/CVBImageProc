@@ -128,96 +128,60 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\WindowManager.cs" />
     <Compile Include="Processing\AOIPlaneProcessorViewModelBase.cs" />
-    <Compile Include="Processing\BitShift.cs" />
     <Compile Include="Processing\BitShiftView.xaml.cs">
       <DependentUpon>BitShiftView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\BitshiftViewModel.cs" />
-    <Compile Include="Processing\Crop.cs" />
     <Compile Include="Processing\CropView.xaml.cs">
       <DependentUpon>CropView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\CropViewModel.cs" />
-    <Compile Include="Processing\Filter\Custom.cs" />
     <Compile Include="Processing\Filter\CustomKernelSettingsViewModel.cs" />
     <Compile Include="Processing\Filter\CustomKernelSettingsView.xaml.cs">
       <DependentUpon>CustomKernelSettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\Filter\FilterProcessor.cs" />
-    <Compile Include="Processing\Filter\FilterBase.cs" />
     <Compile Include="Processing\Filter\FilterView.xaml.cs">
       <DependentUpon>FilterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\Filter\FilterViewModel.cs" />
-    <Compile Include="Processing\Filter\Gauss.cs" />
-    <Compile Include="Processing\Filter\CustomFilterSettingsAttribute.cs" />
-    <Compile Include="Processing\Filter\IFilter.cs" />
     <Compile Include="Processing\Filter\INeedKernelSizeUpdate.cs" />
     <Compile Include="Processing\Filter\KernelValueViewModel.cs" />
-    <Compile Include="Processing\Filter\Laplace.cs" />
-    <Compile Include="Processing\Filter\Max.cs" />
-    <Compile Include="Processing\Filter\Mean.cs" />
-    <Compile Include="Processing\Filter\Median.cs" />
     <Compile Include="Processing\Filter\MedianSettingsView.xaml.cs">
       <DependentUpon>MedianSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\Filter\MedianSettingsViewModel.cs" />
-    <Compile Include="Processing\Filter\Min.cs" />
-    <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
-    <Compile Include="Processing\IAOIPlaneProcessor.cs" />
-    <Compile Include="Processing\MonoToMultiplane.cs" />
     <Compile Include="Processing\MonoToMultiplaneView.xaml.cs">
       <DependentUpon>MonoToMultiplaneView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\MonoToMultiplaneViewModel.cs" />
-    <Compile Include="Processing\ProcessingException.cs" />
-    <Compile Include="Processing\RGBFactorPreset.cs" />
     <Compile Include="Processing\RGBFactorPresetViewModel.cs" />
-    <Compile Include="Processing\RGBToMono.cs" />
     <Compile Include="Processing\RGBToMonoView.xaml.cs">
       <DependentUpon>RGBToMonoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\RGBToMonoViewModel.cs" />
-    <Compile Include="Processing\RGBFactors.cs" />
     <Compile Include="Processing\RGBFactorsView.xaml.cs">
       <DependentUpon>RGBFactorsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\RGBFactorsViewModel.cs" />
-    <Compile Include="Processing\Rotate.cs" />
     <Compile Include="Processing\RotateView.xaml.cs">
       <DependentUpon>RotateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\RotateViewModel.cs" />
-    <Compile Include="Processing\SubProcessorAttribute.cs" />
-    <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\InvertView.xaml.cs">
       <DependentUpon>InvertView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\IProcessIndividualPlanes.cs" />
     <Compile Include="Processing\InvertViewModel.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProviderView.xaml.cs">
       <DependentUpon>ByteValueProviderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\ValueProvider\IntValueProvider.cs" />
     <Compile Include="Processing\ValueProvider\IntValueProviderView.xaml.cs">
       <DependentUpon>IntValueProviderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\ValueProvider\ValueProviderViewModel.cs" />
-    <Compile Include="Processing\ValueProvider\IValueProvider.cs" />
     <Compile Include="Processing\PixelFilter\AOIView.xaml.cs">
       <DependentUpon>AOIView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\PixelFilter\AOIViewModel.cs" />
-    <Compile Include="Processing\PixelFilter\EqualsIndex.cs" />
-    <Compile Include="Processing\PixelFilter\EqualsValue.cs" />
-    <Compile Include="Processing\PixelFilter\ICanProcessIndividualRegions.cs" />
-    <Compile Include="Processing\PixelFilter\IPixelFilter.cs" />
-    <Compile Include="Processing\PixelFilter\IPixelIndexFilter.cs" />
-    <Compile Include="Processing\PixelFilter\LargerThanIndex.cs" />
-    <Compile Include="Processing\PixelFilter\LargerThanValue.cs" />
-    <Compile Include="Processing\PixelFilter\ModuloIndex.cs" />
-    <Compile Include="Processing\PixelFilter\ModuloValue.cs" />
-    <Compile Include="Processing\PixelFilter\PixelIndexFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\PixelIndexFilterView.xaml.cs">
       <DependentUpon>PixelIndexFilterView.xaml</DependentUpon>
     </Compile>
@@ -225,39 +189,29 @@
     <Compile Include="Processing\PixelFilter\PixelValueFilterView.xaml.cs">
       <DependentUpon>PixelValueFilterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\PixelFilter\ICanProcessIndividualPixel.cs" />
-    <Compile Include="Processing\PixelFilter\IPixelValueFilter.cs" />
     <Compile Include="Processing\PixelFilter\IPixelFilterViewModel.cs" />
-    <Compile Include="Processing\PixelFilter\PixelValueFilterBase.cs" />
-    <Compile Include="Processing\PixelFilter\PixelFilterChain.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterChainView.xaml.cs">
       <DependentUpon>PixelFilterChainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\PixelFilter\PixelFilterChainViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelValueFilterViewModel.cs" />
-    <Compile Include="Processing\PixelFilter\ProcessingBounds.cs" />
-    <Compile Include="Processing\ProcessingHelper.cs" />
     <Compile Include="Processing\ReplaceViewModel.cs" />
     <Compile Include="Processing\PlaneProcessorViewModelBase.cs" />
     <Compile Include="Processing\PlaneSelectorControl.xaml.cs">
       <DependentUpon>PlaneSelectorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\Replace.cs" />
     <Compile Include="Processing\ReplaceView.xaml.cs">
       <DependentUpon>ReplaceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\SettingsViewModelBase.cs" />
-    <Compile Include="Processing\Shuffle.cs" />
     <Compile Include="Processing\ShuffleView.xaml.cs">
       <DependentUpon>ShuffleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\ShuffleViewModel.cs" />
-    <Compile Include="Processing\Sort.cs" />
     <Compile Include="Processing\SortView.xaml.cs">
       <DependentUpon>SortView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\SortViewModel.cs" />
-    <Compile Include="RawFileImporter.cs" />
     <Compile Include="RawFileImportView.xaml.cs">
       <DependentUpon>RawFileImportView.xaml</DependentUpon>
     </Compile>
@@ -399,22 +353,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Processing\Binarise.cs" />
     <Compile Include="Processing\BinariseView.xaml.cs">
       <DependentUpon>BinariseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\BinariseViewModel.cs" />
-    <Compile Include="Processing\Math.cs" />
     <Compile Include="Processing\MathView.xaml.cs">
       <DependentUpon>MathView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\IHasSettings.cs" />
     <Compile Include="Processing\INeedImageInfo.cs" />
-    <Compile Include="Processing\Invert.cs" />
     <Compile Include="Processing\MathViewModel.cs" />
     <Compile Include="Processing\IProcessorViewModel.cs" />
-    <Compile Include="Processing\IProcessor.cs" />
-    <Compile Include="Processing\PlaneClear.cs" />
     <Compile Include="Processing\PlaneClearStateView.xaml.cs">
       <DependentUpon>PlaneClearStateView.xaml</DependentUpon>
     </Compile>
@@ -428,7 +377,6 @@
       <DependentUpon>ProcessingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\ProcessingViewModel.cs" />
-    <Compile Include="Processing\ProcessorChain.cs" />
     <Compile Include="Processing\ProcessorViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -468,6 +416,12 @@
     <Analyzer Include="packages\Microsoft.NetCore.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
     <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CVBImageProcLib\CVBImageProcLib.csproj">
+      <Project>{4ffb9fb6-a066-4386-9ed4-87f7d3c6a188}</Project>
+      <Name>CVBImageProcLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

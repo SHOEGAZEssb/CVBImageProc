@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.MVVM;
+using CVBImageProcLib.Processing.PixelFilter;
 using System;
 
 namespace CVBImageProc.Processing.PixelFilter

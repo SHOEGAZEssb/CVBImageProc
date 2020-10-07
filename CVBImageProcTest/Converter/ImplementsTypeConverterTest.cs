@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CVBImageProcTest.Converter
+namespace CVBImageProcLibTest.Converter
 {
   /// <summary>
   /// Tests for the <see cref="ImplementsTypeConverter"/>

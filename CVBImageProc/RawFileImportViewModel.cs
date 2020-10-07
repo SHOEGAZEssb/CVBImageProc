@@ -1,4 +1,5 @@
 ﻿using CVBImageProc.MVVM;
+using CVBImageProcLib;
 using Stemmer.Cvb;
 using System;
 using System.Windows.Input;
@@ -36,7 +37,7 @@ namespace CVBImageProc
     public ICommand OKCommand { get; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public ICommand CancelCommand { get; }
 
