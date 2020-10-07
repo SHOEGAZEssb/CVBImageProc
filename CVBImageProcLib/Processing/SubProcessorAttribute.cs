@@ -7,6 +7,6 @@ namespace CVBImageProcLib.Processing
   /// as a subprocessor. E.g. filters.
   /// </summary>
   [AttributeUsage(AttributeTargets.Class)]
-  public class SubProcessorAttribute : Attribute
+  public sealed class SubProcessorAttribute : Attribute
   { }
 }

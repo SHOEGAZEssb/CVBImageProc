@@ -20,6 +20,9 @@ namespace CVBImageProc.Processing
   /// </summary>
   public partial class MonoToMultiplaneView : UserControl
   {
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public MonoToMultiplaneView()
     {
       InitializeComponent();
