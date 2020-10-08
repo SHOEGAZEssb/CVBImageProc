@@ -57,7 +57,7 @@
   <ItemGroup>
     <Reference Include="Stemmer.Cvb, Version=1.90.0.0, Culture=neutral, PublicKeyToken=bff841d173155285, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Platform\x64\Lib\Net\Stemmer.Cvb.dll</HintPath>
+      <HintPath>$(CVB)\Lib\Net\Stemmer.Cvb.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
