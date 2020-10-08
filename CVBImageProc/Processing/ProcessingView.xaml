@@ -145,6 +145,9 @@
           <DataTemplate DataType="{x:Type local:InvertViewModel}">
             <local:InvertView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:PixelShiftViewModel}">
+            <local:PixelShiftView/>
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:PlaneClearViewModel}">
             <local:PlaneClearView/>
           </DataTemplate>

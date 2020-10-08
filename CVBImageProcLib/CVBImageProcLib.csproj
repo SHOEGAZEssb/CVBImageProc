@@ -107,6 +107,7 @@
     <Compile Include="Processing\PixelFilter\PixelIndexFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\PixelValueFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\ProcessingBounds.cs" />
+    <Compile Include="Processing\PixelShift.cs" />
     <Compile Include="Processing\PlaneClear.cs" />
     <Compile Include="Processing\ProcessingException.cs" />
     <Compile Include="Processing\ProcessingHelper.cs" />

@@ -154,6 +154,10 @@
       <DependentUpon>MonoToMultiplaneView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\MonoToMultiplaneViewModel.cs" />
+    <Compile Include="Processing\PixelShiftView.xaml.cs">
+      <DependentUpon>PixelShiftView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\PixelShiftViewModel.cs" />
     <Compile Include="Processing\RGBFactorPresetViewModel.cs" />
     <Compile Include="Processing\RGBToMonoView.xaml.cs">
       <DependentUpon>RGBToMonoView.xaml</DependentUpon>
@@ -292,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\PixelFilter\PixelFilterChainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\PixelShiftView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
