@@ -26,6 +26,8 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
           <RowDefinition Height="3"/>
           <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -40,8 +42,10 @@
 
         <CheckBox Grid.Row="10" Content="Wrap" IsChecked="{Binding Wrap}"/>
 
-        <TextBlock Grid.Row="12" Text="Fill Value:"/>
-        <xctk:ByteUpDown Grid.Row="14" Minimum="0" Value="{Binding FillValue}" Maximum="255"/>
+        <CheckBox Grid.Row="12" Content="Use Fill Value" IsChecked="{Binding UseFillValue}"/>
+
+        <TextBlock Grid.Row="14" Text="Fill Value:"/>
+        <xctk:ByteUpDown Grid.Row="16" Minimum="0" Value="{Binding FillValue}" Maximum="255"/>
       </Grid>
     </TabItem>
     <TabItem Header="Filter">

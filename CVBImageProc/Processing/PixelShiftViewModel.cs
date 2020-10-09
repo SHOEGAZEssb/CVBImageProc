@@ -16,7 +16,7 @@ namespace CVBImageProc.Processing
       get => _processor.ShiftX;
       set
       {
-        if(ShiftX != value)
+        if (ShiftX != value)
         {
           _processor.ShiftX = value;
           NotifyOfPropertyChange();
@@ -47,9 +47,23 @@ namespace CVBImageProc.Processing
       get => _processor.Wrap;
       set
       {
-        if(Wrap != value)
+        if (Wrap != value)
         {
           _processor.Wrap = value;
+          NotifyOfPropertyChange();
+          OnSettingsChanged();
+        }
+      }
+    }
+
+    public bool UseFillValue
+    {
+      get => _processor.UseFillValue;
+      set
+      {
+        if (UseFillValue != value)
+        {
+          _processor.UseFillValue = value;
           NotifyOfPropertyChange();
           OnSettingsChanged();
         }
@@ -61,7 +75,7 @@ namespace CVBImageProc.Processing
       get => _processor.FillValue;
       set
       {
-        if(FillValue != value)
+        if (FillValue != value)
         {
           _processor.FillValue = value;
           NotifyOfPropertyChange();

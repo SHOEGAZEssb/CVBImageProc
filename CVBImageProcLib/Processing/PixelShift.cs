@@ -30,7 +30,7 @@ namespace CVBImageProcLib.Processing
       var newImage = new Image(inputImage.Size, inputImage.Planes.Count);
       for (int i = 0; i < newImage.Planes.Count; i++)
       {
-        if (i == PlaneIndex)
+        if (i == PlaneIndex && UseFillValue)
           newImage.Planes[i].Initialize(FillValue);
         else
           inputImage.Planes[i].CopyTo(newImage.Planes[i]);
@@ -151,6 +151,14 @@ namespace CVBImageProcLib.Processing
     /// </summary>
     [DataMember]
     public bool Wrap { get; set; }
+
+    /// <summary>
+    /// Gets if the processed plane should be
+    /// initialized with the<see cref="FillValue"/>.
+    /// If not the original plane is used.
+    /// </summary>
+    [DataMember]
+    public bool UseFillValue { get; set; }
 
     /// <summary>
     /// Value to fill empty pixels with.
