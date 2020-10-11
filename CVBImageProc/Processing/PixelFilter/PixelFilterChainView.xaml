@@ -98,6 +98,9 @@
           <DataTemplate DataType="{x:Type local:PixelIndexFilterViewModel}">
             <local:PixelIndexFilterView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:RandomizeViewModel}">
+            <local:RandomizeView/>
+          </DataTemplate>
         </ContentControl.Resources>
       </ContentControl>
     </GroupBox>

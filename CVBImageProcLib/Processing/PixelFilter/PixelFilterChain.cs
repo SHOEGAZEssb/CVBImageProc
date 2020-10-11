@@ -45,6 +45,12 @@ namespace CVBImageProcLib.Processing.PixelFilter
     [DataMember]
     public List<IPixelIndexFilter> IndexFilters { get; private set; }
 
+    /// <summary>
+    /// The configured auto filters.
+    /// </summary>
+    [DataMember]
+    public List<IPixelAutoFilter> AutoFilters { get; private set; }
+
     #endregion Properties
 
     #region Construction
@@ -56,6 +62,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
     {
       ValueFilters = new List<IPixelValueFilter>();
       IndexFilters = new List<IPixelIndexFilter>();
+      AutoFilters = new List<IPixelAutoFilter>();
     }
 
     #endregion Construction
@@ -70,7 +77,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// the filter, otherwise false.</returns>
     public bool Check(byte pixel, int index)
     {
-      if (ValueFilters.Count == 0 && IndexFilters.Count == 0)
+      if (ValueFilters.Count == 0 && IndexFilters.Count == 0 && AutoFilters.Count == 0)
         return true;
 
       if (Mode == LogicMode.And)
@@ -85,6 +92,11 @@ namespace CVBImageProcLib.Processing.PixelFilter
           if (!filter.Check(index))
             return false;
         }
+        foreach (var filter in AutoFilters)
+        {
+          if (!filter.Check())
+            return false;
+        }
       }
       else
       {
@@ -96,6 +108,11 @@ namespace CVBImageProcLib.Processing.PixelFilter
         foreach (var filter in IndexFilters)
         {
           if (filter.Check(index))
+            return true;
+        }
+        foreach (var filter in AutoFilters)
+        {
+          if (filter.Check())
             return true;
         }
 
@@ -130,6 +147,11 @@ namespace CVBImageProcLib.Processing.PixelFilter
           if (!filter.Check(index))
             return false;
         }
+        foreach (var filter in AutoFilters)
+        {
+          if (!filter.Check())
+            return false;
+        }
       }
       else
       {
@@ -141,6 +163,11 @@ namespace CVBImageProcLib.Processing.PixelFilter
         foreach (var filter in IndexFilters)
         {
           if (filter.Check(index))
+            return true;
+        }
+        foreach (var filter in AutoFilters)
+        {
+          if (filter.Check())
             return true;
         }
 

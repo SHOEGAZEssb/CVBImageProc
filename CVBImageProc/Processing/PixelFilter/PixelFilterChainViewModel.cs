@@ -151,6 +151,8 @@ namespace CVBImageProc.Processing.PixelFilter
         _processor.PixelFilter.ValueFilters.Add(vf);
       else if (filter is IPixelIndexFilter inf)
         _processor.PixelFilter.IndexFilters.Add(inf);
+      else if (filter is IPixelAutoFilter auto)
+        _processor.PixelFilter.AutoFilters.Add(auto);
       else
         return;
 
@@ -175,6 +177,8 @@ namespace CVBImageProc.Processing.PixelFilter
           return new PixelValueFilterViewModel(vf);
         case IPixelIndexFilter inf:
           return new PixelIndexFilterViewModel(inf);
+        case Randomize r:
+          return new RandomizeViewModel(r);
         default:
           throw new ArgumentException("Unknown filter type", nameof(filter));
       }
@@ -190,9 +194,11 @@ namespace CVBImageProc.Processing.PixelFilter
 
       // remove from model
       if (SelectedFilter is PixelValueFilterViewModel pvf)
-        _processor.PixelFilter.ValueFilters.RemoveAt(_processor.PixelFilter.ValueFilters.IndexOf(pvf.Filter));
+        _processor.PixelFilter.ValueFilters.Remove(pvf.Filter);
       else if (SelectedFilter is PixelIndexFilterViewModel pif)
-        _processor.PixelFilter.IndexFilters.RemoveAt(_processor.PixelFilter.IndexFilters.IndexOf(pif.Filter));
+        _processor.PixelFilter.IndexFilters.Remove(pif.Filter);
+      else if (SelectedFilter is IPixelAutoFilterViewModel paf)
+        _processor.PixelFilter.AutoFilters.Remove(paf.Filter);
       else
         return;
 

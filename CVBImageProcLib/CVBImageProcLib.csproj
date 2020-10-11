@@ -96,6 +96,7 @@
     <Compile Include="Processing\PixelFilter\EqualsValue.cs" />
     <Compile Include="Processing\PixelFilter\ICanProcessIndividualPixel.cs" />
     <Compile Include="Processing\PixelFilter\ICanProcessIndividualRegions.cs" />
+    <Compile Include="Processing\PixelFilter\IPixelAutoFilter.cs" />
     <Compile Include="Processing\PixelFilter\IPixelFilter.cs" />
     <Compile Include="Processing\PixelFilter\IPixelIndexFilter.cs" />
     <Compile Include="Processing\PixelFilter\IPixelValueFilter.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Processing\PixelFilter\PixelIndexFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\PixelValueFilterBase.cs" />
     <Compile Include="Processing\PixelFilter\ProcessingBounds.cs" />
+    <Compile Include="Processing\PixelFilter\Randomize.cs" />
     <Compile Include="Processing\PixelShift.cs" />
     <Compile Include="Processing\PlaneClear.cs" />
     <Compile Include="Processing\ProcessingException.cs" />
