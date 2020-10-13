@@ -132,7 +132,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// <returns>True if the given pixels meet the filter conditions.</returns>
     public bool Check(byte r, byte g, byte b, int index)
     {
-      if (ValueFilters.Count == 0 && IndexFilters.Count == 0)
+      if (ValueFilters.Count == 0 && IndexFilters.Count == 0 && AutoFilters.Count == 0)
         return true;
 
       if (Mode == LogicMode.And)
