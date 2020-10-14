@@ -8,19 +8,8 @@ namespace CVBImageProc.Processing
   /// Base ViewModel for processors that process
   /// individual planes.
   /// </summary>
-  class PlaneProcessorViewModelBase : ProcessorViewModel, INeedImageInfo, IHasSettings
+  class PlaneProcessorViewModelBase : ProcessorViewModel, IHasSettings
   {
-    #region INeedImageInfo Implementation
-
-    public virtual void UpdateImageInfo(Image img)
-    {
-      MaxPlaneIndex = img.Planes.Count - 1;
-      if (PlaneIndex > MaxPlaneIndex)
-        PlaneIndex = MaxPlaneIndex;
-    }
-
-    #endregion INeedImageInfo Implementation
-
     #region IHasSettings Implementation
 
     public event EventHandler SettingsChanged;

@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Base ViewModel for processors that process individual planes
   /// and support AOIs.
   /// </summary>
-  abstract class AOIPlaneProcessorViewModelBase : PlaneProcessorViewModelBase
+  abstract class AOIPlaneProcessorViewModelBase : PlaneProcessorViewModelBase, INeedImageInfo
   {
     #region Properties
 
@@ -36,14 +36,21 @@ namespace CVBImageProc.Processing
 
     #endregion Construction
 
-    public override void UpdateImageInfo(Image img)
+    #region INeedImageInfo Implementation
+
+    /// <summary>
+    /// Updates the image information.
+    /// </summary>
+    /// <param name="img">Image to pull info from.</param>
+    public void UpdateImageInfo(Image img)
     {
-      base.UpdateImageInfo(img);
       if (AOIVM.AOIX + AOIVM.AOIWidth >= img.Width)
         AOIVM.AOIWidth = img.Width - AOIVM.AOIX - 1;
       if (AOIVM.AOIY + AOIVM.AOIHeight >= img.Height)
         AOIVM.AOIHeight = img.Height - AOIVM.AOIY - 1;
     }
+
+    #endregion INeedImageInfo Implementation
 
     /// <summary>
     /// Fires the SettingsChanged event when the
