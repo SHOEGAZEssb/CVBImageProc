@@ -133,6 +133,8 @@ namespace CVBImageProc.Processing.PixelFilter
         Filters.Add(CreatePixelFilterViewModel(filter));
       foreach (var filter in _processor.PixelFilter.IndexFilters)
         Filters.Add(CreatePixelFilterViewModel(filter));
+      foreach (var filter in _processor.PixelFilter.AutoFilters)
+        Filters.Add(CreatePixelFilterViewModel(filter));
     }
 
     #endregion Construction

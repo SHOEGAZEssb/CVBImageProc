@@ -51,7 +51,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// <summary>
     /// The random number generator.
     /// </summary>
-    private readonly Random _rng = new Random(DateTime.Now.Ticks.GetHashCode());
+    private Random _rng = new Random(DateTime.Now.Ticks.GetHashCode());
 
     #endregion Member
 
@@ -64,6 +64,17 @@ namespace CVBImageProcLib.Processing.PixelFilter
     public bool Check()
     {
       return Invert ? _rng.NextDouble() >= Chance : _rng.NextDouble() < Chance;
+    }
+
+    /// <summary>
+    /// Creates the <see cref="_rng"/> object
+    /// when deserializing.
+    /// </summary>
+    /// <param name="context">Ignored.</param>
+    [OnDeserialized]
+    internal void OnDeserialized(StreamingContext context)
+    {
+      _rng = new Random(DateTime.Now.Ticks.GetHashCode());
     }
   }
 }
