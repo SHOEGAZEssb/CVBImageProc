@@ -43,6 +43,9 @@
         <local:PlaneSelectorControl Grid.Row="2"/>
       </Grid>
     </TabItem>
+    <TabItem Header="Filter">
+      <pf:PixelFilterChainView DataContext="{Binding PixelFilterChainVM}"/>
+    </TabItem>
     <TabItem Header="AOI">
       <pf:AOIView DataContext="{Binding AOIVM}"/>
     </TabItem>

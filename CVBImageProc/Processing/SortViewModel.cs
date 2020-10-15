@@ -1,4 +1,6 @@
-﻿using CVBImageProcLib.Processing;
+﻿using CVBImageProc.Processing.PixelFilter;
+using CVBImageProcLib.Processing;
+using System;
 
 namespace CVBImageProc.Processing
 {
@@ -26,6 +28,11 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// ViewModel for the processors pixel filter chain.
+    /// </summary>
+    public PixelFilterChainViewModel PixelFilterChainVM { get; }
+
     #endregion Properties
 
     #region Member
@@ -48,8 +55,21 @@ namespace CVBImageProc.Processing
       : base(processor, isActive)
     {
       _processor = processor;
+      PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
+      PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     #endregion Construction
+
+    /// <summary>
+    /// Fires the SettingsChanged event when the
+    /// pixel filter settings changed.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Ignored.</param>
+    private void SubVM_SettingsChanged(object sender, EventArgs e)
+    {
+      OnSettingsChanged();
+    }
   }
 }
