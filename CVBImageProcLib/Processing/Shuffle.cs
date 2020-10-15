@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProcLib.Processing.PixelFilter;
+using Stemmer.Cvb;
 using System;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -9,7 +10,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that shuffles an image plane.
   /// </summary>
   [DataContract]
-  public class Shuffle : IAOIPlaneProcessor
+  public class Shuffle : IAOIPlaneProcessor, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
@@ -43,7 +44,7 @@ namespace CVBImageProcLib.Processing
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
         return shuffledBytes[byteCounter++];
-      });
+      }, PixelFilter);
 
       return inputImage;
     }
@@ -76,5 +77,15 @@ namespace CVBImageProcLib.Processing
     public int PlaneIndex { get; set; }
 
     #endregion IProcessIndividualPlanes Implementation
+
+    #region ICanProcessIndividualPixel Implementation
+
+    /// <summary>
+    /// Filter chain for the processor.
+    /// </summary>
+    [DataMember]
+    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
+
+    #endregion ICanProcessIndividualPixel Implementation
   }
 }

@@ -11,6 +11,9 @@
     <TabItem Header="Settings">
       <local:PlaneSelectorControl/>
     </TabItem>
+    <TabItem Header="Filter">
+      <pf:PixelFilterChainView DataContext="{Binding PixelFilterChainVM}"/>
+    </TabItem>
     <TabItem Header="AOI">
       <pf:AOIView DataContext="{Binding AOIVM}"/>
     </TabItem>
