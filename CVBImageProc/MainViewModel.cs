@@ -99,6 +99,9 @@ namespace CVBImageProc
         {
           _outputImage = value;
           NotifyOfPropertyChange();
+
+          if (AutoSave)
+            AutoSaveImage();
         }
       }
     }
@@ -122,6 +125,56 @@ namespace CVBImageProc
       }
     }
     private bool _autoProcess;
+
+    /// <summary>
+    /// If true autosaves newly processed images
+    /// to the configured <see cref="AutoSavePath"/>.
+    /// </summary>
+    public bool AutoSave
+    {
+      get => _autoSave;
+      set
+      {
+        if(AutoSave != value)
+        {
+          if(value)
+          {
+            var sfd = new SaveFileDialog
+            {
+              Filter = SystemInfo.ImageFileSaveFormatFilter
+            };
+
+            if (sfd.ShowDialog() ?? false)
+            {
+              AutoSavePath = sfd.FileName;
+            }
+            else
+              return;
+          }
+
+          _autoSave = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private bool _autoSave;
+
+    /// <summary>
+    /// Path to save autosaved images to.
+    /// </summary>
+    public string AutoSavePath
+    {
+      get => _autoSavePath;
+      set
+      {
+        if(AutoSavePath != value)
+        {
+          _autoSavePath = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private string _autoSavePath;
 
     /// <summary>
     /// ViewModel for the processing.
@@ -270,6 +323,44 @@ namespace CVBImageProc
           MessageBox.Show($"Error saving as raw: {ex.Message}");
         }
       }
+    }
+
+    /// <summary>
+    /// Saves the current <see cref="OutputImage"/>
+    /// to the configured <see cref="AutoSavePath"/>.
+    /// </summary>
+    private void AutoSaveImage()
+    {
+      string fileName = string.Empty;
+      try
+      {
+        fileName = FindFreeFileName(AutoSavePath);
+        OutputImage.Save(fileName);
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show($"Error autosaving image to {fileName}: {ex.Message}");
+        AutoSave = false;
+      }
+    }
+
+    /// <summary>
+    /// Gets the first free filename based
+    /// on the given <paramref name="baseName"/>.
+    /// </summary>
+    /// <param name="baseName">Base filename to append index to.</param>
+    /// <returns>Free filename with index appended.</returns>
+    private static string FindFreeFileName(string baseName)
+    {
+      int i = 0;
+      string ext = Path.GetExtension(baseName);
+      string newName = baseName.Replace(ext, $"{i++:000}{ext}");
+      while(File.Exists(newName))
+      {
+        newName = baseName.Replace(ext, $"{i++:000}{ext}");
+      }
+
+      return newName;
     }
 
     /// <summary>

@@ -142,11 +142,14 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
 
           <Button Grid.Column="0" Style="{StaticResource outputImageButton}" Content="Save Image" Command="{Binding SaveImageCommand}"/>
           <Button Grid.Column="2" Style="{StaticResource outputImageButton}" Content="Save Raw" Command="{Binding SaveRawCommand}"/>
           <Button Grid.Column="4" Style="{StaticResource outputImageButton}" Content="Use as Input Image" Command="{Binding UseOutputImageAsInputImageCommand}"/>
+          <CheckBox Grid.Column="6" Content="Autosave" IsChecked="{Binding AutoSave}" VerticalAlignment="Center"/>
         </Grid>
       </Grid>
     </Grid>
