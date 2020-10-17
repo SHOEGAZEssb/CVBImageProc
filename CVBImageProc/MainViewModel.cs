@@ -64,7 +64,7 @@ namespace CVBImageProc
       get => _imageSourceVM;
       private set
       {
-        if(ImageSourceVM != value)
+        if (ImageSourceVM != value)
         {
           // clean up old vm
           if (ImageSourceVM is IDisposable d)
@@ -135,9 +135,9 @@ namespace CVBImageProc
       get => _autoSave;
       set
       {
-        if(AutoSave != value)
+        if (AutoSave != value)
         {
-          if(value)
+          if (value)
           {
             var sfd = new SaveFileDialog
             {
@@ -167,7 +167,7 @@ namespace CVBImageProc
       get => _autoSavePath;
       set
       {
-        if(AutoSavePath != value)
+        if (AutoSavePath != value)
         {
           _autoSavePath = value;
           NotifyOfPropertyChange();
@@ -337,7 +337,7 @@ namespace CVBImageProc
         fileName = FindFreeFileName(AutoSavePath);
         OutputImage.Save(fileName);
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         MessageBox.Show($"Error autosaving image to {fileName}: {ex.Message}");
         AutoSave = false;
@@ -355,7 +355,7 @@ namespace CVBImageProc
       int i = 0;
       string ext = Path.GetExtension(baseName);
       string newName = baseName.Replace(ext, $"{i++:000}{ext}");
-      while(File.Exists(newName))
+      while (File.Exists(newName))
       {
         newName = baseName.Replace(ext, $"{i++:000}{ext}");
       }
