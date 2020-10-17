@@ -88,6 +88,7 @@ namespace CVBImageProcLib.Processing
         int boundsX = bounds.StartX + bounds.Width;
 
         int kernelSize = kernel.GetKernelNumber();
+        int kernelArrSize = kernelSize * kernelSize;
         var kernelFac = (int)System.Math.Floor(kernelSize / 2.0);
         int kernelCounter = -1;
 
@@ -98,7 +99,7 @@ namespace CVBImageProcLib.Processing
 
           for (int y = bounds.StartY; y < boundsY; y++)
           {
-            var kernelValues = new byte?[kernelSize * kernelSize];
+            var kernelValues = new byte?[kernelArrSize];
             var pLine = pBase + y * yInc;
             int newLineInc = newYInc * y;
 
@@ -108,10 +109,12 @@ namespace CVBImageProcLib.Processing
               for (int kRow = -kernelFac; kRow <= kernelFac; kRow++)
               {
                 byte* pKLine = pMiddle + kRow * yInc;
+                int yKRow = y + kRow;
                 for (int kColumn = -kernelFac; kColumn <= kernelFac; kColumn++)
                 {
                   kernelCounter++;
-                  if (y + kRow < 0 || y + kRow > boundHeight || x + kColumn < 0 || x + kColumn > boundWidth)
+                  int xKColumn = x + kColumn;
+                  if (yKRow < 0 || yKRow > boundHeight || xKColumn < 0 || xKColumn > boundWidth)
                     continue;
 
                   byte* pPixel = pKLine + kColumn * xInc;
