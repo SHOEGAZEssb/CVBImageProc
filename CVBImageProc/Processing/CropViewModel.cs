@@ -35,6 +35,11 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="processor">The processor.</param>
+    /// <param name="isActive">Startup IsActive state.</param>
     public CropViewModel(Crop processor, bool isActive)
       : base(processor, isActive)
     {
