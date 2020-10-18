@@ -51,6 +51,23 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// Algorithm to use for scaling.
+    /// </summary>
+    public ScaleMode Mode
+    {
+      get => _processor.Mode;
+      set
+      {
+        if(Mode != value)
+        {
+          _processor.Mode = value;
+          NotifyOfPropertyChange();
+          SettingsChanged?.Invoke(this, EventArgs.Empty);
+        }
+      }
+    }
+
     #endregion Properties
 
     #region Member

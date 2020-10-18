@@ -6,6 +6,17 @@ using System.Runtime.Serialization;
 namespace CVBImageProcLib.Processing
 {
   /// <summary>
+  /// Algorithm to use for scaling.
+  /// </summary>
+  public enum ScaleMode
+  {
+    /// <summary>
+    /// Use nearest-neighbor interpolation.
+    /// </summary>
+    NearestNeighbor
+  }
+
+  /// <summary>
   /// Processor that scales an image.
   /// </summary>
   [DataContract]
@@ -28,6 +39,19 @@ namespace CVBImageProcLib.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      if (Mode == ScaleMode.NearestNeighbor)
+        return ProcessNearestNeighbor(inputImage);
+      else
+        throw new ArgumentException("Unknown scale mode");
+    }
+
+    /// <summary>
+    /// Scales the image using nearest neighbor interpolation.
+    /// </summary>
+    /// <param name="inputImage">Image to scale.</param>
+    /// <returns>Scaled image.</returns>
+    private Image ProcessNearestNeighbor(Image inputImage)
+    {
       var newImage = new Image(NewSize, inputImage.Planes.Count);
 
       double scaleX = NewSize.Width / (double)inputImage.Width;
@@ -74,6 +98,12 @@ namespace CVBImageProcLib.Processing
     /// </summary>
     [DataMember]
     public Size2D NewSize { get; set; } = new Size2D(1, 1);
+
+    /// <summary>
+    /// The algorithm to use for scaling.
+    /// </summary>
+    [DataMember]
+    public ScaleMode Mode { get; set; } = ScaleMode.NearestNeighbor;
 
     #endregion Properties
   }

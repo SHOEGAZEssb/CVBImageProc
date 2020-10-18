@@ -2,16 +2,31 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CVBImageProc.Processing"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:lib="clr-namespace:CVBImageProcLib.Processing;assembly=CVBImageProcLib"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+  <UserControl.Resources>
+    <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="ScaleModeDataProvider">
+      <ObjectDataProvider.MethodParameters>
+        <x:Type TypeName="lib:ScaleMode"/>
+      </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+  </UserControl.Resources>
 
   <TabControl>
     <TabItem Header="Settings">
       <Grid>
         <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="3"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="3"/>
           <RowDefinition Height="Auto"/>
@@ -26,6 +41,9 @@
 
         <TextBlock Grid.Row="4" Text="New Height:"/>
         <xctk:IntegerUpDown Grid.Row="6" Minimum="1" Value="{Binding NewHeight}"/>
+
+        <TextBlock Grid.Row="8" Text="Mode:"/>
+        <ComboBox Grid.Row="10" SelectedItem="{Binding Mode}" ItemsSource="{Binding Source={StaticResource ScaleModeDataProvider}}"/>
       </Grid>
     </TabItem>
   </TabControl>
