@@ -92,5 +92,23 @@ namespace CVBImageProcLib
     {
       return plane.AllPixels.DereferenceAs<byte>();
     }
+
+    public static byte[,] GetPixelsAs2DArray(this ImagePlane plane)
+    {
+      var inputPixels = plane.GetPixels().ToArray();
+      int height = plane.Parent.Height;
+      int width = plane.Parent.Width;
+      var pixels = new byte[height, width];
+
+      for(int y = 0; y < height; y++)
+      {
+        for(int x = 0; x < width; x++)
+        {
+          pixels[y, x] = inputPixels[y * width + x];
+        }
+      }
+
+      return pixels;
+    }
   }
 }

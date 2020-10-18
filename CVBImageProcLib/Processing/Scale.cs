@@ -13,7 +13,9 @@ namespace CVBImageProcLib.Processing
     /// <summary>
     /// Use nearest-neighbor interpolation.
     /// </summary>
-    NearestNeighbor
+    NearestNeighbor,
+
+    Bilinear
   }
 
   /// <summary>
@@ -41,6 +43,8 @@ namespace CVBImageProcLib.Processing
 
       if (Mode == ScaleMode.NearestNeighbor)
         return ProcessNearestNeighbor(inputImage);
+      else if (Mode == ScaleMode.Bilinear)
+        return ProcessBiliniar(inputImage);
       else
         throw new ArgumentException("Unknown scale mode");
     }
@@ -78,6 +82,58 @@ namespace CVBImageProcLib.Processing
                 var xUnscaled = (int)(x / scaleX);
                 byte* newPPixel = newPLine + newXInc * x;
                 *newPPixel = inputBytes[yUnscaled * inputImage.Width + xUnscaled];
+              }
+            }
+          }
+        }
+        else
+          throw new ArgumentException($"New image plane {i} could not be accessed linear", nameof(inputImage));
+      }
+
+      return newImage;
+    }
+
+    /// <summary>
+    /// Scales the image using bilinear interpolation.
+    /// </summary>
+    /// <param name="inputImage">Image to scale.</param>
+    /// <returns>Scaled image.</returns>
+    private Image ProcessBiliniar(Image inputImage)
+    {
+      var newImage = new Image(NewSize, inputImage.Planes.Count);
+
+      double scaleX = (double)(inputImage.Width - 1) / (NewSize.Width);
+      double scaleY = (double)(inputImage.Height - 1) / (NewSize.Height);
+      for (int i = 0; i < inputImage.Planes.Count; i++)
+      {
+        byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
+        if (newImage.Planes[i].TryGetLinearAccess(out LinearAccessData newData))
+        {
+          var newXInc = (int)newData.XInc;
+          var newYInc = (int)newData.YInc;
+
+          unsafe
+          {
+            var newPBase = (byte*)newData.BasePtr;
+
+            for (int y = 0; y < newImage.Height; y++)
+            {
+              int pY = (int)(scaleY * y);
+              double yDiff = (scaleY * y) - pY;
+
+              byte* newPLine = newPBase + newYInc * y;
+
+              for (int x = 0; x < newImage.Width; x++)
+              {
+                int pX = (int)(scaleX * x);
+                double xDiff = (scaleX * x) - pX;
+
+                byte pixel = (byte)(inputBytes[pY, pX] * (1 - xDiff) * (1 - yDiff) +
+                                    inputBytes[pY, pX + 1] * (1 - yDiff) * xDiff +
+                                    inputBytes[pY + 1, pX] * yDiff * (1 - xDiff) +
+                                    inputBytes[pY + 1, pX + 1] * yDiff * xDiff);
+                byte* newPPixel = newPLine + newXInc * x;
+                *newPPixel = pixel;
               }
             }
           }
