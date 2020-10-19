@@ -7,45 +7,8 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// ViewModel for a <see cref="IPixelIndexFilter"/>.
   /// </summary>
-  class PixelIndexFilterViewModel : ViewModelBase, IPixelFilterViewModel
+  class PixelIndexFilterViewModel : PixelFilterViewModelBase
   {
-    #region IPixelFilterViewModel Implementation
-
-    /// <summary>
-    /// Name of the filter.
-    /// </summary>
-    public string Name => Filter.Name;
-
-    /// <summary>
-    /// If true, inverts the logic of the filter.
-    /// </summary>
-    public bool Invert
-    {
-      get => Filter.Invert;
-      set
-      {
-        if (Invert != value)
-        {
-          Filter.Invert = value;
-          OnSettingsChanged();
-          NotifyOfPropertyChange();
-        }
-      }
-    }
-
-    /// <summary>
-    /// Event that is fired when one of
-    /// the settings changed.
-    /// </summary>
-    public event EventHandler SettingsChanged;
-
-    private void OnSettingsChanged()
-    {
-      SettingsChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    #endregion IPixelFilterViewModel Implementation
-
     #region Properties
 
     /// <summary>
@@ -83,10 +46,12 @@ namespace CVBImageProc.Processing.PixelFilter
     /// Constructor.
     /// </summary>
     /// <param name="filter">The filter.</param>
+    /// <param name="isActive">Active state of the filter.</param>
     /// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
-    public PixelIndexFilterViewModel(IPixelIndexFilter filter)
+    public PixelIndexFilterViewModel(IPixelIndexFilter filter, bool isActive)
+      : base(filter, isActive)
     {
-      Filter = filter ?? throw new ArgumentNullException(nameof(filter));
+      Filter = filter;
     }
 
     #endregion Construction

@@ -155,6 +155,7 @@
     </Compile>
     <Compile Include="Processing\MonoToMultiplaneViewModel.cs" />
     <Compile Include="Processing\PixelFilter\IPixelAutoFilterViewModel.cs" />
+    <Compile Include="Processing\PixelFilter\PixelFilterViewModelBase.cs" />
     <Compile Include="Processing\PixelFilter\RandomizeView.xaml.cs">
       <DependentUpon>RandomizeView.xaml</DependentUpon>
     </Compile>

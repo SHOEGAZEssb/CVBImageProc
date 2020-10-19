@@ -129,11 +129,7 @@ namespace CVBImageProc.Processing.PixelFilter
       Filters = new ObservableCollection<IPixelFilterViewModel>();
       Filters.CollectionChanged += Filters_CollectionChanged;
 
-      foreach (var filter in _processor.PixelFilter.ValueFilters)
-        Filters.Add(CreatePixelFilterViewModel(filter));
-      foreach (var filter in _processor.PixelFilter.IndexFilters)
-        Filters.Add(CreatePixelFilterViewModel(filter));
-      foreach (var filter in _processor.PixelFilter.AutoFilters)
+      foreach (var filter in _processor.PixelFilter.Filters)
         Filters.Add(CreatePixelFilterViewModel(filter));
     }
 
@@ -150,39 +146,39 @@ namespace CVBImageProc.Processing.PixelFilter
       // add to model
       var filter = (IPixelFilter)SelectedFilterType.Instanciate();
       if (filter is IPixelValueFilter vf)
-        _processor.PixelFilter.ValueFilters.Add(vf);
+        _processor.PixelFilter.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(vf, true));
       else if (filter is IPixelIndexFilter inf)
-        _processor.PixelFilter.IndexFilters.Add(inf);
+        _processor.PixelFilter.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(inf, true));
       else if (filter is IPixelAutoFilter auto)
-        _processor.PixelFilter.AutoFilters.Add(auto);
+        _processor.PixelFilter.AutoFilters.Add(new KeyValuePair<IPixelAutoFilter, bool>(auto, true));
       else
         return;
 
       // add to vm
-      Filters.Add(CreatePixelFilterViewModel(filter));
+      Filters.Add(CreatePixelFilterViewModel(new KeyValuePair<IPixelFilter, bool>(filter, true)));
       SelectedFilter = Filters.Last();
     }
 
     /// <summary>
-    /// Creates a ViewModel for the given <paramref name="filter"/>.
+    /// Creates a ViewModel for the given <paramref name="kvp"/>.
     /// </summary>
-    /// <param name="filter">Filter to create ViewModel for.</param>
-    /// <returns>ViewModel for the <paramref name="filter"/>.</returns>
-    private static IPixelFilterViewModel CreatePixelFilterViewModel(IPixelFilter filter)
+    /// <param name="kvp">Filter to create ViewModel for.</param>
+    /// <returns>ViewModel for the <paramref name="kvp"/>.</returns>
+    private static IPixelFilterViewModel CreatePixelFilterViewModel(KeyValuePair<IPixelFilter, bool> kvp)
     {
-      if (filter == null)
-        throw new ArgumentNullException(nameof(filter));
+      if (kvp.Key == null)
+        throw new ArgumentNullException(nameof(kvp));
 
-      switch (filter)
+      switch (kvp.Key)
       {
         case IPixelValueFilter vf:
-          return new PixelValueFilterViewModel(vf);
+          return new PixelValueFilterViewModel(vf, kvp.Value);
         case IPixelIndexFilter inf:
-          return new PixelIndexFilterViewModel(inf);
+          return new PixelIndexFilterViewModel(inf, kvp.Value);
         case Randomize r:
-          return new RandomizeViewModel(r);
+          return new RandomizeViewModel(r, kvp.Value);
         default:
-          throw new ArgumentException("Unknown filter type", nameof(filter));
+          throw new ArgumentException("Unknown filter type", nameof(kvp));
       }
     }
 
@@ -195,12 +191,22 @@ namespace CVBImageProc.Processing.PixelFilter
         return;
 
       // remove from model
+      var pfc = _processor.PixelFilter;
       if (SelectedFilter is PixelValueFilterViewModel pvf)
-        _processor.PixelFilter.ValueFilters.Remove(pvf.Filter);
+      {
+        int index = pfc.ValueFilters.IndexOf(pfc.ValueFilters.First(kvp => kvp.Key == pvf.Filter));
+        pfc.ValueFilters.RemoveAt(index);
+      }
       else if (SelectedFilter is PixelIndexFilterViewModel pif)
-        _processor.PixelFilter.IndexFilters.Remove(pif.Filter);
+      {
+        int index = pfc.IndexFilters.IndexOf(pfc.IndexFilters.First(kvp => kvp.Key == pif.Filter));
+        pfc.IndexFilters.RemoveAt(index);
+      }
       else if (SelectedFilter is IPixelAutoFilterViewModel paf)
-        _processor.PixelFilter.AutoFilters.Remove(paf.Filter);
+      {
+        int index = pfc.AutoFilters.IndexOf(pfc.AutoFilters.First(kvp => kvp.Key == paf.Filter));
+        pfc.AutoFilters.RemoveAt(index);
+      }
       else
         return;
 
@@ -217,13 +223,19 @@ namespace CVBImageProc.Processing.PixelFilter
     {
       if (e.Action == NotifyCollectionChangedAction.Add)
       {
-        foreach (var filter in e.NewItems.OfType<IHasSettings>())
+        foreach (var filter in e.NewItems.OfType<IPixelFilterViewModel>())
+        {
           filter.SettingsChanged += Filter_SettingsChanged;
+          filter.IsActiveChanged += Filter_IsActiveChanged;
+        }
       }
       else if (e.Action == NotifyCollectionChangedAction.Remove)
       {
-        foreach (var filter in e.OldItems.OfType<IHasSettings>())
+        foreach (var filter in e.OldItems.OfType<IPixelFilterViewModel>())
+        {
           filter.SettingsChanged -= Filter_SettingsChanged;
+          filter.IsActiveChanged -= Filter_IsActiveChanged;
+        }
       }
 
       OnSettingsChanged();
@@ -238,6 +250,35 @@ namespace CVBImageProc.Processing.PixelFilter
     private void Filter_SettingsChanged(object sender, EventArgs e)
     {
       OnSettingsChanged();
+    }
+
+    /// <summary>
+    /// Updates the filter model when a vm
+    /// IsActive state changes.
+    /// </summary>
+    /// <param name="sender">The VM that triggered the event.</param>
+    /// <param name="e">Ignored.</param>
+    private void Filter_IsActiveChanged(object sender, EventArgs e)
+    {
+      if (!(sender is IPixelFilterViewModel vm))
+        return;
+
+      var pfc = _processor.PixelFilter;
+      if (vm is PixelValueFilterViewModel pvf)
+      {
+        int index = pfc.ValueFilters.IndexOf(pfc.ValueFilters.First(kvp => kvp.Key == pvf.Filter));
+        pfc.ValueFilters[index] = new KeyValuePair<IPixelValueFilter, bool>(pvf.Filter, pvf.IsActive);
+      }
+      else if (vm is PixelIndexFilterViewModel pif)
+      {
+        int index = pfc.IndexFilters.IndexOf(pfc.IndexFilters.First(kvp => kvp.Key == pif.Filter));
+        pfc.IndexFilters[index] = new KeyValuePair<IPixelIndexFilter, bool>(pif.Filter, pif.IsActive);
+      }
+      else if (vm is IPixelAutoFilterViewModel paf)
+      {
+        int index = pfc.AutoFilters.IndexOf(pfc.AutoFilters.First(kvp => kvp.Key == paf.Filter));
+        pfc.AutoFilters[index] = new KeyValuePair<IPixelAutoFilter, bool>(paf.Filter, paf.IsActive);
+      }
     }
   }
 }

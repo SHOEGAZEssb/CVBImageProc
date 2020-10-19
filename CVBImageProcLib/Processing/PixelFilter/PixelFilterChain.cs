@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing.PixelFilter
@@ -34,22 +35,29 @@ namespace CVBImageProcLib.Processing.PixelFilter
     public LogicMode Mode { get; set; }
 
     /// <summary>
+    /// All configured filters.
+    /// </summary>
+    public IEnumerable<KeyValuePair<IPixelFilter, bool>> Filters => ValueFilters.Select(kvp => new KeyValuePair<IPixelFilter, bool>(kvp.Key, kvp.Value))
+                                                            .Concat(IndexFilters.Select(kvp => new KeyValuePair<IPixelFilter, bool>(kvp.Key, kvp.Value))
+                                                            .Concat(AutoFilters.Select(kvp => new KeyValuePair<IPixelFilter, bool>(kvp.Key, kvp.Value))));
+
+    /// <summary>
     /// The configured value filters.
     /// </summary>
     [DataMember]
-    public List<IPixelValueFilter> ValueFilters { get; private set; }
+    public List<KeyValuePair<IPixelValueFilter, bool>> ValueFilters { get; private set; }
 
     /// <summary>
     /// The configured index filters.
     /// </summary>
     [DataMember]
-    public List<IPixelIndexFilter> IndexFilters { get; private set; }
+    public List<KeyValuePair<IPixelIndexFilter, bool>> IndexFilters { get; private set; }
 
     /// <summary>
     /// The configured auto filters.
     /// </summary>
     [DataMember]
-    public List<IPixelAutoFilter> AutoFilters { get; private set; }
+    public List<KeyValuePair<IPixelAutoFilter, bool>> AutoFilters { get; private set; }
 
     #endregion Properties
 
@@ -60,9 +68,9 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// </summary>
     public PixelFilterChain()
     {
-      ValueFilters = new List<IPixelValueFilter>();
-      IndexFilters = new List<IPixelIndexFilter>();
-      AutoFilters = new List<IPixelAutoFilter>();
+      ValueFilters = new List<KeyValuePair<IPixelValueFilter, bool>>();
+      IndexFilters = new List<KeyValuePair<IPixelIndexFilter, bool>>();
+      AutoFilters = new List<KeyValuePair<IPixelAutoFilter, bool>>();
     }
 
     #endregion Construction
@@ -77,22 +85,26 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// the filter, otherwise false.</returns>
     public bool Check(byte pixel, int index)
     {
-      if (ValueFilters.Count == 0 && IndexFilters.Count == 0 && AutoFilters.Count == 0)
+      var valueFilters = ValueFilters.Where(v => v.Value).Select(v => v.Key);
+      var indexFilters = IndexFilters.Where(v => v.Value).Select(v => v.Key);
+      var autoFilters = AutoFilters.Where(v => v.Value).Select(v => v.Key);
+
+      if (valueFilters.Count() == 0 && indexFilters.Count() == 0 && autoFilters.Count() == 0)
         return true;
 
       if (Mode == LogicMode.And)
       {
-        foreach (var filter in ValueFilters)
+        foreach (var filter in valueFilters)
         {
           if (!filter.Check(pixel))
             return false;
         }
-        foreach (var filter in IndexFilters)
+        foreach (var filter in indexFilters)
         {
           if (!filter.Check(index))
             return false;
         }
-        foreach (var filter in AutoFilters)
+        foreach (var filter in autoFilters)
         {
           if (!filter.Check())
             return false;
@@ -100,17 +112,17 @@ namespace CVBImageProcLib.Processing.PixelFilter
       }
       else
       {
-        foreach (var filter in ValueFilters)
+        foreach (var filter in valueFilters)
         {
           if (filter.Check(pixel))
             return true;
         }
-        foreach (var filter in IndexFilters)
+        foreach (var filter in indexFilters)
         {
           if (filter.Check(index))
             return true;
         }
-        foreach (var filter in AutoFilters)
+        foreach (var filter in autoFilters)
         {
           if (filter.Check())
             return true;
@@ -132,22 +144,26 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// <returns>True if the given pixels meet the filter conditions.</returns>
     public bool Check(byte r, byte g, byte b, int index)
     {
-      if (ValueFilters.Count == 0 && IndexFilters.Count == 0 && AutoFilters.Count == 0)
+      var valueFilters = ValueFilters.Where(v => v.Value).Select(v => v.Key);
+      var indexFilters = IndexFilters.Where(v => v.Value).Select(v => v.Key);
+      var autoFilters = AutoFilters.Where(v => v.Value).Select(v => v.Key);
+
+      if (valueFilters.Count() == 0 && indexFilters.Count() == 0 && autoFilters.Count() == 0)
         return true;
 
       if (Mode == LogicMode.And)
       {
-        foreach (var filter in ValueFilters)
+        foreach (var filter in valueFilters)
         {
           if (!filter.Check(r) || !filter.Check(g) || !filter.Check(b))
             return false;
         }
-        foreach (var filter in IndexFilters)
+        foreach (var filter in indexFilters)
         {
           if (!filter.Check(index))
             return false;
         }
-        foreach (var filter in AutoFilters)
+        foreach (var filter in autoFilters)
         {
           if (!filter.Check())
             return false;
@@ -155,17 +171,17 @@ namespace CVBImageProcLib.Processing.PixelFilter
       }
       else
       {
-        foreach (var filter in ValueFilters)
+        foreach (var filter in valueFilters)
         {
           if (filter.Check(r) && filter.Check(g) && filter.Check(b))
             return true;
         }
-        foreach (var filter in IndexFilters)
+        foreach (var filter in indexFilters)
         {
           if (filter.Check(index))
             return true;
         }
-        foreach (var filter in AutoFilters)
+        foreach (var filter in autoFilters)
         {
           if (filter.Check())
             return true;

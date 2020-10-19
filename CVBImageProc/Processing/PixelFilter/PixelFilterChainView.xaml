@@ -59,7 +59,23 @@
         <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
 
-      <ListBox Grid.Column="0" ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" DisplayMemberPath="Name"/>
+      <ListBox Grid.Column="0" ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}" HorizontalContentAlignment="Stretch">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+
+              <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+              <CheckBox Grid.Column="2" IsChecked="{Binding IsActive}"/>
+            </Grid>
+          </DataTemplate>
+        </ListBox.ItemTemplate>  
+      </ListBox>
+      
       <Grid Grid.Column="2">
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>

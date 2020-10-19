@@ -1,6 +1,7 @@
 ﻿using CVBImageProcLib.Processing.PixelFilter;
 using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace CVBImageProcLibTest.Processing.PixelFilter
 {
@@ -39,10 +40,10 @@ namespace CVBImageProcLibTest.Processing.PixelFilter
       var indexFilter2 = new Mock<IPixelIndexFilter>(MockBehavior.Strict);
       indexFilter2.Setup(i => i.Check(It.IsAny<int>())).Returns(true);
 
-      chain.ValueFilters.Add(valueFilter1.Object);
-      chain.ValueFilters.Add(valueFilter2.Object);
-      chain.IndexFilters.Add(indexFilter1.Object);
-      chain.IndexFilters.Add(indexFilter2.Object);
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter1.Object, true));
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter2.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter1.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter2.Object, true));
 
       // when: checking
       // then: passes
@@ -67,10 +68,10 @@ namespace CVBImageProcLibTest.Processing.PixelFilter
       var indexFilter2 = new Mock<IPixelIndexFilter>(MockBehavior.Strict);
       indexFilter2.Setup(i => i.Check(It.IsAny<int>())).Returns(false);
 
-      chain.ValueFilters.Add(valueFilter1.Object);
-      chain.ValueFilters.Add(valueFilter2.Object);
-      chain.IndexFilters.Add(indexFilter1.Object);
-      chain.IndexFilters.Add(indexFilter2.Object);
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter1.Object, true));
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter2.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter1.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter2.Object, true));
 
       // when: checking
       // then: fails
@@ -95,10 +96,10 @@ namespace CVBImageProcLibTest.Processing.PixelFilter
       var indexFilter2 = new Mock<IPixelIndexFilter>(MockBehavior.Strict);
       indexFilter2.Setup(i => i.Check(It.IsAny<int>())).Returns(true);
 
-      chain.ValueFilters.Add(valueFilter1.Object);
-      chain.ValueFilters.Add(valueFilter2.Object);
-      chain.IndexFilters.Add(indexFilter1.Object);
-      chain.IndexFilters.Add(indexFilter2.Object);
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter1.Object, true));
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter2.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter1.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter2.Object, true));
 
       // when: checking
       // then: passes
@@ -123,10 +124,10 @@ namespace CVBImageProcLibTest.Processing.PixelFilter
       var indexFilter2 = new Mock<IPixelIndexFilter>(MockBehavior.Strict);
       indexFilter2.Setup(i => i.Check(It.IsAny<int>())).Returns(false);
 
-      chain.ValueFilters.Add(valueFilter1.Object);
-      chain.ValueFilters.Add(valueFilter2.Object);
-      chain.IndexFilters.Add(indexFilter1.Object);
-      chain.IndexFilters.Add(indexFilter2.Object);
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter1.Object, true));
+      chain.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(valueFilter2.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter1.Object, true));
+      chain.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(indexFilter2.Object, true));
 
       // when: checking
       // then: fails

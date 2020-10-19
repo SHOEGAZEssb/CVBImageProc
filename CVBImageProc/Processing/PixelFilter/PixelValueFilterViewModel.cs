@@ -7,19 +7,14 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// ViewModel for a <see cref="IPixelValueFilter"/>.
   /// </summary>
-  class PixelValueFilterViewModel : ViewModelBase, IPixelFilterViewModel
+  class PixelValueFilterViewModel : PixelFilterViewModelBase
   {
-    #region IPixelFilterViewModel Implementation
+    #region Properties
 
     /// <summary>
     /// The filter.
     /// </summary>
     public IPixelValueFilter Filter { get; }
-
-    /// <summary>
-    /// Name of the filter.
-    /// </summary>
-    public string Name => Filter.Name;
 
     /// <summary>
     /// Byte to compare to.
@@ -48,38 +43,7 @@ namespace CVBImageProc.Processing.PixelFilter
     /// </summary>
     public byte MinCompareByte => Filter.MinCompareByte;
 
-    /// <summary>
-    /// If true, inverts the logic of the filter.
-    /// </summary>
-    public bool Invert
-    {
-      get => Filter.Invert;
-      set
-      {
-        if (Invert != value)
-        {
-          Filter.Invert = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
-
-    /// <summary>
-    /// Event that is fired when one of
-    /// the settings changed.
-    /// </summary>
-    public event EventHandler SettingsChanged;
-
-    /// <summary>
-    /// Fires the <see cref="SettingsChanged"/> event.
-    /// </summary>
-    protected void OnSettingsChanged()
-    {
-      SettingsChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    #endregion IPixelFilterViewModel Implementation
+    #endregion Properties
 
     #region Construction
 
@@ -87,10 +51,12 @@ namespace CVBImageProc.Processing.PixelFilter
     /// Constructor.
     /// </summary>
     /// <param name="filter">The filter.</param>
+    /// <param name="isActive">Active state of the filter.</param>
     /// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
-    public PixelValueFilterViewModel(IPixelValueFilter filter)
+    public PixelValueFilterViewModel(IPixelValueFilter filter, bool isActive)
+      : base(filter, isActive)
     {
-      Filter = filter ?? throw new ArgumentNullException(nameof(filter));
+      Filter = filter;
     }
 
     #endregion Construction
