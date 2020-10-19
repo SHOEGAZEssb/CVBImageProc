@@ -22,14 +22,14 @@ namespace CVBImageProcLib.Processing
   /// Processor that scales an image.
   /// </summary>
   [DataContract]
-  public class Scale : IProcessor
+  public class Resize : IProcessor
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of this processor.
     /// </summary>
-    public string Name => "Scale";
+    public string Name => "Resize";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.

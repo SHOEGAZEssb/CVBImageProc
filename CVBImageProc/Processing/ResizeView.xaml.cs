@@ -5,12 +5,12 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Interaction logic for ScaleView.xaml
   /// </summary>
-  public partial class ScaleView : UserControl
+  public partial class ResizeView : UserControl
   {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleView()
+    public ResizeView()
     {
       InitializeComponent();
     }

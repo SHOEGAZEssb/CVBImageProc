@@ -275,10 +275,10 @@ namespace CVBImageProc.Processing
           return new RGBToMonoViewModel(r, kvp.Value);
         case RGBFactors r:
           return new RGBFactorsViewModel(r, kvp.Value);
+        case Resize r:
+          return new ResizeViewModel(r, kvp.Value);
         case Rotate r:
           return new RotateViewModel(r, kvp.Value);
-        case Scale s:
-          return new ScaleViewModel(s, kvp.Value);
         case Shuffle s:
           return new ShuffleViewModel(s, kvp.Value);
         case Sort s:

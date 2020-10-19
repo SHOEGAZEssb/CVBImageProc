@@ -5,9 +5,9 @@ using System;
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// ViewModel for the <see cref="Scale"/> processor.
+  /// ViewModel for the <see cref="Resize"/> processor.
   /// </summary>
-  class ScaleViewModel : ProcessorViewModel, IHasSettings
+  class ResizeViewModel : ProcessorViewModel, IHasSettings
   {
     #region Properties
 
@@ -75,7 +75,7 @@ namespace CVBImageProc.Processing
     /// <summary>
     /// The processor.
     /// </summary>
-    private readonly Scale _processor;
+    private readonly Resize _processor;
 
     #endregion Member
 
@@ -86,7 +86,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     /// <param name="processor">The processor.</param>
     /// <param name="isActive">Startup IsActive state.</param>
-    public ScaleViewModel(Scale processor, bool isActive)
+    public ResizeViewModel(Resize processor, bool isActive)
       : base(processor, isActive)
     {
       _processor = processor;

@@ -180,10 +180,10 @@
       <DependentUpon>InvertView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\InvertViewModel.cs" />
-    <Compile Include="Processing\ScaleView.xaml.cs">
-      <DependentUpon>ScaleView.xaml</DependentUpon>
+    <Compile Include="Processing\ResizeView.xaml.cs">
+      <DependentUpon>ResizeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Processing\ScaleViewModel.cs" />
+    <Compile Include="Processing\ResizeViewModel.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProviderView.xaml.cs">
       <DependentUpon>ByteValueProviderView.xaml</DependentUpon>
     </Compile>
@@ -348,7 +348,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Processing\ScaleView.xaml">
+    <Page Include="Processing\ResizeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

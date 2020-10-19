@@ -160,11 +160,11 @@
           <DataTemplate DataType="{x:Type local:RGBFactorsViewModel}">
             <local:RGBFactorsView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:ResizeViewModel}">
+            <local:ResizeView/>
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:RotateViewModel}">
             <local:RotateView/>
-          </DataTemplate>
-          <DataTemplate DataType="{x:Type local:ScaleViewModel}">
-            <local:ScaleView/>
           </DataTemplate>
           <DataTemplate DataType="{x:Type local:ShuffleViewModel}">
             <local:ShuffleView/>

@@ -119,7 +119,7 @@
     <Compile Include="Processing\RGBFactors.cs" />
     <Compile Include="Processing\RGBToMono.cs" />
     <Compile Include="Processing\Rotate.cs" />
-    <Compile Include="Processing\Scale.cs" />
+    <Compile Include="Processing\Resize.cs" />
     <Compile Include="Processing\Shuffle.cs" />
     <Compile Include="Processing\Sort.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />
