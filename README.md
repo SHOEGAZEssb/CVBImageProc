@@ -17,11 +17,11 @@ Currently available processors:
 - Mono To Multiplane
 - Pixel Shift
 - Plane Clear
+- Resize
 - Replace
 - RGB Factors
 - RGB To Mono
 - Rotate
-- Scale
 - Shuffle
 - Sort
 
