@@ -25,12 +25,15 @@
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
           <RowDefinition Height="3"/>
           <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Mode:"/>
-        <ComboBox Grid.Row="2" SelectedItem="{Binding Mode}" ItemsSource="{Binding Source={StaticResource SmearModeDataProvider}}"/>
+        <local:PlaneSelectorControl Grid.Row="0"/>
+        <TextBlock Grid.Row="2" Text="Mode:"/>
+        <ComboBox Grid.Row="4" SelectedItem="{Binding Mode}" ItemsSource="{Binding Source={StaticResource SmearModeDataProvider}}"/>
       </Grid>
     </TabItem>
     <TabItem Header="Filter">
