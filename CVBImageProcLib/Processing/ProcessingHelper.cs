@@ -66,6 +66,61 @@ namespace CVBImageProcLib.Processing
         throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
     }
 
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// with the given <paramref name="processorFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="processorFunc">Func that takes a byte, y and x, processes
+    /// it and returns a byte.</param>
+    /// <param name="filterChain">Optional filter chain.</param>
+    public static void ProcessMono(ImagePlane plane, Func<byte, int, int, byte> processorFunc, PixelFilterChain filterChain = null)
+    {
+      ProcessMono(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc, filterChain);
+    }
+
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// in the given <paramref name="bounds"/> with the
+    /// given <paramref name="processorFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="bounds">Bounds defining which pixels to process.</param>
+    /// <param name="processorFunc">Func that takes a byte, x and y, processes
+    /// it and returns a byte.</param>
+    /// <param name="filterChain">Optional filter chain.</param>
+    public static void ProcessMono(ImagePlane plane, ProcessingBounds bounds, Func<byte, int, int, byte> processorFunc, PixelFilterChain filterChain = null)
+    {
+      if (processorFunc == null)
+        throw new ArgumentNullException(nameof(processorFunc));
+
+      if (plane.TryGetLinearAccess(out LinearAccessData data))
+      {
+        var yInc = (int)data.YInc;
+        var xInc = (int)data.XInc;
+        int boundsY = bounds.StartY + bounds.Height;
+        int boundsX = bounds.StartX + bounds.Width;
+        unsafe
+        {
+          var pBase = (byte*)data.BasePtr;
+
+          for (int y = bounds.StartY; y < boundsY; y++)
+          {
+            byte* pLine = pBase + yInc * y;
+
+            for (int x = bounds.StartX; x < boundsX; x++)
+            {
+              byte* pPixel = pLine + xInc * x;
+              if (filterChain?.Check(*pPixel, y * boundsY + x) ?? true)
+                *pPixel = processorFunc.Invoke(*pPixel, y, x);
+            }
+          }
+        }
+      }
+      else
+        throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
+    }
+
     public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, PixelFilterChain filterChain = null)
     {
       return ProcessMonoKernel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds), filterChain);

@@ -63,31 +63,12 @@ namespace CVBImageProcLib.Processing
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
         byte[] inputBytes = inputImage.Planes[i].GetPixels().ToArray();
-        if (newImage.Planes[i].TryGetLinearAccess(out LinearAccessData newData))
+        ProcessingHelper.ProcessMono(newImage.Planes[i], (b, y, x) =>
         {
-          var newXInc = (int)newData.XInc;
-          var newYInc = (int)newData.YInc;
-
-          unsafe
-          {
-            var newPBase = (byte*)newData.BasePtr;
-
-            for (int y = 0; y < newImage.Height; y++)
-            {
-              byte* newPLine = newPBase + newYInc * y;
-              var yUnscaled = (int)(y / scaleY);
-
-              for (int x = 0; x < newImage.Width; x++)
-              {
-                var xUnscaled = (int)(x / scaleX);
-                byte* newPPixel = newPLine + newXInc * x;
-                *newPPixel = inputBytes[yUnscaled * inputImage.Width + xUnscaled];
-              }
-            }
-          }
-        }
-        else
-          throw new ArgumentException($"New image plane {i} could not be accessed linear", nameof(inputImage));
+          var yUnscaled = (int)(y / scaleY);
+          var xUnscaled = (int)(x / scaleX);
+          return inputBytes[yUnscaled * inputImage.Width + xUnscaled];
+        });
       }
 
       return newImage;
@@ -107,39 +88,18 @@ namespace CVBImageProcLib.Processing
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
         byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
-        if (newImage.Planes[i].TryGetLinearAccess(out LinearAccessData newData))
+        ProcessingHelper.ProcessMono(newImage.Planes[i], (b, y, x) =>
         {
-          var newXInc = (int)newData.XInc;
-          var newYInc = (int)newData.YInc;
+          var pY = (int)(scaleY * y);
+          double yDiff = (scaleY * y) - pY;
+          var pX = (int)(scaleX * x);
+          double xDiff = (scaleX * x) - pX;
 
-          unsafe
-          {
-            var newPBase = (byte*)newData.BasePtr;
-
-            for (int y = 0; y < newImage.Height; y++)
-            {
-              int pY = (int)(scaleY * y);
-              double yDiff = (scaleY * y) - pY;
-
-              byte* newPLine = newPBase + newYInc * y;
-
-              for (int x = 0; x < newImage.Width; x++)
-              {
-                int pX = (int)(scaleX * x);
-                double xDiff = (scaleX * x) - pX;
-
-                byte pixel = (byte)(inputBytes[pY, pX] * (1 - xDiff) * (1 - yDiff) +
-                                    inputBytes[pY, pX + 1] * (1 - yDiff) * xDiff +
-                                    inputBytes[pY + 1, pX] * yDiff * (1 - xDiff) +
-                                    inputBytes[pY + 1, pX + 1] * yDiff * xDiff);
-                byte* newPPixel = newPLine + newXInc * x;
-                *newPPixel = pixel;
-              }
-            }
-          }
-        }
-        else
-          throw new ArgumentException($"New image plane {i} could not be accessed linear", nameof(inputImage));
+          return (byte)(inputBytes[pY, pX] * (1 - xDiff) * (1 - yDiff) +
+                        inputBytes[pY, pX + 1] * (1 - yDiff) * xDiff +
+                        inputBytes[pY + 1, pX] * yDiff * (1 - xDiff) +
+                        inputBytes[pY + 1, pX + 1] * yDiff * xDiff);
+        });
       }
 
       return newImage;
