@@ -85,26 +85,22 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// the filter, otherwise false.</returns>
     public bool Check(byte pixel, int index)
     {
-      var valueFilters = ValueFilters.Where(v => v.Value).Select(v => v.Key);
-      var indexFilters = IndexFilters.Where(v => v.Value).Select(v => v.Key);
-      var autoFilters = AutoFilters.Where(v => v.Value).Select(v => v.Key);
-
-      if (valueFilters.Count() == 0 && indexFilters.Count() == 0 && autoFilters.Count() == 0)
+      if (ValueFilters.Count == 0 && IndexFilters.Count == 0 && AutoFilters.Count == 0)
         return true;
 
       if (Mode == LogicMode.And)
       {
-        foreach (var filter in valueFilters)
+        foreach (var filter in ValueFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (!filter.Check(pixel))
             return false;
         }
-        foreach (var filter in indexFilters)
+        foreach (var filter in IndexFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (!filter.Check(index))
             return false;
         }
-        foreach (var filter in autoFilters)
+        foreach (var filter in AutoFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (!filter.Check())
             return false;
@@ -112,17 +108,17 @@ namespace CVBImageProcLib.Processing.PixelFilter
       }
       else
       {
-        foreach (var filter in valueFilters)
+        foreach (var filter in ValueFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (filter.Check(pixel))
             return true;
         }
-        foreach (var filter in indexFilters)
+        foreach (var filter in IndexFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (filter.Check(index))
             return true;
         }
-        foreach (var filter in autoFilters)
+        foreach (var filter in AutoFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (filter.Check())
             return true;
@@ -144,26 +140,22 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// <returns>True if the given pixels meet the filter conditions.</returns>
     public bool Check(byte r, byte g, byte b, int index)
     {
-      var valueFilters = ValueFilters.Where(v => v.Value).Select(v => v.Key);
-      var indexFilters = IndexFilters.Where(v => v.Value).Select(v => v.Key);
-      var autoFilters = AutoFilters.Where(v => v.Value).Select(v => v.Key);
-
-      if (valueFilters.Count() == 0 && indexFilters.Count() == 0 && autoFilters.Count() == 0)
+      if (ValueFilters.Count == 0 && IndexFilters.Count == 0 && AutoFilters.Count == 0)
         return true;
 
       if (Mode == LogicMode.And)
       {
-        foreach (var filter in valueFilters)
+        foreach (var filter in ValueFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (!filter.Check(r) || !filter.Check(g) || !filter.Check(b))
             return false;
         }
-        foreach (var filter in indexFilters)
+        foreach (var filter in IndexFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (!filter.Check(index))
             return false;
         }
-        foreach (var filter in autoFilters)
+        foreach (var filter in AutoFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (!filter.Check())
             return false;
@@ -171,17 +163,17 @@ namespace CVBImageProcLib.Processing.PixelFilter
       }
       else
       {
-        foreach (var filter in valueFilters)
+        foreach (var filter in ValueFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (filter.Check(r) && filter.Check(g) && filter.Check(b))
             return true;
         }
-        foreach (var filter in indexFilters)
+        foreach (var filter in IndexFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (filter.Check(index))
             return true;
         }
-        foreach (var filter in autoFilters)
+        foreach (var filter in AutoFilters.Where(v => v.Value).Select(v => v.Key))
         {
           if (filter.Check())
             return true;
