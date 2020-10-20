@@ -1,6 +1,7 @@
 ﻿using CVBImageProc.ImageSource;
 using CVBImageProc.MVVM;
 using CVBImageProc.Processing;
+using CVBImageProc.Properties;
 using Microsoft.Win32;
 using Stemmer.Cvb;
 using Stemmer.Cvb.Utilities;
@@ -234,8 +235,7 @@ namespace CVBImageProc
     {
       var ofd = new OpenFileDialog
       {
-        //Filter = SystemInfo.ImageFileLoadFormatFilter,
-        //FilterIndex = 7
+        InitialDirectory = Settings.Default.LastLoadPath
       };
 
       if (ofd.ShowDialog() ?? false)
@@ -243,6 +243,7 @@ namespace CVBImageProc
         try
         {
           ImageSourceVM = MakeImageSourceVM(ofd.FileName);
+          Settings.Default.LastLoadPath = Path.GetDirectoryName(ofd.FileName);
         }
         catch (Exception ex)
         {
@@ -268,12 +269,19 @@ namespace CVBImageProc
     /// </summary>
     private void OpenRawFile()
     {
-      var ofd = new OpenFileDialog();
+      var ofd = new OpenFileDialog()
+      {
+        InitialDirectory = Settings.Default.LastRAWLoadPath
+      };
+
       if (ofd.ShowDialog() ?? false)
       {
         var vm = new RawFileImportViewModel(ofd.FileName);
         if (_windowManager.ShowDialog(vm) ?? false)
+        {
           ImageSourceVM = new StaticImageSourceViewModel(new StaticImageSource(vm.ImportedImage));
+          Settings.Default.LastRAWLoadPath = ofd.FileName;
+        }
       }
     }
 
@@ -287,7 +295,8 @@ namespace CVBImageProc
 
       var sfd = new SaveFileDialog
       {
-        Filter = SystemInfo.ImageFileSaveFormatFilter
+        Filter = SystemInfo.ImageFileSaveFormatFilter,
+        InitialDirectory = Settings.Default.LastSavePath
       };
 
       if (sfd.ShowDialog() ?? false)
@@ -295,6 +304,7 @@ namespace CVBImageProc
         try
         {
           OutputImage.Save(sfd.FileName);
+          Settings.Default.LastSavePath = Path.GetDirectoryName(sfd.FileName);
         }
         catch (Exception ex)
         {
@@ -311,12 +321,17 @@ namespace CVBImageProc
       if (OutputImage == null)
         return;
 
-      var sfd = new SaveFileDialog();
+      var sfd = new SaveFileDialog()
+      {
+        InitialDirectory = Settings.Default.LastRAWSavePath
+      };
+
       if (sfd.ShowDialog() ?? false)
       {
         try
         {
           File.WriteAllBytes(sfd.FileName, OutputImage.GetPixels().ToArray());
+          Settings.Default.LastRAWSavePath = sfd.FileName;
         }
         catch (Exception ex)
         {

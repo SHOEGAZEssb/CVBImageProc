@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CVBImageProc.Properties;
+using System.Windows;
 
 namespace CVBImageProc
 {
@@ -13,6 +14,11 @@ namespace CVBImageProc
     public MainWindow()
     {
       InitializeComponent();
+    }
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+      Settings.Default.Save();
     }
   }
 }
