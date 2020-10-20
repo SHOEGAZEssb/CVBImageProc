@@ -121,6 +121,7 @@
     <Compile Include="Processing\Rotate.cs" />
     <Compile Include="Processing\Resize.cs" />
     <Compile Include="Processing\Shuffle.cs" />
+    <Compile Include="Processing\Smear.cs" />
     <Compile Include="Processing\Sort.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />

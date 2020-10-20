@@ -169,6 +169,9 @@
           <DataTemplate DataType="{x:Type local:ShuffleViewModel}">
             <local:ShuffleView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:SmearViewModel}">
+            <local:SmearView/>
+          </DataTemplate>
           <DataTemplate DataType="{x:Type local:SortViewModel}">
             <local:SortView/>
           </DataTemplate>

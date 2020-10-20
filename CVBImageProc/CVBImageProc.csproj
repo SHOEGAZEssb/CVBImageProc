@@ -185,6 +185,10 @@
       <DependentUpon>ResizeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\ResizeViewModel.cs" />
+    <Compile Include="Processing\SmearView.xaml.cs">
+      <DependentUpon>SmearView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\SmearViewModel.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProviderView.xaml.cs">
       <DependentUpon>ByteValueProviderView.xaml</DependentUpon>
     </Compile>
@@ -354,6 +358,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\ShuffleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\SmearView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
