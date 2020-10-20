@@ -1,29 +1,36 @@
 ﻿using CVBImageProcLib.Processing.PixelFilter;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVBImageProc.Processing.PixelFilter
 {
+  /// <summary>
+  /// Base class for pixel filter ViewModels.
+  /// </summary>
   abstract class PixelFilterViewModelBase : SettingsViewModelBase, IPixelFilterViewModel
   {
     #region IPixelFilterViewModel Implementation
 
-    public string Name => _filter.Name;
+    /// <summary>
+    /// The filter.
+    /// </summary>
+    public IPixelFilter Filter { get; }
+
+    /// <summary>
+    /// The name of the Filter
+    /// </summary>
+    public string Name => Filter.Name;
 
     /// <summary>
     /// If true, inverts the logic of the filter.
     /// </summary>
     public bool Invert
     {
-      get => _filter.Invert;
+      get => Filter.Invert;
       set
       {
         if (Invert != value)
         {
-          _filter.Invert = value;
+          Filter.Invert = value;
           OnSettingsChanged();
           NotifyOfPropertyChange();
         }
@@ -35,7 +42,7 @@ namespace CVBImageProc.Processing.PixelFilter
       get => _isActive;
       set
       {
-        if(IsActive != value)
+        if (IsActive != value)
         {
           _isActive = value;
           IsActiveChanged?.Invoke(this, EventArgs.Empty);
@@ -50,17 +57,11 @@ namespace CVBImageProc.Processing.PixelFilter
 
     #endregion IPixelFilterViewModel Implementation
 
-    #region Member
-
-    private readonly IPixelFilter _filter;
-
-    #endregion Member
-
     #region Construction
 
     protected PixelFilterViewModelBase(IPixelFilter filter, bool isActive)
     {
-      _filter = filter ?? throw new ArgumentNullException(nameof(filter));
+      Filter = filter ?? throw new ArgumentNullException(nameof(filter));
       _isActive = isActive;
     }
 

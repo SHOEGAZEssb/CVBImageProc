@@ -7,9 +7,5 @@ namespace CVBImageProc.Processing.PixelFilter
   /// </summary>
   interface IPixelAutoFilterViewModel : IPixelFilterViewModel
   {
-    /// <summary>
-    /// The filter.
-    /// </summary>
-    IPixelAutoFilter Filter { get; }
   }
 }

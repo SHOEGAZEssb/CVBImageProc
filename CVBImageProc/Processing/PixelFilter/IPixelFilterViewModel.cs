@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVBImageProcLib.Processing.PixelFilter;
+using System;
 using System.ComponentModel;
 
 namespace CVBImageProc.Processing.PixelFilter
@@ -8,6 +9,11 @@ namespace CVBImageProc.Processing.PixelFilter
   /// </summary>
   interface IPixelFilterViewModel : INotifyPropertyChanged, IHasSettings
   {
+    /// <summary>
+    /// The filter.
+    /// </summary>
+    IPixelFilter Filter { get; }
+
     /// <summary>
     /// Name of the filter.
     /// </summary>

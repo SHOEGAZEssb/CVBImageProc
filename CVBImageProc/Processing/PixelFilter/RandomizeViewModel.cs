@@ -12,12 +12,6 @@ namespace CVBImageProc.Processing.PixelFilter
     #region Properties
 
     /// <summary>
-    /// The filter.
-    /// </summary>
-    public IPixelAutoFilter Filter => _filter;
-    private readonly Randomize _filter;
-
-    /// <summary>
     /// Chance that the check passes.
     /// </summary>
     public double Chance
@@ -35,6 +29,15 @@ namespace CVBImageProc.Processing.PixelFilter
     }
 
     #endregion Properties
+
+    #region Member
+
+    /// <summary>
+    /// The filter.
+    /// </summary>
+    private readonly Randomize _filter;
+
+    #endregion Member
 
     #region Construction
 

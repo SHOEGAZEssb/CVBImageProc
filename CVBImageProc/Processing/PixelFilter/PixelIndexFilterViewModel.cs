@@ -12,21 +12,16 @@ namespace CVBImageProc.Processing.PixelFilter
     #region Properties
 
     /// <summary>
-    /// The filter.
-    /// </summary>
-    public IPixelIndexFilter Filter { get; }
-
-    /// <summary>
     /// Index value to compare to.
     /// </summary>
     public int CompareValue
     {
-      get => Filter.CompareValue;
+      get => _filter.CompareValue;
       set
       {
         if (CompareValue != value)
         {
-          Filter.CompareValue = value;
+          _filter.CompareValue = value;
           OnSettingsChanged();
           NotifyOfPropertyChange();
         }
@@ -36,9 +31,18 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// Minimum index value to compare to.
     /// </summary>
-    public int MinCompareValue => Filter.MinCompareValue;
+    public int MinCompareValue => _filter.MinCompareValue;
 
     #endregion Properties
+
+    #region Member
+
+    /// <summary>
+    /// The filter.
+    /// </summary>
+    private readonly IPixelIndexFilter _filter;
+
+    #endregion Member
 
     #region Construction
 
@@ -51,7 +55,7 @@ namespace CVBImageProc.Processing.PixelFilter
     public PixelIndexFilterViewModel(IPixelIndexFilter filter, bool isActive)
       : base(filter, isActive)
     {
-      Filter = filter;
+      _filter = filter;
     }
 
     #endregion Construction

@@ -12,21 +12,16 @@ namespace CVBImageProc.Processing.PixelFilter
     #region Properties
 
     /// <summary>
-    /// The filter.
-    /// </summary>
-    public IPixelValueFilter Filter { get; }
-
-    /// <summary>
     /// Byte to compare to.
     /// </summary>
     public byte CompareByte
     {
-      get => Filter.CompareByte;
+      get => _filter.CompareByte;
       set
       {
         if (CompareByte != value)
         {
-          Filter.CompareByte = value;
+          _filter.CompareByte = value;
           NotifyOfPropertyChange();
           OnSettingsChanged();
         }
@@ -36,14 +31,23 @@ namespace CVBImageProc.Processing.PixelFilter
     /// <summary>
     /// Max value of the <see cref="CompareByte"/>.
     /// </summary>
-    public byte MaxCompareByte => Filter.MaxCompareByte;
+    public byte MaxCompareByte => _filter.MaxCompareByte;
 
     /// <summary>
     /// Min value of the <see cref="CompareByte"/>.
     /// </summary>
-    public byte MinCompareByte => Filter.MinCompareByte;
+    public byte MinCompareByte => _filter.MinCompareByte;
 
     #endregion Properties
+
+    #region Member
+
+    /// <summary>
+    /// The filter.
+    /// </summary>
+    private readonly IPixelValueFilter _filter;
+
+    #endregion Member
 
     #region Construction
 
@@ -56,7 +60,7 @@ namespace CVBImageProc.Processing.PixelFilter
     public PixelValueFilterViewModel(IPixelValueFilter filter, bool isActive)
       : base(filter, isActive)
     {
-      Filter = filter;
+      _filter = filter;
     }
 
     #endregion Construction

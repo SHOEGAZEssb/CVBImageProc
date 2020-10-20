@@ -145,14 +145,7 @@ namespace CVBImageProc.Processing.PixelFilter
 
       // add to model
       var filter = (IPixelFilter)SelectedFilterType.Instanciate();
-      if (filter is IPixelValueFilter vf)
-        _processor.PixelFilter.ValueFilters.Add(new KeyValuePair<IPixelValueFilter, bool>(vf, true));
-      else if (filter is IPixelIndexFilter inf)
-        _processor.PixelFilter.IndexFilters.Add(new KeyValuePair<IPixelIndexFilter, bool>(inf, true));
-      else if (filter is IPixelAutoFilter auto)
-        _processor.PixelFilter.AutoFilters.Add(new KeyValuePair<IPixelAutoFilter, bool>(auto, true));
-      else
-        return;
+      _processor.PixelFilter.AddPixelFilter(filter);
 
       // add to vm
       Filters.Add(CreatePixelFilterViewModel(new KeyValuePair<IPixelFilter, bool>(filter, true)));
@@ -191,24 +184,7 @@ namespace CVBImageProc.Processing.PixelFilter
         return;
 
       // remove from model
-      var pfc = _processor.PixelFilter;
-      if (SelectedFilter is PixelValueFilterViewModel pvf)
-      {
-        int index = pfc.ValueFilters.IndexOf(pfc.ValueFilters.First(kvp => kvp.Key == pvf.Filter));
-        pfc.ValueFilters.RemoveAt(index);
-      }
-      else if (SelectedFilter is PixelIndexFilterViewModel pif)
-      {
-        int index = pfc.IndexFilters.IndexOf(pfc.IndexFilters.First(kvp => kvp.Key == pif.Filter));
-        pfc.IndexFilters.RemoveAt(index);
-      }
-      else if (SelectedFilter is IPixelAutoFilterViewModel paf)
-      {
-        int index = pfc.AutoFilters.IndexOf(pfc.AutoFilters.First(kvp => kvp.Key == paf.Filter));
-        pfc.AutoFilters.RemoveAt(index);
-      }
-      else
-        return;
+      _processor.PixelFilter.RemovePixelFilter(SelectedFilter.Filter);
 
       // remove from vm
       Filters.Remove(SelectedFilter);
@@ -263,22 +239,7 @@ namespace CVBImageProc.Processing.PixelFilter
       if (!(sender is IPixelFilterViewModel vm))
         return;
 
-      var pfc = _processor.PixelFilter;
-      if (vm is PixelValueFilterViewModel pvf)
-      {
-        int index = pfc.ValueFilters.IndexOf(pfc.ValueFilters.First(kvp => kvp.Key == pvf.Filter));
-        pfc.ValueFilters[index] = new KeyValuePair<IPixelValueFilter, bool>(pvf.Filter, pvf.IsActive);
-      }
-      else if (vm is PixelIndexFilterViewModel pif)
-      {
-        int index = pfc.IndexFilters.IndexOf(pfc.IndexFilters.First(kvp => kvp.Key == pif.Filter));
-        pfc.IndexFilters[index] = new KeyValuePair<IPixelIndexFilter, bool>(pif.Filter, pif.IsActive);
-      }
-      else if (vm is IPixelAutoFilterViewModel paf)
-      {
-        int index = pfc.AutoFilters.IndexOf(pfc.AutoFilters.First(kvp => kvp.Key == paf.Filter));
-        pfc.AutoFilters[index] = new KeyValuePair<IPixelAutoFilter, bool>(paf.Filter, paf.IsActive);
-      }
+      _processor.PixelFilter.SetIsActiveState(vm.Filter, vm.IsActive);
     }
   }
 }
