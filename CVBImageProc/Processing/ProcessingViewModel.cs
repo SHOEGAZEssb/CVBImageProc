@@ -281,6 +281,8 @@ namespace CVBImageProc.Processing
           return new RotateViewModel(r, kvp.Value);
         case Shuffle s:
           return new ShuffleViewModel(s, kvp.Value);
+        case Smear s:
+          return new SmearViewModel(s, kvp.Value);
         case Sort s:
           return new SortViewModel(s, kvp.Value);
         default:
