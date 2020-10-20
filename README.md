@@ -2,7 +2,7 @@
 Tool for image editing using the [Common Vision Blox](https://www.commonvisionblox.com/en/) image processing SDK.
 
 ## Running
-To run this software you will need to [download and install Common Vision Blox](https://forum.commonvisionblox.com/c/downloads/5)
+To run this software you will need to [download and install Common Vision Blox](https://forum.commonvisionblox.com/c/downloads/5).
 
 ## Processors
 Image editing is done by building a processor chain, each processor applying a different edit to the image.
@@ -23,6 +23,7 @@ Currently available processors:
 - RGB To Mono
 - Rotate
 - Shuffle
+- Smear
 - Sort
 
 ### Pixel Filter
