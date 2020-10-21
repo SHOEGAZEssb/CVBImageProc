@@ -1,7 +1,6 @@
 ﻿using CVBImageProcLib.Processing.PixelFilter;
 using Moq;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace CVBImageProcLibTest.Processing.PixelFilter
 {

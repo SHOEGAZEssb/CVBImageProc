@@ -21,11 +21,9 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnitLite;
-
 namespace NUnitLite.Tests
 {
-    public static class Program
+  public static class Program
     {
         /// <summary>
         /// The main program executes the tests. Output may be routed to

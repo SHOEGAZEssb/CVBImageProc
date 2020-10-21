@@ -1,6 +1,4 @@
-﻿using CVBImageProc.Processing.Filter;
-using CVBImageProc.Processing.PixelFilter;
-using Stemmer.Cvb;
+﻿using Stemmer.Cvb;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,4 @@
 ﻿using CVBImageProcLib.Processing;
-using Stemmer.Cvb;
 using System;
 
 namespace CVBImageProc.Processing
