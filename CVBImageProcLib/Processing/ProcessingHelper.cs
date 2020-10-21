@@ -323,7 +323,7 @@ namespace CVBImageProcLib.Processing
                     continue;
 
                   byte* pPixel = pKLine + kColumn * xInc;
-                  if (filterChain?.Check(*pPixel, y * boundsY + x) ?? true)
+                  if (filterChain.Check(*pPixel, y * boundsY + x))
                     kernelValues[kernelCounter] = *pPixel;
                 }
               }
