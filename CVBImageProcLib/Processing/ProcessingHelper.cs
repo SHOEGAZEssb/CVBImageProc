@@ -263,13 +263,21 @@ namespace CVBImageProcLib.Processing
 
     #region ProcessMonoKernel
 
-    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, PixelFilterChain filterChain = null)
+    #region ProcessMonoKernel B+FC
+
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, PixelFilterChain filterChain)
     {
-      return ProcessMonoKernel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds), filterChain);
+      if (filterChain == null || !filterChain.HasActiveFilter)
+        return ProcessMonoKernel(plane, processingFunc, kernel);
+      else
+        return ProcessMonoKernel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds), filterChain);
     }
 
-    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, ProcessingBounds bounds, PixelFilterChain filterChain = null)
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, ProcessingBounds bounds, PixelFilterChain filterChain)
     {
+      if (filterChain == null || !filterChain.HasActiveFilter)
+        return ProcessMonoKernel(plane, processingFunc, kernel, bounds);
+
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
         var newImage = Image.FromPlanes(MappingOption.CopyPixels, plane);
@@ -338,6 +346,86 @@ namespace CVBImageProcLib.Processing
         throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
     }
 
+    #endregion ProcessMonoKernel B+FC
+
+    #region ProcessMonoKernel B
+
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel)
+    {
+      return ProcessMonoKernel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds));
+    }
+
+    public static ImagePlane ProcessMonoKernel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, ProcessingBounds bounds)
+    {
+      if (plane.TryGetLinearAccess(out LinearAccessData data))
+      {
+        var newImage = Image.FromPlanes(MappingOption.CopyPixels, plane);
+        var newData = newImage.Planes[0].GetLinearAccess();
+        var yInc = (int)data.YInc;
+        var xInc = (int)data.XInc;
+        var newYInc = (int)newData.YInc;
+        var newXInc = (int)newData.XInc;
+
+        int boundHeight = plane.Parent.Height - 1;
+        int boundWidth = plane.Parent.Width - 1;
+        int boundsY = bounds.StartY + bounds.Height;
+        int boundsX = bounds.StartX + bounds.Width;
+
+        int kernelSize = kernel.GetKernelNumber();
+        int kernelArrSize = kernelSize * kernelSize;
+        var kernelFac = (int)System.Math.Floor(kernelSize / 2.0);
+        int kernelCounter = -1;
+
+        unsafe
+        {
+          var pBase = (byte*)data.BasePtr;
+          var pBaseNew = (byte*)newData.BasePtr;
+
+          for (int y = bounds.StartY; y < boundsY; y++)
+          {
+            var kernelValues = new byte?[kernelArrSize];
+            var pLine = pBase + y * yInc;
+            int newLineInc = newYInc * y;
+
+            for (int x = bounds.StartX; x < boundsX; x++)
+            {
+              var pMiddle = pLine + xInc * x;
+              for (int kRow = -kernelFac; kRow <= kernelFac; kRow++)
+              {
+                byte* pKLine = pMiddle + kRow * yInc;
+                int yKRow = y + kRow;
+                for (int kColumn = -kernelFac; kColumn <= kernelFac; kColumn++)
+                {
+                  kernelCounter++;
+                  int xKColumn = x + kColumn;
+                  if (yKRow < 0 || yKRow > boundHeight || xKColumn < 0 || xKColumn > boundWidth)
+                    continue;
+
+                  byte* pPixel = pKLine + kColumn * xInc;
+                  kernelValues[kernelCounter] = *pPixel;
+                }
+              }
+
+              if (kernelValues.Any(b => b.HasValue))
+              {
+                var pTargetLine = pBaseNew + newLineInc;
+                var pTargetPixel = pTargetLine + newXInc * x; // current "middle pixel" in the target image
+                *pTargetPixel = processingFunc.Invoke(kernelValues);
+              }
+
+              kernelCounter = -1;
+            }
+          }
+        }
+
+        return newImage.Planes[0];
+      }
+      else
+        throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
+    }
+
+    #endregion ProcessMonoKernel B
+
     #endregion ProcessMonoKernel
 
     #region ProcessRGB
@@ -372,7 +460,7 @@ namespace CVBImageProcLib.Processing
     /// <param name="filterChain">Optional filter chain.</param>
     public static void ProcessRGB(Image img, Func<RGBPixel, RGBPixel> processingFunc, ProcessingBounds bounds, PixelFilterChain filterChain)
     {
-      if(filterChain == null || !filterChain.HasActiveFilter)
+      if (filterChain == null || !filterChain.HasActiveFilter)
       {
         ProcessRGB(img, processingFunc, bounds);
         return;
