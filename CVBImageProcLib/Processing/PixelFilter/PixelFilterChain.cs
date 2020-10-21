@@ -30,6 +30,11 @@ namespace CVBImageProcLib.Processing.PixelFilter
     #region Properties
 
     /// <summary>
+    /// Gets if the filter chain has any active filter.
+    /// </summary>
+    public bool HasActiveFilter => _activeValueFilter.Any() || _activeIndexFilter.Any() | _activeAutoFilter.Any();
+
+    /// <summary>
     /// Logic used when checking.
     /// </summary>
     [DataMember]
