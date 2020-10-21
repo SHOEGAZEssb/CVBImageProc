@@ -352,7 +352,7 @@ namespace CVBImageProcLib.Processing
     /// <param name="processingFunc">Processing function to process
     /// the <paramref name="img"/> with.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc, PixelFilterChain filterChain)
+    public static void ProcessRGB(Image img, Func<RGBPixel, RGBPixel> processingFunc, PixelFilterChain filterChain)
     {
       if (filterChain == null || !filterChain.HasActiveFilter)
         ProcessRGB(img, processingFunc);
@@ -370,7 +370,7 @@ namespace CVBImageProcLib.Processing
     /// the <paramref name="img"/> with.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc, ProcessingBounds bounds, PixelFilterChain filterChain)
+    public static void ProcessRGB(Image img, Func<RGBPixel, RGBPixel> processingFunc, ProcessingBounds bounds, PixelFilterChain filterChain)
     {
       if(filterChain == null || !filterChain.HasActiveFilter)
       {
@@ -417,10 +417,10 @@ namespace CVBImageProcLib.Processing
 
               if (filterChain.Check(*rPixel, *gPixel, *bPixel, y * boundsY + x))
               {
-                var result = processingFunc.Invoke(new Tuple<byte, byte, byte>(*rPixel, *gPixel, *bPixel));
-                *rPixel = result.Item1;
-                *gPixel = result.Item2;
-                *bPixel = result.Item3;
+                var result = processingFunc.Invoke(new RGBPixel(*rPixel, *gPixel, *bPixel));
+                *rPixel = result.R;
+                *gPixel = result.G;
+                *bPixel = result.B;
               }
             }
           }
@@ -442,7 +442,7 @@ namespace CVBImageProcLib.Processing
     /// <param name="processingFunc">Processing function to process
     /// the <paramref name="img"/> with.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc)
+    public static void ProcessRGB(Image img, Func<RGBPixel, RGBPixel> processingFunc)
     {
       ProcessRGB(img, processingFunc, new ProcessingBounds(img.Bounds));
     }
@@ -457,7 +457,7 @@ namespace CVBImageProcLib.Processing
     /// the <paramref name="img"/> with.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessRGB(Image img, Func<Tuple<byte, byte, byte>, Tuple<byte, byte, byte>> processingFunc, ProcessingBounds bounds)
+    public static void ProcessRGB(Image img, Func<RGBPixel, RGBPixel> processingFunc, ProcessingBounds bounds)
     {
       if (img == null)
         throw new ArgumentNullException(nameof(img));
@@ -497,10 +497,10 @@ namespace CVBImageProcLib.Processing
               byte* gPixel = gLine + gXInc * x;
               byte* bPixel = bLine + bXInc * x;
 
-              var result = processingFunc.Invoke(new Tuple<byte, byte, byte>(*rPixel, *gPixel, *bPixel));
-              *rPixel = result.Item1;
-              *gPixel = result.Item2;
-              *bPixel = result.Item3;
+              var result = processingFunc.Invoke(new RGBPixel(*rPixel, *gPixel, *bPixel));
+              *rPixel = result.R;
+              *gPixel = result.G;
+              *bPixel = result.B;
             }
           }
         }

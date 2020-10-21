@@ -89,7 +89,7 @@ namespace CVBImageProcLib
         byte r = rawBytes.Any() ? rawBytes.Dequeue() : fill;
         byte g = rawBytes.Any() ? rawBytes.Dequeue() : fill;
         byte b = rawBytes.Any() ? rawBytes.Dequeue() : fill;
-        return new Tuple<byte, byte, byte>(r, g, b);
+        return new RGBPixel(r, g, b);
       });
     }
 
