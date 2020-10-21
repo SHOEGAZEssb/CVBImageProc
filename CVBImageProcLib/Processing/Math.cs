@@ -56,9 +56,11 @@ namespace CVBImageProcLib.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      Func<int, byte, byte> calculationFunc = MakeCalculationFunc(Mode, WrapAround);
+
       ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
       {
-        return CalculateValue(ValueProvider.Provide(), b);
+        return calculationFunc(ValueProvider.Provide(), b);
       }, PixelFilter);
 
       return inputImage;
@@ -126,40 +128,53 @@ namespace CVBImageProcLib.Processing
 
     #endregion Properties
 
-    private byte CalculateValue(int providedValue, byte value)
+    private static Func<int, byte, byte> MakeCalculationFunc(MathMode mode, bool wrapAround)
     {
-      int calculatedValue;
-      switch (Mode)
+      Func<int, byte> wrapAroundFunc = MakeWrapAroundFunc(wrapAround);
+      Func<int, byte, byte> calculationFunc;
+      switch (mode)
       {
         case MathMode.Add:
-          calculatedValue = value + providedValue;
+          calculationFunc = (providedValue, inputByte) => wrapAroundFunc(inputByte + providedValue);
           break;
         case MathMode.Subtract:
-          calculatedValue = value - providedValue;
+          calculationFunc = (providedValue, inputByte) => wrapAroundFunc(inputByte - providedValue);
           break;
         case MathMode.Divide:
-          if (providedValue == 0)
-            calculatedValue = value;
-          else
-            calculatedValue = value / providedValue;
-
+          calculationFunc = (providedValue, inputByte) =>
+          {
+            if (providedValue == 0)
+              return inputByte;
+            else
+              return wrapAroundFunc(inputByte / providedValue);
+          };
           break;
         case MathMode.Multiply:
-          calculatedValue = value * providedValue;
+          calculationFunc = (providedValue, inputByte) => wrapAroundFunc(inputByte * providedValue);
           break;
         default:
           throw new ArgumentException("Unknown math mode");
       }
 
-      if (WrapAround)
-      {
-        if (calculatedValue > 255)
-          calculatedValue = 255;
-        else if (calculatedValue < 0)
-          calculatedValue = 0;
-      }
+      return calculationFunc;
+    }
 
-      return (byte)calculatedValue;
+    private static Func<int, byte> MakeWrapAroundFunc(bool wrapAround)
+    {
+      if (wrapAround)
+      {
+        return (calculatedValue) =>
+        {
+          if (calculatedValue > 255)
+            return 255;
+          else if (calculatedValue < 0)
+            return 0;
+          else
+            return (byte)calculatedValue;
+        };
+      }
+      else
+        return (calculatedValue) => (byte)calculatedValue;
     }
   }
 }
