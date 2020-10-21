@@ -62,12 +62,12 @@ namespace CVBImageProcLib.Processing
       double scaleY = NewSize.Height / (double)inputImage.Height;
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
-        byte[] inputBytes = inputImage.Planes[i].GetPixels().ToArray();
+        byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
         ProcessingHelper.ProcessMono(newImage.Planes[i], (b, y, x) =>
         {
           var yUnscaled = (int)(y / scaleY);
           var xUnscaled = (int)(x / scaleX);
-          return inputBytes[yUnscaled * inputImage.Width + xUnscaled];
+          return inputBytes[yUnscaled, xUnscaled];
         });
       }
 
@@ -83,8 +83,8 @@ namespace CVBImageProcLib.Processing
     {
       var newImage = new Image(NewSize, inputImage.Planes.Count);
 
-      double scaleX = (double)(inputImage.Width - 1) / (NewSize.Width);
-      double scaleY = (double)(inputImage.Height - 1) / (NewSize.Height);
+      double scaleX = (double)(inputImage.Width - 1) / NewSize.Width;
+      double scaleY = (double)(inputImage.Height - 1) / NewSize.Height;
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
         byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
