@@ -122,6 +122,9 @@
     <Compile Include="Processing\Rotate.cs" />
     <Compile Include="Processing\Resize.cs" />
     <Compile Include="Processing\Shuffle.cs" />
+    <Compile Include="Processing\SizeCalculator\FreeSizeCalculator.cs" />
+    <Compile Include="Processing\SizeCalculator\ISizeCalculator.cs" />
+    <Compile Include="Processing\SizeCalculator\PercentageSizeCalculator.cs" />
     <Compile Include="Processing\Smear.cs" />
     <Compile Include="Processing\Sort.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />

@@ -1,6 +1,11 @@
-﻿using CVBImageProcLib.Processing;
-using Stemmer.Cvb;
+﻿using CVBImageProc.MVVM;
+using CVBImageProc.Processing.SizeCalculator;
+using CVBImageProcLib.Processing;
+using CVBImageProcLib.Processing.SizeCalculator;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace CVBImageProc.Processing
 {
@@ -17,39 +22,43 @@ namespace CVBImageProc.Processing
     /// </summary>
     public event EventHandler SettingsChanged;
 
-    /// <summary>
-    /// Target width.
-    /// </summary>
-    public int NewWidth
-    {
-      get => _processor.NewSize.Width;
-      set
-      {
-        if (NewWidth != value)
-        {
-          _processor.NewSize = new Size2D(value, _processor.NewSize.Height);
-          NotifyOfPropertyChange();
-          SettingsChanged?.Invoke(this, EventArgs.Empty);
-        }
-      }
-    }
+    public static IEnumerable<TypeViewModel> AvailableSizeCalculators { get; }
 
-    /// <summary>
-    /// Target height.
-    /// </summary>
-    public int NewHeight
+    public TypeViewModel SelectedSizeCalculatorType
     {
-      get => _processor.NewSize.Height;
+      get => _selectedSizeCalculatorType;
       set
       {
-        if (NewHeight != value)
+        if (SelectedSizeCalculatorType != value)
         {
-          _processor.NewSize = new Size2D(_processor.NewSize.Width, value);
+          _selectedSizeCalculatorType = value;
+          NotifyOfPropertyChange();
+          SelectedSizeCalculator = MakeSizeCalculatorViewModel((ISizeCalculator)SelectedSizeCalculatorType.Instanciate());
+        }
+      }
+    }
+    private TypeViewModel _selectedSizeCalculatorType;
+
+    public SizeCalculatorViewModelBase SelectedSizeCalculator
+    {
+      get => _selectedSizeCalculator;
+      set
+      {
+        if (SelectedSizeCalculator != value)
+        {
+          if (SelectedSizeCalculator != null)
+            SelectedSizeCalculator.SettingsChanged -= SelectedSizeCalculator_SettingsChanged;
+
+          _selectedSizeCalculator = value;
+          if (SelectedSizeCalculator != null)
+            SelectedSizeCalculator.SettingsChanged += SelectedSizeCalculator_SettingsChanged;
+          _processor.SizeCalculator = SelectedSizeCalculator.SizeCalculator;
           NotifyOfPropertyChange();
           SettingsChanged?.Invoke(this, EventArgs.Empty);
         }
       }
     }
+    private SizeCalculatorViewModelBase _selectedSizeCalculator;
 
     /// <summary>
     /// Algorithm to use for scaling.
@@ -59,7 +68,7 @@ namespace CVBImageProc.Processing
       get => _processor.Mode;
       set
       {
-        if(Mode != value)
+        if (Mode != value)
         {
           _processor.Mode = value;
           NotifyOfPropertyChange();
@@ -82,6 +91,16 @@ namespace CVBImageProc.Processing
     #region Construction
 
     /// <summary>
+    /// Static constructor.
+    /// </summary>
+    static ResizeViewModel()
+    {
+      AvailableSizeCalculators = Assembly.GetAssembly(typeof(ISizeCalculator)).GetTypes()
+                            .Where(mytype => mytype.GetInterfaces().Contains(typeof(ISizeCalculator)) && !mytype.IsInterface && !mytype.IsAbstract)
+                            .Select(i => new TypeViewModel(i)).OrderBy(t => t.Name).ToArray();
+    }
+
+    /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="processor">The processor.</param>
@@ -90,8 +109,28 @@ namespace CVBImageProc.Processing
       : base(processor, isActive)
     {
       _processor = processor;
+      _selectedSizeCalculatorType = AvailableSizeCalculators.First(t => t.Type == _processor.SizeCalculator.GetType());
+      SelectedSizeCalculator = MakeSizeCalculatorViewModel(_processor.SizeCalculator);
     }
 
     #endregion Construction
+
+    private static SizeCalculatorViewModelBase MakeSizeCalculatorViewModel(ISizeCalculator sizeCalculator)
+    {
+      switch (sizeCalculator)
+      {
+        case FreeSizeCalculator f:
+          return new FreeSizeCalculatorViewModel(f);
+        case PercentageSizeCalculator p:
+          return new PercentageSizeCalculatorViewModel(p);
+        default:
+          throw new ArgumentException("Unknown size calculator", nameof(sizeCalculator));
+      }
+    }
+
+    private void SelectedSizeCalculator_SettingsChanged(object sender, EventArgs e)
+    {
+      SettingsChanged?.Invoke(this, EventArgs.Empty);
+    }
   }
 }

@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProcLib.Processing.SizeCalculator;
+using Stemmer.Cvb;
 using System;
 using System.Runtime.Serialization;
 
@@ -40,10 +41,12 @@ namespace CVBImageProcLib.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      var newSize = SizeCalculator.GetCalculatedSize(inputImage);
+
       if (Mode == ScaleMode.NearestNeighbor)
-        return ProcessNearestNeighbor(inputImage);
+        return ProcessNearestNeighbor(inputImage, newSize);
       else if (Mode == ScaleMode.Bilinear)
-        return ProcessBiliniar(inputImage);
+        return ProcessBiliniar(inputImage, newSize);
       else
         throw new ArgumentException("Unknown scale mode");
     }
@@ -52,13 +55,14 @@ namespace CVBImageProcLib.Processing
     /// Scales the image using nearest neighbor interpolation.
     /// </summary>
     /// <param name="inputImage">Image to scale.</param>
+    /// <param name="newSize">Size to resize to.</param>
     /// <returns>Scaled image.</returns>
-    private Image ProcessNearestNeighbor(Image inputImage)
+    private static Image ProcessNearestNeighbor(Image inputImage, Size2D newSize)
     {
-      var newImage = new Image(NewSize, inputImage.Planes.Count);
+      var newImage = new Image(newSize, inputImage.Planes.Count);
 
-      double scaleX = NewSize.Width / (double)inputImage.Width;
-      double scaleY = NewSize.Height / (double)inputImage.Height;
+      double scaleX = newSize.Width / (double)inputImage.Width;
+      double scaleY = newSize.Height / (double)inputImage.Height;
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
         byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
@@ -77,13 +81,14 @@ namespace CVBImageProcLib.Processing
     /// Scales the image using bilinear interpolation.
     /// </summary>
     /// <param name="inputImage">Image to scale.</param>
+    /// <param name="newSize">Size to resize to.</param>
     /// <returns>Scaled image.</returns>
-    private Image ProcessBiliniar(Image inputImage)
+    private Image ProcessBiliniar(Image inputImage, Size2D newSize)
     {
-      var newImage = new Image(NewSize, inputImage.Planes.Count);
+      var newImage = new Image(newSize, inputImage.Planes.Count);
 
-      double scaleX = (double)(inputImage.Width - 1) / NewSize.Width;
-      double scaleY = (double)(inputImage.Height - 1) / NewSize.Height;
+      double scaleX = (double)(inputImage.Width - 1) / newSize.Width;
+      double scaleY = (double)(inputImage.Height - 1) / newSize.Height;
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
         byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
@@ -112,7 +117,7 @@ namespace CVBImageProcLib.Processing
     /// Size to scale input image to.
     /// </summary>
     [DataMember]
-    public Size2D NewSize { get; set; } = new Size2D(1, 1);
+    public ISizeCalculator SizeCalculator { get; set; } = new PercentageSizeCalculator();
 
     /// <summary>
     /// The algorithm to use for scaling.

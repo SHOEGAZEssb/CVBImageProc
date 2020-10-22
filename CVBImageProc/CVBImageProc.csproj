@@ -185,6 +185,15 @@
       <DependentUpon>ResizeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\ResizeViewModel.cs" />
+    <Compile Include="Processing\SizeCalculator\FreeSizeCalculatorView.xaml.cs">
+      <DependentUpon>FreeSizeCalculatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\SizeCalculator\FreeSizeCalculatorViewModel.cs" />
+    <Compile Include="Processing\SizeCalculator\PercentageSizeCalculatorView.xaml.cs">
+      <DependentUpon>PercentageSizeCalculatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\SizeCalculator\PercentageSizeCalculatorViewModel.cs" />
+    <Compile Include="Processing\SizeCalculator\SizeCalculatorViewModelBase.cs" />
     <Compile Include="Processing\SmearView.xaml.cs">
       <DependentUpon>SmearView.xaml</DependentUpon>
     </Compile>
@@ -358,6 +367,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\ShuffleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\SizeCalculator\FreeSizeCalculatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\SizeCalculator\PercentageSizeCalculatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
