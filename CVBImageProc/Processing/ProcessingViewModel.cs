@@ -150,6 +150,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     private Type[] GetSerializerTypes => AvailableProcessors.Select(p => p.Type).Concat(PixelFilter.PixelFilterChainViewModel.AvailableFilter
                                                                                 .Concat(FilterViewModel.AvailableFilterTypes)
+                                                                                .Concat(ResizeViewModel.AvailableSizeCalculators)
                                                             .Select(p => p.Type)).ToArray();
 
     #endregion Member

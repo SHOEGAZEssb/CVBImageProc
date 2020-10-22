@@ -1,22 +1,23 @@
 ﻿using CVBImageProcLib.Processing.SizeCalculator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVBImageProc.Processing.SizeCalculator
 {
+  /// <summary>
+  /// ViewModel for the <see cref="FreeSizeCalculator"/>.
+  /// </summary>
   class FreeSizeCalculatorViewModel : SizeCalculatorViewModelBase
   {
     #region Properties
 
+    /// <summary>
+    /// The new width of the size.
+    /// </summary>
     public int Width
     {
       get => _sizeCalculator.Width;
       set
       {
-        if(Width != value)
+        if (Width != value)
         {
           _sizeCalculator.Width = value;
           NotifyOfPropertyChange();
@@ -25,12 +26,15 @@ namespace CVBImageProc.Processing.SizeCalculator
       }
     }
 
+    /// <summary>
+    /// The new height of the size.
+    /// </summary>
     public int Height
     {
       get => _sizeCalculator.Height;
       set
       {
-        if (Width != value)
+        if (Height != value)
         {
           _sizeCalculator.Height = value;
           NotifyOfPropertyChange();
@@ -43,12 +47,19 @@ namespace CVBImageProc.Processing.SizeCalculator
 
     #region Member
 
+    /// <summary>
+    /// The size calculator.
+    /// </summary>
     private readonly FreeSizeCalculator _sizeCalculator;
 
     #endregion Member
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="sizeCalculator">The size calculator.</param>
     public FreeSizeCalculatorViewModel(FreeSizeCalculator sizeCalculator)
       : base(sizeCalculator)
     {

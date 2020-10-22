@@ -46,7 +46,15 @@ namespace CVBImageProcLib.Processing.SizeCalculator
       if (img == null)
         throw new ArgumentNullException(nameof(img));
 
-      return new Size2D((int)(img.Width * Percentage), (int)(img.Height * Percentage));
+      int width = (int)(img.Width * Percentage);
+      int height = (int)(img.Height * Percentage);
+
+      if (width < 1)
+        width = 1;
+      if (height < 1)
+        height = 1;
+
+      return new Size2D(width, height);
     }
 
     #endregion ISizeCalculator Implementation

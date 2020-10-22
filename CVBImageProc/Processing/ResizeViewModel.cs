@@ -22,8 +22,14 @@ namespace CVBImageProc.Processing
     /// </summary>
     public event EventHandler SettingsChanged;
 
+    /// <summary>
+    /// Gets the available size calculator types.
+    /// </summary>
     public static IEnumerable<TypeViewModel> AvailableSizeCalculators { get; }
 
+    /// <summary>
+    /// The currently selected size calculator type.
+    /// </summary>
     public TypeViewModel SelectedSizeCalculatorType
     {
       get => _selectedSizeCalculatorType;
@@ -39,6 +45,9 @@ namespace CVBImageProc.Processing
     }
     private TypeViewModel _selectedSizeCalculatorType;
 
+    /// <summary>
+    /// The currently selected size calculator.
+    /// </summary>
     public SizeCalculatorViewModelBase SelectedSizeCalculator
     {
       get => _selectedSizeCalculator;

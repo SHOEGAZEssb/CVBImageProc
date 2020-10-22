@@ -1,12 +1,10 @@
 ﻿using CVBImageProcLib.Processing.SizeCalculator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVBImageProc.Processing.SizeCalculator
 {
+  /// <summary>
+  /// ViewModel for the <see cref="PercentageSizeCalculator"/>.
+  /// </summary>
   class PercentageSizeCalculatorViewModel : SizeCalculatorViewModelBase
   {
     #region Properties
@@ -19,7 +17,7 @@ namespace CVBImageProc.Processing.SizeCalculator
       get => _sizeCalculator.Percentage;
       set
       {
-        if(Percentage != value)
+        if (Percentage != value)
         {
           _sizeCalculator.Percentage = value;
           NotifyOfPropertyChange();
