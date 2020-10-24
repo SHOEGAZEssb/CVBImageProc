@@ -247,11 +247,21 @@ namespace CVBImageProc
         }
         catch (Exception ex)
         {
-          MessageBox.Show($"Error opening image: {ex.Message}");
+          if(MessageBox.Show($"Error opening image: {ex.Message}\r\nDo you want to try to import the raw file?", "Error opening file", MessageBoxButton.YesNo) 
+            == MessageBoxResult.Yes)
+          {
+            OpenRawFile(ofd.FileName);
+          }
         }
       }
     }
 
+    /// <summary>
+    /// Creates a ViewModel for the <paramref name="file"/>
+    /// specific image source.
+    /// </summary>
+    /// <param name="file">File to create image source ViewModel for.</param>
+    /// <returns>Newly created image source ViewModel.</returns>
     private static ImageSourceViewModelBase MakeImageSourceVM(string file)
     {
       string ext = Path.GetExtension(file);
@@ -275,13 +285,20 @@ namespace CVBImageProc
       };
 
       if (ofd.ShowDialog() ?? false)
+        OpenRawFile(ofd.FileName);
+    }
+
+    /// <summary>
+    /// Opens the given <paramref name="file"/> as raw file.
+    /// </summary>
+    /// <param name="file">File to open as raw file.</param>
+    private void OpenRawFile(string file)
+    {
+      var vm = new RawFileImportViewModel(file);
+      if (_windowManager.ShowDialog(vm) ?? false)
       {
-        var vm = new RawFileImportViewModel(ofd.FileName);
-        if (_windowManager.ShowDialog(vm) ?? false)
-        {
-          ImageSourceVM = new StaticImageSourceViewModel(new StaticImageSource(vm.ImportedImage));
-          Settings.Default.LastRAWLoadPath = ofd.FileName;
-        }
+        ImageSourceVM = new StaticImageSourceViewModel(new StaticImageSource(vm.ImportedImage));
+        Settings.Default.LastRAWLoadPath = file;
       }
     }
 
