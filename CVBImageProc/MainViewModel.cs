@@ -371,8 +371,8 @@ namespace CVBImageProc
       }
       catch (Exception ex)
       {
-        MessageBox.Show($"Error autosaving image to {fileName}: {ex.Message}");
         AutoSave = false;
+        MessageBox.Show($"Error autosaving image to {fileName}: {ex.Message}");
       }
     }
 
