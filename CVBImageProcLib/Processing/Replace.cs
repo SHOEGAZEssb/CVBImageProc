@@ -10,44 +10,45 @@ namespace CVBImageProcLib.Processing
   /// ViewModel that replaces certain pixel values.
   /// </summary>
   [DataContract]
-  public class Replace : IAOIPlaneProcessor, ICanProcessIndividualPixel
+  public class Replace : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Replace";
+    public override string Name => "Replace";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public override Image Process(Image inputImage)
     {
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
+      if (ProcessAllPlanes)
       {
-        return ValueProvider.Provide();
-      }, PixelFilter);
+        foreach (var plane in inputImage.Planes)
+          ProcessPlane(plane);
+      }
+      else
+        ProcessPlane(inputImage.Planes[PlaneIndex]);
 
       return inputImage;
     }
 
+    private void ProcessPlane(ImagePlane plane)
+    {
+      ProcessingHelper.ProcessMono(plane, this.GetProcessingBounds(plane.Parent), (b) =>
+      {
+        return ValueProvider.Provide();
+      }, PixelFilter);
+    }
+
     #endregion IProcessor Implementation
-
-    #region IProcessIndividualPlanes Implementation
-
-    /// <summary>
-    /// Index of the plane to invert.
-    /// </summary>
-    [DataMember]
-    public int PlaneIndex { get; set; }
-
-    #endregion IProcessIndividualPlanes Implementation
 
     #region ICanProcessIndividualPixel Implementation
 
@@ -58,23 +59,6 @@ namespace CVBImageProcLib.Processing
     public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanprocessIndividualPixel Implementation
-
-    #region ICanProcessIndividualRegions Implementation
-
-    /// <summary>
-    /// If true, uses the <see cref="AOI"/>
-    /// while processing.
-    /// </summary>
-    [DataMember]
-    public bool UseAOI { get; set; }
-
-    /// <summary>
-    /// The AOI to process.
-    /// </summary>
-    [DataMember]
-    public Rect AOI { get; set; }
-
-    #endregion ICanProcessIndividualRegions Implementation
 
     #region Properties
 

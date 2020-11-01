@@ -28,26 +28,39 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Bit Shift")]
-  public class BitShift : IAOIPlaneProcessor, ICanProcessIndividualPixel
+  public class BitShift : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Bit Shift";
+    public override string Name => "Bit Shift";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public override Image Process(Image inputImage)
     {
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
+      if (ProcessAllPlanes)
+      {
+        foreach (var plane in inputImage.Planes)
+          ProcessPlane(plane);
+      }
+      else
+        ProcessPlane(inputImage.Planes[PlaneIndex]);
+
+      return inputImage;
+    }
+
+    private void ProcessPlane(ImagePlane plane)
+    {
+      ProcessingHelper.ProcessMono(plane, this.GetProcessingBounds(plane.Parent), (b) =>
       {
         if (ShiftDirection == BitShiftDirection.Left)
         {
@@ -60,8 +73,6 @@ namespace CVBImageProcLib.Processing
         else
           return (byte)(b >> ValueProvider.Provide());
       }, PixelFilter);
-
-      return inputImage;
     }
 
     #endregion IProcessor Implementation
@@ -75,33 +86,6 @@ namespace CVBImageProcLib.Processing
     public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation
-
-    #region ICanProcessIndividualRegions Implementation
-
-    /// <summary>
-    /// If true, uses the <see cref="AOI"/>
-    /// while processing.
-    /// </summary>
-    [DataMember]
-    public bool UseAOI { get; set; }
-
-    /// <summary>
-    /// The AOI to process.
-    /// </summary>
-    [DataMember]
-    public Rect AOI { get; set; }
-
-    #endregion ICanProcessIndividualRegions Implementation
-
-    #region IProcessIndividualPlanes Implementation
-
-    /// <summary>
-    /// Index of the plane to invert.
-    /// </summary>
-    [DataMember]
-    public int PlaneIndex { get; set; }
-
-    #endregion IProcessIndividualPlanes Implementation
 
     #region Properties
 

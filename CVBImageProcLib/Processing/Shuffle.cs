@@ -10,25 +10,38 @@ namespace CVBImageProcLib.Processing
   /// Processor that shuffles an image plane.
   /// </summary>
   [DataContract]
-  public class Shuffle : IAOIPlaneProcessor, ICanProcessIndividualPixel
+  public class Shuffle : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Shuffle";
+    public override string Name => "Shuffle";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public override Image Process(Image inputImage)
     {
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      if (ProcessAllPlanes)
+      {
+        foreach (var plane in inputImage.Planes)
+          ProcessPlane(plane);
+      }
+      else
+        ProcessPlane(inputImage.Planes[PlaneIndex]);
+
+      return inputImage;
+    }
+
+    private void ProcessPlane(ImagePlane plane)
+    {
       var rnd = new Random(DateTime.Now.Ticks.GetHashCode());
       int byteCounter = 0;
       byte[] shuffledBytes;
@@ -36,47 +49,18 @@ namespace CVBImageProcLib.Processing
       unsafe
       {
         if (UseAOI)
-          shuffledBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
+          shuffledBytes = plane.GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
         else
-          shuffledBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
+          shuffledBytes = plane.AllPixels.Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
       }
 
-      ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
+      ProcessingHelper.ProcessMono(plane, this.GetProcessingBounds(plane.Parent), (b) =>
       {
         return shuffledBytes[byteCounter++];
       }, PixelFilter);
-
-      return inputImage;
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualRegions Implementation
-
-    /// <summary>
-    /// If true, uses the <see cref="AOI"/>
-    /// while processing.
-    /// </summary>
-    [DataMember]
-    public bool UseAOI { get; set; }
-
-    /// <summary>
-    /// The AOI to process.
-    /// </summary>
-    [DataMember]
-    public Rect AOI { get; set; }
-
-    #endregion ICanProcessIndividualRegions Implementation
-
-    #region IProcessIndividualPlanes Implementation
-
-    /// <summary>
-    /// Index of the plane to invert.
-    /// </summary>
-    [DataMember]
-    public int PlaneIndex { get; set; }
-
-    #endregion IProcessIndividualPlanes Implementation
 
     #region ICanProcessIndividualPixel Implementation
 

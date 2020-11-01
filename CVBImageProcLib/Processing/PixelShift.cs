@@ -8,21 +8,21 @@ namespace CVBImageProcLib.Processing
 {
   [DataContract]
   [DisplayName("Pixel Shift")]
-  public class PixelShift : IAOIPlaneProcessor, ICanProcessIndividualPixel
+  public class PixelShift : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Pixel Shift";
+    public override string Name => "Pixel Shift";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public override Image Process(Image inputImage)
     {
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
@@ -103,33 +103,6 @@ namespace CVBImageProcLib.Processing
     public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation
-
-    #region ICanProcessIndividualRegions Implementation
-
-    /// <summary>
-    /// If true, uses the <see cref="AOI"/>
-    /// while processing.
-    /// </summary>
-    [DataMember]
-    public bool UseAOI { get; set; }
-
-    /// <summary>
-    /// The AOI to process.
-    /// </summary>
-    [DataMember]
-    public Rect AOI { get; set; }
-
-    #endregion ICanProcessIndividualRegions Implementation
-
-    #region IProcessIndividualPlanes Implementation
-
-    /// <summary>
-    /// Index of the plane to invert.
-    /// </summary>
-    [DataMember]
-    public int PlaneIndex { get; set; }
-
-    #endregion IProcessIndividualPlanes Implementation
 
     #region Properties
 

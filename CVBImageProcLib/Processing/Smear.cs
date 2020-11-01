@@ -15,14 +15,14 @@ namespace CVBImageProcLib.Processing
   }
 
   [DataContract]
-  public class Smear : IAOIPlaneProcessor, ICanProcessIndividualPixel
+  public class Smear : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Smear";
+    public override string Name => "Smear";
 
     /// <summary>
     /// Applies the gain value
@@ -30,19 +30,31 @@ namespace CVBImageProcLib.Processing
     /// </summary>
     /// <param name="inputImage">Image to apply gain to.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public override Image Process(Image inputImage)
     {
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      var valueDic = BuildValueDictionary(Mode, inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage));
+      if (ProcessAllPlanes)
+      {
+        foreach (var plane in inputImage.Planes)
+          ProcessPlane(plane);
+      }
+      else
+        ProcessPlane(inputImage.Planes[PlaneIndex]);
 
-      ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b, y, x) =>
+      return inputImage;
+    }
+
+    private void ProcessPlane(ImagePlane plane)
+    {
+      var bounds = this.GetProcessingBounds(plane.Parent);
+      var valueDic = BuildValueDictionary(Mode, plane, bounds);
+
+      ProcessingHelper.ProcessMono(plane, bounds, (b, y, x) =>
       {
         return (Mode == SmearMode.VerticalFromTop || Mode == SmearMode.VerticalFromBottom) ? valueDic[x] : valueDic[y];
       }, PixelFilter);
-
-      return inputImage;
     }
 
     #endregion IProcessor Implementation
@@ -56,33 +68,6 @@ namespace CVBImageProcLib.Processing
     public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation
-
-    #region ICanProcessIndividualRegions Implementation
-
-    /// <summary>
-    /// If true, uses the <see cref="AOI"/>
-    /// while processing.
-    /// </summary>
-    [DataMember]
-    public bool UseAOI { get; set; }
-
-    /// <summary>
-    /// The AOI to process.
-    /// </summary>
-    [DataMember]
-    public Rect AOI { get; set; }
-
-    #endregion ICanProcessIndividualRegions Implementation
-
-    #region IProcessIndividualPlanes Implementation
-
-    /// <summary>
-    /// Index of the plane to invert.
-    /// </summary>
-    [DataMember]
-    public int PlaneIndex { get; set; }
-
-    #endregion IProcessIndividualPlanes Implementation
 
     #region Properties
 
