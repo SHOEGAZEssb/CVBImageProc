@@ -79,24 +79,17 @@ namespace CVBImageProcLib.Processing.Filter
     /// </summary>
     private void ConfigureFilter()
     {
-      if (SelectedFilter is FilterBase f)
+      if (SelectedFilter is ICanProcessIndividualPixel p)
+        p.PixelFilter = PixelFilter;
+      if (SelectedFilter is IProcessIndividualPlanes i)
       {
-        f.PixelFilter = PixelFilter;
-        f.PlaneIndex = PlaneIndex;
-        f.AOI = AOI;
-        f.UseAOI = UseAOI;
+        i.PlaneIndex = PlaneIndex;
+        i.ProcessAllPlanes = ProcessAllPlanes;
       }
-      else
+      if (SelectedFilter is ICanProcessIndividualRegions r)
       {
-        if (SelectedFilter is ICanProcessIndividualPixel p)
-          p.PixelFilter = PixelFilter;
-        if (SelectedFilter is IProcessIndividualPlanes i)
-          i.PlaneIndex = PlaneIndex;
-        if (SelectedFilter is ICanProcessIndividualRegions r)
-        {
-          r.AOI = AOI;
-          r.UseAOI = UseAOI;
-        }
+        r.AOI = AOI;
+        r.UseAOI = UseAOI;
       }
     }
   }

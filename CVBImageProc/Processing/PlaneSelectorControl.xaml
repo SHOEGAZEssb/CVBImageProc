@@ -16,7 +16,17 @@
     </Grid.RowDefinitions>
 
     <TextBlock Grid.Row="0" Text="Plane Index:"/>
-    <xceed:IntegerUpDown Grid.Row="2" Value="{Binding PlaneIndex}" Minimum="0"/>
-    <CheckBox Grid.Row="4" Content="All Planes" IsChecked="{Binding ProcessAllPlanes}"/>
+    <xceed:IntegerUpDown Grid.Row="2" Value="{Binding PlaneIndex}" Minimum="0">
+      <xceed:IntegerUpDown.Style>
+        <Style TargetType="xceed:IntegerUpDown">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding ProcessAllPlanes}" Value="True">
+              <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </xceed:IntegerUpDown.Style>
+    </xceed:IntegerUpDown>
+    <CheckBox x:Name="allCheckBox" Grid.Row="4" Content="All Planes" IsChecked="{Binding ProcessAllPlanes}"/>
   </Grid>
 </UserControl>

@@ -25,14 +25,26 @@ namespace CVBImageProcLib.Processing.Filter
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      var kernel = CalculateKernel(KernelSize);
-      var plane = ProcessingHelper.ProcessMonoKernel(inputImage.Planes[PlaneIndex], (kl) =>
+      int[] kernel = CalculateKernel(KernelSize);
+      if (ProcessAllPlanes)
+      {
+        foreach (var plane in inputImage.Planes)
+          ProcessPlane(plane, kernel);
+      }
+      else
+        ProcessPlane(inputImage.Planes[PlaneIndex], kernel);
+
+      return inputImage;
+    }
+
+    private void ProcessPlane(ImagePlane plane, int[] kernel)
+    {
+      var outputPlane = ProcessingHelper.ProcessMonoKernel(plane, (kl) =>
       {
         return ApplyWeights(kl, kernel);
-      }, KernelSize, this.GetProcessingBounds(inputImage), PixelFilter);
+      }, KernelSize, this.GetProcessingBounds(plane.Parent), PixelFilter);
 
-      plane.CopyTo(inputImage.Planes[PlaneIndex]);
-      return inputImage;
+      outputPlane.CopyTo(plane.Parent.Planes[plane.Plane]);
     }
 
     /// <summary>
