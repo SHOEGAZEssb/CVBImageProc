@@ -36,6 +36,20 @@ namespace CVBImageProc.Processing
       }
     }
 
+    public bool ProcessAllPlanes
+    {
+      get => _processor.ProcessAllPlanes;
+      set
+      {
+        if(ProcessAllPlanes != value)
+        {
+          _processor.ProcessAllPlanes = value;
+          NotifyOfPropertyChange();
+          OnSettingsChanged();
+        }
+      }
+    }
+
     public int MaxPlaneIndex
     {
       get => _maxPlaneIndex;

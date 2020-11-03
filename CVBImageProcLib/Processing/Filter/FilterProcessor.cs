@@ -11,21 +11,21 @@ namespace CVBImageProcLib.Processing.Filter
   /// </summary>
   [DataContract]
   [DisplayName("Filter")]
-  public class FilterProcessor : IProcessor, ICanProcessIndividualPixel, IProcessIndividualPlanes, ICanProcessIndividualRegions
+  public class FilterProcessor : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => SelectedFilter == null ? "Filter (None)" : $"Filter ({SelectedFilter.Name})";
+    public override string Name => SelectedFilter == null ? "Filter (None)" : $"Filter ({SelectedFilter.Name})";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public override Image Process(Image inputImage)
     {
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
@@ -48,33 +48,6 @@ namespace CVBImageProcLib.Processing.Filter
     public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
     #endregion ICanProcessIndividualPixel Implementation
-
-    #region ICanProcessIndividualRegions Implementation
-
-    /// <summary>
-    /// If true, uses the <see cref="AOI"/>
-    /// while processing.
-    /// </summary>
-    [DataMember]
-    public bool UseAOI { get; set; }
-
-    /// <summary>
-    /// The AOI to process.
-    /// </summary>
-    [DataMember]
-    public Rect AOI { get; set; }
-
-    #endregion ICanProcessIndividualRegions Implementation
-
-    #region IProcessIndividualPlanes Implementation
-
-    /// <summary>
-    /// Index of the plane to invert.
-    /// </summary>
-    [DataMember]
-    public int PlaneIndex { get; set; }
-
-    #endregion IProcessIndividualPlanes Implementation
 
     #region Properties
 
@@ -106,24 +79,17 @@ namespace CVBImageProcLib.Processing.Filter
     /// </summary>
     private void ConfigureFilter()
     {
-      if (SelectedFilter is FilterBase f)
+      if (SelectedFilter is ICanProcessIndividualPixel p)
+        p.PixelFilter = PixelFilter;
+      if (SelectedFilter is IProcessIndividualPlanes i)
       {
-        f.PixelFilter = PixelFilter;
-        f.PlaneIndex = PlaneIndex;
-        f.AOI = AOI;
-        f.UseAOI = UseAOI;
+        i.PlaneIndex = PlaneIndex;
+        i.ProcessAllPlanes = ProcessAllPlanes;
       }
-      else
+      if (SelectedFilter is ICanProcessIndividualRegions r)
       {
-        if (SelectedFilter is ICanProcessIndividualPixel p)
-          p.PixelFilter = PixelFilter;
-        if (SelectedFilter is IProcessIndividualPlanes i)
-          i.PlaneIndex = PlaneIndex;
-        if (SelectedFilter is ICanProcessIndividualRegions r)
-        {
-          r.AOI = AOI;
-          r.UseAOI = UseAOI;
-        }
+        r.AOI = AOI;
+        r.UseAOI = UseAOI;
       }
     }
   }

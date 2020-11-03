@@ -123,6 +123,12 @@ namespace CVBImageProcLib.Processing
     [DataMember]
     public int PlaneIndex { get; set; }
 
+    /// <summary>
+    /// If true, all planes get processed.
+    /// </summary>
+    [DataMember]
+    public bool ProcessAllPlanes { get; set; }
+
     #endregion IProcessIndividualPlanes Implementation
 
     #region ICanProcessIndividualPixel Implementation

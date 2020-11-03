@@ -7,6 +7,5 @@ namespace CVBImageProcLib.Processing
   /// individual regions and planes.
   /// </summary>
   public interface IAOIPlaneProcessor : ICanProcessIndividualRegions, IProcessIndividualPlanes, IProcessor
-  {
-  }
+  { }
 }

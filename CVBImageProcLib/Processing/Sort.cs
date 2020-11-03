@@ -26,25 +26,38 @@ namespace CVBImageProcLib.Processing
   /// Processor that sorts an image plane.
   /// </summary>
   [DataContract]
-  public class Sort : IAOIPlaneProcessor, ICanProcessIndividualPixel
+  public class Sort : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 
     /// <summary>
     /// Name of the processor.
     /// </summary>
-    public string Name => "Sort";
+    public override string Name => "Sort";
 
     /// <summary>
     /// Processes the <paramref name="inputImage"/>.
     /// </summary>
     /// <param name="inputImage">Image to process.</param>
     /// <returns>Processed image.</returns>
-    public Image Process(Image inputImage)
+    public override Image Process(Image inputImage)
     {
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      if (ProcessAllPlanes)
+      {
+        foreach (var plane in inputImage.Planes)
+          ProcessPlane(plane);
+      }
+      else
+        ProcessPlane(inputImage.Planes[PlaneIndex]);
+
+      return inputImage;
+    }
+
+    private void ProcessPlane(ImagePlane plane)
+    {
       int byteCounter = 0;
       byte[] sortedBytes;
 
@@ -53,55 +66,26 @@ namespace CVBImageProcLib.Processing
         if (UseAOI)
         {
           if (Mode == SortMode.Ascending)
-            sortedBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => i).ToArray();
+            sortedBytes = plane.GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderBy(i => i).ToArray();
           else
-            sortedBytes = inputImage.Planes[PlaneIndex].GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderByDescending(i => i).ToArray();
+            sortedBytes = plane.GetAllPixelsIn(AOI).Select(p => *(byte*)p).OrderByDescending(i => i).ToArray();
         }
         else
         {
           if (Mode == SortMode.Ascending)
-            sortedBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderBy(i => i).ToArray();
+            sortedBytes = plane.AllPixels.Select(p => *(byte*)p).OrderBy(i => i).ToArray();
           else
-            sortedBytes = inputImage.Planes[PlaneIndex].AllPixels.Select(p => *(byte*)p).OrderByDescending(i => i).ToArray();
+            sortedBytes = plane.AllPixels.Select(p => *(byte*)p).OrderByDescending(i => i).ToArray();
         }
       }
 
-      ProcessingHelper.ProcessMono(inputImage.Planes[PlaneIndex], this.GetProcessingBounds(inputImage), (b) =>
+      ProcessingHelper.ProcessMono(plane, this.GetProcessingBounds(plane.Parent), (b) =>
       {
         return sortedBytes[byteCounter++];
       }, PixelFilter);
-
-      return inputImage;
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualRegions Implementation
-
-    /// <summary>
-    /// If true, uses the <see cref="AOI"/>
-    /// while processing.
-    /// </summary>
-    [DataMember]
-    public bool UseAOI { get; set; }
-
-    /// <summary>
-    /// The AOI to process.
-    /// </summary>
-    [DataMember]
-    public Rect AOI { get; set; }
-
-    #endregion ICanProcessIndividualRegions Implementation
-
-    #region IProcessIndividualPlanes Implementation
-
-    /// <summary>
-    /// Index of the plane to invert.
-    /// </summary>
-    [DataMember]
-    public int PlaneIndex { get; set; }
-
-    #endregion IProcessIndividualPlanes Implementation
 
     #region ICanProcessIndividualPixel Implementation
 

@@ -9,5 +9,10 @@
     /// Index of the plane to process.
     /// </summary>
     int PlaneIndex { get; set; }
+
+    /// <summary>
+    /// If true, all planes get processed.
+    /// </summary>
+    bool ProcessAllPlanes { get; set; }
   }
 }

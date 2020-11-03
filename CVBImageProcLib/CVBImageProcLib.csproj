@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Processing\AOIPlaneProcessorBase.cs" />
     <Compile Include="Processing\Binarise.cs" />
     <Compile Include="Processing\BitShift.cs" />
     <Compile Include="Processing\Crop.cs" />
