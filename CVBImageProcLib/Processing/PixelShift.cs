@@ -30,21 +30,36 @@ namespace CVBImageProcLib.Processing
       var newImage = new Image(inputImage.Size, inputImage.Planes.Count);
       for (int i = 0; i < newImage.Planes.Count; i++)
       {
-        if (i == PlaneIndex && UseFillValue)
+        if (UseFillValue && (ProcessAllPlanes || i == PlaneIndex))
           newImage.Planes[i].Initialize(FillValue);
         else
           inputImage.Planes[i].CopyTo(newImage.Planes[i]);
       }
 
-      if (inputImage.Planes[PlaneIndex].TryGetLinearAccess(out LinearAccessData inputData))
+      var bounds = this.GetProcessingBounds(inputImage);
+      if (ProcessAllPlanes)
       {
-        if (newImage.Planes[PlaneIndex].TryGetLinearAccess(out LinearAccessData newData))
+        for (int i = 0; i < inputImage.Planes.Count; i++)
+        {
+          ProcessPlane(inputImage.Planes[i], newImage.Planes[i], bounds);
+        }
+      }
+      else
+        ProcessPlane(inputImage.Planes[PlaneIndex], newImage.Planes[PlaneIndex], bounds);
+
+      return newImage;
+    }
+
+    private void ProcessPlane(ImagePlane inputPlane, ImagePlane newPlane, ProcessingBounds bounds)
+    {
+      if (inputPlane.TryGetLinearAccess(out LinearAccessData inputData))
+      {
+        if (newPlane.TryGetLinearAccess(out LinearAccessData newData))
         {
           var inputYInc = (int)inputData.YInc;
           var inputXInc = (int)inputData.XInc;
           var newYInc = (int)newData.YInc;
           var newXInc = (int)newData.XInc;
-          ProcessingBounds bounds = this.GetProcessingBounds(inputImage);
           int boundsY = bounds.StartY + bounds.Height;
           int boundsX = bounds.StartX + bounds.Width;
 
@@ -88,8 +103,6 @@ namespace CVBImageProcLib.Processing
       }
       else
         throw new ArgumentException("Input plane could not be accessed linear");
-
-      return newImage;
     }
 
     #endregion IProcessor Implementation
