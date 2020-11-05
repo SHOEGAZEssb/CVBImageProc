@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Security;
 using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing.Filter
@@ -32,13 +33,8 @@ namespace CVBImageProcLib.Processing.Filter
           intVals[i] = values[i].Value * weights[i];
       }
 
-      //int weightSum = weights.Sum();
       var stripped = intVals.Where(b => b.HasValue);
-      int sum;
-      if (weightSum == 0)
-        sum = stripped.Sum(v => v.Value);
-      else
-        sum = stripped.Sum(v => v.Value) / weightSum;
+      int sum = weightSum == 0 ? stripped.Sum(v => v.Value) : stripped.Sum(v => v.Value) / weightSum;
       if (sum > 255)
         return 255;
       else if (sum < 0)
