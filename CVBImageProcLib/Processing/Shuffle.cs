@@ -29,18 +29,19 @@ namespace CVBImageProcLib.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      var bounds = this.GetProcessingBounds(inputImage);
       if (ProcessAllPlanes)
       {
         foreach (var plane in inputImage.Planes)
-          ProcessPlane(plane);
+          ProcessPlane(plane, bounds);
       }
       else
-        ProcessPlane(inputImage.Planes[PlaneIndex]);
+        ProcessPlane(inputImage.Planes[PlaneIndex], bounds);
 
       return inputImage;
     }
 
-    private void ProcessPlane(ImagePlane plane)
+    private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
     {
       var rnd = new Random(DateTime.Now.Ticks.GetHashCode());
       int byteCounter = 0;
@@ -54,7 +55,7 @@ namespace CVBImageProcLib.Processing
           shuffledBytes = plane.AllPixels.Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
       }
 
-      ProcessingHelper.ProcessMono(plane, this.GetProcessingBounds(plane.Parent), (b) =>
+      ProcessingHelper.ProcessMono(plane, bounds, (b) =>
       {
         return shuffledBytes[byteCounter++];
       }, PixelFilter);

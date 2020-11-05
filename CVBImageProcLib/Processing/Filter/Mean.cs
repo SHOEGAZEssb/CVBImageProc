@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProcLib.Processing.PixelFilter;
+using Stemmer.Cvb;
 using System;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -26,24 +27,25 @@ namespace CVBImageProcLib.Processing.Filter
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      var bounds = this.GetProcessingBounds(inputImage);
       if (ProcessAllPlanes)
       {
         foreach (var plane in inputImage.Planes)
-          ProcessPlane(plane);
+          ProcessPlane(plane, bounds);
       }
       else
-        ProcessPlane(inputImage.Planes[PlaneIndex]);
+        ProcessPlane(inputImage.Planes[PlaneIndex], bounds);
 
       return inputImage;
     }
 
-    private void ProcessPlane(ImagePlane plane)
+    private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
     {
       var outputPlane = ProcessingHelper.ProcessMonoKernel(plane, (kl) =>
       {
         var stripped = kl.Where(b => b.HasValue);
         return (byte)(stripped.Sum(b => b.Value) / stripped.Count());
-      }, KernelSize, this.GetProcessingBounds(plane.Parent), PixelFilter);
+      }, KernelSize, bounds, PixelFilter);
 
       outputPlane.CopyTo(plane.Parent.Planes[plane.Plane]);
     }

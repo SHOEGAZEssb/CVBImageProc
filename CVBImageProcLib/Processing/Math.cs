@@ -57,21 +57,22 @@ namespace CVBImageProcLib.Processing
         throw new ArgumentNullException(nameof(inputImage));
 
       Func<int, byte, byte> calculationFunc = MakeCalculationFunc(Mode, WrapAround);
+      var bounds = this.GetProcessingBounds(inputImage);
       if (ProcessAllPlanes)
       {
         foreach (var plane in inputImage.Planes)
-          ProcessPlane(plane, calculationFunc);
+          ProcessPlane(plane, calculationFunc, bounds);
       }
       else
-        ProcessPlane(inputImage.Planes[PlaneIndex], calculationFunc);
+        ProcessPlane(inputImage.Planes[PlaneIndex], calculationFunc, bounds);
 
 
       return inputImage;
     }
 
-    private void ProcessPlane(ImagePlane plane, Func<int, byte, byte> calculationFunc)
+    private void ProcessPlane(ImagePlane plane, Func<int, byte, byte> calculationFunc, ProcessingBounds bounds)
     {
-      ProcessingHelper.ProcessMono(plane, this.GetProcessingBounds(plane.Parent), (b) =>
+      ProcessingHelper.ProcessMono(plane, bounds, (b) =>
       {
         return calculationFunc(ValueProvider.Provide(), b);
       }, PixelFilter);

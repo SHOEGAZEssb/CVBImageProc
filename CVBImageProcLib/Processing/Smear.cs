@@ -60,20 +60,20 @@ namespace CVBImageProcLib.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
+      var bounds = this.GetProcessingBounds(inputImage);
       if (ProcessAllPlanes)
       {
         foreach (var plane in inputImage.Planes)
-          ProcessPlane(plane);
+          ProcessPlane(plane, bounds);
       }
       else
-        ProcessPlane(inputImage.Planes[PlaneIndex]);
+        ProcessPlane(inputImage.Planes[PlaneIndex], bounds);
 
       return inputImage;
     }
 
-    private void ProcessPlane(ImagePlane plane)
+    private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
     {
-      var bounds = this.GetProcessingBounds(plane.Parent);
       var valueDic = BuildValueDictionary(Mode, plane, bounds);
 
       ProcessingHelper.ProcessMono(plane, bounds, (b, y, x) =>
