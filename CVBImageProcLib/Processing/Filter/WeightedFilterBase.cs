@@ -18,7 +18,7 @@ namespace CVBImageProcLib.Processing.Filter
     /// <param name="values">Byte values to apply weights to.</param>
     /// <param name="weights">Weights to apply.</param>
     /// <returns>Weighted pixel.</returns>
-    protected virtual byte ApplyWeights(byte?[] values, int[] weights)
+    protected virtual byte ApplyWeights(byte?[] values, int[] weights, int weightSum)
     {
       if (values == null)
         throw new ArgumentNullException(nameof(values));
@@ -32,7 +32,7 @@ namespace CVBImageProcLib.Processing.Filter
           intVals[i] = values[i].Value * weights[i];
       }
 
-      int weightSum = weights.Sum();
+      //int weightSum = weights.Sum();
       var stripped = intVals.Where(b => b.HasValue);
       int sum;
       if (weightSum == 0)
