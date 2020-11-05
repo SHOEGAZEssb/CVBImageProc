@@ -16,8 +16,10 @@ namespace CVBImageProcLibTest.Processing.SizeCalculator
       // given: image and calculator
       using (var img = new Image(128, 128))
       {
-        var calc = new PercentageSizeCalculator();
-        calc.Percentage = 0.5;
+        var calc = new PercentageSizeCalculator
+        {
+          Percentage = 0.5
+        };
 
         // when: getting size
         var size = calc.GetCalculatedSize(img);
