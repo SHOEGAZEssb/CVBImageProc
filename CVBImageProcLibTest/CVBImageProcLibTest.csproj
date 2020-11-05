@@ -110,6 +110,8 @@
     <Compile Include="Processing\PixelFilter\ModuloValueTest.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterChainTest.cs" />
     <Compile Include="Processing\ReplaceTest.cs" />
+    <Compile Include="Processing\SizeCalculator\FreeSizeCalculatorTest.cs" />
+    <Compile Include="Processing\SizeCalculator\PercentageSizeCalculatorTest.cs" />
     <Compile Include="Processing\SortTest.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProviderTest.cs" />
     <Compile Include="Processing\ValueProvider\IntValueProviderTest.cs" />
