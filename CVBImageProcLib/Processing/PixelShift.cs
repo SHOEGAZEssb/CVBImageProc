@@ -6,6 +6,9 @@ using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing
 {
+  /// <summary>
+  /// Processor that shifts pixels.
+  /// </summary>
   [DataContract]
   [DisplayName("Pixel Shift")]
   public class PixelShift : AOIPlaneProcessorBase, ICanProcessIndividualPixel

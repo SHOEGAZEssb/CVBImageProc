@@ -52,21 +52,21 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// </summary>
     public IReadOnlyList<KeyValuePair<IPixelValueFilter, bool>> ValueFilters => _valueFilters.AsReadOnly();
     [DataMember]
-    private List<KeyValuePair<IPixelValueFilter, bool>> _valueFilters = new List<KeyValuePair<IPixelValueFilter, bool>>();
+    private readonly List<KeyValuePair<IPixelValueFilter, bool>> _valueFilters = new List<KeyValuePair<IPixelValueFilter, bool>>();
 
     /// <summary>
     /// The configured index filters.
     /// </summary>
     public IReadOnlyList<KeyValuePair<IPixelIndexFilter, bool>> IndexFilters => _indexFilters.AsReadOnly();
     [DataMember]
-    private List<KeyValuePair<IPixelIndexFilter, bool>> _indexFilters = new List<KeyValuePair<IPixelIndexFilter, bool>>();
+    private readonly List<KeyValuePair<IPixelIndexFilter, bool>> _indexFilters = new List<KeyValuePair<IPixelIndexFilter, bool>>();
 
     /// <summary>
     /// The configured auto filters.
     /// </summary>
     public IReadOnlyList<KeyValuePair<IPixelAutoFilter, bool>> AutoFilters => _autoFilters.AsReadOnly();
     [DataMember]
-    private List<KeyValuePair<IPixelAutoFilter, bool>> _autoFilters = new List<KeyValuePair<IPixelAutoFilter, bool>>();
+    private readonly List<KeyValuePair<IPixelAutoFilter, bool>> _autoFilters = new List<KeyValuePair<IPixelAutoFilter, bool>>();
 
     #endregion Properties
 
@@ -130,6 +130,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// Sets the active state of the given <paramref name="filter"/>.
     /// </summary>
     /// <param name="filter">Filter to add.</param>
+    /// <param name="isActive">Active state of the filter in the chain.</param>
     /// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
     /// <exception cref="ArgumentException">When the type of <paramref name="filter"/> is unknown.</exception>
     public void SetIsActiveState(IPixelFilter filter, bool isActive)

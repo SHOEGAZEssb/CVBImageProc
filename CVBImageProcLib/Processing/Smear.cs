@@ -6,14 +6,39 @@ using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing
 {
+  /// <summary>
+  /// The direction to smear.
+  /// </summary>
   public enum SmearMode
   {
+    /// <summary>
+    /// Smear left pixels in
+    /// horizontal direction.
+    /// </summary>
     HorizontalFromLeft,
+
+    /// <summary>
+    /// Smear right pixels in
+    /// horizontal direction.
+    /// </summary>
     HorizontalFromRight,
+
+    /// <summary>
+    /// Smear top pixels in
+    /// vertical direction.
+    /// </summary>
     VerticalFromTop,
+
+    /// <summary>
+    /// Smear bottom pixels in
+    /// vertical direction.
+    /// </summary>
     VerticalFromBottom
   }
 
+  /// <summary>
+  /// Processor that "smears" pixels in a direction.
+  /// </summary>
   [DataContract]
   public class Smear : AOIPlaneProcessorBase, ICanProcessIndividualPixel
   {

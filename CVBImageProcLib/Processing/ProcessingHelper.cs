@@ -529,7 +529,6 @@ namespace CVBImageProcLib.Processing
     /// <param name="img">Image to process.</param>
     /// <param name="processingFunc">Processing function to process
     /// the <paramref name="img"/> with.</param>
-    /// <param name="filterChain">Optional filter chain.</param>
     public static void ProcessRGB(Image img, Func<RGBPixel, RGBPixel> processingFunc)
     {
       ProcessRGB(img, processingFunc, new ProcessingBounds(img.Bounds));
@@ -544,7 +543,6 @@ namespace CVBImageProcLib.Processing
     /// <param name="processingFunc">Processing function to process
     /// the <paramref name="img"/> with.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
-    /// <param name="filterChain">Optional filter chain.</param>
     public static void ProcessRGB(Image img, Func<RGBPixel, RGBPixel> processingFunc, ProcessingBounds bounds)
     {
       if (img == null)

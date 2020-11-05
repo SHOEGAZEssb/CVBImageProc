@@ -93,6 +93,13 @@ namespace CVBImageProcLib
       return plane.AllPixels.DereferenceAs<byte>();
     }
 
+    /// <summary>
+    /// Gets the pixels of the given <paramref name="plane"/>
+    /// as a 2D byte array.
+    /// </summary>
+    /// <param name="plane">Plane to get pixels of.</param>
+    /// <returns>Pixels of the given <paramref name="plane"/> as
+    /// 2D byte array.</returns>
     public static byte[,] GetPixelsAs2DArray(this ImagePlane plane)
     {
       var inputPixels = plane.GetPixels().ToArray();
@@ -102,9 +109,10 @@ namespace CVBImageProcLib
 
       for(int y = 0; y < height; y++)
       {
+        int yW = y * width;
         for(int x = 0; x < width; x++)
         {
-          pixels[y, x] = inputPixels[y * width + x];
+          pixels[y, x] = inputPixels[yW + x];
         }
       }
 

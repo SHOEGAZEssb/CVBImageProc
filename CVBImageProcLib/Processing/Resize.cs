@@ -15,6 +15,9 @@ namespace CVBImageProcLib.Processing
     /// </summary>
     NearestNeighbor,
 
+    /// <summary>
+    /// Use bilinear interpolation.
+    /// </summary>
     Bilinear
   }
 

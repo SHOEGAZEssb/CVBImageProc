@@ -13,9 +13,11 @@ namespace CVBImageProcLibTest.Processing.SizeCalculator
     public void GetCalculatedSizeTest()
     {
       // given: image and size calculator
-      var calc = new FreeSizeCalculator();
-      calc.Width = 64;
-      calc.Height = 64;
+      var calc = new FreeSizeCalculator
+      {
+        Width = 64,
+        Height = 64
+      };
 
       // when: getting size
       var size = calc.GetCalculatedSize(null);

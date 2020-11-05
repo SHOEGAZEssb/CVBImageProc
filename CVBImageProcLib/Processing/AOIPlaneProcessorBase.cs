@@ -3,6 +3,10 @@ using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing
 {
+  /// <summary>
+  /// Base class for processors that support processing
+  /// individual regions and planes.
+  /// </summary>
   [DataContract]
   public abstract class AOIPlaneProcessorBase : IAOIPlaneProcessor
   {
