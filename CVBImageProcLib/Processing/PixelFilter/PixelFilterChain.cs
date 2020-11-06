@@ -162,38 +162,60 @@ namespace CVBImageProcLib.Processing.PixelFilter
     {
       if (Mode == LogicMode.And)
       {
-        foreach (var filter in _activeValueFilter)
+        if (_activeValueFilter.Count > 0)
         {
-          if (!filter.Check(pixel))
-            return false;
+          foreach (var filter in _activeValueFilter)
+          {
+            if (!filter.Check(pixel))
+              return false;
+          }
         }
-        foreach (var filter in _activeIndexFilter)
+
+        if (_activeIndexFilter.Count > 0)
         {
-          if (!filter.Check(index))
-            return false;
+          foreach (var filter in _activeIndexFilter)
+          {
+            if (!filter.Check(index))
+              return false;
+          }
         }
-        foreach (var filter in _activeAutoFilter)
+
+        if (_activeAutoFilter.Count > 0)
         {
-          if (!filter.Check())
-            return false;
+          foreach (var filter in _activeAutoFilter)
+          {
+            if (!filter.Check())
+              return false;
+          }
         }
       }
       else
       {
-        foreach (var filter in _activeValueFilter)
+        if (_activeValueFilter.Count > 0)
         {
-          if (filter.Check(pixel))
-            return true;
+          foreach (var filter in _activeValueFilter)
+          {
+            if (filter.Check(pixel))
+              return true;
+          }
         }
-        foreach (var filter in _activeIndexFilter)
+
+        if (_activeIndexFilter.Count > 0)
         {
-          if (filter.Check(index))
-            return true;
+          foreach (var filter in _activeIndexFilter)
+          {
+            if (filter.Check(index))
+              return true;
+          }
         }
-        foreach (var filter in _activeAutoFilter)
+
+        if (_activeAutoFilter.Count > 0)
         {
-          if (filter.Check())
-            return true;
+          foreach (var filter in _activeAutoFilter)
+          {
+            if (filter.Check())
+              return true;
+          }
         }
 
         return false;
@@ -214,38 +236,60 @@ namespace CVBImageProcLib.Processing.PixelFilter
     {
       if (Mode == LogicMode.And)
       {
-        foreach (var filter in _activeValueFilter)
+        if (_activeValueFilter.Count > 0)
         {
-          if (!filter.Check(r) || !filter.Check(g) || !filter.Check(b))
-            return false;
+          foreach (var filter in _activeValueFilter)
+          {
+            if (!filter.Check(r) || !filter.Check(g) || !filter.Check(b))
+              return false;
+          }
         }
-        foreach (var filter in _activeIndexFilter)
+
+        if (_activeIndexFilter.Count > 0)
         {
-          if (!filter.Check(index))
-            return false;
+          foreach (var filter in _activeIndexFilter)
+          {
+            if (!filter.Check(index))
+              return false;
+          }
         }
-        foreach (var filter in _activeAutoFilter)
+
+        if (_activeAutoFilter.Count > 0)
         {
-          if (!filter.Check())
-            return false;
+          foreach (var filter in _activeAutoFilter)
+          {
+            if (!filter.Check())
+              return false;
+          }
         }
       }
       else
       {
-        foreach (var filter in _activeValueFilter)
+        if (_activeValueFilter.Count > 0)
         {
-          if (filter.Check(r) && filter.Check(g) && filter.Check(b))
-            return true;
+          foreach (var filter in _activeValueFilter)
+          {
+            if (filter.Check(r) && filter.Check(g) && filter.Check(b))
+              return true;
+          }
         }
-        foreach (var filter in _activeIndexFilter)
+
+        if (_activeIndexFilter.Count > 0)
         {
-          if (filter.Check(index))
-            return true;
+          foreach (var filter in _activeIndexFilter)
+          {
+            if (filter.Check(index))
+              return true;
+          }
         }
-        foreach (var filter in _activeAutoFilter)
+
+        if (_activeAutoFilter.Count > 0)
         {
-          if (filter.Check())
-            return true;
+          foreach (var filter in _activeAutoFilter)
+          {
+            if (filter.Check())
+              return true;
+          }
         }
 
         return false;
