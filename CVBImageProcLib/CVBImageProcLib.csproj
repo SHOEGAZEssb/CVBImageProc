@@ -95,6 +95,7 @@
     <Compile Include="Processing\IProcessor.cs" />
     <Compile Include="Processing\Math.cs" />
     <Compile Include="Processing\MonoToMultiplane.cs" />
+    <Compile Include="Processing\Pixelate.cs" />
     <Compile Include="Processing\RGBPixel.cs" />
     <Compile Include="Processing\PixelFilter\EqualsIndex.cs" />
     <Compile Include="Processing\PixelFilter\EqualsValue.cs" />

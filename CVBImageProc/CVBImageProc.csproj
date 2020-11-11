@@ -160,6 +160,10 @@
       <DependentUpon>MonoToMultiplaneView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\MonoToMultiplaneViewModel.cs" />
+    <Compile Include="Processing\PixelateView.xaml.cs">
+      <DependentUpon>PixelateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\PixelateViewModel.cs" />
     <Compile Include="Processing\PixelFilter\IPixelAutoFilterViewModel.cs" />
     <Compile Include="Processing\PixelFilter\PixelFilterViewModelBase.cs" />
     <Compile Include="Processing\PixelFilter\RandomizeView.xaml.cs">
@@ -309,6 +313,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\MonoToMultiplaneView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\PixelateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

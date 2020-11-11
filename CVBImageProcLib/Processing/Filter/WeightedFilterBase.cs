@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Security;
 using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing.Filter

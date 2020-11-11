@@ -16,6 +16,7 @@ Currently available processors:
 - Math
 - Mono To Multiplane
 - Pixel Shift
+- Pixelate
 - Plane Clear
 - Resize
 - Replace

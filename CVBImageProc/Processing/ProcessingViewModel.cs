@@ -266,6 +266,8 @@ namespace CVBImageProc.Processing
           return new MonoToMultiplaneViewModel(m, kvp.Value);
         case Invert i:
           return new InvertViewModel(i, kvp.Value);
+        case Pixelate p:
+          return new PixelateViewModel(p, kvp.Value);
         case PixelShift p:
           return new PixelShiftViewModel(p, kvp.Value);
         case PlaneClear p:
