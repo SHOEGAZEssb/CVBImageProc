@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using Stemmer.Cvb;
 using Stemmer.Cvb.Utilities;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -192,14 +193,16 @@ namespace CVBImageProc
     #region Member
 
     /// <summary>
-    /// Task to do the processing.
-    /// </summary>
-    private Task<Image> _processingTask;
-
-    /// <summary>
     /// WindowManager used to display dialogs.
     /// </summary>
     private readonly IWindowManager _windowManager;
+
+    private volatile Queue<Task<Image>> _processingQueue = new Queue<Task<Image>>(2);
+
+    /// <summary>
+    /// Lock object for queue operations.
+    /// </summary>
+    private readonly object _queueLock = new object();
 
     #endregion Member
 
@@ -247,7 +250,7 @@ namespace CVBImageProc
         }
         catch (Exception ex)
         {
-          if(MessageBox.Show($"Error opening image: {ex.Message}\r\nDo you want to try to import the raw file?", "Error opening file", MessageBoxButton.YesNo)
+          if (MessageBox.Show($"Error opening image: {ex.Message}\r\nDo you want to try to import the raw file?", "Error opening file", MessageBoxButton.YesNo)
             == MessageBoxResult.Yes)
           {
             OpenRawFile(ofd.FileName);
@@ -401,24 +404,67 @@ namespace CVBImageProc
     /// </summary>
     private async Task Process()
     {
-      if (!_processingTask?.IsCompleted ?? false || InputImage == null)
+      if (InputImage == null)
         return;
 
-      try
+      lock (_queueLock)
       {
-        StatusBarVM.StatusMessage = "Processing...";
-
-        _processingTask = ProcessingVM.ProcessAsync(InputImage);
-        var start = DateTime.Now;
-        OutputImage = await _processingTask.ConfigureAwait(false);
-        var end = DateTime.Now;
-
-        StatusBarVM.StatusMessage = $"Processing took {(end - start).TotalMilliseconds} ms";
+        if (_processingQueue.Count == 2)
+        {
+          _processingQueue = new Queue<Task<Image>>(new[] { _processingQueue.Peek(), CreateProcessingTask() });
+          return;
+        }
+        else
+        {
+          _processingQueue.Enqueue(CreateProcessingTask());
+          if (_processingQueue.Count == 2)
+            return;
+        }
       }
-      catch (Exception ex)
+
+      while (GetQueueCount() != 0)
       {
-        StatusBarVM.StatusMessage = $"Error processing image: {ex.Message}";
+        Task<Image> processingTask;
+        lock (_queueLock)
+        {
+          processingTask = _processingQueue.Peek();
+        }
+
+        try
+        {
+          StatusBarVM.StatusMessage = "Processing...";
+          processingTask.Start();
+          var start = DateTime.Now;
+          OutputImage = await processingTask.ConfigureAwait(false);
+          var end = DateTime.Now;
+
+          StatusBarVM.StatusMessage = $"Processing took {(end - start).TotalMilliseconds} ms";
+        }
+        catch (Exception ex)
+        {
+          StatusBarVM.StatusMessage = $"Error processing image: {ex.Message}";
+        }
+        finally
+        {
+          lock (_queueLock)
+          {
+            _processingQueue.Dequeue().Forget();
+          }
+        }
       }
+    }
+
+    private int GetQueueCount()
+    {
+      lock (_queueLock)
+      {
+        return _processingQueue.Count;
+      }
+    }
+
+    private Task<Image> CreateProcessingTask()
+    {
+      return new Task<Image>(() => ProcessingVM.Process(InputImage));
     }
 
     /// <summary>
