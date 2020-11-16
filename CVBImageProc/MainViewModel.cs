@@ -247,7 +247,7 @@ namespace CVBImageProc
         }
         catch (Exception ex)
         {
-          if(MessageBox.Show($"Error opening image: {ex.Message}\r\nDo you want to try to import the raw file?", "Error opening file", MessageBoxButton.YesNo) 
+          if(MessageBox.Show($"Error opening image: {ex.Message}\r\nDo you want to try to import the raw file?", "Error opening file", MessageBoxButton.YesNo)
             == MessageBoxResult.Yes)
           {
             OpenRawFile(ofd.FileName);
@@ -401,15 +401,15 @@ namespace CVBImageProc
     /// </summary>
     private async Task Process()
     {
-      if ((_processingTask != null && !_processingTask.IsCompleted) || InputImage == null)
+      if (!_processingTask?.IsCompleted ?? false || InputImage == null)
         return;
 
       try
       {
         StatusBarVM.StatusMessage = "Processing...";
 
-        var start = DateTime.Now;
         _processingTask = ProcessingVM.ProcessAsync(InputImage);
+        var start = DateTime.Now;
         OutputImage = await _processingTask.ConfigureAwait(false);
         var end = DateTime.Now;
 

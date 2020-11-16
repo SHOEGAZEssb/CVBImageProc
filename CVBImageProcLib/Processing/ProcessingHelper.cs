@@ -64,7 +64,7 @@ namespace CVBImageProcLib.Processing
         {
           var pBase = (byte*)data.BasePtr;
 
-          for (int y = startY; y < boundsY; y++)
+          Parallel.For(startY, boundsY, (y) =>
           {
             byte* pLine = pBase + yInc * y;
 
@@ -74,7 +74,7 @@ namespace CVBImageProcLib.Processing
               if (filterChain.Check(*pPixel, y * boundsY + x))
                 *pPixel = processorFunc.Invoke(*pPixel);
             }
-          };
+          });
         }
       }
       else
@@ -191,7 +191,7 @@ namespace CVBImageProcLib.Processing
         {
           var pBase = (byte*)data.BasePtr;
 
-          for (int y = startY; y < boundsY; y++)
+          Parallel.For(startY, boundsY, (y) =>
           {
             byte* pLine = pBase + yInc * y;
 
@@ -201,7 +201,7 @@ namespace CVBImageProcLib.Processing
               if (filterChain.Check(*pPixel, y * boundsY + x))
                 *pPixel = processorFunc.Invoke(*pPixel, y, x);
             }
-          };
+          });
         }
       }
       else
@@ -502,7 +502,7 @@ namespace CVBImageProcLib.Processing
           var pBaseG = (byte*)gData.BasePtr;
           var pBaseB = (byte*)bData.BasePtr;
 
-          for (int y = startY; y < boundsY; y++)
+          Parallel.For(startY, boundsY, (y) =>
           {
             byte* rLine = pBaseR + rYInc * y;
             byte* gLine = pBaseG + gYInc * y;
@@ -522,7 +522,7 @@ namespace CVBImageProcLib.Processing
                 *bPixel = result.B;
               }
             }
-          }
+          });
         }
       }
       else
