@@ -1,5 +1,4 @@
-﻿using CVBImageProc.Processing.PixelFilter;
-using CVBImageProc.Processing.ValueProvider;
+﻿using CVBImageProc.Processing.ValueProvider;
 using CVBImageProcLib.Processing;
 
 namespace CVBImageProc.Processing
@@ -7,7 +6,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Math"/> processor.
   /// </summary>
-  class MathViewModel : AOIPlaneProcessorViewModelBase
+  class MathViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -51,11 +50,6 @@ namespace CVBImageProc.Processing
     /// </summary>
     public ValueProviderViewModel<int> ValueProviderVM { get; }
 
-    /// <summary>
-    /// ViewModel for the processors pixel filter chain.
-    /// </summary>
-    public PixelFilterChainViewModel PixelFilterChainVM { get; }
-
     #endregion Properties
 
     #region Member
@@ -80,8 +74,6 @@ namespace CVBImageProc.Processing
       _processor = processor;
       ValueProviderVM = new ValueProviderViewModel<int>(_processor.ValueProvider);
       ValueProviderVM.SettingsChanged += SubVM_SettingsChanged;
-      PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
-      PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     #endregion Construction

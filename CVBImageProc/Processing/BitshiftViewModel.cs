@@ -1,5 +1,4 @@
-﻿using CVBImageProc.Processing.PixelFilter;
-using CVBImageProc.Processing.ValueProvider;
+﻿using CVBImageProc.Processing.ValueProvider;
 using CVBImageProcLib.Processing;
 using System;
 
@@ -8,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="BitShift"/> processor.
   /// </summary>
-  class BitshiftViewModel : AOIPlaneProcessorViewModelBase
+  class BitshiftViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -52,11 +51,6 @@ namespace CVBImageProc.Processing
     /// </summary>
     public ValueProviderViewModel<int> ValueProviderVM { get; }
 
-    /// <summary>
-    /// ViewModel for the processors pixel filter chain.
-    /// </summary>
-    public PixelFilterChainViewModel PixelFilterChainVM { get; }
-
     #endregion Properties
 
     #region Member
@@ -76,8 +70,6 @@ namespace CVBImageProc.Processing
       _processor = processor;
       ValueProviderVM = new ValueProviderViewModel<int>(_processor.ValueProvider);
       ValueProviderVM.SettingsChanged += SubVM_SettingsChanged;
-      PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
-      PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
     }
 
     #endregion Construction

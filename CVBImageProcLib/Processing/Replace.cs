@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing
   /// ViewModel that replaces certain pixel values.
   /// </summary>
   [DataContract]
-  public class Replace : AOIPlaneProcessorBase, ICanProcessIndividualPixel
+  public class Replace : FullProcessorBase
   {
     #region IProcessor Implementation
 
@@ -50,16 +50,6 @@ namespace CVBImageProcLib.Processing
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualPixel Implementation
-
-    /// <summary>
-    /// Filter chain of the processor.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
-
-    #endregion ICanprocessIndividualPixel Implementation
 
     #region Properties
 

@@ -36,7 +36,7 @@ namespace CVBImageProcLib.Processing
   /// Applies mathematical operations on an image.
   /// </summary>
   [DataContract]
-  public class Math : AOIPlaneProcessorBase, ICanProcessIndividualPixel
+  public class Math : FullProcessorBase
   {
     #region IProcessor Implementation
 
@@ -79,16 +79,6 @@ namespace CVBImageProcLib.Processing
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualPixel Implementation
-
-    /// <summary>
-    /// Filter chain for the processor.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
-
-    #endregion ICanProcessIndividualPixel Implementation
 
     #region Properties
 

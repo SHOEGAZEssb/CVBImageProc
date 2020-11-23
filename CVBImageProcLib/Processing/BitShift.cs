@@ -28,7 +28,7 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Bit Shift")]
-  public class BitShift : AOIPlaneProcessorBase, ICanProcessIndividualPixel
+  public class BitShift : FullProcessorBase
   {
     #region IProcessor Implementation
 
@@ -77,16 +77,6 @@ namespace CVBImageProcLib.Processing
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualPixel Implementation
-
-    /// <summary>
-    /// Filter chain for the processor.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
-
-    #endregion ICanProcessIndividualPixel Implementation
 
     #region Properties
 

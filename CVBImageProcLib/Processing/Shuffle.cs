@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that shuffles an image plane.
   /// </summary>
   [DataContract]
-  public class Shuffle : AOIPlaneProcessorBase, ICanProcessIndividualPixel
+  public class Shuffle : FullProcessorBase
   {
     #region IProcessor Implementation
 
@@ -62,15 +62,5 @@ namespace CVBImageProcLib.Processing
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualPixel Implementation
-
-    /// <summary>
-    /// Filter chain for the processor.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
-
-    #endregion ICanProcessIndividualPixel Implementation
   }
 }

@@ -156,6 +156,7 @@
       <DependentUpon>MedianSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\Filter\MedianSettingsViewModel.cs" />
+    <Compile Include="Processing\FullProcessorViewModelBase.cs" />
     <Compile Include="Processing\MonoToMultiplaneView.xaml.cs">
       <DependentUpon>MonoToMultiplaneView.xaml</DependentUpon>
     </Compile>

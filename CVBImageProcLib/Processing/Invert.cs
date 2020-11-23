@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing
   /// Inverts an image.
   /// </summary>
   [DataContract]
-  public class Invert : AOIPlaneProcessorBase, ICanProcessIndividualPixel
+  public class Invert : FullProcessorBase
   {
     #region IProcessor Implementation
 
@@ -49,15 +49,5 @@ namespace CVBImageProcLib.Processing
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualPixel Implementation
-
-    /// <summary>
-    /// Filter chain for the processor.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
-
-    #endregion ICanProcessIndividualPixel Implementation
   }
 }

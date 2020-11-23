@@ -1,23 +1,12 @@
-﻿using CVBImageProc.Processing.PixelFilter;
-using CVBImageProcLib.Processing;
-using System;
+﻿using CVBImageProcLib.Processing;
 
 namespace CVBImageProc.Processing
 {
   /// <summary>
   /// ViewModel for the <see cref="Invert"/> processor.
   /// </summary>
-  class InvertViewModel : AOIPlaneProcessorViewModelBase
+  class InvertViewModel : FullProcessorViewModelBase
   {
-    #region Properties
-
-    /// <summary>
-    /// ViewModel for the processors pixel filter chain.
-    /// </summary>
-    public PixelFilterChainViewModel PixelFilterChainVM { get; }
-
-    #endregion Properties
-
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -25,20 +14,6 @@ namespace CVBImageProc.Processing
     /// <param name="isActive">Startup IsActive state.</param>
     public InvertViewModel(Invert processor, bool isActive)
       : base(processor, isActive)
-    {
-      PixelFilterChainVM = new PixelFilterChainViewModel(processor);
-      PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
-    }
-
-    /// <summary>
-    /// Fires the SettingsChanged event when the
-    /// pixel filter settings changed.
-    /// </summary>
-    /// <param name="sender">Ignored.</param>
-    /// <param name="e">Ignored.</param>
-    private void SubVM_SettingsChanged(object sender, EventArgs e)
-    {
-      OnSettingsChanged();
-    }
+    { }
   }
 }

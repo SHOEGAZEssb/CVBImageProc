@@ -1,5 +1,4 @@
 ﻿using CVBImageProc.MVVM;
-using CVBImageProc.Processing.PixelFilter;
 using CVBImageProcLib.Processing.Filter;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ namespace CVBImageProc.Processing.Filter
   /// <summary>
   /// ViewModel for <see cref="IFilter"/> processors.
   /// </summary>
-  class FilterViewModel : PlaneProcessorViewModelBase
+  class FilterViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -81,16 +80,6 @@ namespace CVBImageProc.Processing.Filter
       }
     }
 
-    /// <summary>
-    /// ViewModel for the processors pixel filter chain.
-    /// </summary>
-    public PixelFilterChainViewModel PixelFilterChainVM { get; }
-
-    /// <summary>
-    /// ViewModel for the AOI.
-    /// </summary>
-    public AOIViewModel AOIVM { get; }
-
     #endregion Properties
 
     #region Member
@@ -123,10 +112,6 @@ namespace CVBImageProc.Processing.Filter
       : base(processor, isActive)
     {
       _processor = processor;
-      PixelFilterChainVM = new PixelFilterChainViewModel(_processor);
-      PixelFilterChainVM.SettingsChanged += SubVM_SettingsChanged;
-      AOIVM = new AOIViewModel(_processor);
-      AOIVM.SettingsChanged += SubVM_SettingsChanged;
 
       if (processor.SelectedFilter == null)
         SelectedFilterType = AvailableFilterTypes.FirstOrDefault();

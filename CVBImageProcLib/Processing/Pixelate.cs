@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that pixelates an image.
   /// </summary>
   [DataContract]
-  public class Pixelate : AOIPlaneProcessorBase, ICanProcessIndividualPixel
+  public class Pixelate : FullProcessorBase
   {
     #region IProcessor Implementation
 
@@ -91,16 +91,6 @@ namespace CVBImageProcLib.Processing
     }
 
     #endregion IProcessor Implementation
-
-    #region ICanProcessIndividualPixel Implementation
-
-    /// <summary>
-    /// Filter chain for the processor.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
-
-    #endregion ICanProcessIndividualPixel Implementation
 
     #region Properties
 

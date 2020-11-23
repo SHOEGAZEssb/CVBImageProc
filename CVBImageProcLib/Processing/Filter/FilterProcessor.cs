@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing.Filter
   /// </summary>
   [DataContract]
   [DisplayName("Filter")]
-  public class FilterProcessor : AOIPlaneProcessorBase, ICanProcessIndividualPixel
+  public class FilterProcessor : FullProcessorBase
   {
     #region IProcessor Implementation
 
@@ -38,16 +38,6 @@ namespace CVBImageProcLib.Processing.Filter
     }
 
     #endregion IProcessorImplementation
-
-    #region ICanProcessIndividualPixel Implementation
-
-    /// <summary>
-    /// Filter chain for the processor.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
-
-    #endregion ICanProcessIndividualPixel Implementation
 
     #region Properties
 

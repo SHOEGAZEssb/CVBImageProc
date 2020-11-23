@@ -89,7 +89,9 @@
     <Compile Include="Processing\Filter\Median.cs" />
     <Compile Include="Processing\Filter\Min.cs" />
     <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
+    <Compile Include="Processing\FullProcessorBase.cs" />
     <Compile Include="Processing\IAOIPlaneProcessor.cs" />
+    <Compile Include="Processing\IFullProcessor.cs" />
     <Compile Include="Processing\Invert.cs" />
     <Compile Include="Processing\IProcessIndividualPlanes.cs" />
     <Compile Include="Processing\IProcessor.cs" />
