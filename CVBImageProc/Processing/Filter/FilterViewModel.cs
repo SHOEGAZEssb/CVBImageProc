@@ -34,6 +34,7 @@ namespace CVBImageProc.Processing.Filter
           OnSettingsChanged();
           NotifyOfPropertyChange();
           NotifyOfPropertyChange(nameof(Name));
+          NotifyOfPropertyChange(nameof(KernelSize));
           CustomSettingsViewModel = MakeCustomSettingsViewModel();
         }
       }
