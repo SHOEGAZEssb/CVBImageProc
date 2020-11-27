@@ -22,6 +22,9 @@ namespace CVBImageProc.Processing
 
     #region Properties
 
+    /// <summary>
+    /// Index of the plane to process.
+    /// </summary>
     public int PlaneIndex
     {
       get => _processor.PlaneIndex;
@@ -36,6 +39,9 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// If true, all planes are processed.
+    /// </summary>
     public bool ProcessAllPlanes
     {
       get => _processor.ProcessAllPlanes;
@@ -50,24 +56,13 @@ namespace CVBImageProc.Processing
       }
     }
 
-    public int MaxPlaneIndex
-    {
-      get => _maxPlaneIndex;
-      private set
-      {
-        if (MaxPlaneIndex != value)
-        {
-          _maxPlaneIndex = value;
-          NotifyOfPropertyChange();
-        }
-      }
-    }
-    private int _maxPlaneIndex;
-
     #endregion Properties
 
     #region Member
 
+    /// <summary>
+    /// The processor.
+    /// </summary>
     private readonly IProcessIndividualPlanes _processor;
 
     #endregion Member

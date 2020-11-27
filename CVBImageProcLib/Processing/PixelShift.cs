@@ -140,7 +140,8 @@ namespace CVBImageProcLib.Processing
     public bool UseFillValue { get; set; }
 
     /// <summary>
-    /// Value to fill empty pixels with.
+    /// Value to fill empty pixels with when
+    /// <see cref="UseFillValue"/> is true.
     /// </summary>
     [DataMember]
     public byte FillValue { get; set; }

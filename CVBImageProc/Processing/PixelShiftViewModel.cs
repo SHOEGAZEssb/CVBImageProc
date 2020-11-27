@@ -2,6 +2,9 @@
 
 namespace CVBImageProc.Processing
 {
+  /// <summary>
+  /// ViewModel for the <see cref="PixelShift"/> processor.
+  /// </summary>
   class PixelShiftViewModel : FullProcessorViewModelBase
   {
     #region Properties
@@ -40,6 +43,10 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// Gets if pixels should "wrap" around
+    /// back to the beginning of the image.
+    /// </summary>
     public bool Wrap
     {
       get => _processor.Wrap;
@@ -54,6 +61,11 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// Gets if the processed plane should be
+    /// initialized with the<see cref="FillValue"/>.
+    /// If not the original plane is used.
+    /// </summary>
     public bool UseFillValue
     {
       get => _processor.UseFillValue;
@@ -68,6 +80,10 @@ namespace CVBImageProc.Processing
       }
     }
 
+    /// <summary>
+    /// Value to fill empty pixels with when
+    /// <see cref="UseFillValue"/> is true.
+    /// </summary>
     public byte FillValue
     {
       get => _processor.FillValue;
