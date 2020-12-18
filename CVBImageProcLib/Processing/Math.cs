@@ -128,7 +128,7 @@ namespace CVBImageProcLib.Processing
           calculationFunc = (providedValue, inputByte) => wrapAroundFunc(inputByte * providedValue);
           break;
         default:
-          throw new ArgumentException("Unknown math mode");
+          throw new ArgumentException("Unknown math mode", nameof(mode));
       }
 
       return calculationFunc;

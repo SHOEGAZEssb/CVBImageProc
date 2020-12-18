@@ -73,6 +73,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     /// <param name="processor">The actual processor.</param>
     /// <param name="isActive">Startup IsActive state.</param>
+    /// <exception cref="ArgumentNullException">When <paramref name="processor"/> is null.</exception>
     public ProcessorViewModel(IProcessor processor, bool isActive)
     {
       Processor = processor ?? throw new ArgumentNullException(nameof(processor));

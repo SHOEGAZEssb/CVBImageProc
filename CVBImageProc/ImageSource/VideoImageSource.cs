@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace CVBImageProc.ImageSource
 {
+  /// <summary>
+  /// Image source that provides images of a video.
+  /// </summary>
   class VideoImageSource : IChangingImageSource
   {
     #region Properties
@@ -33,7 +36,7 @@ namespace CVBImageProc.ImageSource
     private bool _grab;
 
     /// <summary>
-    /// Event that is fired when the <see cref="IImageSource.CurrentImage"/> changed.
+    /// Event that is fired when the <see cref="CurrentImage"/> changed.
     /// </summary>
     public event EventHandler CurrentImageChanged;
 
@@ -66,7 +69,7 @@ namespace CVBImageProc.ImageSource
     /// Snaps a single image.
     /// </summary>
     /// <returns>Task.</returns>
-    public async Task Snap()
+    public async Task SnapAsync()
     {
       await _device.Stream.GetSnapshotAsync().ConfigureAwait(false);
       CurrentImageChanged?.Invoke(this, EventArgs.Empty);
@@ -91,6 +94,7 @@ namespace CVBImageProc.ImageSource
       finally
       {
         stream.Abort();
+        Grab = false;
       }
     }
   }

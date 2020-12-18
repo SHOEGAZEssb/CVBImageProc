@@ -23,6 +23,7 @@ namespace CVBImageProc.ImageSource
     /// Constructor.
     /// </summary>
     /// <param name="img">The image to provide.</param>
+    /// <exception cref="ArgumentNullException">When <paramref name="img"/> is null.</exception>
     public StaticImageSource(Image img)
     {
       CurrentImage = img ?? throw new ArgumentNullException(nameof(img));

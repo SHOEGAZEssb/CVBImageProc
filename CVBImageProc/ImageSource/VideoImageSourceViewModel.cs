@@ -78,7 +78,7 @@ namespace CVBImageProc.ImageSource
     /// <returns>Task.</returns>
     private async Task Snap()
     {
-      await _videoImageSource.Snap().ConfigureAwait(false);
+      await _videoImageSource.SnapAsync().ConfigureAwait(false);
     }
   }
 }

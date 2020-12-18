@@ -30,6 +30,7 @@ namespace CVBImageProc.MVVM
     /// Constructor.
     /// </summary>
     /// <param name="type">Type to wrap.</param>
+    /// <exception cref="ArgumentNullException">When <paramref name="type"/> is null.</exception>
     public TypeViewModel(Type type)
     {
       Type = type ?? throw new ArgumentNullException(nameof(type));
