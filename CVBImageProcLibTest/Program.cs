@@ -2,6 +2,9 @@ using NUnitLite;
 
 namespace CVBImageProcLibTest
 {
+  /// <summary>
+  /// Main test run class.
+  /// </summary>
   public static class Program
   {
     /// <summary>
