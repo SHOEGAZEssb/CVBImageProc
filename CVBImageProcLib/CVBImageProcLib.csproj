@@ -74,6 +74,13 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Processing\AOIPlaneProcessorBase.cs" />
+    <Compile Include="Processing\Automation\AutomatableProcessorBase.cs" />
+    <Compile Include="Processing\Automation\IPropertyAutomation.cs" />
+    <Compile Include="Processing\Automation\PropertyAutomation.cs" />
+    <Compile Include="Processing\Automation\PropertyAutomator.cs" />
+    <Compile Include="Processing\Automation\ValueProvider\BoolAutomationValueProvider.cs" />
+    <Compile Include="Processing\Automation\ValueProvider\IAutomationValueProvider.cs" />
+    <Compile Include="Processing\Automation\ValueProvider\IntUpAutomationValueProvider.cs" />
     <Compile Include="Processing\Binarise.cs" />
     <Compile Include="Processing\BitShift.cs" />
     <Compile Include="Processing\Crop.cs" />

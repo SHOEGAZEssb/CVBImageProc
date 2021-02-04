@@ -140,6 +140,9 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\WindowManager.cs" />
     <Compile Include="Processing\AOIPlaneProcessorViewModelBase.cs" />
+    <Compile Include="Processing\Automation\AutomatableProcessorViewModelBase.cs" />
+    <Compile Include="Processing\Automation\PropertyAutomationEventArgs.cs" />
+    <Compile Include="Processing\Automation\PropertyAutomationViewModel.cs" />
     <Compile Include="Processing\BitShiftView.xaml.cs">
       <DependentUpon>BitShiftView.xaml</DependentUpon>
     </Compile>
@@ -482,6 +485,7 @@
       <Name>CVBImageProcLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
   </Target>

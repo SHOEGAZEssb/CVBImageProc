@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProcLib.Processing.Automation;
+using Stemmer.Cvb;
 using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing
@@ -8,14 +9,9 @@ namespace CVBImageProcLib.Processing
   /// individual regions and planes.
   /// </summary>
   [DataContract]
-  public abstract class AOIPlaneProcessorBase : IAOIPlaneProcessor
+  public abstract class AOIPlaneProcessorBase : AutomatableProcessorBase, IAOIPlaneProcessor
   {
     #region IAOIPlaneProcessor Implementation
-
-    /// <summary>
-    /// The name of this processor.
-    /// </summary>
-    public abstract string Name { get; }
 
     /// <summary>
     /// Index of the plane to invert.
@@ -41,13 +37,6 @@ namespace CVBImageProcLib.Processing
     /// </summary>
     [DataMember]
     public Rect AOI { get; set; }
-
-    /// <summary>
-    /// Processes the <paramref name="inputImage"/>.
-    /// </summary>
-    /// <param name="inputImage">Image to process.</param>
-    /// <returns>Processed image.</returns>
-    public abstract Image Process(Image inputImage);
 
     #endregion IAOIPlaneProcessor Implementation
   }

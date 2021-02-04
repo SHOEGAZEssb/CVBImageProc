@@ -1,4 +1,5 @@
-﻿using Stemmer.Cvb;
+﻿using CVBImageProcLib.Processing.Automation;
+using Stemmer.Cvb;
 using System;
 using System.Collections.Generic;
 using System.Linq;

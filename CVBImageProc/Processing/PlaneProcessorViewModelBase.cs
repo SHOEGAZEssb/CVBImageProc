@@ -1,4 +1,5 @@
-﻿using CVBImageProcLib.Processing;
+﻿using CVBImageProc.Processing.Automation;
+using CVBImageProcLib.Processing;
 using System;
 
 namespace CVBImageProc.Processing
@@ -7,19 +8,8 @@ namespace CVBImageProc.Processing
   /// Base ViewModel for processors that process
   /// individual planes.
   /// </summary>
-  class PlaneProcessorViewModelBase : ProcessorViewModel, IHasSettings
+  class PlaneProcessorViewModelBase : AutomatableProcessorViewModelBase
   {
-    #region IHasSettings Implementation
-
-    public event EventHandler SettingsChanged;
-
-    protected void OnSettingsChanged()
-    {
-      SettingsChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    #endregion IHasSettings Implementation
-
     #region Properties
 
     /// <summary>

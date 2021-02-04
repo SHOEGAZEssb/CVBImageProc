@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Processing\Automation\PropertyAutomationTest.cs" />
     <Compile Include="Processing\BinariseTest.cs" />
     <Compile Include="Processing\BitShiftTest.cs" />
     <Compile Include="Processing\CropTest.cs" />
@@ -132,6 +133,7 @@
       <Name>CVBImageProcLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

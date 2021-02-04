@@ -22,6 +22,8 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="5"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="5"/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <TextBlock Grid.Row="0" Text="Available Processors:"/>
@@ -181,5 +183,8 @@
         </ContentControl.Resources>
       </ContentControl>
     </GroupBox>
+
+    <Separator Grid.Row="7"/>
+    <CheckBox Grid.Row="8" Content="AutomationEnabled" IsChecked="{Binding AutomationEnabled}"/>
   </Grid>
 </UserControl>

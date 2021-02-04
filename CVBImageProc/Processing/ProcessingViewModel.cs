@@ -1,6 +1,8 @@
 ﻿using CVBImageProc.MVVM;
+using CVBImageProc.Processing.Automation;
 using CVBImageProc.Processing.Filter;
 using CVBImageProcLib.Processing;
+using CVBImageProcLib.Processing.Automation;
 using CVBImageProcLib.Processing.Filter;
 using Microsoft.Win32;
 using Stemmer.Cvb;
@@ -135,6 +137,19 @@ namespace CVBImageProc.Processing
     }
     private IProcessorViewModel _selectedProcessor;
 
+    public bool AutomationEnabled
+    {
+      get => _automator.Enabled;
+      set
+      {
+        if (AutomationEnabled != value)
+        {
+          _automator.Enabled = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+
     #endregion Properties
 
     #region Member
@@ -143,6 +158,11 @@ namespace CVBImageProc.Processing
     /// The processor chain to run through.
     /// </summary>
     private ProcessorChain _processorChain;
+
+    /// <summary>
+    /// The property automator.
+    /// </summary>
+    private PropertyAutomator _automator;
 
     /// <summary>
     /// Gets the processor types for serialization.
@@ -173,6 +193,7 @@ namespace CVBImageProc.Processing
       CloneProcessorCommand = new DelegateCommand((o) => CloneSelectedProcessor());
 
       _processorChain = new ProcessorChain();
+      _automator = new PropertyAutomator();
       Processors = new ObservableCollection<IProcessorViewModel>();
       Processors.CollectionChanged += Processors_CollectionChanged;
 
@@ -474,6 +495,11 @@ namespace CVBImageProc.Processing
           proc.IsActiveChanged += Processor_IsActiveChanged;
           if (proc is IHasSettings settingsProc)
             settingsProc.SettingsChanged += SettingsProc_SettingsChanged;
+          if (proc is AutomatableProcessorViewModelBase auto)
+          {
+            auto.AutomationAdded += Processor_AutomationAdded;
+            auto.AutomationRemoved += Processor_AutomationRemoved;
+          }
         }
 
         if (e.NewItems.OfType<INeedImageInfo>().Any())
@@ -486,6 +512,11 @@ namespace CVBImageProc.Processing
           proc.IsActiveChanged -= Processor_IsActiveChanged;
           if (proc is IHasSettings settingsProc)
             settingsProc.SettingsChanged -= SettingsProc_SettingsChanged;
+          if (proc is AutomatableProcessorViewModelBase auto)
+          {
+            auto.AutomationAdded -= Processor_AutomationAdded;
+            auto.AutomationRemoved -= Processor_AutomationRemoved;
+          }
         }
       }
 
@@ -495,6 +526,16 @@ namespace CVBImageProc.Processing
 
       (MoveProcessorUpCommand as DelegateCommand).OnCanExecuteChanged();
       (MoveProcessorDownCommand as DelegateCommand).OnCanExecuteChanged();
+    }
+
+    private void Processor_AutomationRemoved(object sender, PropertyAutomationEventArgs e)
+    {
+      _automator.Automations.Remove(e.Automation);
+    }
+
+    private void Processor_AutomationAdded(object sender, PropertyAutomationEventArgs e)
+    {
+      _automator.Automations.Add(e.Automation);
     }
 
     /// <summary>
