@@ -1,5 +1,8 @@
-﻿using CVBImageProc.Processing.ValueProvider;
+﻿using CVBImageProc.MVVM;
+using CVBImageProc.Processing.Automation;
+using CVBImageProc.Processing.ValueProvider;
 using CVBImageProcLib.Processing;
+using System.Windows.Data;
 
 namespace CVBImageProc.Processing
 {
@@ -50,6 +53,8 @@ namespace CVBImageProc.Processing
     /// </summary>
     public ValueProviderViewModel<int> ValueProviderVM { get; }
 
+    public override CompositeObservableCollection<PropertyAutomationViewModel> AllAutomations { get; }
+
     #endregion Properties
 
     #region Member
@@ -74,6 +79,19 @@ namespace CVBImageProc.Processing
       _processor = processor;
       ValueProviderVM = new ValueProviderViewModel<int>(_processor.ValueProvider);
       ValueProviderVM.SettingsChanged += SubVM_SettingsChanged;
+      ValueProviderVM.AutomationAdded += SubVM_AutomationAdded;
+      ValueProviderVM.AutomationRemoved += SubVM_AutomationRemoved;
+      AllAutomations = new CompositeObservableCollection<PropertyAutomationViewModel>(Automations, ValueProviderVM.Automations);
+    }
+
+    private void SubVM_AutomationRemoved(object sender, PropertyAutomationEventArgs e)
+    {
+      OnAutomationRemoved(e);
+    }
+
+    private void SubVM_AutomationAdded(object sender, PropertyAutomationEventArgs e)
+    {
+      OnAutomationAdded(e);
     }
 
     #endregion Construction

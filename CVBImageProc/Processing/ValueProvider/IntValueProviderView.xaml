@@ -8,6 +8,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+  <UserControl.Resources>
+    <ContextMenu x:Key="FixedValueContextMenu">
+      <MenuItem Header="Add Automation" Command="{Binding AddAutomationCommand}" CommandParameter="FixedValue"/>
+      <MenuItem Header="Remove Automation" Command="{Binding RemoveAutomationCommand}" CommandParameter="FixedValue"/>
+    </ContextMenu>
+  </UserControl.Resources>
+
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -39,11 +46,11 @@
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Text="Value:"/>
-        <TextBlock Grid.Column="2" Text="{Binding MinValue}"/>
-        <Slider Grid.Column="4" Minimum="{Binding MinValue}" Value="{Binding FixedValue}" Maximum="{Binding MaxValue}"/>
-        <TextBlock Grid.Column="6" Text="{Binding MaxValue}"/>
-        <xctk:IntegerUpDown Grid.Column="8" Minimum="{Binding MinValue}" Value="{Binding FixedValue}" Maximum="{Binding MaxValue}"/>
+        <TextBlock Grid.Column="0" Text="Value:" ContextMenu="{StaticResource FixedValueContextMenu}"/>
+        <TextBlock Grid.Column="2" Text="{Binding MinValue}" ContextMenu="{StaticResource FixedValueContextMenu}"/>
+        <Slider Grid.Column="4" Minimum="{Binding MinValue}" Value="{Binding FixedValue}" Maximum="{Binding MaxValue}" ContextMenu="{StaticResource FixedValueContextMenu}"/>
+        <TextBlock Grid.Column="6" Text="{Binding MaxValue}" ContextMenu="{StaticResource FixedValueContextMenu}"/>
+        <xctk:IntegerUpDown Grid.Column="8" Minimum="{Binding MinValue}" Value="{Binding FixedValue}" Maximum="{Binding MaxValue}" ContextMenu="{StaticResource FixedValueContextMenu}"/>
       </Grid>
 
       <Grid>

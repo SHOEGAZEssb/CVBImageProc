@@ -38,28 +38,16 @@ namespace CVBImageProcLib.Processing.Automation
     /// The processor whose property
     /// (or nested property) to set.
     /// </summary>
-    public IProcessor Parent
+    public IAutomatable Parent
     {
       get => _parent;
       set
       {
         _parent = value;
-
-        object target = Parent;
-        PropertyInfo pi = null;
-        foreach (var prop in PropertyName.Split('.'))
-        {
-          pi = target.GetType().GetProperty(prop);
-
-          if(prop != PropertyName.Split('.').Last())
-            target = pi.GetValue(target, null);
-        }
-
-        _property = pi;
-        _target = target;
+        _property = Parent.GetType().GetProperty(PropertyName); ;
       }
     }
-    private IProcessor _parent;
+    private IAutomatable _parent;
 
     public Type PropertyType => _property.PropertyType;
 
@@ -74,14 +62,6 @@ namespace CVBImageProcLib.Processing.Automation
     /// The property to set.
     /// </summary>
     private PropertyInfo _property;
-
-    /// <summary>
-    /// Target object whose property to set.
-    /// This does not necessarily need to be the
-    /// <see cref="Parent"/>, as nested properties
-    /// can be possible. (for example ValueProviders)
-    /// </summary>
-    private object _target;
 
     #endregion Member
 
@@ -99,7 +79,7 @@ namespace CVBImageProcLib.Processing.Automation
 
     public void Update()
     {
-      if(++_currentTicks == _ticksToUpdate)
+      if(++_currentTicks >= _ticksToUpdate)
       {
         UpdateValue();
         _currentTicks = 0;
@@ -108,7 +88,7 @@ namespace CVBImageProcLib.Processing.Automation
 
     private void UpdateValue()
     {
-      _property.SetValue(_target, ValueProvider.ProvideNextValue());
+      _property.SetValue(Parent, ValueProvider.ProvideNextValue());
       ValueUpdated?.Invoke(this, EventArgs.Empty);
     }
   }

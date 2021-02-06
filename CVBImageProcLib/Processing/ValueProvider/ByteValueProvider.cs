@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVBImageProcLib.Processing.Automation;
+using System;
 using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing.ValueProvider
@@ -7,7 +8,7 @@ namespace CVBImageProcLib.Processing.ValueProvider
   /// Object providing byte values to processors.
   /// </summary>
   [DataContract]
-  public class ByteValueProvider : IValueProvider<byte>
+  public class ByteValueProvider : AutomatableObjectBase, IValueProvider<byte>
   {
     #region Properties
 

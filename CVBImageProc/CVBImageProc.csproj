@@ -128,6 +128,7 @@
       <DependentUpon>VideoImageSourceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImageSource\VideoImageSourceViewModel.cs" />
+    <Compile Include="MVVM\CompositeObservableCollection.cs" />
     <Compile Include="MVVM\ContextWindow.xaml.cs">
       <DependentUpon>ContextWindow.xaml</DependentUpon>
     </Compile>
@@ -140,8 +141,24 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\WindowManager.cs" />
     <Compile Include="Processing\AOIPlaneProcessorViewModelBase.cs" />
+    <Compile Include="Processing\Automation\AutomatableObjectViewModelBase.cs" />
     <Compile Include="Processing\Automation\AutomatableProcessorViewModelBase.cs" />
+    <Compile Include="Processing\Automation\BoolPropertyAutomationView.xaml.cs">
+      <DependentUpon>BoolPropertyAutomationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Automation\BoolPropertyAutomationViewModel.cs" />
+    <Compile Include="Processing\Automation\IAutomatableObjectViewModel.cs" />
+    <Compile Include="Processing\Automation\IntPropertyAutomationView.xaml.cs">
+      <DependentUpon>IntPropertyAutomationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Automation\IntPropertyAutomationViewModel.cs" />
+    <Compile Include="Processing\Automation\ProcessorAutomationsView.xaml.cs">
+      <DependentUpon>ProcessorAutomationsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Processing\Automation\PropertyAutomationEventArgs.cs" />
+    <Compile Include="Processing\Automation\PropertyAutomationView.xaml.cs">
+      <DependentUpon>PropertyAutomationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Processing\Automation\PropertyAutomationViewModel.cs" />
     <Compile Include="Processing\BitShiftView.xaml.cs">
       <DependentUpon>BitShiftView.xaml</DependentUpon>
@@ -287,6 +304,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVVM\ContextWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Automation\BoolPropertyAutomationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Automation\IntPropertyAutomationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Automation\ProcessorAutomationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Automation\PropertyAutomationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

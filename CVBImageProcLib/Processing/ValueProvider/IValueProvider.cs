@@ -1,10 +1,12 @@
-﻿namespace CVBImageProcLib.Processing.ValueProvider
+﻿using CVBImageProcLib.Processing.Automation;
+
+namespace CVBImageProcLib.Processing.ValueProvider
 {
   /// <summary>
   /// Interface for an object providing values.
   /// </summary>
   /// <typeparam name="T">Type of value to provide.</typeparam>
-  public interface IValueProvider<T> where T : struct
+  public interface IValueProvider<T> : IAutomatable where T : struct
   {
     #region Properties
 

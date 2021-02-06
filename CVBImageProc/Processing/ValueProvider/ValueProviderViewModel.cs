@@ -1,4 +1,5 @@
-﻿using CVBImageProcLib.Processing.ValueProvider;
+﻿using CVBImageProc.Processing.Automation;
+using CVBImageProcLib.Processing.ValueProvider;
 using System;
 
 namespace CVBImageProc.Processing.ValueProvider
@@ -7,7 +8,7 @@ namespace CVBImageProc.Processing.ValueProvider
   /// ViewModel for <see cref="IValueProvider{T}"/>s.
   /// </summary>
   /// <typeparam name="T">Type of value to provide.</typeparam>
-  class ValueProviderViewModel<T> : SettingsViewModelBase where T : struct
+  class ValueProviderViewModel<T> : AutomatableObjectViewModelBase where T : struct
   {
     #region Properties
 
@@ -110,6 +111,7 @@ namespace CVBImageProc.Processing.ValueProvider
     /// </summary>
     /// <param name="provider">The provider.</param>
     public ValueProviderViewModel(IValueProvider<T> provider)
+      : base(provider)
     {
       _provider = provider ?? throw new ArgumentNullException(nameof(provider));
     }

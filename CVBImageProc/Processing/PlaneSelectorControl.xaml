@@ -27,6 +27,13 @@
         </Style>
       </xceed:IntegerUpDown.Style>
     </xceed:IntegerUpDown>
-    <CheckBox x:Name="allCheckBox" Grid.Row="4" Content="All Planes" IsChecked="{Binding ProcessAllPlanes}"/>
+    <CheckBox x:Name="allCheckBox" Grid.Row="4" Content="All Planes" IsChecked="{Binding ProcessAllPlanes}">
+      <CheckBox.ContextMenu>
+        <ContextMenu>
+          <MenuItem Header="Add Automation" Command="{Binding AddAutomationCommand}" CommandParameter="ProcessAllPlanes"/>
+          <MenuItem Header="Remove Automation" Command="{Binding RemoveAutomationCommand}" CommandParameter="ProcessAllPlanes"/>
+        </ContextMenu>
+      </CheckBox.ContextMenu>
+    </CheckBox>
   </Grid>
 </UserControl>

@@ -1,6 +1,5 @@
 ﻿using CVBImageProc.Processing.Automation;
 using CVBImageProcLib.Processing;
-using System;
 
 namespace CVBImageProc.Processing
 {
@@ -8,7 +7,7 @@ namespace CVBImageProc.Processing
   /// Base ViewModel for processors that process
   /// individual planes.
   /// </summary>
-  class PlaneProcessorViewModelBase : AutomatableProcessorViewModelBase
+  abstract class PlaneProcessorViewModelBase : AutomatableProcessorViewModelBase
   {
     #region Properties
 

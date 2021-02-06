@@ -9,9 +9,14 @@ namespace CVBImageProcLib.Processing
   /// individual regions and planes.
   /// </summary>
   [DataContract]
-  public abstract class AOIPlaneProcessorBase : AutomatableProcessorBase, IAOIPlaneProcessor
+  public abstract class AOIPlaneProcessorBase : AutomatableObjectBase, IAOIPlaneProcessor
   {
     #region IAOIPlaneProcessor Implementation
+
+    /// <summary>
+    /// Name of this processor.
+    /// </summary>
+    public abstract string Name { get; }
 
     /// <summary>
     /// Index of the plane to invert.
@@ -39,5 +44,7 @@ namespace CVBImageProcLib.Processing
     public Rect AOI { get; set; }
 
     #endregion IAOIPlaneProcessor Implementation
+
+    public abstract Image Process(Image inputImage);
   }
 }

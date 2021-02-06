@@ -1,4 +1,5 @@
-﻿using CVBImageProcLib.Processing.PixelFilter;
+﻿using CVBImageProcLib.Processing.Automation;
+using CVBImageProcLib.Processing.PixelFilter;
 
 namespace CVBImageProcLib.Processing
 {
@@ -6,6 +7,6 @@ namespace CVBImageProcLib.Processing
   /// Grouping interface for processors that support processing
   /// individual regions and planes.
   /// </summary>
-  public interface IAOIPlaneProcessor : ICanProcessIndividualRegions, IProcessIndividualPlanes, IProcessor
+  public interface IAOIPlaneProcessor : ICanProcessIndividualRegions, IProcessIndividualPlanes, IAutomatableProcessor
   { }
 }

@@ -74,7 +74,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Processing\AOIPlaneProcessorBase.cs" />
-    <Compile Include="Processing\Automation\AutomatableProcessorBase.cs" />
+    <Compile Include="Processing\Automation\AutomatableObjectBase.cs" />
+    <Compile Include="Processing\Automation\IAutomatable.cs" />
+    <Compile Include="Processing\Automation\IAutomatableProcessor.cs" />
     <Compile Include="Processing\Automation\IPropertyAutomation.cs" />
     <Compile Include="Processing\Automation\PropertyAutomation.cs" />
     <Compile Include="Processing\Automation\PropertyAutomator.cs" />

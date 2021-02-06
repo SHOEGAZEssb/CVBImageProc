@@ -11,7 +11,9 @@ namespace CVBImageProcLib.Processing.Automation
 
     string PropertyName { get; }
 
-    IProcessor Parent { get; set; }
+    Type PropertyType { get; }
+
+    IAutomatable Parent { get; set; }
 
     void Update();
   }

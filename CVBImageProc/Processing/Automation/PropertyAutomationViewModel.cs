@@ -1,14 +1,10 @@
 ﻿using CVBImageProc.MVVM;
 using CVBImageProcLib.Processing.Automation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVBImageProc.Processing.Automation
 {
-  class PropertyAutomationViewModel : ViewModelBase
+  abstract class PropertyAutomationViewModel : ViewModelBase
   {
     #region Properties
 
@@ -37,7 +33,7 @@ namespace CVBImageProc.Processing.Automation
 
     #region Construction
 
-    public PropertyAutomationViewModel(IPropertyAutomation automation)
+    protected PropertyAutomationViewModel(IPropertyAutomation automation)
     {
       _automation = automation ?? throw new ArgumentNullException(nameof(automation));
     }

@@ -1,27 +1,25 @@
 ﻿using CVBImageProc.MVVM;
 using CVBImageProcLib.Processing;
 using CVBImageProcLib.Processing.Automation;
-using CVBImageProcLib.Processing.Automation.ValueProvider;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CVBImageProc.Processing.Automation
 {
-  class AutomatableProcessorViewModelBase : ProcessorViewModel, IHasSettings
+  /// <summary>
+  /// Base ViewModel for automatable processors.
+  /// </summary>
+  abstract class AutomatableProcessorViewModelBase : ProcessorViewModel, IHasSettings, IAutomatableObjectViewModel
   {
     #region IHasSettings Implementation
 
+    /// <summary>
+    /// Event that is fired when one of
+    /// the settings changed.
+    /// </summary>
     public event EventHandler SettingsChanged;
-
-    protected void OnSettingsChanged()
-    {
-      SettingsChanged?.Invoke(this, EventArgs.Empty);
-    }
 
     #endregion IHasSettings Implementation
 
@@ -31,56 +29,83 @@ namespace CVBImageProc.Processing.Automation
 
     public event EventHandler<PropertyAutomationEventArgs> AutomationRemoved;
 
-    public ObservableCollection<PropertyAutomationViewModel> Automations { get; }
+    public ObservableCollection<PropertyAutomationViewModel> Automations => _automatableObjectVM.Automations;
 
-    public ICommand AddAutomationCommand { get; }
+    /// <summary>
+    /// All automations of this processor and all
+    /// its automatable sub-object.
+    /// </summary>
+    public virtual CompositeObservableCollection<PropertyAutomationViewModel> AllAutomations { get; } // todo: make abstract once every processor is automatable.
+
+    public PropertyAutomationViewModel SelectedAutomation
+    {
+      get => _selectedAutomation;
+      set
+      {
+        if(SelectedAutomation != value)
+        {
+          _selectedAutomation = value;
+          NotifyOfPropertyChange();
+        }
+      }
+    }
+    private PropertyAutomationViewModel _selectedAutomation;
+
+    public ICommand AddAutomationCommand => _automatableObjectVM.AddAutomationCommand;
+
+    public ICommand RemoveAutomationCommand => _automatableObjectVM.RemoveAutomationCommand;
 
     #endregion Properties
 
     #region Member
 
-    private readonly AutomatableProcessorBase _processor;
+    private readonly IAutomatableObjectViewModel _automatableObjectVM;
 
     #endregion Member
 
-    public AutomatableProcessorViewModelBase(IProcessor processor, bool isActive) 
+    protected AutomatableProcessorViewModelBase(IProcessor processor, bool isActive) 
       : base(processor, isActive)
     {
-      _processor = processor as AutomatableProcessorBase;
-      Automations = new ObservableCollection<PropertyAutomationViewModel>();
-      AddAutomationCommand = new DelegateCommand((s) => AddAutomation(s as string));
+      _automatableObjectVM = new AutomatableObjectViewModelBase(processor as IAutomatableProcessor); // todo: type in constructor (once every processor has been adapted)
+      _automatableObjectVM.AutomationAdded += AutomatableObjectVM_AutomationAdded;
+      _automatableObjectVM.AutomationRemoved += AutomatableObjectVM_AutomationRemoved;
+      _automatableObjectVM.PropertyChanged += AutomatableObjectVM_PropertyChanged;
+      _automatableObjectVM.SettingsChanged += AutomatableObjectVM_SettingsChanged;
     }
 
-    private void AddAutomation(string propertyName)
+    private void AutomatableObjectVM_SettingsChanged(object sender, EventArgs e)
     {
-      var automation = new PropertyAutomation(propertyName)
-      {
-        Parent = _processor,
-      };
-      automation.ValueProvider = GetDefaultValueProvider(automation.PropertyType);
-      automation.UpdatesPerSecond = 50;
-
-      automation.ValueUpdated += Automation_ValueUpdated;
-      _processor.Automations.Add(automation);
-
-      Automations.Add(new PropertyAutomationViewModel(automation));
-      AutomationAdded?.Invoke(this, new PropertyAutomationEventArgs(automation));
-    }
-
-    private void Automation_ValueUpdated(object sender, EventArgs e)
-    {
-      NotifyOfPropertyChange((sender as IPropertyAutomation).PropertyName);
       OnSettingsChanged();
     }
 
-    private static IAutomationValueProvider GetDefaultValueProvider(Type propertyType)
+    private void AutomatableObjectVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-      if (propertyType == typeof(bool))
-        return new BoolAutomationValueProvider();
-      else if (propertyType == typeof(int))
-        return new IntUpAutomationValueProvider(0, 255);
-      else
-        throw new Exception();
+      NotifyOfPropertyChange(e.PropertyName);
+    }
+
+    private void AutomatableObjectVM_AutomationRemoved(object sender, PropertyAutomationEventArgs e)
+    {
+      OnAutomationRemoved(e);
+    }
+
+    protected void OnAutomationRemoved(PropertyAutomationEventArgs e)
+    {
+      AutomationRemoved?.Invoke(this, e);
+    }
+
+    private void AutomatableObjectVM_AutomationAdded(object sender, PropertyAutomationEventArgs e)
+    {
+      OnAutomationAdded(e);
+    }
+
+    protected void OnAutomationAdded(PropertyAutomationEventArgs e)
+    {
+      AutomationAdded?.Invoke(this, e);
+    }
+
+    protected void OnSettingsChanged()
+    {
+      SettingsChanged?.Invoke(this, EventArgs.Empty);
     }
   }
 }
