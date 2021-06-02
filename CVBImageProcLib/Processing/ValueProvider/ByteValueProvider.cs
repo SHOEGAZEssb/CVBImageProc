@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing.ValueProvider
 {
@@ -52,16 +51,6 @@ namespace CVBImageProcLib.Processing.ValueProvider
 
     #endregion Properties
 
-    #region Member
-
-    /// <summary>
-    /// Random number generator for the
-    /// <see cref="Randomize"/> mode.
-    /// </summary>
-    private Random _rng = new Random(DateTime.Now.Ticks.GetHashCode());
-
-    #endregion Member
-
     #region Construction
 
     /// <summary>
@@ -85,18 +74,7 @@ namespace CVBImageProcLib.Processing.ValueProvider
     /// <returns>Byte based on the current configuration.</returns>
     public byte Provide()
     {
-      return Randomize ? (byte)_rng.Next(MinRandomValue, MaxRandomValue + 1) : FixedValue;
-    }
-
-    /// <summary>
-    /// Creates the <see cref="_rng"/> object
-    /// when deserializing.
-    /// </summary>
-    /// <param name="context">Ignored.</param>
-    [OnDeserialized]
-    internal void OnDeserialized(StreamingContext context)
-    {
-      _rng = new Random(DateTime.Now.Ticks.GetHashCode());
+      return Randomize ? (byte)ThreadSafeRandom.Next(MinRandomValue, MaxRandomValue + 1) : FixedValue;
     }
   }
 }

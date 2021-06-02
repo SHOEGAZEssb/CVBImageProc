@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing.PixelFilter
 {
@@ -46,15 +45,6 @@ namespace CVBImageProcLib.Processing.PixelFilter
 
     #endregion Properties
 
-    #region Member
-
-    /// <summary>
-    /// The random number generator.
-    /// </summary>
-    private Random _rng = new Random(DateTime.Now.Ticks.GetHashCode());
-
-    #endregion Member
-
     /// <summary>
     /// Checks if the condition of the filter is
     /// fulfilled.
@@ -63,18 +53,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
     /// otherwise false.</returns>
     public bool Check()
     {
-      return Invert ? _rng.NextDouble() >= Chance : _rng.NextDouble() < Chance;
-    }
-
-    /// <summary>
-    /// Creates the <see cref="_rng"/> object
-    /// when deserializing.
-    /// </summary>
-    /// <param name="context">Ignored.</param>
-    [OnDeserialized]
-    internal void OnDeserialized(StreamingContext context)
-    {
-      _rng = new Random(DateTime.Now.Ticks.GetHashCode());
+      return Invert ? ThreadSafeRandom.NextDouble() >= Chance : ThreadSafeRandom.NextDouble() < Chance;
     }
   }
 }
