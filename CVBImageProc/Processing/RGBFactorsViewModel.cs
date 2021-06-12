@@ -286,10 +286,6 @@ namespace CVBImageProc.Processing
     {
       AvailablePresets = new[]
       {
-        new RGBFactorPresetViewModel("Default", new RGBFactorPreset(
-          1, 1, 1,
-          1, 1, 1,
-          1, 1, 1)),
         new RGBFactorPresetViewModel("Mono", new RGBFactorPreset(
           0.2125, 0.7154, 0.0721,
           0.2125, 0.7154, 0.0721,
