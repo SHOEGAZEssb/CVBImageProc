@@ -45,7 +45,7 @@ namespace CVBImageProcLib
       var queue = new Queue<byte>(rawBytes);
       var img = new Image(imageSize);
 
-      ProcessingHelper.ProcessMonoParallel(img.Planes[0], (b) =>
+      ProcessingHelper.ProcessMono(img.Planes[0], (b) =>
       {
         return queue.Any() ? queue.Dequeue() : fill;
       });

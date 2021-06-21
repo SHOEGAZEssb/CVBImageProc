@@ -127,12 +127,66 @@ namespace CVBImageProcLib.Processing
           {
             byte* pLine = pBase + yInc * y;
 
-            for (int x = bounds.StartX; x < boundsX; x++)
+            for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
               *pPixel = processorFunc.Invoke(*pPixel);
             }
           });
+        }
+      }
+      else
+        throw new ArgumentException("Plane could not be accessed linear", nameof(plane));
+    }
+
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// with the given <paramref name="processorFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="processorFunc">Func that takes a byte, processes
+    /// it and returns a byte.</param>
+    public static void ProcessMono(ImagePlane plane, Func<byte, byte> processorFunc)
+    {
+      ProcessMono(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc);
+    }
+
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// in the given <paramref name="bounds"/> with the
+    /// given <paramref name="processorFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="bounds">Bounds defining which pixels to process.</param>
+    /// <param name="processorFunc">Func that takes a byte, processes
+    /// it and returns a byte.</param>
+    public static void ProcessMono(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processorFunc)
+    {
+      if (processorFunc == null)
+        throw new ArgumentNullException(nameof(processorFunc));
+
+      if (plane.TryGetLinearAccess(out LinearAccessData data))
+      {
+        var yInc = (int)data.YInc;
+        var xInc = (int)data.XInc;
+        int startY = bounds.StartY;
+        int startX = bounds.StartX;
+        int boundsY = startY + bounds.Height;
+        int boundsX = startX + bounds.Width;
+        unsafe
+        {
+          var pBase = (byte*)data.BasePtr;
+
+          for(int y = startY; y < boundsY; y++)
+          {
+            byte* pLine = pBase + yInc * y;
+
+            for (int x = startX; x < boundsX; x++)
+            {
+              byte* pPixel = pLine + xInc * x;
+              *pPixel = processorFunc.Invoke(*pPixel);
+            }
+          }
         }
       }
       else
@@ -195,7 +249,7 @@ namespace CVBImageProcLib.Processing
           {
             byte* pLine = pBase + yInc * y;
 
-            for (int x = bounds.StartX; x < boundsX; x++)
+            for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
               if (filterChain.Check(*pPixel, y * boundsY + x))
@@ -254,7 +308,7 @@ namespace CVBImageProcLib.Processing
           {
             byte* pLine = pBase + yInc * y;
 
-            for (int x = bounds.StartX; x < boundsX; x++)
+            for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
               *pPixel = processorFunc.Invoke(*pPixel, y, x);
