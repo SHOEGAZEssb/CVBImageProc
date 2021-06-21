@@ -80,7 +80,7 @@ namespace CVBImageProcLib.Processing
         }
       }
 
-      ProcessingHelper.ProcessMono(plane, bounds, (b) =>
+      ProcessingHelper.ProcessMonoParallel(plane, bounds, (b) =>
       {
         return sortedBytes[byteCounter++];
       }, PixelFilter);

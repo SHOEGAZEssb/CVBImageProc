@@ -69,7 +69,7 @@ namespace CVBImageProcLib.Processing
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
         byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
-        ProcessingHelper.ProcessMono(newImage.Planes[i], (b, y, x) =>
+        ProcessingHelper.ProcessMonoParallel(newImage.Planes[i], (b, y, x) =>
         {
           var yUnscaled = (int)(y / scaleY);
           var xUnscaled = (int)(x / scaleX);
@@ -95,7 +95,7 @@ namespace CVBImageProcLib.Processing
       for (int i = 0; i < inputImage.Planes.Count; i++)
       {
         byte[,] inputBytes = inputImage.Planes[i].GetPixelsAs2DArray();
-        ProcessingHelper.ProcessMono(newImage.Planes[i], (b, y, x) =>
+        ProcessingHelper.ProcessMonoParallel(newImage.Planes[i], (b, y, x) =>
         {
           var pY = (int)(scaleY * y);
           double yDiff = (scaleY * y) - pY;

@@ -44,7 +44,7 @@ namespace CVBImageProcLib.Processing.Filter
 
     private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
     {
-      var outputPlane = ProcessingHelper.ProcessMonoKernel(plane, (kl) =>
+      var outputPlane = ProcessingHelper.ProcessMonoKernelParallel(plane, (kl) =>
       {
         var stripped = kl.Where(b => b.HasValue).ToArray();
         Array.Sort(stripped);

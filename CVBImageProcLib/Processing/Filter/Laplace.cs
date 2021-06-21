@@ -43,7 +43,7 @@ namespace CVBImageProcLib.Processing.Filter
 
     private void ProcessPlane(ImagePlane plane, int[] kernel, ProcessingBounds bounds, int weightSum)
     {
-      var outputPlane = ProcessingHelper.ProcessMonoKernel(plane, (kl) =>
+      var outputPlane = ProcessingHelper.ProcessMonoKernelParallel(plane, (kl) =>
       {
         return ApplyWeights(kl, kernel, weightSum);
       }, KernelSize, bounds, PixelFilter);

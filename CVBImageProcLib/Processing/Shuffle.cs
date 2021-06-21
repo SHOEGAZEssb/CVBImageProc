@@ -55,7 +55,7 @@ namespace CVBImageProcLib.Processing
           shuffledBytes = plane.AllPixels.Select(p => *(byte*)p).OrderBy(i => rnd.Next()).ToArray();
       }
 
-      ProcessingHelper.ProcessMono(plane, bounds, (b) =>
+      ProcessingHelper.ProcessMonoParallel(plane, bounds, (b) =>
       {
         return shuffledBytes[byteCounter++];
       }, PixelFilter);

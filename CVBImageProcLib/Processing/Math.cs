@@ -72,7 +72,7 @@ namespace CVBImageProcLib.Processing
 
     private void ProcessPlane(ImagePlane plane, Func<int, byte, byte> calculationFunc, ProcessingBounds bounds)
     {
-      ProcessingHelper.ProcessMono(plane, bounds, (b) =>
+      ProcessingHelper.ProcessMonoParallel(plane, bounds, (b) =>
       {
         return calculationFunc(ValueProvider.Provide(), b);
       }, PixelFilter);

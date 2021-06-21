@@ -31,7 +31,7 @@ namespace CVBImageProcLib.Processing
       if (inputImage == null)
         throw new ArgumentNullException(nameof(inputImage));
 
-      ProcessingHelper.ProcessRGB(inputImage, (rgb) =>
+      ProcessingHelper.ProcessRGBParallel(inputImage, (rgb) =>
       {
         byte r = WrapAroundR ? (byte)ProcessingHelper.ClampPixelValue((rgb.R * FactorRR) + (rgb.G * FactorRG) + (rgb.B * FactorRB))
                              : (byte)((rgb.R * FactorRR) + (rgb.G * FactorRG) + (rgb.B * FactorRB));

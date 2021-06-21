@@ -45,7 +45,7 @@ namespace CVBImageProcLib
       var queue = new Queue<byte>(rawBytes);
       var img = new Image(imageSize);
 
-      ProcessingHelper.ProcessMono(img.Planes[0], (b) =>
+      ProcessingHelper.ProcessMonoParallel(img.Planes[0], (b) =>
       {
         return queue.Any() ? queue.Dequeue() : fill;
       });
@@ -84,7 +84,7 @@ namespace CVBImageProcLib
       if (img == null)
         throw new ArgumentNullException(nameof(img));
 
-      ProcessingHelper.ProcessRGB(img, (i) =>
+      ProcessingHelper.ProcessRGBParallel(img, (i) =>
       {
         byte r = rawBytes.Any() ? rawBytes.Dequeue() : fill;
         byte g = rawBytes.Any() ? rawBytes.Dequeue() : fill;
@@ -100,17 +100,17 @@ namespace CVBImageProcLib
       if (img == null)
         throw new ArgumentNullException(nameof(img));
 
-      ProcessingHelper.ProcessMono(img.Planes[0], (b) =>
+      ProcessingHelper.ProcessMonoParallel(img.Planes[0], (b) =>
       {
         return rawBytes.Any() ? rawBytes.Dequeue() : fill;
       });
 
-      ProcessingHelper.ProcessMono(img.Planes[1], (b) =>
+      ProcessingHelper.ProcessMonoParallel(img.Planes[1], (b) =>
       {
         return rawBytes.Any() ? rawBytes.Dequeue() : fill;
       });
 
-      ProcessingHelper.ProcessMono(img.Planes[2], (b) =>
+      ProcessingHelper.ProcessMonoParallel(img.Planes[2], (b) =>
       {
         return rawBytes.Any() ? rawBytes.Dequeue() : fill;
       });

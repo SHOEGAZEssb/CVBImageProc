@@ -76,7 +76,7 @@ namespace CVBImageProcLib.Processing
     {
       var valueDic = BuildValueDictionary(Mode, plane, bounds);
 
-      ProcessingHelper.ProcessMono(plane, bounds, (b, y, x) =>
+      ProcessingHelper.ProcessMonoParallel(plane, bounds, (b, y, x) =>
       {
         return (Mode == SmearMode.VerticalFromTop || Mode == SmearMode.VerticalFromBottom) ? valueDic[x] : valueDic[y];
       }, PixelFilter);
