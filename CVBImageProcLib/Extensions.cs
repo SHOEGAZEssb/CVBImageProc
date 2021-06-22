@@ -10,7 +10,7 @@ namespace CVBImageProcLib
   /// <summary>
   /// Extensions for the <see cref="ICanProcessIndividualRegions"/> interface.
   /// </summary>
-  static class ICanProcessIndividualRegionsExtensions
+  internal static class ICanProcessIndividualRegionsExtensions
   {
     /// <summary>
     /// Calculates the <see cref="ProcessingBounds"/>
@@ -31,7 +31,7 @@ namespace CVBImageProcLib
   /// <summary>
   /// Extensions for the <see cref="KernelSize"/> enum.
   /// </summary>
-  static class KernelSizeExtensions
+  internal static class KernelSizeExtensions
   {
     /// <summary>
     /// Gets the number representing the given <paramref name="kernel"/>.
