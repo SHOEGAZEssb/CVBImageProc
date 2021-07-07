@@ -88,6 +88,7 @@
     <Compile Include="Processing\Filter\Mean.cs" />
     <Compile Include="Processing\Filter\Median.cs" />
     <Compile Include="Processing\Filter\Min.cs" />
+    <Compile Include="Processing\Filter\OilPainting.cs" />
     <Compile Include="Processing\Filter\WeightedFilterBase.cs" />
     <Compile Include="Processing\FullProcessorBase.cs" />
     <Compile Include="Processing\IAOIPlaneProcessor.cs" />
