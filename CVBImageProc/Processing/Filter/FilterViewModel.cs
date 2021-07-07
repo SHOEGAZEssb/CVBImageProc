@@ -138,6 +138,8 @@ namespace CVBImageProc.Processing.Filter
           return new CustomKernelSettingsViewModel(c);
         case Median m:
           return new MedianSettingsViewModel(m);
+        case OilPainting o:
+          return new OilPaintingSettingsViewModel(o);
         default:
           return null;
       }

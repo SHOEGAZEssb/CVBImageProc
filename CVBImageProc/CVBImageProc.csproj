@@ -150,6 +150,10 @@
       <DependentUpon>MedianSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\Filter\MedianSettingsViewModel.cs" />
+    <Compile Include="Processing\Filter\OilPaintingSettingsView.xaml.cs">
+      <DependentUpon>OilPaintingSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Filter\OilPaintingSettingsViewModel.cs" />
     <Compile Include="Processing\FullProcessorViewModelBase.cs" />
     <Compile Include="Processing\MonoToMultiplaneView.xaml.cs">
       <DependentUpon>MonoToMultiplaneView.xaml</DependentUpon>
@@ -296,6 +300,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\Filter\MedianSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\Filter\OilPaintingSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

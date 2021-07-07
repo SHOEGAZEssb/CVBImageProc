@@ -73,6 +73,9 @@
           <DataTemplate DataType="{x:Type local:CustomKernelSettingsViewModel}">
             <local:CustomKernelSettingsView/>
           </DataTemplate>
+					<DataTemplate DataType="{x:Type local:OilPaintingSettingsViewModel}">
+						<local:OilPaintingSettingsView/>
+					</DataTemplate>
         </ContentControl.Resources>
       </ContentControl>
     </TabItem>
