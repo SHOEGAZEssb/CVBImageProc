@@ -284,6 +284,8 @@ namespace CVBImageProc.Processing
           return new SmearViewModel(s, kvp.Value);
         case Sort s:
           return new SortViewModel(s, kvp.Value);
+        case Swirl s:
+          return new SwirlViewModel(s, kvp.Value);
         default:
           return new ProcessorViewModel(kvp.Key, kvp.Value);
       }

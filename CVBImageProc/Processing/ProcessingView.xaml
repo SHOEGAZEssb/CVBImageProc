@@ -178,6 +178,9 @@
           <DataTemplate DataType="{x:Type local:SortViewModel}">
             <local:SortView/>
           </DataTemplate>
+          <DataTemplate DataType="{x:Type local:SwirlViewModel}">
+            <local:SwirlView/>
+          </DataTemplate>
         </ContentControl.Resources>
       </ContentControl>
     </GroupBox>

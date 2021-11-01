@@ -207,6 +207,10 @@
       <DependentUpon>SmearView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Processing\SmearViewModel.cs" />
+    <Compile Include="Processing\SwirlView.xaml.cs">
+      <DependentUpon>SwirlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\SwirlViewModel.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProviderView.xaml.cs">
       <DependentUpon>ByteValueProviderView.xaml</DependentUpon>
     </Compile>
@@ -400,6 +404,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Processing\SortView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Processing\SwirlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

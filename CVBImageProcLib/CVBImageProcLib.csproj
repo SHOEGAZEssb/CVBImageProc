@@ -135,6 +135,7 @@
     <Compile Include="Processing\Smear.cs" />
     <Compile Include="Processing\Sort.cs" />
     <Compile Include="Processing\SubProcessorAttribute.cs" />
+    <Compile Include="Processing\Swirl.cs" />
     <Compile Include="Processing\ValueProvider\ByteValueProvider.cs" />
     <Compile Include="Processing\ValueProvider\IntValueProvider.cs" />
     <Compile Include="Processing\ValueProvider\IValueProvider.cs" />
