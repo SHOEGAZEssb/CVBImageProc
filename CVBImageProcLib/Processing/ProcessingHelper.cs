@@ -67,11 +67,12 @@ namespace CVBImageProcLib.Processing
           Parallel.For(startY, boundsY, (y) =>
           {
             byte* pLine = pBase + yInc * y;
+            int yIndex = y * boundsY;
 
             for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
-              if (filterChain.Check(*pPixel, y * boundsY + x))
+              if (filterChain.Check(*pPixel, yIndex + x))
                 *pPixel = processingFunc.Invoke(*pPixel);
             }
           });
@@ -248,11 +249,12 @@ namespace CVBImageProcLib.Processing
           Parallel.For(startY, boundsY, (y) =>
           {
             byte* pLine = pBase + yInc * y;
+            int yIndex = y * boundsY;
 
             for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
-              if (filterChain.Check(*pPixel, y * boundsY + x))
+              if (filterChain.Check(*pPixel, yIndex + x))
                 *pPixel = processingFunc.Invoke(*pPixel, y, x);
             }
           });
@@ -393,6 +395,7 @@ namespace CVBImageProcLib.Processing
             var kernelValues = new byte?[kernelArrSize];
             var pLine = pBase + y * yInc;
             int newLineInc = newYInc * y;
+            int yIndex = y * boundsY;
 
             for (int x = startX; x < boundsX; x++)
             {
@@ -410,7 +413,7 @@ namespace CVBImageProcLib.Processing
                     continue;
 
                   byte* pPixel = pKLine + kColumn * xInc;
-                  if (filterChain.Check(*pPixel, y * boundsY + x))
+                  if (filterChain.Check(*pPixel, yIndex + x))
                     kernelValues[kernelCounter] = *pPixel;
                 }
               }
