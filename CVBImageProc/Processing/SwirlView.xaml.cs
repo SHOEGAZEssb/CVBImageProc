@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for SwirlView.xaml
+  /// Interaction logic for SwirlView.xaml.
   /// </summary>
   public partial class SwirlView : UserControl
   {

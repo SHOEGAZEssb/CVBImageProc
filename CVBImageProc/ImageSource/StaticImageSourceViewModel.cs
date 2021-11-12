@@ -3,7 +3,7 @@
   /// <summary>
   /// ViewModel for a <see cref="StaticImageSource"/>.
   /// </summary>
-  class StaticImageSourceViewModel : ImageSourceViewModelBase
+  internal class StaticImageSourceViewModel : ImageSourceViewModelBase
   {
     #region Construction
 

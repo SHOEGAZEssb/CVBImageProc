@@ -30,11 +30,11 @@ namespace CVBImageProc.MVVM.Converter
     /// <param name="targetType">Ignored.</param>
     /// <param name="parameter">Ignored.</param>
     /// <param name="culture">Ignored.</param>
-    /// <returns></returns>
+    /// <returns>Description of the enum value.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       if (value == null || !(value is Enum myEnum))
-        return "";
+        return string.Empty;
 
       string description = GetEnumDescription(myEnum);
       return description;

@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing.Filter
   /// ViewModel for the custom settings of
   /// the <see cref="Median"/> filter processor.
   /// </summary>
-  class MedianSettingsViewModel : SettingsViewModelBase
+  internal class MedianSettingsViewModel : SettingsViewModelBase
   {
     #region Properties
 

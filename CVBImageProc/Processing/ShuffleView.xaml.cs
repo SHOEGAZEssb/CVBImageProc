@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for ShuffleView.xaml
+  /// Interaction logic for ShuffleView.xaml.
   /// </summary>
   public partial class ShuffleView : UserControl
   {

@@ -10,7 +10,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="PlaneClear"/> processor.
   /// </summary>
-  class PlaneClearViewModel : ProcessorViewModel, IHasSettings, INeedImageInfo
+  internal class PlaneClearViewModel : ProcessorViewModel, IHasSettings, INeedImageInfo
   {
     #region IHasSettings Implementation
 

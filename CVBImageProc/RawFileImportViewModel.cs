@@ -9,7 +9,7 @@ namespace CVBImageProc
   /// <summary>
   /// Color of the image to create.
   /// </summary>
-  enum ColorMode
+  internal enum ColorMode
   {
     /// <summary>
     /// Create a mono image.
@@ -25,7 +25,7 @@ namespace CVBImageProc
   /// <summary>
   /// ViewModel for the <see cref="RawFileImporter"/>.
   /// </summary>
-  class RawFileImportViewModel : ViewModelBase, IWindowContext
+  internal class RawFileImportViewModel : ViewModelBase, IWindowContext
   {
     #region Properties
 
@@ -37,7 +37,7 @@ namespace CVBImageProc
     public ICommand OKCommand { get; }
 
     /// <summary>
-    ///
+    /// Command for canceling the import.
     /// </summary>
     public ICommand CancelCommand { get; }
 

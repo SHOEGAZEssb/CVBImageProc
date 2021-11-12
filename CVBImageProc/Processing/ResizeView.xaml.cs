@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for ScaleView.xaml
+  /// Interaction logic for ScaleView.xaml.
   /// </summary>
   public partial class ResizeView : UserControl
   {

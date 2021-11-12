@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="BitShift"/> processor.
   /// </summary>
-  class BitshiftViewModel : FullProcessorViewModelBase
+  internal class BitshiftViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -64,6 +64,11 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="processor">The processor.</param>
+    /// <param name="isActive">Default active state.</param>
     public BitshiftViewModel(BitShift processor, bool isActive)
       : base(processor, isActive)
     {

@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing.SizeCalculator
   /// <summary>
   /// ViewModel for the <see cref="PercentageSizeCalculator"/>.
   /// </summary>
-  class PercentageSizeCalculatorViewModel : SizeCalculatorViewModelBase
+  internal class PercentageSizeCalculatorViewModel : SizeCalculatorViewModelBase
   {
     #region Properties
 
@@ -37,6 +37,10 @@ namespace CVBImageProc.Processing.SizeCalculator
 
     #endregion Member
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="sizeCalculator">The calculator.</param>
     public PercentageSizeCalculatorViewModel(PercentageSizeCalculator sizeCalculator)
       : base(sizeCalculator)
     {

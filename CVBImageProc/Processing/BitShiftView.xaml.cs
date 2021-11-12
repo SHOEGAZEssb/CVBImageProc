@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for BitShiftView.xaml
+  /// Interaction logic for BitShiftView.xaml.
   /// </summary>
   public partial class BitShiftView : UserControl
   {

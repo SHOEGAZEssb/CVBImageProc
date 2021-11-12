@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for RGBToMonoView.xaml
+  /// Interaction logic for RGBToMonoView.xaml.
   /// </summary>
   public partial class RGBToMonoView : UserControl
   {

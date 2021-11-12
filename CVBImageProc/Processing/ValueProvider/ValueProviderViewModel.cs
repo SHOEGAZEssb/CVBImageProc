@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing.ValueProvider
   /// ViewModel for <see cref="IValueProvider{T}"/>s.
   /// </summary>
   /// <typeparam name="T">Type of value to provide.</typeparam>
-  class ValueProviderViewModel<T> : SettingsViewModelBase where T : struct
+  internal class ValueProviderViewModel<T> : SettingsViewModelBase where T : struct
   {
     #region Properties
 

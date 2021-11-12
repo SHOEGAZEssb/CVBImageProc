@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing
   /// <summary>
   /// Helper class for pixel access and processing.
   /// </summary>
-  static class ProcessingHelper
+  internal static class ProcessingHelper
   {
     #region ProcessMono
 
@@ -18,39 +18,39 @@ namespace CVBImageProcLib.Processing
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
-    /// with the given <paramref name="processorFunc"/>.
+    /// with the given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, processes
+    /// <param name="processingFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, byte> processorFunc, PixelFilterChain filterChain)
+    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, byte> processingFunc, PixelFilterChain filterChain)
     {
       if (filterChain == null || !filterChain.HasActiveFilter)
-        ProcessMonoParallel(plane, processorFunc);
+        ProcessMonoParallel(plane, processingFunc);
       else
-        ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc, filterChain);
+        ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processingFunc, filterChain);
     }
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
     /// in the given <paramref name="bounds"/> with the
-    /// given <paramref name="processorFunc"/>.
+    /// given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, processes
+    /// <param name="processingFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processorFunc, PixelFilterChain filterChain)
+    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processingFunc, PixelFilterChain filterChain)
     {
       if (filterChain == null || !filterChain.HasActiveFilter)
       {
-        ProcessMonoParallel(plane, bounds, processorFunc);
+        ProcessMonoParallel(plane, bounds, processingFunc);
         return;
       }
-      if (processorFunc == null)
-        throw new ArgumentNullException(nameof(processorFunc));
+      if (processingFunc == null)
+        throw new ArgumentNullException(nameof(processingFunc));
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
@@ -72,7 +72,7 @@ namespace CVBImageProcLib.Processing
             {
               byte* pPixel = pLine + xInc * x;
               if (filterChain.Check(*pPixel, y * boundsY + x))
-                *pPixel = processorFunc.Invoke(*pPixel);
+                *pPixel = processingFunc.Invoke(*pPixel);
             }
           });
         }
@@ -87,29 +87,29 @@ namespace CVBImageProcLib.Processing
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
-    /// with the given <paramref name="processorFunc"/>.
+    /// with the given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, processes
+    /// <param name="processingFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, byte> processorFunc)
+    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, byte> processingFunc)
     {
-      ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc);
+      ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processingFunc);
     }
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
     /// in the given <paramref name="bounds"/> with the
-    /// given <paramref name="processorFunc"/>.
+    /// given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, processes
+    /// <param name="processingFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processorFunc)
+    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processingFunc)
     {
-      if (processorFunc == null)
-        throw new ArgumentNullException(nameof(processorFunc));
+      if (processingFunc == null)
+        throw new ArgumentNullException(nameof(processingFunc));
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
@@ -130,7 +130,7 @@ namespace CVBImageProcLib.Processing
             for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
-              *pPixel = processorFunc.Invoke(*pPixel);
+              *pPixel = processingFunc.Invoke(*pPixel);
             }
           });
         }
@@ -141,29 +141,29 @@ namespace CVBImageProcLib.Processing
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
-    /// with the given <paramref name="processorFunc"/>.
+    /// with the given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, processes
+    /// <param name="processingFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
-    public static void ProcessMono(ImagePlane plane, Func<byte, byte> processorFunc)
+    public static void ProcessMono(ImagePlane plane, Func<byte, byte> processingFunc)
     {
-      ProcessMono(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc);
+      ProcessMono(plane, new ProcessingBounds(plane.Parent.Bounds), processingFunc);
     }
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
     /// in the given <paramref name="bounds"/> with the
-    /// given <paramref name="processorFunc"/>.
+    /// given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, processes
+    /// <param name="processingFunc">Func that takes a byte, processes
     /// it and returns a byte.</param>
-    public static void ProcessMono(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processorFunc)
+    public static void ProcessMono(ImagePlane plane, ProcessingBounds bounds, Func<byte, byte> processingFunc)
     {
-      if (processorFunc == null)
-        throw new ArgumentNullException(nameof(processorFunc));
+      if (processingFunc == null)
+        throw new ArgumentNullException(nameof(processingFunc));
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
@@ -177,14 +177,14 @@ namespace CVBImageProcLib.Processing
         {
           var pBase = (byte*)data.BasePtr;
 
-          for(int y = startY; y < boundsY; y++)
+          for (int y = startY; y < boundsY; y++)
           {
             byte* pLine = pBase + yInc * y;
 
             for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
-              *pPixel = processorFunc.Invoke(*pPixel);
+              *pPixel = processingFunc.Invoke(*pPixel);
             }
           }
         }
@@ -199,39 +199,39 @@ namespace CVBImageProcLib.Processing
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
-    /// with the given <paramref name="processorFunc"/>.
+    /// with the given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, y and x, processes
+    /// <param name="processingFunc">Func that takes a byte, y and x, processes
     /// it and returns a byte.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, int, int, byte> processorFunc, PixelFilterChain filterChain)
+    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, int, int, byte> processingFunc, PixelFilterChain filterChain)
     {
       if (filterChain == null || !filterChain.HasActiveFilter)
-        ProcessMonoParallel(plane, processorFunc);
+        ProcessMonoParallel(plane, processingFunc);
       else
-        ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc, filterChain);
+        ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processingFunc, filterChain);
     }
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
     /// in the given <paramref name="bounds"/> with the
-    /// given <paramref name="processorFunc"/>.
+    /// given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, x and y, processes
+    /// <param name="processingFunc">Func that takes a byte, x and y, processes
     /// it and returns a byte.</param>
     /// <param name="filterChain">Optional filter chain.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, int, int, byte> processorFunc, PixelFilterChain filterChain)
+    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, int, int, byte> processingFunc, PixelFilterChain filterChain)
     {
       if (filterChain == null || !filterChain.HasActiveFilter)
       {
-        ProcessMonoParallel(plane, bounds, processorFunc);
+        ProcessMonoParallel(plane, bounds, processingFunc);
         return;
       }
-      if (processorFunc == null)
-        throw new ArgumentNullException(nameof(processorFunc));
+      if (processingFunc == null)
+        throw new ArgumentNullException(nameof(processingFunc));
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
@@ -253,7 +253,7 @@ namespace CVBImageProcLib.Processing
             {
               byte* pPixel = pLine + xInc * x;
               if (filterChain.Check(*pPixel, y * boundsY + x))
-                *pPixel = processorFunc.Invoke(*pPixel, y, x);
+                *pPixel = processingFunc.Invoke(*pPixel, y, x);
             }
           });
         }
@@ -268,29 +268,29 @@ namespace CVBImageProcLib.Processing
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
-    /// with the given <paramref name="processorFunc"/>.
+    /// with the given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, y and x, processes
+    /// <param name="processingFunc">Func that takes a byte, y and x, processes
     /// it and returns a byte.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, int, int, byte> processorFunc)
+    public static void ProcessMonoParallel(ImagePlane plane, Func<byte, int, int, byte> processingFunc)
     {
-      ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processorFunc);
+      ProcessMonoParallel(plane, new ProcessingBounds(plane.Parent.Bounds), processingFunc);
     }
 
     /// <summary>
     /// Processes the pixels of the given <paramref name="plane"/>
     /// in the given <paramref name="bounds"/> with the
-    /// given <paramref name="processorFunc"/>.
+    /// given <paramref name="processingFunc"/>.
     /// </summary>
     /// <param name="plane">The plane whose pixels to process.</param>
     /// <param name="bounds">Bounds defining which pixels to process.</param>
-    /// <param name="processorFunc">Func that takes a byte, x and y, processes
+    /// <param name="processingFunc">Func that takes a byte, x and y, processes
     /// it and returns a byte.</param>
-    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, int, int, byte> processorFunc)
+    public static void ProcessMonoParallel(ImagePlane plane, ProcessingBounds bounds, Func<byte, int, int, byte> processingFunc)
     {
-      if (processorFunc == null)
-        throw new ArgumentNullException(nameof(processorFunc));
+      if (processingFunc == null)
+        throw new ArgumentNullException(nameof(processingFunc));
 
       if (plane.TryGetLinearAccess(out LinearAccessData data))
       {
@@ -311,7 +311,7 @@ namespace CVBImageProcLib.Processing
             for (int x = startX; x < boundsX; x++)
             {
               byte* pPixel = pLine + xInc * x;
-              *pPixel = processorFunc.Invoke(*pPixel, y, x);
+              *pPixel = processingFunc.Invoke(*pPixel, y, x);
             }
           });
         }
@@ -328,6 +328,16 @@ namespace CVBImageProcLib.Processing
 
     #region ProcessMonoKernel B+FC
 
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// with the given <paramref name="processingFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="processingFunc">Func that takes a byte, x and y, processes
+    /// it and returns a byte.</param>
+    /// <param name="kernel">Kernel size.</param>
+    /// <param name="filterChain">Optional filter chain.</param>
+    /// <returns>The processed plane.</returns>
     public static ImagePlane ProcessMonoKernelParallel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, PixelFilterChain filterChain)
     {
       if (filterChain == null || !filterChain.HasActiveFilter)
@@ -336,6 +346,18 @@ namespace CVBImageProcLib.Processing
         return ProcessMonoKernelParallel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds), filterChain);
     }
 
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// in the given <paramref name="bounds"/> with the
+    /// given <paramref name="processingFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="processingFunc">Func that takes a byte, x and y, processes
+    /// it and returns a byte.</param>
+    /// <param name="kernel">Kernel size.</param>
+    /// <param name="bounds">Bounds defining which pixels to process.</param>
+    /// <param name="filterChain">Optional filter chain.</param>
+    /// <returns>The processed plane.</returns>
     public static ImagePlane ProcessMonoKernelParallel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, ProcessingBounds bounds, PixelFilterChain filterChain)
     {
       if (filterChain == null || !filterChain.HasActiveFilter)
@@ -413,11 +435,31 @@ namespace CVBImageProcLib.Processing
 
     #region ProcessMonoKernel B
 
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// with the given <paramref name="processingFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="processingFunc">Func that takes a byte, x and y, processes
+    /// it and returns a byte.</param>
+    /// <param name="kernel">Kernel size.</param>
+    /// <returns>The processed plane.</returns>
     public static ImagePlane ProcessMonoKernelParallel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel)
     {
       return ProcessMonoKernelParallel(plane, processingFunc, kernel, new ProcessingBounds(plane.Parent.Bounds));
     }
 
+    /// <summary>
+    /// Processes the pixels of the given <paramref name="plane"/>
+    /// in the given <paramref name="bounds"/> with the
+    /// given <paramref name="processingFunc"/>.
+    /// </summary>
+    /// <param name="plane">The plane whose pixels to process.</param>
+    /// <param name="processingFunc">Func that takes a byte, x and y, processes
+    /// it and returns a byte.</param>
+    /// <param name="kernel">Kernel size.</param>
+    /// <param name="bounds">Bounds defining which pixels to process.</param>
+    /// <returns>The processed plane.</returns>
     public static ImagePlane ProcessMonoKernelParallel(ImagePlane plane, Func<byte?[], byte> processingFunc, KernelSize kernel, ProcessingBounds bounds)
     {
       if (plane.TryGetLinearAccess(out LinearAccessData data))
@@ -666,6 +708,12 @@ namespace CVBImageProcLib.Processing
 
     #endregion ProcessRGB
 
+    /// <summary>
+    /// Clamps the given <paramref name="value"/> to
+    /// 255 if over 255 and to 0 if under 0.
+    /// </summary>
+    /// <param name="value">Value to clamp.</param>
+    /// <returns>Clamped value.</returns>
     public static int ClampPixelValue(int value)
     {
       if (value > 255)
@@ -675,6 +723,12 @@ namespace CVBImageProcLib.Processing
       return value;
     }
 
+    /// <summary>
+    /// Clamps the given <paramref name="value"/> to
+    /// 255 if over 255 and to 0 if under 0.
+    /// </summary>
+    /// <param name="value">Value to clamp.</param>
+    /// <returns>Clamped value.</returns>
     public static int ClampPixelValue(double value)
     {
       if (value > 255)

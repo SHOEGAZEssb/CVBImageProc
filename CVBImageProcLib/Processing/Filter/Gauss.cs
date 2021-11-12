@@ -64,7 +64,7 @@ namespace CVBImageProcLib.Processing.Filter
       for (int i = 0; i < factors.Length; i++)
         factors[i] = MakeBinominalFactor(factors.Length - 1, i);
 
-      return factors; ;
+      return factors;
     }
 
     private static int MakeBinominalFactor(int n, int k)

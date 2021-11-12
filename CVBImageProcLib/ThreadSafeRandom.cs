@@ -5,7 +5,7 @@ namespace CVBImageProcLib
   /// <summary>
   /// Thread safe random-number-generator.
   /// </summary>
-  static class ThreadSafeRandom
+  internal static class ThreadSafeRandom
   {
     private static readonly Random _global = new Random(DateTime.Now.Ticks.GetHashCode());
     [ThreadStatic]
@@ -14,7 +14,7 @@ namespace CVBImageProcLib
     /// <summary>
     /// Gets the next random double value.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Random double value.</returns>
     public static double NextDouble()
     {
       if (_local == null)
@@ -32,6 +32,12 @@ namespace CVBImageProcLib
       return _local.NextDouble();
     }
 
+    /// <summary>
+    /// Gets the next integer double value.
+    /// </summary>
+    /// <param name="minValue">Inclusive minimum value.</param>
+    /// <param name="maxValue">Inclusive maximum value.</param>
+    /// <returns>Random integer number.</returns>
     public static int Next(int minValue, int maxValue)
     {
       if (_local == null)

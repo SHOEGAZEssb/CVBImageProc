@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
-  /// Interaction logic for CustomKernelSettingsView.xaml
+  /// Interaction logic for CustomKernelSettingsView.xaml.
   /// </summary>
   public partial class CustomKernelSettingsView : UserControl
   {

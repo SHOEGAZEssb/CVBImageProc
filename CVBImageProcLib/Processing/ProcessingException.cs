@@ -59,8 +59,8 @@ namespace CVBImageProcLib.Processing
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="serializationInfo">SerializationInfo</param>
-    /// <param name="streamingContext">StreamingContext</param>
+    /// <param name="serializationInfo">SerializationInfo.</param>
+    /// <param name="streamingContext">StreamingContext.</param>
     protected ProcessingException(SerializationInfo serializationInfo, StreamingContext streamingContext)
     { }
 

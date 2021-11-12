@@ -5,7 +5,7 @@ namespace CVBImageProc.MVVM
   /// <summary>
   /// Interface for an object that has a dialog result.
   /// </summary>
-  interface IWindowContext
+  internal interface IWindowContext
   {
     /// <summary>
     /// The result of the dialog.

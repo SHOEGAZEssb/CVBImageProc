@@ -7,12 +7,18 @@ namespace CVBImageProc.Processing
   /// Base ViewModel for processors that process
   /// individual planes.
   /// </summary>
-  class PlaneProcessorViewModelBase : ProcessorViewModel, IHasSettings
+  internal class PlaneProcessorViewModelBase : ProcessorViewModel, IHasSettings
   {
     #region IHasSettings Implementation
 
+    /// <summary>
+    /// Event that is fired when the settings change.
+    /// </summary>
     public event EventHandler SettingsChanged;
 
+    /// <summary>
+    /// Invokes the <see cref="SettingsChanged"/> event.
+    /// </summary>
     protected void OnSettingsChanged()
     {
       SettingsChanged?.Invoke(this, EventArgs.Empty);
@@ -47,7 +53,7 @@ namespace CVBImageProc.Processing
       get => _processor.ProcessAllPlanes;
       set
       {
-        if(ProcessAllPlanes != value)
+        if (ProcessAllPlanes != value)
         {
           _processor.ProcessAllPlanes = value;
           NotifyOfPropertyChange();

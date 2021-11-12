@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing
   /// Interface for an object that needs
   /// information about the image it will work with.
   /// </summary>
-  interface INeedImageInfo
+  internal interface INeedImageInfo
   {
     /// <summary>
     /// Updates the image information.

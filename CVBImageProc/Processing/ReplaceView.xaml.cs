@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for ReplaceView.xaml
+  /// Interaction logic for ReplaceView.xaml.
   /// </summary>
   public partial class ReplaceView : UserControl
   {

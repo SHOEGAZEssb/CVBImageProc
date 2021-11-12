@@ -8,7 +8,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="RGBToMono"/> processor.
   /// </summary>
-  class RGBToMonoViewModel : ProcessorViewModel, IHasSettings
+  internal class RGBToMonoViewModel : ProcessorViewModel, IHasSettings
   {
     #region Properties
 
@@ -118,7 +118,7 @@ namespace CVBImageProc.Processing
 
     /// <summary>
     /// Resets the <see cref="FactorR"/>
-    /// back to default value;
+    /// back to default value.
     /// </summary>
     private void ResetFactorR()
     {
@@ -127,7 +127,7 @@ namespace CVBImageProc.Processing
 
     /// <summary>
     /// Resets the <see cref="FactorG"/>
-    /// back to default value;
+    /// back to default value.
     /// </summary>
     private void ResetFactorG()
     {
@@ -136,7 +136,7 @@ namespace CVBImageProc.Processing
 
     /// <summary>
     /// Resets the <see cref="FactorB"/>
-    /// back to default value;
+    /// back to default value.
     /// </summary>
     private void ResetFactorB()
     {

@@ -3,7 +3,7 @@
 namespace CVBImageProc
 {
   /// <summary>
-  /// Interaction logic for RawFileImportView.xaml
+  /// Interaction logic for RawFileImportView.xaml.
   /// </summary>
   public partial class RawFileImportView : UserControl
   {

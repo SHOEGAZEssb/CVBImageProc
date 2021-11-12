@@ -6,7 +6,7 @@ namespace CVBImageProc.ImageSource
   /// <summary>
   /// Image source providing a non-changing image.
   /// </summary>
-  class StaticImageSource : IImageSource
+  internal class StaticImageSource : IImageSource
   {
     #region Properties
 

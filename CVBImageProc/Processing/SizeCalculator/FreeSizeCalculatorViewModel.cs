@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing.SizeCalculator
   /// <summary>
   /// ViewModel for the <see cref="FreeSizeCalculator"/>.
   /// </summary>
-  class FreeSizeCalculatorViewModel : SizeCalculatorViewModelBase
+  internal class FreeSizeCalculatorViewModel : SizeCalculatorViewModelBase
   {
     #region Properties
 

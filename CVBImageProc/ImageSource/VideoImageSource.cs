@@ -8,7 +8,7 @@ namespace CVBImageProc.ImageSource
   /// <summary>
   /// Image source that provides images of a video.
   /// </summary>
-  class VideoImageSource : IChangingImageSource
+  internal class VideoImageSource : IChangingImageSource
   {
     #region Properties
 
@@ -25,7 +25,7 @@ namespace CVBImageProc.ImageSource
       get => _grab;
       set
       {
-        if(Grab != value)
+        if (Grab != value)
         {
           _grab = value;
           if (Grab)

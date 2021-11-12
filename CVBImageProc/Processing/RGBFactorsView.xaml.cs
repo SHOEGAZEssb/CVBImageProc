@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for RGBFactors.View.xaml
+  /// Interaction logic for RGBFactors.View.xaml.
   /// </summary>
   public partial class RGBFactorsView : UserControl
   {

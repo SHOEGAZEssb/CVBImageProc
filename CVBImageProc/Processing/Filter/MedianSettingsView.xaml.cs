@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
-  /// Interaction logic for MedianSettingsView.xaml
+  /// Interaction logic for MedianSettingsView.xaml.
   /// </summary>
   public partial class MedianSettingsView : UserControl
   {

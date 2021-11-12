@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for ProcessingView.xaml
+  /// Interaction logic for ProcessingView.xaml.
   /// </summary>
   public partial class ProcessingView : UserControl
   {

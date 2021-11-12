@@ -48,8 +48,10 @@ namespace CVBImageProcLib.Processing.Filter
       {
         var stripped = kl.Where(b => b.HasValue).ToArray();
         var numIntensityLevels = NumIntensityLevels;
+
         // the number of pixels in each intensity level range
         var intensityCount = new int[numIntensityLevels];
+
         // the sums of all pixel values in their corresponding intensity level range:
         var intensitySums = new int[numIntensityLevels];
 

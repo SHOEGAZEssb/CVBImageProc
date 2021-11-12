@@ -9,7 +9,7 @@ namespace CVBImageProc.Processing
   /// Base ViewModel for processors that process individual planes
   /// and support AOIs.
   /// </summary>
-  abstract class AOIPlaneProcessorViewModelBase : PlaneProcessorViewModelBase, INeedImageInfo
+  internal abstract class AOIPlaneProcessorViewModelBase : PlaneProcessorViewModelBase, INeedImageInfo
   {
     #region Properties
 

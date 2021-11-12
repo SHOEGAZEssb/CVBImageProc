@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for PlaneSelectorControl.xaml
+  /// Interaction logic for PlaneSelectorControl.xaml.
   /// </summary>
   public partial class PlaneSelectorControl : UserControl
   {

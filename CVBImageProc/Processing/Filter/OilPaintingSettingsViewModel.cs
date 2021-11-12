@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing.Filter
   /// ViewModel for the custom settings of
   /// the <see cref="OilPainting"/> filter processor.
   /// </summary>
-  class OilPaintingSettingsViewModel : SettingsViewModelBase
+  internal class OilPaintingSettingsViewModel : SettingsViewModelBase
   {
     #region Properties
 

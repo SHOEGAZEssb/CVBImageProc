@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Crop"/> processor.
   /// </summary>
-  class CropViewModel : ProcessorViewModel, IHasSettings
+  internal class CropViewModel : ProcessorViewModel, IHasSettings
   {
     #region Properties
 

@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
-  /// Interaction logic for OilPaintingSettingsView.xaml
+  /// Interaction logic for OilPaintingSettingsView.xaml.
   /// </summary>
   public partial class OilPaintingSettingsView : UserControl
   {

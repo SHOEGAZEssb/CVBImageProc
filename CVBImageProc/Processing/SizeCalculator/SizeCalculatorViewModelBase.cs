@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing.SizeCalculator
   /// <summary>
   /// Base class for all size calculators.
   /// </summary>
-  abstract class SizeCalculatorViewModelBase : SettingsViewModelBase
+  internal abstract class SizeCalculatorViewModelBase : SettingsViewModelBase
   {
     #region Properties
 

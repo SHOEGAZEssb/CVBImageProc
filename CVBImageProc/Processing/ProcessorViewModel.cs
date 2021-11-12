@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for a generic <see cref="IProcessor"/>.
   /// </summary>
-  class ProcessorViewModel : ViewModelBase, IProcessorViewModel
+  internal class ProcessorViewModel : ViewModelBase, IProcessorViewModel
   {
     #region IProcessorViewModel Implementation
 

@@ -2,16 +2,22 @@
 
 namespace CVBImageProc.Processing
 {
-  class SwirlViewModel : FullProcessorViewModelBase
+  /// <summary>
+  /// ViewModel for the <see cref="Swirl"/> processor.
+  /// </summary>
+  internal class SwirlViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
+    /// <summary>
+    /// Factor by which to swirl.
+    /// </summary>
     public double Factor
     {
       get => _processor.Factor;
       set
       {
-        if(Factor != value)
+        if (Factor != value)
         {
           _processor.Factor = value;
           NotifyOfPropertyChange();
@@ -24,6 +30,9 @@ namespace CVBImageProc.Processing
 
     #region Member
 
+    /// <summary>
+    /// The processor.
+    /// </summary>
     private readonly Swirl _processor;
 
     #endregion Member

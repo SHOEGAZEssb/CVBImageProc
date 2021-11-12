@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.ValueProvider
 {
   /// <summary>
-  /// Interaction logic for IntValueProvider.xaml
+  /// Interaction logic for IntValueProvider.xaml.
   /// </summary>
   public partial class IntValueProviderView : UserControl
   {

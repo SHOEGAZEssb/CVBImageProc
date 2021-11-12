@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="PixelShift"/> processor.
   /// </summary>
-  class PixelShiftViewModel : FullProcessorViewModelBase
+  internal class PixelShiftViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -111,6 +111,11 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="processor">The processor.</param>
+    /// <param name="isActive">Default active state.</param>
     public PixelShiftViewModel(PixelShift processor, bool isActive)
       : base(processor, isActive)
     {

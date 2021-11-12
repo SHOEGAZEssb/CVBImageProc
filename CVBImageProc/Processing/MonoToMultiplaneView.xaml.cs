@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for MonoToMultiplaneView.xaml
+  /// Interaction logic for MonoToMultiplaneView.xaml.
   /// </summary>
   public partial class MonoToMultiplaneView : UserControl
   {

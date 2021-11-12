@@ -12,7 +12,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Resize"/> processor.
   /// </summary>
-  class ResizeViewModel : ProcessorViewModel, IHasSettings
+  internal class ResizeViewModel : ProcessorViewModel, IHasSettings
   {
     #region Properties
 

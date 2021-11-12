@@ -61,7 +61,7 @@ namespace CVBImageProcLib
   {
     /// <summary>
     /// Gets all pixel values in the image.
-    /// Order is plane order. (eg. RGB)
+    /// Order is plane order. (eg. RGB).
     /// </summary>
     /// <param name="img">Image to get pixel values of.</param>
     /// <returns>Pixel values.</returns>
@@ -107,10 +107,10 @@ namespace CVBImageProcLib
       int width = plane.Parent.Width;
       var pixels = new byte[height, width];
 
-      for(int y = 0; y < height; y++)
+      for (int y = 0; y < height; y++)
       {
         int yW = y * width;
-        for(int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
           pixels[y, x] = inputPixels[yW + x];
         }

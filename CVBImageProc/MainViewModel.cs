@@ -147,9 +147,7 @@ namespace CVBImageProc
             };
 
             if (sfd.ShowDialog() ?? false)
-            {
               AutoSavePath = sfd.FileName;
-            }
             else
               return;
           }

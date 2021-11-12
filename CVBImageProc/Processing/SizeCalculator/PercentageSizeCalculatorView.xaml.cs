@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.SizeCalculator
 {
   /// <summary>
-  /// Interaction logic for PercentageSizeCalculatorView.xaml
+  /// Interaction logic for PercentageSizeCalculatorView.xaml.
   /// </summary>
   public partial class PercentageSizeCalculatorView : UserControl
   {

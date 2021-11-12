@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Math"/> processor.
   /// </summary>
-  class MathViewModel : FullProcessorViewModelBase
+  internal class MathViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

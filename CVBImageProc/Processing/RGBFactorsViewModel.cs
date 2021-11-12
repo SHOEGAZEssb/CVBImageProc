@@ -11,7 +11,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="RGBFactors"/> processor.
   /// </summary>
-  class RGBFactorsViewModel : ProcessorViewModel, IHasSettings
+  internal class RGBFactorsViewModel : ProcessorViewModel, IHasSettings
   {
     #region Properties
 

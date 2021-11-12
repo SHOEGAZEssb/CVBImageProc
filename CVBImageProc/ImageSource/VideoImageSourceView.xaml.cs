@@ -3,7 +3,7 @@
 namespace CVBImageProc.ImageSource
 {
   /// <summary>
-  /// Interaction logic for VideoImageSourceView.xaml
+  /// Interaction logic for VideoImageSourceView.xaml.
   /// </summary>
   public partial class VideoImageSourceView : UserControl
   {

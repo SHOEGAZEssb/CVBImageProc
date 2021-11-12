@@ -10,7 +10,7 @@ namespace CVBImageProc.Processing.Filter
   /// <summary>
   /// ViewModel for <see cref="IFilter"/> processors.
   /// </summary>
-  class FilterViewModel : FullProcessorViewModelBase
+  internal class FilterViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -126,7 +126,7 @@ namespace CVBImageProc.Processing.Filter
     /// Creates the custom settings ViewModel
     /// for the current configuration.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>ViewModel for the custom settings of the filter.</returns>
     private SettingsViewModelBase MakeCustomSettingsViewModel()
     {
       if (SelectedFilterType == null || SelectedFilterType.Type.GetCustomAttribute<CustomFilterSettingsAttribute>() == null)

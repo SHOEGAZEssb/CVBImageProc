@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Pixelate"/> processor.
   /// </summary>
-  class PixelateViewModel : FullProcessorViewModelBase
+  internal class PixelateViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -17,7 +17,7 @@ namespace CVBImageProc.Processing
       get => _processor.PixelateSize;
       set
       {
-        if(PixelateSize != value)
+        if (PixelateSize != value)
         {
           _processor.PixelateSize = value;
           NotifyOfPropertyChange();

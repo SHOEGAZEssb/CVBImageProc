@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.Filter
 {
   /// <summary>
-  /// Interaction logic for FilterView.xaml
+  /// Interaction logic for FilterView.xaml.
   /// </summary>
   public partial class FilterView : UserControl
   {

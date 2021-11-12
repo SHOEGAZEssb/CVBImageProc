@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for RotateView.xaml
+  /// Interaction logic for RotateView.xaml.
   /// </summary>
   public partial class RotateView : UserControl
   {

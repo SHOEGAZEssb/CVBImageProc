@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for PlaneClearView.xaml
+  /// Interaction logic for PlaneClearView.xaml.
   /// </summary>
   public partial class PlaneClearView : UserControl
   {

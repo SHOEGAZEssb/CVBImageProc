@@ -5,7 +5,7 @@
   /// notified when the kernel size of its
   /// filter changes.
   /// </summary>
-  interface INeedKernelSizeUpdate
+  internal interface INeedKernelSizeUpdate
   {
     /// <summary>
     /// Tells this object to update its

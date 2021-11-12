@@ -3,7 +3,7 @@
 namespace CVBImageProc
 {
   /// <summary>
-  /// Interaction logic for StatusBarView.xaml
+  /// Interaction logic for StatusBarView.xaml.
   /// </summary>
   public partial class StatusBarView : UserControl
   {

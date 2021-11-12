@@ -143,6 +143,5 @@
     <Compile Include="RawFileImporter.cs" />
     <Compile Include="ThreadSafeRandom.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

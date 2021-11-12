@@ -298,6 +298,9 @@ namespace CVBImageProcLib.Processing.PixelFilter
       return true;
     }
 
+    /// <summary>
+    /// Rebuilds the filter chain with the active filters.
+    /// </summary>
     private void RebuildActiveFilters()
     {
       _activeValueFilter = ValueFilters.Where(v => v.Value).Select(v => v.Key).ToList();
@@ -305,6 +308,10 @@ namespace CVBImageProcLib.Processing.PixelFilter
       _activeAutoFilter = AutoFilters.Where(v => v.Value).Select(v => v.Key).ToList();
     }
 
+    /// <summary>
+    /// Rebuilds the active filters when deserialized.
+    /// </summary>
+    /// <param name="context">Ignored.</param>
     [OnDeserialized]
     internal void OnDeserialized(StreamingContext context)
     {

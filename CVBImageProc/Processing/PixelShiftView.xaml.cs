@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for PixelShiftView.xaml
+  /// Interaction logic for PixelShiftView.xaml.
   /// </summary>
   public partial class PixelShiftView : UserControl
   {

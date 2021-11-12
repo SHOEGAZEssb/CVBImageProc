@@ -3,7 +3,7 @@
   /// <summary>
   /// ViewModel for a value of a filter kernel.
   /// </summary>
-  class KernelValueViewModel : SettingsViewModelBase
+  internal class KernelValueViewModel : SettingsViewModelBase
   {
     /// <summary>
     /// The value.

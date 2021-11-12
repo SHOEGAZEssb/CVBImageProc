@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Smear"/> processor.
   /// </summary>
-  class SmearViewModel : FullProcessorViewModelBase
+  internal class SmearViewModel : FullProcessorViewModelBase
   {
     #region Properties
 
@@ -39,6 +39,11 @@ namespace CVBImageProc.Processing
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="processor">The processor.</param>
+    /// <param name="isActive">Default active state.</param>
     public SmearViewModel(Smear processor, bool isActive)
       : base(processor, isActive)
     {

@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Base class for <see cref="IFullProcessor"/> ViewModels.
   /// </summary>
-  abstract class FullProcessorViewModelBase : AOIPlaneProcessorViewModelBase
+  internal abstract class FullProcessorViewModelBase : AOIPlaneProcessorViewModelBase
   {
     #region Properties
 

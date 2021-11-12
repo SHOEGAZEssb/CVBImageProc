@@ -4,7 +4,7 @@ using System.Windows;
 namespace CVBImageProc.MVVM
 {
   /// <summary>
-  /// Interaction logic for ContextWindow.xaml
+  /// Interaction logic for ContextWindow.xaml.
   /// </summary>
   public partial class ContextWindow : Window
   {

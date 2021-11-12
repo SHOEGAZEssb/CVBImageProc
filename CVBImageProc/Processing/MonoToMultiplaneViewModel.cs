@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="MonoToMultiplane"/> processor.
   /// </summary>
-  class MonoToMultiplaneViewModel : ProcessorViewModel, IHasSettings
+  internal class MonoToMultiplaneViewModel : ProcessorViewModel, IHasSettings
   {
     #region Properties
 

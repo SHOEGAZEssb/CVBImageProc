@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for a <see cref="RGBFactorPreset"/>.
   /// </summary>
-  class RGBFactorPresetViewModel : ViewModelBase
+  internal class RGBFactorPresetViewModel : ViewModelBase
   {
     #region Properties
 

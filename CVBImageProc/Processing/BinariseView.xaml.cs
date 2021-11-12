@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for BinariseView.xaml
+  /// Interaction logic for BinariseView.xaml.
   /// </summary>
   public partial class BinariseView : UserControl
   {

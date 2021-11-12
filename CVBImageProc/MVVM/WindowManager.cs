@@ -3,7 +3,7 @@
   /// <summary>
   /// Object managing windows.
   /// </summary>
-  class WindowManager : IWindowManager
+  internal class WindowManager : IWindowManager
   {
     /// <summary>
     /// Shows a modal dialog with the given <paramref name="context"/>.

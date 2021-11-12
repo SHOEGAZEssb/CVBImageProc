@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Interaction logic for PixelIndexFilterView.xaml
+  /// Interaction logic for PixelIndexFilterView.xaml.
   /// </summary>
   public partial class PixelIndexFilterView : UserControl
   {

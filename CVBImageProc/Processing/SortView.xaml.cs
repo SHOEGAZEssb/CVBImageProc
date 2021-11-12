@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for SortView.xaml
+  /// Interaction logic for SortView.xaml.
   /// </summary>
   public partial class SortView : UserControl
   {

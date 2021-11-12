@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// Base class for ViewModels that implement <see cref="IHasSettings"/>.
   /// </summary>
-  abstract class SettingsViewModelBase : ViewModelBase, IHasSettings
+  internal abstract class SettingsViewModelBase : ViewModelBase, IHasSettings
   {
     #region IHasSettings Implementation
 

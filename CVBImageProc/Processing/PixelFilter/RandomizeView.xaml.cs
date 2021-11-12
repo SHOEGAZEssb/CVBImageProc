@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Interaction logic for RandomizeView.xaml
+  /// Interaction logic for RandomizeView.xaml.
   /// </summary>
   public partial class RandomizeView : UserControl
   {

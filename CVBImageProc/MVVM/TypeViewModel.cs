@@ -44,7 +44,7 @@ namespace CVBImageProc.MVVM
     /// <summary>
     /// Instantiates an object of the wrapped type.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Instance of object of the wrapped type.</returns>
     public object Instanciate()
     {
       return Activator.CreateInstance(Type);

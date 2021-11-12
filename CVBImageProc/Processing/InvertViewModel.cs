@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Invert"/> processor.
   /// </summary>
-  class InvertViewModel : FullProcessorViewModelBase
+  internal class InvertViewModel : FullProcessorViewModelBase
   {
     /// <summary>
     /// Constructor.

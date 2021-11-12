@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for GainView.xaml
+  /// Interaction logic for GainView.xaml.
   /// </summary>
   public partial class MathView : UserControl
   {

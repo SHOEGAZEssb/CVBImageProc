@@ -3,7 +3,7 @@
 namespace CVBImageProcLib.Processing.ValueProvider
 {
   /// <summary>
-  /// Object for providing int values;
+  /// Object for providing int values.
   /// </summary>
   [DataContract]
   public class IntValueProvider : IValueProvider<int>

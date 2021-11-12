@@ -66,7 +66,6 @@ namespace CVBImageProcLib.Processing
       else
         ProcessPlane(inputImage.Planes[PlaneIndex], calculationFunc, bounds);
 
-
       return inputImage;
     }
 

@@ -5,6 +5,9 @@ using SystemMath = System.Math;
 
 namespace CVBImageProcLib.Processing
 {
+  /// <summary>
+  /// Processor that swirls an image.
+  /// </summary>
   public class Swirl : FullProcessorBase
   {
     #region IProcessor Implementation
@@ -65,7 +68,7 @@ namespace CVBImageProcLib.Processing
               double relX = x - cX;
 
               double originalAngle;
-              if(relX != 0)
+              if (relX != 0)
               {
                 originalAngle = SystemMath.Atan(SystemMath.Abs(relY) / SystemMath.Abs(relX));
                 if (relX > 0 && relY < 0)
@@ -80,7 +83,6 @@ namespace CVBImageProcLib.Processing
 
               double radius = SystemMath.Sqrt(relX * relX + relY * relY);
               double newAngle = originalAngle + Factor * radius;
-              //double newAngle = originalAngle + 1 / (Factor * radius + (4.0 / SystemMath.PI));
               int srcX = (int)SystemMath.Floor(radius * SystemMath.Cos(newAngle) + 0.5);
               int srcY = (int)SystemMath.Floor(radius * SystemMath.Sin(newAngle) + 0.5);
               srcX += (int)cX;
@@ -111,6 +113,9 @@ namespace CVBImageProcLib.Processing
 
     #region Properties
 
+    /// <summary>
+    /// Factor by which to swirl.
+    /// </summary>
     public double Factor { get; set; }
 
     #endregion Properties

@@ -3,7 +3,7 @@
 namespace CVBImageProc.Processing
 {
   /// <summary>
-  /// Interaction logic for CropView.xaml
+  /// Interaction logic for CropView.xaml.
   /// </summary>
   public partial class CropView : UserControl
   {

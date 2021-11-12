@@ -78,7 +78,7 @@ namespace CVBImageProcLib.Processing
                 for (int x = xx; x < xxPixelateSize && x < imageWidth; x++)
                 {
                   byte* pPixel = pLine + xInc * x;
-                  if(PixelFilter.Check(*pPixel, y * boundsY + x))
+                  if (PixelFilter.Check(*pPixel, y * boundsY + x))
                     *pPixel = *pPixelatedPixel;
                 }
               }

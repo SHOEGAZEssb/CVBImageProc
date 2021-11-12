@@ -7,12 +7,12 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// ViewModel for a <see cref="ICanProcessIndividualRegions"/> processor.
   /// </summary>
-  class AOIViewModel : SettingsViewModelBase
+  internal class AOIViewModel : SettingsViewModelBase
   {
     #region Properties
 
     /// <summary>
-    /// Indicates if an AOI should be used
+    /// Indicates if an AOI should be used.
     /// </summary>
     public bool UseAOI
     {

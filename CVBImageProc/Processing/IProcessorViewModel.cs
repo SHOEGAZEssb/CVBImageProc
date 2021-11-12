@@ -10,7 +10,7 @@ namespace CVBImageProc.Processing
   public interface IProcessorViewModel : INotifyPropertyChanged
   {
     /// <summary>
-    /// Name of the processor
+    /// Name of the processor.
     /// </summary>
     string Name { get; }
 

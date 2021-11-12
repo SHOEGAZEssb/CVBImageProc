@@ -3,7 +3,7 @@
   /// <summary>
   /// Base ViewModel for individual plane settings of a processor.
   /// </summary>
-  abstract class PlaneSettingsViewModelBase : SettingsViewModelBase
+  internal abstract class PlaneSettingsViewModelBase : SettingsViewModelBase
   {
     #region Properties
 

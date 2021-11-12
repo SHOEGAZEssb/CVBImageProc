@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// Base class for pixel filter ViewModels.
   /// </summary>
-  abstract class PixelFilterViewModelBase : SettingsViewModelBase, IPixelFilterViewModel
+  internal abstract class PixelFilterViewModelBase : SettingsViewModelBase, IPixelFilterViewModel
   {
     #region IPixelFilterViewModel Implementation
 
@@ -16,7 +16,7 @@ namespace CVBImageProc.Processing.PixelFilter
     public IPixelFilter Filter { get; }
 
     /// <summary>
-    /// The name of the Filter
+    /// The name of the Filter.
     /// </summary>
     public string Name => Filter.Name;
 
@@ -37,6 +37,9 @@ namespace CVBImageProc.Processing.PixelFilter
       }
     }
 
+    /// <summary>
+    /// If true, the pixel filter gets processed.
+    /// </summary>
     public bool IsActive
     {
       get => _isActive;
@@ -53,12 +56,20 @@ namespace CVBImageProc.Processing.PixelFilter
     }
     private bool _isActive;
 
+    /// <summary>
+    /// Event that is fired when <see cref="IsActive"/> changes.
+    /// </summary>
     public event EventHandler IsActiveChanged;
 
     #endregion IPixelFilterViewModel Implementation
 
     #region Construction
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="filter">The pixel filter.</param>
+    /// <param name="isActive">Default active state.</param>
     protected PixelFilterViewModelBase(IPixelFilter filter, bool isActive)
     {
       Filter = filter ?? throw new ArgumentNullException(nameof(filter));

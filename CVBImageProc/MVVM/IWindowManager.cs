@@ -3,7 +3,7 @@
   /// <summary>
   /// Interface for an object showing windows and dialogs.
   /// </summary>
-  interface IWindowManager
+  internal interface IWindowManager
   {
     /// <summary>
     /// Shows a modal dialog with the given <paramref name="context"/>.
