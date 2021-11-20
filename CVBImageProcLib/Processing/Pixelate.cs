@@ -52,17 +52,18 @@ namespace CVBImageProcLib.Processing
         int imageWidth = plane.Parent.Width;
         var yInc = (int)data.YInc;
         var xInc = (int)data.XInc;
+        int offset = PixelateSize / 2;
 
         unsafe
         {
           var pBase = (byte*)data.BasePtr;
           for (int yy = bounds.StartY; yy < boundsY; yy += PixelateSize)
           {
-            int offsetY = PixelateSize / 2;
+            int offsetY = offset;
             int yyPixelateSize = yy + PixelateSize;
             for (int xx = bounds.StartX; xx < boundsX; xx += PixelateSize)
             {
-              int offsetX = PixelateSize / 2;
+              int offsetX = offset;
               int xxPixelateSize = xx + PixelateSize;
 
               while (xx + offsetX >= imageWidth)
