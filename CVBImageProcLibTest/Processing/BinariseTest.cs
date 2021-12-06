@@ -16,14 +16,14 @@ namespace CVBImageProcLibTest.Processing
       // given: mono test image
       using (var img = TestHelper.CreateMonoTestImage(new byte[] { 10, 200, 100, 0 }))
       {
-        var processor = new Binarise()
-        {
-          Threshold = 100
-        };
+        var processor = new Binarise();
+        processor.Threshold.FixedValue = 100;
 
         // when: applying processor
         using (var processedImage = processor.Process(img))
         {
+
+          var bla = processedImage.GetPixels();
           // then: binarised
           CollectionAssert.AreEqual(new byte[] { 0, 255, 255, 0 }, processedImage.GetPixels());
         }

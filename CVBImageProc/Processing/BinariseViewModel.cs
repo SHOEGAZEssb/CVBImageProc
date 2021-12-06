@@ -1,4 +1,5 @@
-﻿using CVBImageProcLib.Processing;
+﻿using CVBImageProc.Processing.ValueProvider;
+using CVBImageProcLib.Processing;
 using System;
 
 namespace CVBImageProc.Processing
@@ -15,19 +16,17 @@ namespace CVBImageProc.Processing
     /// Values &lt; will be set to 0.
     /// Values &gt;= will be set to 255.
     /// </summary>
-    public int Threshold
-    {
-      get => _processor.Threshold;
-      set
-      {
-        if (Threshold != value)
-        {
-          _processor.Threshold = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+    public ValueProviderViewModel<int> Threshold { get; }
+
+    /// <summary>
+    /// Value to use if the byte value is larger or equal than the <see cref="Threshold"/>.
+    /// </summary>
+    public ValueProviderViewModel<byte> AboveThresholdValue { get; }
+
+    /// <summary>
+    /// Value to use if the byte value is smaller than the <see cref="Threshold"/>.
+    /// </summary>
+    public ValueProviderViewModel<byte> BelowThresholdValue { get; }
 
     #endregion Properties
 
@@ -52,8 +51,25 @@ namespace CVBImageProc.Processing
       : base(processor, isActive)
     {
       _processor = processor;
+      Threshold = new ValueProviderViewModel<int>(_processor.Threshold);
+      Threshold.SettingsChanged += SubVM_SettingsChanged;
+      AboveThresholdValue = new ValueProviderViewModel<byte>(_processor.AboveThresholdValue);
+      AboveThresholdValue.SettingsChanged += SubVM_SettingsChanged;
+      BelowThresholdValue = new ValueProviderViewModel<byte>(_processor.BelowThresholdValue);
+      BelowThresholdValue.SettingsChanged += SubVM_SettingsChanged;
     }
 
     #endregion Construction
+
+    /// <summary>
+    /// Fires the SettingsChanged event when the
+    /// pixel filter settings changed.
+    /// </summary>
+    /// <param name="sender">Ignored.</param>
+    /// <param name="e">Ignored.</param>
+    private void SubVM_SettingsChanged(object sender, System.EventArgs e)
+    {
+      OnSettingsChanged();
+    }
   }
 }

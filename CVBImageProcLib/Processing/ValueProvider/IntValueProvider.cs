@@ -59,11 +59,22 @@ namespace CVBImageProcLib.Processing.ValueProvider
     /// <param name="min">Minimum possible value.</param>
     /// <param name="max">Maximum possible value.</param>
     public IntValueProvider(int min, int max)
+      : this(min, max, min)
+    { }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="min">Minimum possible value.</param>
+    /// <param name="max">Maximum possible value.</param>
+    /// <param name="initialFixedValue">The initial value of the <see cref="FixedValue"/>.</param>
+    public IntValueProvider(int min, int max, int initialFixedValue)
     {
       MinValue = min;
       MaxValue = max;
       MinRandomValue = MinValue;
       MaxRandomValue = MaxValue;
+      FixedValue = initialFixedValue;
     }
 
     #endregion Construction

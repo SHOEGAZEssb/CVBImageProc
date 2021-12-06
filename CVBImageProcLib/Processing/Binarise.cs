@@ -1,4 +1,5 @@
 ﻿using CVBImageProcLib.Processing.PixelFilter;
+using CVBImageProcLib.Processing.ValueProvider;
 using Stemmer.Cvb;
 using System;
 using System.Runtime.Serialization;
@@ -44,7 +45,7 @@ namespace CVBImageProcLib.Processing
     {
       ProcessingHelper.ProcessMonoParallel(plane, bounds, (b) =>
       {
-        return (byte)(b >= Threshold ? 255 : 0);
+        return b >= Threshold.Provide() ? AboveThresholdValue.Provide() : BelowThresholdValue.Provide();
       }, PixelFilter);
     }
 
@@ -57,45 +58,19 @@ namespace CVBImageProcLib.Processing
     /// Values &gt;= threshold = 255, values &lt; threshold = 0.
     /// </summary>
     [DataMember]
-    public int Threshold
-    {
-      get => _threshold;
-      set
-      {
-        if (value > MAXTHRESHOLD)
-          value = MAXTHRESHOLD;
-        else if (value < MINTHRESHOLD)
-          value = MINTHRESHOLD;
-
-        _threshold = value;
-      }
-    }
-    private int _threshold = 128;
+    public IntValueProvider Threshold = new IntValueProvider(0, 255, 128);
 
     /// <summary>
-    /// Max value of the <see cref="Threshold"/>.
+    /// Value to use if the byte value is larger or equal than the <see cref="Threshold"/>.
     /// </summary>
-    public const int MAXTHRESHOLD = 254;
+    [DataMember]
+    public ByteValueProvider AboveThresholdValue = new ByteValueProvider(0, 255, 255);
 
     /// <summary>
-    /// Min value of the <see cref="Threshold"/>.
+    /// Value to use if the byte value is smaller than the <see cref="Threshold"/>.
     /// </summary>
-    public const int MINTHRESHOLD = 1;
-
-    /// <summary>
-    /// Red conversion factor.
-    /// </summary>
-    public const double FACTORRED = 0.2125;
-
-    /// <summary>
-    /// Green conversion factor.
-    /// </summary>
-    public const double FACTORGREEN = 0.7154;
-
-    /// <summary>
-    /// Blue conversion factor.
-    /// </summary>
-    public const double FACTORBLUE = 0.0721;
+    [DataMember]
+    public ByteValueProvider BelowThresholdValue = new ByteValueProvider(0, 255);
 
     #endregion Properties
   }

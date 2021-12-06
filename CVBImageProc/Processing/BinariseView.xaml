@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CVBImageProc.Processing"
              xmlns:pf="clr-namespace:CVBImageProc.Processing.PixelFilter"
+             xmlns:vp="clr-namespace:CVBImageProc.Processing.ValueProvider"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -17,24 +18,26 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="5"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <local:PlaneSelectorControl Grid.Row="0"/>
+        
         <TextBlock Grid.Row="2" Text="Threshold:"/>
+        <vp:IntValueProviderView Grid.Row="4" DataContext="{Binding Threshold}"/>
 
-        <Grid Grid.Row="4">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="2"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2"/>
-            <ColumnDefinition Width="Auto"/>
-          </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="6" Text="Above Threshold Value:"/>
+        <vp:ByteValueProviderView Grid.Row="8" DataContext="{Binding AboveThresholdValue}"/>
 
-          <TextBlock Grid.Column="0" Text="1"/>
-          <Slider Grid.Column="2" Value="{Binding Threshold}" Minimum="1" Maximum="254"/>
-          <TextBlock Grid.Column="4" Text="254"/>
-        </Grid>
+        <TextBlock Grid.Row="10" Text="Below Threshold Value"/>
+        <vp:ByteValueProviderView Grid.Row="12" DataContext="{Binding BelowThresholdValue}"/>
       </Grid>
     </TabItem>
     <TabItem Header="Filter">
