@@ -3,6 +3,7 @@ using Stemmer.Cvb;
 using System;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 
 namespace CVBImageProcLib.Processing.Filter
 {
@@ -33,8 +34,9 @@ namespace CVBImageProcLib.Processing.Filter
       var bounds = this.GetProcessingBounds(inputImage);
       if (ProcessAllPlanes)
       {
-        foreach (var plane in inputImage.Planes)
-          ProcessPlane(plane, bounds);
+        
+        Parallel.ForEach(inputImage.Planes, p =>
+          ProcessPlane(p, bounds));
       }
       else
         ProcessPlane(inputImage.Planes[PlaneIndex], bounds);

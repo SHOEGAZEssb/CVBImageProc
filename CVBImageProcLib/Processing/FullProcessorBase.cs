@@ -12,6 +12,9 @@ namespace CVBImageProcLib.Processing
   {
     #region IFullProcessor Implementation
 
+    /// <summary>
+    /// The pixel filter chain.
+    /// </summary>
     [DataMember]
     public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 

@@ -17,6 +17,7 @@ namespace CVBImageProcLib.Processing.Filter
     /// </summary>
     /// <param name="values">Byte values to apply weights to.</param>
     /// <param name="weights">Weights to apply.</param>
+    /// <param name="weightSum">Sum of the <paramref name="weights"/>.</param>
     /// <returns>Weighted pixel.</returns>
     protected virtual byte ApplyWeights(byte?[] values, int[] weights, int weightSum)
     {
