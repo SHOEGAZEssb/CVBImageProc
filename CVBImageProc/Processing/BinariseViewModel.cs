@@ -67,7 +67,7 @@ namespace CVBImageProc.Processing
     /// </summary>
     /// <param name="sender">Ignored.</param>
     /// <param name="e">Ignored.</param>
-    private void SubVM_SettingsChanged(object sender, System.EventArgs e)
+    private void SubVM_SettingsChanged(object sender, EventArgs e)
     {
       OnSettingsChanged();
     }

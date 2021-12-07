@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace CVBImageProc.Processing.PixelFilter
 {
   /// <summary>
-  /// Interface for a ViewModel of a <see cref="CVBImageProcLib.Processing.PixelFilter.IPixelFilter"/>.
+  /// Interface for a ViewModel of a <see cref="IPixelFilter"/>.
   /// </summary>
   internal interface IPixelFilterViewModel : INotifyPropertyChanged, IHasSettings
   {
