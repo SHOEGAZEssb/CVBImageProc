@@ -3,7 +3,7 @@
   /// <summary>
   /// RGB-Pixel struct.
   /// </summary>
-  internal struct RGBPixel
+  internal readonly struct RGBPixel
   {
     #region Properties
 

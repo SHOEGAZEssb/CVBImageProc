@@ -6,7 +6,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// <summary>
   /// Boundaries when processing images.
   /// </summary>
-  public struct ProcessingBounds : IEquatable<ProcessingBounds>
+  public readonly struct ProcessingBounds : IEquatable<ProcessingBounds>
   {
     #region Properties
 

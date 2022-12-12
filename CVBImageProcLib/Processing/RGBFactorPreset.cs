@@ -3,7 +3,7 @@
   /// <summary>
   /// Preset for the <see cref="RGBFactors"/> processor.
   /// </summary>
-  public struct RGBFactorPreset
+  public readonly struct RGBFactorPreset
   {
     #region Properties
 
