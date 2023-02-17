@@ -34,7 +34,7 @@ namespace CVBImageProcLib.Processing.Filter
       var bounds = this.GetProcessingBounds(inputImage);
       if (ProcessAllPlanes)
       {
-        
+
         Parallel.ForEach(inputImage.Planes, p =>
           ProcessPlane(p, bounds));
       }
@@ -46,26 +46,24 @@ namespace CVBImageProcLib.Processing.Filter
 
     private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
     {
+      var numIntensityLevels = NumIntensityLevels;
       var outputPlane = ProcessingHelper.ProcessMonoKernelParallel(plane, (kl) =>
       {
-        var stripped = kl.Where(b => b.HasValue).ToArray();
-        var numIntensityLevels = NumIntensityLevels;
-
         // the number of pixels in each intensity level range
         var intensityCount = new int[numIntensityLevels];
 
         // the sums of all pixel values in their corresponding intensity level range:
         var intensitySums = new int[numIntensityLevels];
 
-        foreach (byte pixel in stripped)
+        foreach (byte pixel in kl.Where(b => b.HasValue).Select(v => (byte)v))
         {
-          int intensityLevel = (int)(pixel * (numIntensityLevels - 1) / 255.0);
+          var intensityLevel = (int)(pixel * (numIntensityLevels - 1) / 255.0);
           intensitySums[intensityLevel] += pixel;
           intensityCount[intensityLevel]++;
         }
 
         // the intensity level with the most pixels in
-        int maxIndex = Array.IndexOf(intensityCount, intensityCount.Max());
+        var maxIndex = Array.IndexOf(intensityCount, intensityCount.Max());
 
         return (byte)(intensitySums[maxIndex] / intensityCount[maxIndex]);
       }, KernelSize, bounds, PixelFilter);
