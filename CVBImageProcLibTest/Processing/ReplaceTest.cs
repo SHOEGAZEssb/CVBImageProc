@@ -23,7 +23,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = replace.Process(img))
         {
           // then: pixels replaced
-          CollectionAssert.AreEqual(new byte[] { 42, 42, 42, 42 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 42, 42, 42, 42 }));
         }
       }
     }

@@ -25,7 +25,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = sort.Process(img))
         {
           // then: pixels sorted
-          CollectionAssert.AreEqual(new byte[] { 1, 5, 10, 30 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 1, 5, 10, 30 }));
         }
       }
     }
@@ -45,7 +45,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = sort.Process(img))
         {
           // then: pixels sorted
-          CollectionAssert.AreEqual(new byte[] { 30, 10, 5, 1 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 30, 10, 5, 1 }));
         }
       }
     }

@@ -24,7 +24,7 @@ namespace CVBImageProcLibTest
         // then: image correctly imported
         Assert.That(img.Planes.Count, Is.EqualTo(1));
         Assert.That(img.Size, Is.EqualTo(size));
-        CollectionAssert.AreEqual(data, img.GetPixels());
+        Assert.That(img.GetPixels(), Is.EquivalentTo(data));
       }
     }
 
@@ -50,7 +50,7 @@ namespace CVBImageProcLibTest
         // then: image correctly imported
         Assert.That(img.Planes.Count, Is.EqualTo(1));
         Assert.That(img.Size, Is.EqualTo(size));
-        CollectionAssert.AreEqual(data.Concat(new byte[] { fill }), img.GetPixels());
+        Assert.That(img.GetPixels(), Is.EquivalentTo(data.Concat(new byte[] { fill })));
       }
     }
 
@@ -125,7 +125,7 @@ namespace CVBImageProcLibTest
         // then: image correctly imported
         Assert.That(img.Planes.Count, Is.EqualTo(3));
         Assert.That(img.Size, Is.EqualTo(size));
-        CollectionAssert.AreEqual(img.GetPixels(), data);
+        Assert.That(img.GetPixels(), Is.EquivalentTo(data));
       }
     }
 
@@ -146,7 +146,7 @@ namespace CVBImageProcLibTest
         // then: image correctly imported
         Assert.That(img.Planes.Count, Is.EqualTo(3));
         Assert.That(img.Size, Is.EqualTo(size));
-        CollectionAssert.AreEqual(img.GetPixels(), data.Concat(new byte[] { fill, fill, fill }));
+        Assert.That(img.GetPixels(), Is.EquivalentTo(data.Concat(new byte[] { fill, fill, fill })));
       }
     }
 

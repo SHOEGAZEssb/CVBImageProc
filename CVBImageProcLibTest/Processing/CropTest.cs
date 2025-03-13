@@ -26,7 +26,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = crop.Process(img))
         {
           // then: cropped image
-          CollectionAssert.AreEqual(new byte[] { 3, 4 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 3, 4 }));
         }
       }
     }

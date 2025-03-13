@@ -25,7 +25,7 @@ namespace CVBImageProcLibTest.Processing
 
           var bla = processedImage.GetPixels();
           // then: binarised
-          CollectionAssert.AreEqual(new byte[] { 0, 255, 255, 0 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 255, 255, 0 }));
         }
       }
     }

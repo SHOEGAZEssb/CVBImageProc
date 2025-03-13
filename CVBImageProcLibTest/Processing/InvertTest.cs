@@ -22,7 +22,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = invert.Process(img))
         {
           // then: pixels inverted
-          CollectionAssert.AreEqual(new byte[] { 245, 205, 0, 255 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 245, 205, 0, 255 }));
         }
       }
     }

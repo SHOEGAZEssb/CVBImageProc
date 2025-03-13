@@ -24,7 +24,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = p.Process(img))
         {
           // then: pixels bit shifted
-          CollectionAssert.AreEqual(new byte[] { 0, 2, 20, 254 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 2, 20, 254 }));
         }
       }
     }
@@ -46,7 +46,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = p.Process(img))
         {
           // then: pixels bit shifted
-          CollectionAssert.AreEqual(new byte[] { 0, 2, 20, 255 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 2, 20, 255 }));
         }
       }
     }
@@ -67,7 +67,7 @@ namespace CVBImageProcLibTest.Processing
         using (var processedImage = p.Process(img))
         {
           // then: pixels bit shifted
-          CollectionAssert.AreEqual(new byte[] { 0, 0, 5, 127 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 0, 5, 127 }));
         }
       }
     }

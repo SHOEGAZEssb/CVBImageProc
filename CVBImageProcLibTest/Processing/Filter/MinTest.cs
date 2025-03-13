@@ -24,7 +24,7 @@ namespace CVBImageProcLibTest.Processing.Filter
         using (var processedImage = min.Process(img))
         {
           // then: min values
-          CollectionAssert.AreEqual(new byte[] { 5, 3, 3, 1, 0, 0, 1, 0, 0 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 5, 3, 3, 1, 0, 0, 1, 0, 0 }));
         }
       }
     }

@@ -26,7 +26,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 12, 22, 32, 255 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 12, 22, 32, 255 }));
         }
       }
     }
@@ -49,7 +49,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 12, 22, 32, 6 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 12, 22, 32, 6 }));
         }
       }
     }
@@ -72,7 +72,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 0, 0, 8, 238 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 0, 8, 238 }));
         }
       }
     }
@@ -95,7 +95,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 244, 254, 8, 238 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 244, 254, 8, 238 }));
         }
       }
     }
@@ -118,7 +118,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 0, 20, 40, 255 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 20, 40, 255 }));
         }
       }
     }
@@ -141,7 +141,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 0, 20, 40, 244 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 20, 40, 244 }));
         }
       }
     }
@@ -164,7 +164,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 0, 5, 10, 125 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 5, 10, 125 }));
         }
       }
     }
@@ -187,7 +187,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 0, 5, 10, 125 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 5, 10, 125 }));
         }
       }
     }
@@ -210,7 +210,7 @@ namespace CVBImageProcLibTest.Processing
         using (Image processedImage = gain.Process(img))
         {
           // then: gain applied
-          CollectionAssert.AreEqual(new byte[] { 0, 10, 20, 250 }, processedImage.GetPixels());
+          Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 0, 10, 20, 250 }));
         }
       }
     }
