@@ -12,7 +12,7 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Mono To Multiplane")]
-  public class MonoToMultiplane : IProcessor
+  public sealed class MonoToMultiplane : IProcessor
   {
     #region IProcessor Implementation
 

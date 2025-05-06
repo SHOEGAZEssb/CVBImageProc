@@ -25,7 +25,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// Filter chain for processors.
   /// </summary>
   [DataContract]
-  public class PixelFilterChain
+  public sealed class PixelFilterChain
   {
     #region Properties
 

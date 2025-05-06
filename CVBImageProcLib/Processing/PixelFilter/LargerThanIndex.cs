@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// </summary>
   [DataContract]
   [DisplayName("Larger Than (Index)")]
-  public class LargerThanIndex : PixelIndexFilterBase
+  public sealed class LargerThanIndex : PixelIndexFilterBase
   {
     /// <summary>
     /// Name of the filter.

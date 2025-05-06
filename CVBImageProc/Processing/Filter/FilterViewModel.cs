@@ -10,7 +10,7 @@ namespace CVBImageProc.Processing.Filter
   /// <summary>
   /// ViewModel for <see cref="IFilter"/> processors.
   /// </summary>
-  internal class FilterViewModel : FullProcessorViewModelBase
+  internal sealed class FilterViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

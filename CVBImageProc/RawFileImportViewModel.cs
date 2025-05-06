@@ -25,7 +25,7 @@ namespace CVBImageProc
   /// <summary>
   /// ViewModel for the <see cref="RawFileImporter"/>.
   /// </summary>
-  internal class RawFileImportViewModel : ViewModelBase, IWindowContext
+  internal sealed class RawFileImportViewModel : ViewModelBase, IWindowContext
   {
     #region Properties
 

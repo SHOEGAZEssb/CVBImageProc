@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing.SizeCalculator
   /// </summary>
   [DataContract]
   [DisplayName("Free")]
-  public class FreeSizeCalculator : ISizeCalculator
+  public sealed class FreeSizeCalculator : ISizeCalculator
   {
     #region Properties
 

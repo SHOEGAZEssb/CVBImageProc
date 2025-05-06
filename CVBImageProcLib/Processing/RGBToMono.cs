@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("RGB To Mono")]
-  public class RGBToMono : IProcessor
+  public sealed class RGBToMono : IProcessor
   {
     #region IProcessor Implementation
 

@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Swirl"/> processor.
   /// </summary>
-  internal class SwirlViewModel : FullProcessorViewModelBase
+  internal sealed class SwirlViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

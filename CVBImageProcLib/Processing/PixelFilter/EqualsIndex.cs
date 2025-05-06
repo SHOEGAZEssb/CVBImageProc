@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// </summary>
   [DataContract]
   [DisplayName("Equals (Index)")]
-  public class EqualsIndex : PixelIndexFilterBase
+  public sealed class EqualsIndex : PixelIndexFilterBase
   {
     /// <summary>
     /// Name of the filter.

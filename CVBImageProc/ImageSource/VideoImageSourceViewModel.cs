@@ -7,7 +7,7 @@ namespace CVBImageProc.ImageSource
   /// <summary>
   /// ViewModel for a <see cref="VideoImageSource"/>.
   /// </summary>
-  internal class VideoImageSourceViewModel : ChangingImageSourceViewModelBase
+  internal sealed class VideoImageSourceViewModel : ChangingImageSourceViewModelBase
   {
     #region Properties
 

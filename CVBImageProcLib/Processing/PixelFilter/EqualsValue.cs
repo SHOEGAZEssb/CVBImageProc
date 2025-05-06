@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// </summary>
   [DataContract]
   [DisplayName("Equals (Value)")]
-  public class EqualsValue : PixelValueFilterBase
+  public sealed class EqualsValue : PixelValueFilterBase
   {
     #region IPixelFilter Implementation
 

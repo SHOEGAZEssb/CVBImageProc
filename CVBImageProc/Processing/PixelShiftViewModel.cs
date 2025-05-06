@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="PixelShift"/> processor.
   /// </summary>
-  internal class PixelShiftViewModel : FullProcessorViewModelBase
+  internal sealed class PixelShiftViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

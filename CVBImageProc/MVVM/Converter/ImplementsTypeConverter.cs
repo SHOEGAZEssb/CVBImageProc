@@ -7,7 +7,7 @@ namespace CVBImageProc.MVVM.Converter
   /// <summary>
   /// Checks if an object implements a given type.
   /// </summary>
-  public class ImplementsTypeConverter : IValueConverter
+  public sealed class ImplementsTypeConverter : IValueConverter
   {
     /// <summary>
     /// Checks if the given <paramref name="value"/> implements

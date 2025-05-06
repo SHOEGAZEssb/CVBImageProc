@@ -5,7 +5,7 @@ namespace CVBImageProc
   /// <summary>
   /// ViewModel for the status bar.
   /// </summary>
-  public class StatusBarViewModel : ViewModelBase
+  public sealed class StatusBarViewModel : ViewModelBase
   {
     #region Properties
 

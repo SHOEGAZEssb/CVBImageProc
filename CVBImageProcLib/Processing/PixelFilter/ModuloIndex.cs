@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// </summary>
   [DataContract]
   [DisplayName("Modulo (Index)")]
-  public class ModuloIndex : PixelIndexFilterBase
+  public sealed class ModuloIndex : PixelIndexFilterBase
   {
     /// <summary>
     /// Name of the filter.

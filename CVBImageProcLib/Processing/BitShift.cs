@@ -28,7 +28,7 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Bit Shift")]
-  public class BitShift : FullProcessorBase
+  public sealed class BitShift : FullProcessorBase
   {
     #region IProcessor Implementation
 

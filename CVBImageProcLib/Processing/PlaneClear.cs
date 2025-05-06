@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Plane Clear")]
-  public class PlaneClear : IProcessor
+  public sealed class PlaneClear : IProcessor
   {
     #region IProcessor Implementation
 

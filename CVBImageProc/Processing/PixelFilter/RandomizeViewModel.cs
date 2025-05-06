@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// ViewModel for the <see cref="Randomize"/> pixel filter.
   /// </summary>
-  internal class RandomizeViewModel : PixelFilterViewModelBase, IPixelAutoFilterViewModel
+  internal sealed class RandomizeViewModel : PixelFilterViewModelBase, IPixelAutoFilterViewModel
   {
     #region Properties
 

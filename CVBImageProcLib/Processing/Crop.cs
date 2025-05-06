@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that crops an image.
   /// </summary>
   [DataContract]
-  public class Crop : IProcessor, ICanProcessIndividualRegions
+  public sealed class Crop : IProcessor, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 

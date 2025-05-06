@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing.Filter
   /// Min filter processor.
   /// </summary>
   [DataContract]
-  public class Min : FilterBase
+  public sealed class Min : FilterBase
   {
     /// <summary>
     /// Name of the processor.

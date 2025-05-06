@@ -8,7 +8,7 @@ namespace CVBImageProc.Processing.Filter
   /// <summary>
   /// ViewModel for the settings of a <see cref="Custom"/> filter processor.
   /// </summary>
-  internal class CustomKernelSettingsViewModel : SettingsViewModelBase, INeedKernelSizeUpdate
+  internal sealed class CustomKernelSettingsViewModel : SettingsViewModelBase, INeedKernelSizeUpdate
   {
     #region Properties
 

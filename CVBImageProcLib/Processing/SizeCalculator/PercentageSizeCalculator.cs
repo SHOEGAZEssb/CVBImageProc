@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing.SizeCalculator
   /// </summary>
   [DataContract]
   [DisplayName("Percentage")]
-  public class PercentageSizeCalculator : ISizeCalculator
+  public sealed class PercentageSizeCalculator : ISizeCalculator
   {
     #region Properties
 

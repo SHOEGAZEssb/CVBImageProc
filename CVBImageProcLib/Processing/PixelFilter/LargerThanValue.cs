@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// </summary>
   [DataContract]
   [DisplayName("Larger Than (Value)")]
-  public class LargerThanValue : PixelValueFilterBase
+  public sealed class LargerThanValue : PixelValueFilterBase
   {
     #region IPixelFilter Implementation
 

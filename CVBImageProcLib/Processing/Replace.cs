@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing
   /// ViewModel that replaces certain pixel values.
   /// </summary>
   [DataContract]
-  public class Replace : FullProcessorBase
+  public sealed class Replace : FullProcessorBase
   {
     #region IProcessor Implementation
 

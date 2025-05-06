@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Sort"/> processor.
   /// </summary>
-  internal class SortViewModel : FullProcessorViewModelBase
+  internal sealed class SortViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

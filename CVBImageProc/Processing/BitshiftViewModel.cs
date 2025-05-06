@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="BitShift"/> processor.
   /// </summary>
-  internal class BitshiftViewModel : FullProcessorViewModelBase
+  internal sealed class BitshiftViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

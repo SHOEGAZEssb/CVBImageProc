@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing
   /// Chain of processors.
   /// </summary>
   [DataContract]
-  public class ProcessorChain
+  public sealed class ProcessorChain
   {
     #region Properties
 

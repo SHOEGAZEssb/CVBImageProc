@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Pixelate"/> processor.
   /// </summary>
-  internal class PixelateViewModel : FullProcessorViewModelBase
+  internal sealed class PixelateViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

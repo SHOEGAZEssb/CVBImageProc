@@ -18,7 +18,7 @@ namespace CVBImageProc
   /// <summary>
   /// ViewModel for MainView.
   /// </summary>
-  public class MainViewModel : ViewModelBase
+  public sealed class MainViewModel : ViewModelBase
   {
     #region Commands
 
@@ -195,7 +195,7 @@ namespace CVBImageProc
     /// </summary>
     private readonly IWindowManager _windowManager;
 
-    private volatile Queue<Task<Image>> _processingQueue = new Queue<Task<Image>>(2);
+    private volatile Queue<Task<Image>> _processingQueue = new(2);
 
     /// <summary>
     /// Lock object for queue operations.

@@ -8,7 +8,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for a <see cref="Rotate"/> processor.
   /// </summary>
-  internal class RotateViewModel : PlaneProcessorViewModelBase
+  internal sealed class RotateViewModel : PlaneProcessorViewModelBase
   {
     #region Properties
 

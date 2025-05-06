@@ -6,7 +6,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// ViewModel for a <see cref="IPixelValueFilter"/>.
   /// </summary>
-  internal class PixelValueFilterViewModel : PixelFilterViewModelBase
+  internal sealed class PixelValueFilterViewModel : PixelFilterViewModelBase
   {
     #region Properties
 

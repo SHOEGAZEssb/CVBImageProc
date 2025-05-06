@@ -7,7 +7,7 @@ namespace CVBImageProc.MVVM
   /// <summary>
   /// ViewModel for a type.
   /// </summary>
-  public class TypeViewModel : ViewModelBase
+  public sealed class TypeViewModel : ViewModelBase
   {
     #region Properties
 

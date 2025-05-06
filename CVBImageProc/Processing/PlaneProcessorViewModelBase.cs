@@ -3,89 +3,89 @@ using System;
 
 namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// Base ViewModel for processors that process
-  /// individual planes.
-  /// </summary>
-  internal class PlaneProcessorViewModelBase : ProcessorViewModel, IHasSettings
-  {
-    #region IHasSettings Implementation
+	/// <summary>
+	/// Base ViewModel for processors that process
+	/// individual planes.
+	/// </summary>
+	internal class PlaneProcessorViewModelBase : ProcessorViewModel, IHasSettings
+	{
+		#region IHasSettings Implementation
 
-    /// <summary>
-    /// Event that is fired when the settings change.
-    /// </summary>
-    public event EventHandler SettingsChanged;
+		/// <summary>
+		/// Event that is fired when the settings change.
+		/// </summary>
+		public event EventHandler SettingsChanged;
 
-    /// <summary>
-    /// Invokes the <see cref="SettingsChanged"/> event.
-    /// </summary>
-    protected void OnSettingsChanged()
-    {
-      SettingsChanged?.Invoke(this, EventArgs.Empty);
-    }
+		/// <summary>
+		/// Invokes the <see cref="SettingsChanged"/> event.
+		/// </summary>
+		protected void OnSettingsChanged()
+		{
+			SettingsChanged?.Invoke(this, EventArgs.Empty);
+		}
 
-    #endregion IHasSettings Implementation
+		#endregion IHasSettings Implementation
 
-    #region Properties
+		#region Properties
 
-    /// <summary>
-    /// Index of the plane to process.
-    /// </summary>
-    public int PlaneIndex
-    {
-      get => _processor.PlaneIndex;
-      set
-      {
-        if (PlaneIndex != value)
-        {
-          _processor.PlaneIndex = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+		/// <summary>
+		/// Index of the plane to process.
+		/// </summary>
+		public int PlaneIndex
+		{
+			get => _processor.PlaneIndex;
+			set
+			{
+				if (PlaneIndex != value)
+				{
+					_processor.PlaneIndex = value;
+					NotifyOfPropertyChange();
+					OnSettingsChanged();
+				}
+			}
+		}
 
-    /// <summary>
-    /// If true, all planes are processed.
-    /// </summary>
-    public bool ProcessAllPlanes
-    {
-      get => _processor.ProcessAllPlanes;
-      set
-      {
-        if (ProcessAllPlanes != value)
-        {
-          _processor.ProcessAllPlanes = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+		/// <summary>
+		/// If true, all planes are processed.
+		/// </summary>
+		public bool ProcessAllPlanes
+		{
+			get => _processor.ProcessAllPlanes;
+			set
+			{
+				if (ProcessAllPlanes != value)
+				{
+					_processor.ProcessAllPlanes = value;
+					NotifyOfPropertyChange();
+					OnSettingsChanged();
+				}
+			}
+		}
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The processor.
-    /// </summary>
-    private readonly IProcessIndividualPlanes _processor;
+		/// <summary>
+		/// The processor.
+		/// </summary>
+		private readonly IProcessIndividualPlanes _processor;
 
-    #endregion Member
+		#endregion Member
 
-    #region Construction
+		#region Construction
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="processor">The actual processor.</param>
-    /// <param name="isActive">Startup IsActive state.</param>
-    protected PlaneProcessorViewModelBase(IProcessIndividualPlanes processor, bool isActive)
-      : base(processor, isActive)
-    {
-      _processor = processor;
-    }
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="processor">The actual processor.</param>
+		/// <param name="isActive">Startup IsActive state.</param>
+		protected PlaneProcessorViewModelBase(IProcessIndividualPlanes processor, bool isActive)
+			: base(processor, isActive)
+		{
+			_processor = processor;
+		}
 
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

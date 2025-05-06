@@ -4,7 +4,7 @@
   /// ViewModel for an individual plane clear state
   /// in the <see cref="PlaneClearViewModel"/>.
   /// </summary>
-  internal class PlaneClearStateViewModel : PlaneSettingsViewModelBase
+  internal sealed class PlaneClearStateViewModel : PlaneSettingsViewModelBase
   {
     #region Properties
 

@@ -10,7 +10,7 @@ namespace CVBImageProcLib.Processing
   /// Processor for binarising an image.
   /// </summary>
   [DataContract]
-  public class Binarise : FullProcessorBase
+  public sealed class Binarise : FullProcessorBase
   {
     #region IProcessor Implementation
 

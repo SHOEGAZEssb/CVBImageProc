@@ -6,7 +6,7 @@ namespace CVBImageProc.MVVM
   /// <summary>
   /// Command that can be executed via the UI.
   /// </summary>
-  public class DelegateCommand : ICommand
+  public sealed class DelegateCommand : ICommand
   {
     #region ICommand Implementation
 

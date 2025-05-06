@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("Pixel Shift")]
-  public class PixelShift : FullProcessorBase
+  public sealed class PixelShift : FullProcessorBase
   {
     #region IProcessor Implementation
 

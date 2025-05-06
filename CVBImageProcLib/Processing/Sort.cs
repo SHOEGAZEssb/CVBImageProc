@@ -26,7 +26,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that sorts an image plane.
   /// </summary>
   [DataContract]
-  public class Sort : FullProcessorBase
+  public sealed class Sort : FullProcessorBase
   {
     #region IProcessor Implementation
 

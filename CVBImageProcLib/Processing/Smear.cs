@@ -40,7 +40,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that "smears" pixels in a direction.
   /// </summary>
   [DataContract]
-  public class Smear : FullProcessorBase
+  public sealed class Smear : FullProcessorBase
   {
     #region IProcessor Implementation
 

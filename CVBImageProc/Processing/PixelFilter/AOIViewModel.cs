@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// ViewModel for a <see cref="ICanProcessIndividualRegions"/> processor.
   /// </summary>
-  internal class AOIViewModel : SettingsViewModelBase
+  internal sealed class AOIViewModel : SettingsViewModelBase
   {
     #region Properties
 

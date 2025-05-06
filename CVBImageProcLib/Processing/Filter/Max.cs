@@ -6,47 +6,47 @@ using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing.Filter
 {
-  /// <summary>
-  /// Min filter processor.
-  /// </summary>
-  [DataContract]
-  public class Max : FilterBase
-  {
-    /// <summary>
-    /// Name of the processor.
-    /// </summary>
-    public override string Name => "Max";
+	/// <summary>
+	/// Min filter processor.
+	/// </summary>
+	[DataContract]
+	public sealed class Max : FilterBase
+	{
+		/// <summary>
+		/// Name of the processor.
+		/// </summary>
+		public override string Name => "Max";
 
-    /// <summary>
-    /// Processes the <paramref name="inputImage"/>.
-    /// </summary>
-    /// <param name="inputImage">Image to process.</param>
-    /// <returns>Processed image.</returns>
-    public override Image Process(Image inputImage)
-    {
-      if (inputImage == null)
-        throw new ArgumentNullException(nameof(inputImage));
+		/// <summary>
+		/// Processes the <paramref name="inputImage"/>.
+		/// </summary>
+		/// <param name="inputImage">Image to process.</param>
+		/// <returns>Processed image.</returns>
+		public override Image Process(Image inputImage)
+		{
+			if (inputImage == null)
+				throw new ArgumentNullException(nameof(inputImage));
 
-      var bounds = this.GetProcessingBounds(inputImage);
-      if (ProcessAllPlanes)
-      {
-        foreach (var plane in inputImage.Planes)
-          ProcessPlane(plane, bounds);
-      }
-      else
-        ProcessPlane(inputImage.Planes[PlaneIndex], bounds);
+			var bounds = this.GetProcessingBounds(inputImage);
+			if (ProcessAllPlanes)
+			{
+				foreach (var plane in inputImage.Planes)
+					ProcessPlane(plane, bounds);
+			}
+			else
+				ProcessPlane(inputImage.Planes[PlaneIndex], bounds);
 
-      return inputImage;
-    }
+			return inputImage;
+		}
 
-    private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
-    {
-      var outputPlane = ProcessingHelper.ProcessMonoKernelParallel(plane, (kl) =>
-      {
-        return kl.Where(b => b.HasValue).Max(b => b.Value);
-      }, KernelSize, bounds, PixelFilter);
+		private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
+		{
+			var outputPlane = ProcessingHelper.ProcessMonoKernelParallel(plane, (kl) =>
+			{
+				return kl.Where(b => b.HasValue).Max(b => b.Value);
+			}, KernelSize, bounds, PixelFilter);
 
-      outputPlane.CopyTo(plane.Parent.Planes[plane.Plane]);
-    }
-  }
+			outputPlane.CopyTo(plane.Parent.Planes[plane.Plane]);
+		}
+	}
 }

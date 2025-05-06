@@ -8,7 +8,7 @@ namespace CVBImageProcLib.Processing
   /// <summary>
   /// Processor that swirls an image.
   /// </summary>
-  public class Swirl : FullProcessorBase
+  public sealed class Swirl : FullProcessorBase
   {
     #region IProcessor Implementation
 

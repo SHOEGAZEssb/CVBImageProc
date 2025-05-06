@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Smear"/> processor.
   /// </summary>
-  internal class SmearViewModel : FullProcessorViewModelBase
+  internal sealed class SmearViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

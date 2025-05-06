@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing
   /// </summary>
   [DataContract]
   [DisplayName("RGB Factors")]
-  public class RGBFactors : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions
+  public sealed class RGBFactors : IProcessor, ICanProcessIndividualPixel, ICanProcessIndividualRegions
   {
     #region IProcessor Implementation
 

@@ -8,7 +8,7 @@ namespace CVBImageProc.ImageSource
   /// <summary>
   /// Image source that provides images of a video.
   /// </summary>
-  internal class VideoImageSource : IChangingImageSource
+  internal sealed class VideoImageSource : IChangingImageSource
   {
     #region Properties
 

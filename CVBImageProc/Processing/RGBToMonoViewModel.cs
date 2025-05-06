@@ -8,7 +8,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="RGBToMono"/> processor.
   /// </summary>
-  internal class RGBToMonoViewModel : ProcessorViewModel, IHasSettings
+  internal sealed class RGBToMonoViewModel : ProcessorViewModel, IHasSettings
   {
     #region Properties
 

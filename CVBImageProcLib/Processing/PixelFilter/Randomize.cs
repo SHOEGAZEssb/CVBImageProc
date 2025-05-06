@@ -6,7 +6,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// Pixel filter than randomly passes.
   /// </summary>
   [DataContract]
-  public class Randomize : IPixelAutoFilter
+  public sealed class Randomize : IPixelAutoFilter
   {
     #region Properties
 

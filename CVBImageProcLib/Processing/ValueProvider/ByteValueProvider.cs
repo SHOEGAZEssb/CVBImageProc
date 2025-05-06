@@ -6,7 +6,7 @@ namespace CVBImageProcLib.Processing.ValueProvider
   /// Object providing byte values to processors.
   /// </summary>
   [DataContract]
-  public class ByteValueProvider : IValueProvider<byte>
+  public sealed class ByteValueProvider : IValueProvider<byte>
   {
     #region Properties
 

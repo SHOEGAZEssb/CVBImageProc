@@ -25,7 +25,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that scales an image.
   /// </summary>
   [DataContract]
-  public class Resize : IProcessor
+  public sealed class Resize : IProcessor
   {
     #region IProcessor Implementation
 

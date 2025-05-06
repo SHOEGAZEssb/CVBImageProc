@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing
   /// Inverts an image.
   /// </summary>
   [DataContract]
-  public class Invert : FullProcessorBase
+  public sealed class Invert : FullProcessorBase
   {
     #region IProcessor Implementation
 

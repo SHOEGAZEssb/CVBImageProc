@@ -36,7 +36,7 @@ namespace CVBImageProcLib.Processing
   /// Applies mathematical operations on an image.
   /// </summary>
   [DataContract]
-  public class Math : FullProcessorBase
+  public sealed class Math : FullProcessorBase
   {
     #region IProcessor Implementation
 

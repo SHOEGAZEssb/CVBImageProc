@@ -12,7 +12,7 @@ namespace CVBImageProcLib.Processing.Filter
   /// </summary>
   [DataContract]
   [CustomFilterSettings]
-  public class OilPainting : FilterBase
+  public sealed class OilPainting : FilterBase
   {
     #region IProcessor Implementation
 

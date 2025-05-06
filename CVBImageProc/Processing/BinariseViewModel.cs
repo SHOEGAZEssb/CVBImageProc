@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Binarise"/> processor.
   /// </summary>
-  internal class BinariseViewModel : FullProcessorViewModelBase
+  internal sealed class BinariseViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

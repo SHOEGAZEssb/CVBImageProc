@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing.PixelFilter
   /// </summary>
   [DataContract]
   [DisplayName("Modulo (Value)")]
-  public class ModuloValue : PixelValueFilterBase
+  public sealed class ModuloValue : PixelValueFilterBase
   {
     #region IPixelFilter Implementation
 

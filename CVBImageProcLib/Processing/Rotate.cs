@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that rotates an image.
   /// </summary>
   [DataContract]
-  public class Rotate : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualPixel
+  public sealed class Rotate : IProcessor, IProcessIndividualPlanes, ICanProcessIndividualPixel
   {
     #region IProcessor Implementation
 

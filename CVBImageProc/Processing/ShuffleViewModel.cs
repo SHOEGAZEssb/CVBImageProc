@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Shuffle"/> processor.
   /// </summary>
-  internal class ShuffleViewModel : FullProcessorViewModelBase
+  internal sealed class ShuffleViewModel : FullProcessorViewModelBase
   {
     #region Construction
 

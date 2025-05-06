@@ -13,7 +13,7 @@ namespace CVBImageProc.Processing.PixelFilter
   /// <summary>
   /// ViewModel for a <see cref="PixelFilterChain"/>.
   /// </summary>
-  internal class PixelFilterChainViewModel : SettingsViewModelBase
+  internal sealed class PixelFilterChainViewModel : SettingsViewModelBase
   {
     #region Commands
 

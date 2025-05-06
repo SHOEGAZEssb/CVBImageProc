@@ -5,7 +5,7 @@ namespace CVBImageProc.Processing.SizeCalculator
   /// <summary>
   /// ViewModel for the <see cref="PercentageSizeCalculator"/>.
   /// </summary>
-  internal class PercentageSizeCalculatorViewModel : SizeCalculatorViewModelBase
+  internal sealed class PercentageSizeCalculatorViewModel : SizeCalculatorViewModelBase
   {
     #region Properties
 

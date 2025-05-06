@@ -7,7 +7,7 @@ namespace CVBImageProc.Processing
   /// <summary>
   /// ViewModel for the <see cref="Replace"/> processor.
   /// </summary>
-  internal class ReplaceViewModel : FullProcessorViewModelBase
+  internal sealed class ReplaceViewModel : FullProcessorViewModelBase
   {
     #region Properties
 

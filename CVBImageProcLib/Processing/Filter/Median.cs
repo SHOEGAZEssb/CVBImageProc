@@ -11,7 +11,7 @@ namespace CVBImageProcLib.Processing.Filter
   /// </summary>
   [DataContract]
   [CustomFilterSettings]
-  public class Median : FilterBase
+  public sealed class Median : FilterBase
   {
     #region IProcessor Implementation
 

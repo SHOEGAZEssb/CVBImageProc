@@ -6,7 +6,7 @@ namespace CVBImageProcLib.Processing.ValueProvider
   /// Object for providing int values.
   /// </summary>
   [DataContract]
-  public class IntValueProvider : IValueProvider<int>
+  public sealed class IntValueProvider : IValueProvider<int>
   {
     #region Properties
 

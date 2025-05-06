@@ -9,7 +9,7 @@ namespace CVBImageProcLib.Processing
   /// Processor that pixelates an image.
   /// </summary>
   [DataContract]
-  public class Pixelate : FullProcessorBase
+  public sealed class Pixelate : FullProcessorBase
   {
     #region IProcessor Implementation
 
