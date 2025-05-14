@@ -3,65 +3,58 @@ using System;
 
 namespace CVBImageProc.Processing.PixelFilter
 {
-  /// <summary>
-  /// ViewModel for a <see cref="IPixelValueFilter"/>.
-  /// </summary>
-  internal sealed class PixelValueFilterViewModel : PixelFilterViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for a <see cref="IPixelValueFilter"/>.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="filter">The filter.</param>
+	/// <param name="isActive">Active state of the filter.</param>
+	/// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
+	internal sealed class PixelValueFilterViewModel(IPixelValueFilter filter, bool isActive) : PixelFilterViewModelBase(filter, isActive)
+	{
+		#region Properties
 
-    /// <summary>
-    /// Byte to compare to.
-    /// </summary>
-    public byte CompareByte
-    {
-      get => _filter.CompareByte;
-      set
-      {
-        if (CompareByte != value)
-        {
-          _filter.CompareByte = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+		/// <summary>
+		/// Byte to compare to.
+		/// </summary>
+		public byte CompareByte
+		{
+			get => _filter.CompareByte;
+			set
+			{
+				if (CompareByte != value)
+				{
+					_filter.CompareByte = value;
+					NotifyOfPropertyChange();
+					OnSettingsChanged();
+				}
+			}
+		}
 
-    /// <summary>
-    /// Max value of the <see cref="CompareByte"/>.
-    /// </summary>
-    public byte MaxCompareByte => _filter.MaxCompareByte;
+		/// <summary>
+		/// Max value of the <see cref="CompareByte"/>.
+		/// </summary>
+		public byte MaxCompareByte => _filter.MaxCompareByte;
 
-    /// <summary>
-    /// Min value of the <see cref="CompareByte"/>.
-    /// </summary>
-    public byte MinCompareByte => _filter.MinCompareByte;
+		/// <summary>
+		/// Min value of the <see cref="CompareByte"/>.
+		/// </summary>
+		public byte MinCompareByte => _filter.MinCompareByte;
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The filter.
-    /// </summary>
-    private readonly IPixelValueFilter _filter;
+		/// <summary>
+		/// The filter.
+		/// </summary>
+		private readonly IPixelValueFilter _filter = filter;
 
-    #endregion Member
+		#endregion Member
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="filter">The filter.</param>
-    /// <param name="isActive">Active state of the filter.</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
-    public PixelValueFilterViewModel(IPixelValueFilter filter, bool isActive)
-      : base(filter, isActive)
-    {
-      _filter = filter;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

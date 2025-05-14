@@ -3,55 +3,48 @@ using System;
 
 namespace CVBImageProc.Processing.PixelFilter
 {
-  /// <summary>
-  /// ViewModel for the <see cref="Randomize"/> pixel filter.
-  /// </summary>
-  internal sealed class RandomizeViewModel : PixelFilterViewModelBase, IPixelAutoFilterViewModel
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for the <see cref="Randomize"/> pixel filter.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="filter">The filter.</param>
+	/// <param name="isActive">Active state of the filter.</param>
+	/// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
+	internal sealed class RandomizeViewModel(Randomize filter, bool isActive) : PixelFilterViewModelBase(filter, isActive), IPixelAutoFilterViewModel
+	{
+		#region Properties
 
-    /// <summary>
-    /// Chance that the check passes.
-    /// </summary>
-    public double Chance
-    {
-      get => _filter.Chance;
-      set
-      {
-        if (Chance != value)
-        {
-          _filter.Chance = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+		/// <summary>
+		/// Chance that the check passes.
+		/// </summary>
+		public double Chance
+		{
+			get => _filter.Chance;
+			set
+			{
+				if (Chance != value)
+				{
+					_filter.Chance = value;
+					NotifyOfPropertyChange();
+					OnSettingsChanged();
+				}
+			}
+		}
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The filter.
-    /// </summary>
-    private readonly Randomize _filter;
+		/// <summary>
+		/// The filter.
+		/// </summary>
+		private readonly Randomize _filter = filter;
 
-    #endregion Member
+		#endregion Member
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="filter">The filter.</param>
-    /// <param name="isActive">Active state of the filter.</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="filter"/> is null.</exception>
-    public RandomizeViewModel(Randomize filter, bool isActive)
-      : base(filter, isActive)
-    {
-      _filter = filter;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

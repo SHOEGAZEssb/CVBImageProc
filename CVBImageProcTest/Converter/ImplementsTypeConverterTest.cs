@@ -6,36 +6,36 @@ using System.Collections.Generic;
 
 namespace CVBImageProcLibTest.Converter
 {
-  /// <summary>
-  /// Tests for the <see cref="ImplementsTypeConverter"/>
-  /// </summary>
-  [TestFixture]
-  class ImplementsTypeConverterTest
-  {
-    [Test]
-    public void ConvertTrueTest()
-    {
-      // given: converter
-      var conv = new ImplementsTypeConverter();
+	/// <summary>
+	/// Tests for the <see cref="ImplementsTypeConverter"/>
+	/// </summary>
+	[TestFixture]
+	class ImplementsTypeConverterTest
+	{
+		[Test]
+		public void ConvertTrueTest()
+		{
+			// given: converter
+			var conv = new ImplementsTypeConverter();
 
-      // when: converting
-      bool res = (bool)conv.Convert(new List<object>(), null, typeof(IEnumerable), null);
+			// when: converting
+			bool res = (bool)conv.Convert(new List<object>(), null, typeof(IEnumerable), null);
 
-      // then: true
-      Assert.That(res, Is.True);
-    }
+			// then: true
+			Assert.That(res, Is.True);
+		}
 
-    [Test]
-    public void ConvertFalseTest()
-    {
-      // given: converter
-      var conv = new ImplementsTypeConverter();
+		[Test]
+		public void ConvertFalseTest()
+		{
+			// given: converter
+			var conv = new ImplementsTypeConverter();
 
-      // when: converting
-      bool res = (bool)conv.Convert(new List<object>(), null, typeof(IDisposable), null);
+			// when: converting
+			bool res = (bool)conv.Convert(new List<object>(), null, typeof(IDisposable), null);
 
-      // then: true
-      Assert.That(res, Is.False);
-    }
-  }
+			// then: true
+			Assert.That(res, Is.False);
+		}
+	}
 }

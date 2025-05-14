@@ -7,81 +7,80 @@ using System.Threading.Tasks;
 
 namespace CVBImageProcLib.Processing.Filter
 {
-  /// <summary>
-  /// Oil painting filter processor.
-  /// </summary>
-  [DataContract]
-  [CustomFilterSettings]
-  public sealed class OilPainting : FilterBase
-  {
-    #region IProcessor Implementation
+	/// <summary>
+	/// Oil painting filter processor.
+	/// </summary>
+	[DataContract]
+	[CustomFilterSettings]
+	public sealed class OilPainting : FilterBase
+	{
+		#region IProcessor Implementation
 
-    /// <summary>
-    /// Name of the processor.
-    /// </summary>
-    public override string Name => "OilPainting";
+		/// <summary>
+		/// Name of the processor.
+		/// </summary>
+		public override string Name => "OilPainting";
 
-    /// <summary>
-    /// Processes the <paramref name="inputImage"/>.
-    /// </summary>
-    /// <param name="inputImage">Image to process.</param>
-    /// <returns>Processed image.</returns>
-    public override Image Process(Image inputImage)
-    {
-      if (inputImage == null)
-        throw new ArgumentNullException(nameof(inputImage));
+		/// <summary>
+		/// Processes the <paramref name="inputImage"/>.
+		/// </summary>
+		/// <param name="inputImage">Image to process.</param>
+		/// <returns>Processed image.</returns>
+		public override Image Process(Image inputImage)
+		{
+			ArgumentNullException.ThrowIfNull(inputImage);
 
-      var bounds = this.GetProcessingBounds(inputImage);
-      if (ProcessAllPlanes)
-      {
+			var bounds = this.GetProcessingBounds(inputImage);
+			if (ProcessAllPlanes)
+			{
 
-        Parallel.ForEach(inputImage.Planes, p =>
-          ProcessPlane(p, bounds));
-      }
-      else
-        ProcessPlane(inputImage.Planes[PlaneIndex], bounds);
+				Parallel.ForEach(inputImage.Planes, p =>
+				  ProcessPlane(p, bounds));
+			}
+			else
+				ProcessPlane(inputImage.Planes[PlaneIndex], bounds);
 
-      return inputImage;
-    }
+			return inputImage;
+		}
 
-    private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
-    {
-      var numIntensityLevels = NumIntensityLevels;
-      var outputPlane = ProcessingHelper.ProcessMonoKernelParallel(plane, (kl) =>
-      {
-        // the number of pixels in each intensity level range
-        var intensityCount = new int[numIntensityLevels];
+		private void ProcessPlane(ImagePlane plane, ProcessingBounds bounds)
+		{
+			var numIntensityLevels = NumIntensityLevels;
+			var outputPlane = ProcessingHelper.ProcessMonoKernelParallel(plane, (kl) =>
+			{
+				// the number of pixels in each intensity level range
+				var intensityCount = new int[numIntensityLevels];
 
-        // the sums of all pixel values in their corresponding intensity level range:
-        var intensitySums = new int[numIntensityLevels];
+				// the sums of all pixel values in their corresponding intensity level range:
+				var intensitySums = new int[numIntensityLevels];
 
-        foreach (byte pixel in kl.Where(b => b.HasValue).Select(v => (byte)v))
-        {
-          var intensityLevel = (int)(pixel * (numIntensityLevels - 1) / 255.0);
-          intensitySums[intensityLevel] += pixel;
-          intensityCount[intensityLevel]++;
-        }
+				foreach (byte pixel in kl.Where(b => b.HasValue).Select(v => (byte)v))
+				{
+					var intensityLevel = (int)(pixel * (numIntensityLevels - 1) / 255.0);
+					intensitySums[intensityLevel] += pixel;
+					intensityCount[intensityLevel]++;
+				}
 
-        // the intensity level with the most pixels in
-        var maxIndex = Array.IndexOf(intensityCount, intensityCount.Max());
+				// the intensity level with the most pixels in
+				var maxIndex = Array.IndexOf(intensityCount, intensityCount.Max());
 
-        return (byte)(intensitySums[maxIndex] / intensityCount[maxIndex]);
-      }, KernelSize, bounds, PixelFilter);
+				return (byte)(intensitySums[maxIndex] / intensityCount[maxIndex]);
+			}, KernelSize, bounds, PixelFilter);
 
-      outputPlane.CopyTo(plane.Parent.Planes[plane.Plane]);
-    }
+			outputPlane.CopyTo(plane.Parent.Planes[plane.Plane]);
+		}
 
-    #endregion IProcessor Implementation
+		#endregion IProcessor Implementation
 
-    #region Properties
+		#region Properties
 
-    /// <summary>
-    /// /// The number of intensity levels
-    /// the result image will have.
-    /// </summary>
-    [DataMember]
-    public int NumIntensityLevels { get; set; } = 20;
+		/// <summary>
+		/// /// The number of intensity levels
+		/// the result image will have.
+		/// </summary>
+		[DataMember]
+		public int NumIntensityLevels { get; set; } = 20;
 
-    #endregion Properties
-  }
+		#endregion Properties
+	}
 }

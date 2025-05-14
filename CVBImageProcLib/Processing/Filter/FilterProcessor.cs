@@ -27,8 +27,7 @@ namespace CVBImageProcLib.Processing.Filter
 		/// <returns>Processed image.</returns>
 		public override Image Process(Image inputImage)
 		{
-			if (inputImage == null)
-				throw new ArgumentNullException(nameof(inputImage));
+			ArgumentNullException.ThrowIfNull(inputImage);
 
 			if (SelectedFilter == null)
 				return inputImage;

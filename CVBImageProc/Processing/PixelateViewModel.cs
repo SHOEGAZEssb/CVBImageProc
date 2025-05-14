@@ -2,54 +2,47 @@
 
 namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// ViewModel for the <see cref="Pixelate"/> processor.
-  /// </summary>
-  internal sealed class PixelateViewModel : FullProcessorViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for the <see cref="Pixelate"/> processor.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="processor">The processor.</param>
+	/// <param name="isActive">Default active state.</param>
+	internal sealed class PixelateViewModel(Pixelate processor, bool isActive) : FullProcessorViewModelBase(processor, isActive)
+	{
+		#region Properties
 
-    /// <summary>
-    /// Size of each new "pixel".
-    /// </summary>
-    public int PixelateSize
-    {
-      get => _processor.PixelateSize;
-      set
-      {
-        if (PixelateSize != value)
-        {
-          _processor.PixelateSize = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+		/// <summary>
+		/// Size of each new "pixel".
+		/// </summary>
+		public int PixelateSize
+		{
+			get => _processor.PixelateSize;
+			set
+			{
+				if (PixelateSize != value)
+				{
+					_processor.PixelateSize = value;
+					NotifyOfPropertyChange();
+					OnSettingsChanged();
+				}
+			}
+		}
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The processor.
-    /// </summary>
-    private readonly Pixelate _processor;
+		/// <summary>
+		/// The processor.
+		/// </summary>
+		private readonly Pixelate _processor = processor;
 
-    #endregion Member
+		#endregion Member
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="processor">The processor.</param>
-    /// <param name="isActive">Default active state.</param>
-    public PixelateViewModel(Pixelate processor, bool isActive)
-      : base(processor, isActive)
-    {
-      _processor = processor;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

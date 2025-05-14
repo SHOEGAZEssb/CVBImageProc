@@ -1,30 +1,24 @@
 ﻿namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// Base ViewModel for individual plane settings of a processor.
-  /// </summary>
-  internal abstract class PlaneSettingsViewModelBase : SettingsViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// Base ViewModel for individual plane settings of a processor.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="planeIndex">Index of the plane in the image.</param>
+	internal abstract class PlaneSettingsViewModelBase(int planeIndex) : SettingsViewModelBase
+	{
+		#region Properties
 
-    /// <summary>
-    /// Index of the plane in the image.
-    /// </summary>
-    public int PlaneIndex { get; }
+		/// <summary>
+		/// Index of the plane in the image.
+		/// </summary>
+		public int PlaneIndex { get; } = planeIndex;
 
-    #endregion Properties
+		#endregion Properties
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="planeIndex">Index of the plane in the image.</param>
-    protected PlaneSettingsViewModelBase(int planeIndex)
-    {
-      PlaneIndex = planeIndex;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

@@ -3,21 +3,21 @@ using System.Runtime.Serialization;
 
 namespace CVBImageProcLib.Processing
 {
-  /// <summary>
-  /// Grouping interface for a processor
-  /// with full configuration capabilities.
-  /// </summary>
-  [DataContract]
-  public abstract class FullProcessorBase : AOIPlaneProcessorBase, IFullProcessor
-  {
-    #region IFullProcessor Implementation
+	/// <summary>
+	/// Grouping interface for a processor
+	/// with full configuration capabilities.
+	/// </summary>
+	[DataContract]
+	public abstract class FullProcessorBase : AOIPlaneProcessorBase, IFullProcessor
+	{
+		#region IFullProcessor Implementation
 
-    /// <summary>
-    /// The pixel filter chain.
-    /// </summary>
-    [DataMember]
-    public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
+		/// <summary>
+		/// The pixel filter chain.
+		/// </summary>
+		[DataMember]
+		public PixelFilterChain PixelFilter { get; set; } = new PixelFilterChain();
 
-    #endregion IFullProcessor Implementation
-  }
+		#endregion IFullProcessor Implementation
+	}
 }

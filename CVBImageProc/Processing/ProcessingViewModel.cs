@@ -147,10 +147,14 @@ namespace CVBImageProc.Processing
 		/// <summary>
 		/// Gets the processor types for serialization.
 		/// </summary>
-		private Type[] GetSerializerTypes => AvailableProcessors.Select(p => p.Type).Concat(PixelFilter.PixelFilterChainViewModel.AvailableFilter
-																																								.Concat(FilterViewModel.AvailableFilterTypes)
-																																								.Concat(ResizeViewModel.AvailableSizeCalculators)
-																														.Select(p => p.Type)).ToArray();
+		private Type[] GetSerializerTypes =>
+		[
+			.. AvailableProcessors.Select(p => p.Type),
+			.. PixelFilter.PixelFilterChainViewModel.AvailableFilter
+				.Concat(FilterViewModel.AvailableFilterTypes)
+				.Concat(ResizeViewModel.AvailableSizeCalculators)
+				.Select(p => p.Type),
+		];
 
 		#endregion Member
 
@@ -173,13 +177,13 @@ namespace CVBImageProc.Processing
 			CloneProcessorCommand = new DelegateCommand((o) => CloneSelectedProcessor());
 
 			_processorChain = new ProcessorChain();
-			Processors = new ObservableCollection<IProcessorViewModel>();
+			Processors = [];
 			Processors.CollectionChanged += Processors_CollectionChanged;
 
-			AvailableProcessors = System.Reflection.Assembly.GetAssembly(typeof(IProcessor)).GetTypes()
+			AvailableProcessors = [.. System.Reflection.Assembly.GetAssembly(typeof(IProcessor)).GetTypes()
 								 .Where(mytype => mytype.GetInterfaces().Contains(typeof(IProcessor)) && !mytype.IsInterface && !mytype.IsAbstract &&
 												!mytype.GetCustomAttributes(true).Any(a => a.GetType() == typeof(SubProcessorAttribute)))
-								 .Select(i => new TypeViewModel(i)).OrderBy(t => t.Name).ToArray();
+								 .Select(i => new TypeViewModel(i)).OrderBy(t => t.Name)];
 			SelectedProcessorType = AvailableProcessors.FirstOrDefault();
 		}
 
@@ -246,49 +250,29 @@ namespace CVBImageProc.Processing
 			if (kvp.Key == null)
 				throw new ArgumentNullException(nameof(kvp));
 
-			switch (kvp.Key)
+			return kvp.Key switch
 			{
-				case Binarise b:
-					return new BinariseViewModel(b, kvp.Value);
-				case BitShift b:
-					return new BitshiftViewModel(b, kvp.Value);
-				case Crop c:
-					return new CropViewModel(c, kvp.Value);
-				case FilterProcessor f:
-					return new FilterViewModel(f, kvp.Value);
-				case CVBImageProcLib.Processing.Math m:
-					return new MathViewModel(m, kvp.Value);
-				case MonoToMultiplane m:
-					return new MonoToMultiplaneViewModel(m, kvp.Value);
-				case Invert i:
-					return new InvertViewModel(i, kvp.Value);
-				case Pixelate p:
-					return new PixelateViewModel(p, kvp.Value);
-				case PixelShift p:
-					return new PixelShiftViewModel(p, kvp.Value);
-				case PlaneClear p:
-					return new PlaneClearViewModel(p, kvp.Value);
-				case Replace r:
-					return new ReplaceViewModel(r, kvp.Value);
-				case RGBToMono r:
-					return new RGBToMonoViewModel(r, kvp.Value);
-				case RGBFactors r:
-					return new RGBFactorsViewModel(r, kvp.Value);
-				case Resize r:
-					return new ResizeViewModel(r, kvp.Value);
-				case Rotate r:
-					return new RotateViewModel(r, kvp.Value);
-				case Shuffle s:
-					return new ShuffleViewModel(s, kvp.Value);
-				case Smear s:
-					return new SmearViewModel(s, kvp.Value);
-				case Sort s:
-					return new SortViewModel(s, kvp.Value);
-				case Swirl s:
-					return new SwirlViewModel(s, kvp.Value);
-				default:
-					return new ProcessorViewModel(kvp.Key, kvp.Value);
-			}
+				Binarise b => new BinariseViewModel(b, kvp.Value),
+				BitShift b => new BitshiftViewModel(b, kvp.Value),
+				Crop c => new CropViewModel(c, kvp.Value),
+				FilterProcessor f => new FilterViewModel(f, kvp.Value),
+				CVBImageProcLib.Processing.Math m => new MathViewModel(m, kvp.Value),
+				MonoToMultiplane m => new MonoToMultiplaneViewModel(m, kvp.Value),
+				Invert i => new InvertViewModel(i, kvp.Value),
+				Pixelate p => new PixelateViewModel(p, kvp.Value),
+				PixelShift p => new PixelShiftViewModel(p, kvp.Value),
+				PlaneClear p => new PlaneClearViewModel(p, kvp.Value),
+				Replace r => new ReplaceViewModel(r, kvp.Value),
+				RGBToMono r => new RGBToMonoViewModel(r, kvp.Value),
+				RGBFactors r => new RGBFactorsViewModel(r, kvp.Value),
+				Resize r => new ResizeViewModel(r, kvp.Value),
+				Rotate r => new RotateViewModel(r, kvp.Value),
+				Shuffle s => new ShuffleViewModel(s, kvp.Value),
+				Smear s => new SmearViewModel(s, kvp.Value),
+				Sort s => new SortViewModel(s, kvp.Value),
+				Swirl s => new SwirlViewModel(s, kvp.Value),
+				_ => new ProcessorViewModel(kvp.Key, kvp.Value),
+			};
 		}
 
 		/// <summary>
@@ -371,8 +355,8 @@ namespace CVBImageProc.Processing
 					var serializer = new DataContractSerializer(typeof(ProcessorChain), settings);
 
 					var xmlSettings = new XmlWriterSettings { Indent = true };
-					using (var w = XmlWriter.Create(sfd.FileName, xmlSettings))
-						serializer.WriteObject(w, _processorChain);
+					using var w = XmlWriter.Create(sfd.FileName, xmlSettings);
+					serializer.WriteObject(w, _processorChain);
 				}
 			}
 			catch (Exception ex)
@@ -429,15 +413,13 @@ namespace CVBImageProc.Processing
 				};
 				var serializer = new DataContractSerializer(typeof(ProcessorChain), settings);
 
-				using (var ms = new MemoryStream())
-				{
-					// serialize to memory
-					serializer.WriteObject(ms, SelectedProcessor.Processor);
+				using var ms = new MemoryStream();
+				// serialize to memory
+				serializer.WriteObject(ms, SelectedProcessor.Processor);
 
-					// clone from memory
-					ms.Position = 0;
-					AddProcessor((IProcessor)serializer.ReadObject(ms));
-				}
+				// clone from memory
+				ms.Position = 0;
+				AddProcessor((IProcessor)serializer.ReadObject(ms));
 			}
 			catch (Exception ex)
 			{

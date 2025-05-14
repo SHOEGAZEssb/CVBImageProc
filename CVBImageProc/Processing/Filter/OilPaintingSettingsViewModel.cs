@@ -3,54 +3,48 @@ using System;
 
 namespace CVBImageProc.Processing.Filter
 {
-  /// <summary>
-  /// ViewModel for the custom settings of
-  /// the <see cref="OilPainting"/> filter processor.
-  /// </summary>
-  internal sealed class OilPaintingSettingsViewModel : SettingsViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for the custom settings of
+	/// the <see cref="OilPainting"/> filter processor.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="processor">The processor.</param>
+	internal sealed class OilPaintingSettingsViewModel(OilPainting processor) : SettingsViewModelBase
+	{
+		#region Properties
 
-    /// <summary>
-    /// The number of intensity levels
-    /// the result image will have.
-    /// </summary>
-    public int NumIntensityLevels
-    {
-      get => _processor.NumIntensityLevels;
-      set
-      {
-        if (NumIntensityLevels != value)
-        {
-          _processor.NumIntensityLevels = value;
-          OnSettingsChanged();
-          NotifyOfPropertyChange();
-        }
-      }
-    }
+		/// <summary>
+		/// The number of intensity levels
+		/// the result image will have.
+		/// </summary>
+		public int NumIntensityLevels
+		{
+			get => _processor.NumIntensityLevels;
+			set
+			{
+				if (NumIntensityLevels != value)
+				{
+					_processor.NumIntensityLevels = value;
+					OnSettingsChanged();
+					NotifyOfPropertyChange();
+				}
+			}
+		}
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The processor.
-    /// </summary>
-    private readonly OilPainting _processor;
+		/// <summary>
+		/// The processor.
+		/// </summary>
+		private readonly OilPainting _processor = processor ?? throw new ArgumentNullException(nameof(processor));
 
-    #endregion Member
+		#endregion Member
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="processor">The processor.</param>
-    public OilPaintingSettingsViewModel(OilPainting processor)
-    {
-      _processor = processor ?? throw new ArgumentNullException(nameof(processor));
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

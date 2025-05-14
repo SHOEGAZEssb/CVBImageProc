@@ -2,54 +2,47 @@
 
 namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// ViewModel for the <see cref="Swirl"/> processor.
-  /// </summary>
-  internal sealed class SwirlViewModel : FullProcessorViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for the <see cref="Swirl"/> processor.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="processor">The processor.</param>
+	/// <param name="isActive">Default active state.</param>
+	internal sealed class SwirlViewModel(Swirl processor, bool isActive) : FullProcessorViewModelBase(processor, isActive)
+	{
+		#region Properties
 
-    /// <summary>
-    /// Factor by which to swirl.
-    /// </summary>
-    public double Factor
-    {
-      get => _processor.Factor;
-      set
-      {
-        if (Factor != value)
-        {
-          _processor.Factor = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+		/// <summary>
+		/// Factor by which to swirl.
+		/// </summary>
+		public double Factor
+		{
+			get => _processor.Factor;
+			set
+			{
+				if (Factor != value)
+				{
+					_processor.Factor = value;
+					NotifyOfPropertyChange();
+					OnSettingsChanged();
+				}
+			}
+		}
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The processor.
-    /// </summary>
-    private readonly Swirl _processor;
+		/// <summary>
+		/// The processor.
+		/// </summary>
+		private readonly Swirl _processor = processor;
 
-    #endregion Member
+		#endregion Member
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="processor">The processor.</param>
-    /// <param name="isActive">Default active state.</param>
-    public SwirlViewModel(Swirl processor, bool isActive)
-      : base(processor, isActive)
-    {
-      _processor = processor;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

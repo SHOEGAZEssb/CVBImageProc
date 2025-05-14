@@ -7,7 +7,13 @@ namespace CVBImageProc.Processing
 	/// <summary>
 	/// ViewModel for a generic <see cref="IProcessor"/>.
 	/// </summary>
-	internal class ProcessorViewModel : ViewModelBase, IProcessorViewModel
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="processor">The actual processor.</param>
+	/// <param name="isActive">Startup IsActive state.</param>
+	/// <exception cref="ArgumentNullException">When <paramref name="processor"/> is null.</exception>
+	internal class ProcessorViewModel(IProcessor processor, bool isActive) : ViewModelBase, IProcessorViewModel
 	{
 		#region IProcessorViewModel Implementation
 
@@ -57,28 +63,15 @@ namespace CVBImageProc.Processing
 				}
 			}
 		}
-		private bool _isActive;
+		private bool _isActive = isActive;
 
 		/// <summary>
 		/// The wrapped processor.
 		/// </summary>
-		public IProcessor Processor { get; }
+		public IProcessor Processor { get; } = processor ?? throw new ArgumentNullException(nameof(processor));
 
 		#endregion IProcessorViewModel Implementation
-
 		#region Construction
-
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="processor">The actual processor.</param>
-		/// <param name="isActive">Startup IsActive state.</param>
-		/// <exception cref="ArgumentNullException">When <paramref name="processor"/> is null.</exception>
-		public ProcessorViewModel(IProcessor processor, bool isActive)
-		{
-			Processor = processor ?? throw new ArgumentNullException(nameof(processor));
-			_isActive = isActive;
-		}
 
 		#endregion Construction
 	}

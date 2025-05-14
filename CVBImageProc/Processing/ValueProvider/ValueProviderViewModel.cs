@@ -7,7 +7,11 @@ namespace CVBImageProc.Processing.ValueProvider
 	/// ViewModel for <see cref="IValueProvider{T}"/>s.
 	/// </summary>
 	/// <typeparam name="T">Type of value to provide.</typeparam>
-	internal sealed class ValueProviderViewModel<T> : SettingsViewModelBase where T : struct
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="provider">The provider.</param>
+	internal sealed class ValueProviderViewModel<T>(IValueProvider<T> provider) : SettingsViewModelBase where T : struct
 	{
 		#region Properties
 
@@ -99,20 +103,10 @@ namespace CVBImageProc.Processing.ValueProvider
 		/// <summary>
 		/// The provider.
 		/// </summary>
-		private readonly IValueProvider<T> _provider;
+		private readonly IValueProvider<T> _provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
 		#endregion Member
-
 		#region Construction
-
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="provider">The provider.</param>
-		public ValueProviderViewModel(IValueProvider<T> provider)
-		{
-			_provider = provider ?? throw new ArgumentNullException(nameof(provider));
-		}
 
 		#endregion Construction
 	}

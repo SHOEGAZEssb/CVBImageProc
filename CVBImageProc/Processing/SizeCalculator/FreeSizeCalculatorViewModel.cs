@@ -5,7 +5,11 @@ namespace CVBImageProc.Processing.SizeCalculator
 	/// <summary>
 	/// ViewModel for the <see cref="FreeSizeCalculator"/>.
 	/// </summary>
-	internal sealed class FreeSizeCalculatorViewModel : SizeCalculatorViewModelBase
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="sizeCalculator">The size calculator.</param>
+	internal sealed class FreeSizeCalculatorViewModel(FreeSizeCalculator sizeCalculator) : SizeCalculatorViewModelBase(sizeCalculator)
 	{
 		#region Properties
 
@@ -50,21 +54,10 @@ namespace CVBImageProc.Processing.SizeCalculator
 		/// <summary>
 		/// The size calculator.
 		/// </summary>
-		private readonly FreeSizeCalculator _sizeCalculator;
+		private readonly FreeSizeCalculator _sizeCalculator = sizeCalculator;
 
 		#endregion Member
-
 		#region Construction
-
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="sizeCalculator">The size calculator.</param>
-		public FreeSizeCalculatorViewModel(FreeSizeCalculator sizeCalculator)
-			: base(sizeCalculator)
-		{
-			_sizeCalculator = sizeCalculator;
-		}
 
 		#endregion Construction
 	}

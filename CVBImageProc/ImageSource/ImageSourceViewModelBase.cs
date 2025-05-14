@@ -4,85 +4,79 @@ using System;
 
 namespace CVBImageProc.ImageSource
 {
-  /// <summary>
-  /// Base class for <see cref="IImageSource"/> ViewModels.
-  /// </summary>
-  public abstract class ImageSourceViewModelBase : ViewModelBase, IDisposable
-  {
-    #region Properties
+	/// <summary>
+	/// Base class for <see cref="IImageSource"/> ViewModels.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="imageSource">The image source.</param>
+	public abstract class ImageSourceViewModelBase(IImageSource imageSource) : ViewModelBase, IDisposable
+	{
+		#region Properties
 
-    /// <summary>
-    /// The current image to provide.
-    /// </summary>
-    public Image CurrentImage => _imageSource.CurrentImage;
+		/// <summary>
+		/// The current image to provide.
+		/// </summary>
+		public Image CurrentImage => _imageSource.CurrentImage;
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The image source.
-    /// </summary>
-    private readonly IImageSource _imageSource;
+		/// <summary>
+		/// The image source.
+		/// </summary>
+		private readonly IImageSource _imageSource = imageSource ?? throw new ArgumentNullException(nameof(imageSource));
 
-    #endregion Member
+		#endregion Member
+		#region Construction
 
-    #region Construction
+		#endregion Construction
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="imageSource">The image source.</param>
-    protected ImageSourceViewModelBase(IImageSource imageSource)
-    {
-      _imageSource = imageSource ?? throw new ArgumentNullException(nameof(imageSource));
-    }
+		#region IDisposable Implementation
 
-    #endregion Construction
+		/// <summary>
+		/// Gets if this object has been disposed.
+		/// </summary>
+		private bool _disposedValue;
 
-    #region IDisposable Implementation
+		/// <summary>
+		/// Disposes this object.
+		/// </summary>
+		/// <param name="disposing">True if called by the user.</param>
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!_disposedValue)
+			{
+				if (disposing)
+				{
+					if (_imageSource is IDisposable d)
+						d.Dispose();
+				}
 
-    /// <summary>
-    /// Gets if this object has been disposed.
-    /// </summary>
-    private bool _disposedValue;
+				_disposedValue = true;
+			}
+		}
 
-    /// <summary>
-    /// Disposes this object.
-    /// </summary>
-    /// <param name="disposing">True if called by the user.</param>
-    protected virtual void Dispose(bool disposing)
-    {
-      if (!_disposedValue)
-      {
-        if (disposing)
-        {
-          if (_imageSource is IDisposable d)
-            d.Dispose();
-        }
+		/// <summary>
+		/// Finalizer.
+		/// </summary>
+		~ImageSourceViewModelBase()
+		{
+			Dispose(disposing: false);
+		}
 
-        _disposedValue = true;
-      }
-    }
+		/// <summary>
+		/// Disposes this object.
+		/// </summary>
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
+		}
 
-    /// <summary>
-    /// Finalizer.
-    /// </summary>
-    ~ImageSourceViewModelBase()
-    {
-      Dispose(disposing: false);
-    }
-
-    /// <summary>
-    /// Disposes this object.
-    /// </summary>
-    public void Dispose()
-    {
-      // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-      Dispose(disposing: true);
-      GC.SuppressFinalize(this);
-    }
-
-    #endregion IDisposable Implementation
-  }
+		#endregion IDisposable Implementation
+	}
 }

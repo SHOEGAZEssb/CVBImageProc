@@ -3,24 +3,24 @@ using NUnit.Framework;
 
 namespace CVBImageProcLibTest.Processing.ValueProvider
 {
-  /// <summary>
-  /// Tests for the <see cref="IntValueProvider"/>.
-  /// </summary>
-  [TestFixture]
-  class IntValueProviderTest
-  {
-    [Test]
-    public void ProvideFixedValueTest()
-    {
-      // given: value provider
-      var p = new IntValueProvider(0, 255)
-      {
-        FixedValue = 42
-      };
+	/// <summary>
+	/// Tests for the <see cref="IntValueProvider"/>.
+	/// </summary>
+	[TestFixture]
+	class IntValueProviderTest
+	{
+		[Test]
+		public void ProvideFixedValueTest()
+		{
+			// given: value provider
+			var p = new IntValueProvider(0, 255)
+			{
+				FixedValue = 42
+			};
 
-      // when: providing value
-      // then: correct value provided
-      Assert.That(p.Provide(), Is.EqualTo(42));
-    }
-  }
+			// when: providing value
+			// then: correct value provided
+			Assert.That(p.Provide(), Is.EqualTo(42));
+		}
+	}
 }

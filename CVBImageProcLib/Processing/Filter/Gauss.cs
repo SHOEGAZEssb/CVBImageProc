@@ -24,8 +24,7 @@ namespace CVBImageProcLib.Processing.Filter
 		/// <returns>Processed image.</returns>
 		public override Image Process(Image inputImage)
 		{
-			if (inputImage == null)
-				throw new ArgumentNullException(nameof(inputImage));
+			ArgumentNullException.ThrowIfNull(inputImage);
 
 			int[] factors = MakeBinominalFactors(KernelSize.GetKernelNumber());
 			int[] weights = MakeWeights(factors);

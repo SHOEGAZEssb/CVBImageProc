@@ -3,31 +3,25 @@ using System;
 
 namespace CVBImageProc.Processing.SizeCalculator
 {
-  /// <summary>
-  /// Base class for all size calculators.
-  /// </summary>
-  internal abstract class SizeCalculatorViewModelBase : SettingsViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// Base class for all size calculators.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="sizeCalculator">The size calculator.</param>
+	internal abstract class SizeCalculatorViewModelBase(ISizeCalculator sizeCalculator) : SettingsViewModelBase
+	{
+		#region Properties
 
-    /// <summary>
-    /// The size calculator.
-    /// </summary>
-    public ISizeCalculator SizeCalculator { get; }
+		/// <summary>
+		/// The size calculator.
+		/// </summary>
+		public ISizeCalculator SizeCalculator { get; } = sizeCalculator ?? throw new ArgumentNullException(nameof(sizeCalculator));
 
-    #endregion Properties
+		#endregion Properties
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sizeCalculator">The size calculator.</param>
-    protected SizeCalculatorViewModelBase(ISizeCalculator sizeCalculator)
-    {
-      SizeCalculator = sizeCalculator ?? throw new ArgumentNullException(nameof(sizeCalculator));
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

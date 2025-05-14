@@ -3,32 +3,26 @@ using System;
 
 namespace CVBImageProc.ImageSource
 {
-  /// <summary>
-  /// Image source providing a non-changing image.
-  /// </summary>
-  internal sealed class StaticImageSource : IImageSource
-  {
-    #region Properties
+	/// <summary>
+	/// Image source providing a non-changing image.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="img">The image to provide.</param>
+	/// <exception cref="ArgumentNullException">When <paramref name="img"/> is null.</exception>
+	internal sealed class StaticImageSource(Image img) : IImageSource
+	{
+		#region Properties
 
-    /// <summary>
-    /// The image to provide.
-    /// </summary>
-    public Image CurrentImage { get; }
+		/// <summary>
+		/// The image to provide.
+		/// </summary>
+		public Image CurrentImage { get; } = img ?? throw new ArgumentNullException(nameof(img));
 
-    #endregion Properties
+		#endregion Properties
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="img">The image to provide.</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="img"/> is null.</exception>
-    public StaticImageSource(Image img)
-    {
-      CurrentImage = img ?? throw new ArgumentNullException(nameof(img));
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

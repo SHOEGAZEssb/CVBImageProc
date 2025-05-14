@@ -1,44 +1,36 @@
 ﻿namespace CVBImageProcLib.Processing
 {
-  /// <summary>
-  /// RGB-Pixel struct.
-  /// </summary>
-  internal readonly struct RGBPixel
-  {
-    #region Properties
+	/// <summary>
+	/// RGB-Pixel struct.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="r">The R pixel.</param>
+	/// <param name="g">The G pixel.</param>
+	/// <param name="b">The b pixel.</param>
+	internal readonly struct RGBPixel(byte r, byte g, byte b)
+	{
+		#region Properties
 
-    /// <summary>
-    /// The R pixel.
-    /// </summary>
-    public byte R { get; }
+		/// <summary>
+		/// The R pixel.
+		/// </summary>
+		public byte R { get; } = r;
 
-    /// <summary>
-    /// The G pixel.
-    /// </summary>
-    public byte G { get; }
+		/// <summary>
+		/// The G pixel.
+		/// </summary>
+		public byte G { get; } = g;
 
-    /// <summary>
-    /// The B pixel.
-    /// </summary>
-    public byte B { get; }
+		/// <summary>
+		/// The B pixel.
+		/// </summary>
+		public byte B { get; } = b;
 
-    #endregion Properties
+		#endregion Properties
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="r">The R pixel.</param>
-    /// <param name="g">The G pixel.</param>
-    /// <param name="b">The b pixel.</param>
-    public RGBPixel(byte r, byte g, byte b)
-    {
-      R = r;
-      G = g;
-      B = b;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

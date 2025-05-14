@@ -2,22 +2,19 @@
 
 namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// ViewModel for the <see cref="Shuffle"/> processor.
-  /// </summary>
-  internal sealed class ShuffleViewModel : FullProcessorViewModelBase
-  {
-    #region Construction
+	/// <summary>
+	/// ViewModel for the <see cref="Shuffle"/> processor.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="processor">The processor.</param>
+	/// <param name="isActive">Startup IsActive state.</param>
+	internal sealed class ShuffleViewModel(Shuffle processor, bool isActive) : FullProcessorViewModelBase(processor, isActive)
+	{
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="processor">The processor.</param>
-    /// <param name="isActive">Startup IsActive state.</param>
-    public ShuffleViewModel(Shuffle processor, bool isActive)
-      : base(processor, isActive)
-    { }
+		#region Construction
 
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

@@ -13,20 +13,16 @@ namespace CVBImageProcLibTest.Processing.Filter
 		[Test]
 		public void Processing3x3Test()
 		{
-			using (var img = TestHelper.CreateMonoTestImage(new byte[] { 10, 5, 3, 20, 10, 8, 1, 10, 30 }))
+			using var img = TestHelper.CreateMonoTestImage([10, 5, 3, 20, 10, 8, 1, 10, 30]);
+			var max = new Max()
 			{
-				var max = new Max()
-				{
-					KernelSize = KernelSize.ThreeByThree
-				};
+				KernelSize = KernelSize.ThreeByThree
+			};
 
-				// when: processing:
-				using (var processedImage = max.Process(img))
-				{
-					// then: min values
-					Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 20, 20, 10, 20, 30, 30, 20, 30, 30 }));
-				}
-			}
+			// when: processing:
+			using var processedImage = max.Process(img);
+			// then: min values
+			Assert.That(processedImage.GetPixels(), Is.EquivalentTo(new byte[] { 20, 20, 10, 20, 30, 30, 20, 30, 30 }));
 		}
 	}
 }

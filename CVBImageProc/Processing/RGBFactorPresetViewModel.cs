@@ -4,38 +4,31 @@ using System;
 
 namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// ViewModel for a <see cref="RGBFactorPreset"/>.
-  /// </summary>
-  internal sealed class RGBFactorPresetViewModel : ViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for a <see cref="RGBFactorPreset"/>.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="name">The name of the preset.</param>
+	/// <param name="preset">The preset.</param>
+	internal sealed class RGBFactorPresetViewModel(string name, RGBFactorPreset preset) : ViewModelBase
+	{
+		#region Properties
 
-    /// <summary>
-    /// Name of the preset.
-    /// </summary>
-    public string Name { get; }
+		/// <summary>
+		/// Name of the preset.
+		/// </summary>
+		public string Name { get; } = name ?? throw new ArgumentNullException(nameof(name));
 
-    /// <summary>
-    /// The preset.
-    /// </summary>
-    public RGBFactorPreset Preset { get; }
+		/// <summary>
+		/// The preset.
+		/// </summary>
+		public RGBFactorPreset Preset { get; } = preset;
 
-    #endregion Properties
+		#endregion Properties
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="name">The name of the preset.</param>
-    /// <param name="preset">The preset.</param>
-    public RGBFactorPresetViewModel(string name, RGBFactorPreset preset)
-    {
-      Name = name ?? throw new ArgumentNullException(nameof(name));
-      Preset = preset;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }

@@ -2,49 +2,43 @@
 
 namespace CVBImageProc.Processing.SizeCalculator
 {
-  /// <summary>
-  /// ViewModel for the <see cref="PercentageSizeCalculator"/>.
-  /// </summary>
-  internal sealed class PercentageSizeCalculatorViewModel : SizeCalculatorViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for the <see cref="PercentageSizeCalculator"/>.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="sizeCalculator">The calculator.</param>
+	internal sealed class PercentageSizeCalculatorViewModel(PercentageSizeCalculator sizeCalculator) : SizeCalculatorViewModelBase(sizeCalculator)
+	{
+		#region Properties
 
-    /// <summary>
-    /// The percentage to use of the input size.
-    /// </summary>
-    public double Percentage
-    {
-      get => _sizeCalculator.Percentage;
-      set
-      {
-        if (Percentage != value)
-        {
-          _sizeCalculator.Percentage = value;
-          NotifyOfPropertyChange();
-          OnSettingsChanged();
-        }
-      }
-    }
+		/// <summary>
+		/// The percentage to use of the input size.
+		/// </summary>
+		public double Percentage
+		{
+			get => _sizeCalculator.Percentage;
+			set
+			{
+				if (Percentage != value)
+				{
+					_sizeCalculator.Percentage = value;
+					NotifyOfPropertyChange();
+					OnSettingsChanged();
+				}
+			}
+		}
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The size calculator.
-    /// </summary>
-    private readonly PercentageSizeCalculator _sizeCalculator;
+		/// <summary>
+		/// The size calculator.
+		/// </summary>
+		private readonly PercentageSizeCalculator _sizeCalculator = sizeCalculator;
 
-    #endregion Member
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sizeCalculator">The calculator.</param>
-    public PercentageSizeCalculatorViewModel(PercentageSizeCalculator sizeCalculator)
-      : base(sizeCalculator)
-    {
-      _sizeCalculator = sizeCalculator;
-    }
-  }
+		#endregion Member
+	}
 }

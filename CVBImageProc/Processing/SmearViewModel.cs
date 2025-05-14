@@ -2,54 +2,47 @@
 
 namespace CVBImageProc.Processing
 {
-  /// <summary>
-  /// ViewModel for the <see cref="Smear"/> processor.
-  /// </summary>
-  internal sealed class SmearViewModel : FullProcessorViewModelBase
-  {
-    #region Properties
+	/// <summary>
+	/// ViewModel for the <see cref="Smear"/> processor.
+	/// </summary>
+	/// <remarks>
+	/// Constructor.
+	/// </remarks>
+	/// <param name="processor">The processor.</param>
+	/// <param name="isActive">Default active state.</param>
+	internal sealed class SmearViewModel(Smear processor, bool isActive) : FullProcessorViewModelBase(processor, isActive)
+	{
+		#region Properties
 
-    /// <summary>
-    /// Direction to smear pixels in.
-    /// </summary>
-    public SmearMode Mode
-    {
-      get => _processor.Mode;
-      set
-      {
-        if (Mode != value)
-        {
-          _processor.Mode = value;
-          OnSettingsChanged();
-          NotifyOfPropertyChange();
-        }
-      }
-    }
+		/// <summary>
+		/// Direction to smear pixels in.
+		/// </summary>
+		public SmearMode Mode
+		{
+			get => _processor.Mode;
+			set
+			{
+				if (Mode != value)
+				{
+					_processor.Mode = value;
+					OnSettingsChanged();
+					NotifyOfPropertyChange();
+				}
+			}
+		}
 
-    #endregion Properties
+		#endregion Properties
 
-    #region Member
+		#region Member
 
-    /// <summary>
-    /// The processor.
-    /// </summary>
-    private readonly Smear _processor;
+		/// <summary>
+		/// The processor.
+		/// </summary>
+		private readonly Smear _processor = processor;
 
-    #endregion Member
+		#endregion Member
+		#region Construction
 
-    #region Construction
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="processor">The processor.</param>
-    /// <param name="isActive">Default active state.</param>
-    public SmearViewModel(Smear processor, bool isActive)
-      : base(processor, isActive)
-    {
-      _processor = processor;
-    }
-
-    #endregion Construction
-  }
+		#endregion Construction
+	}
 }
